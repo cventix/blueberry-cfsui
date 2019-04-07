@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+    <defs>
+        <linearGradient id="a" x1="0%" x2="102%" y1="0%" y2="101%">
+            <stop offset="0%" stop-color="#5F93F7"/>
+            <stop offset="100%" stop-color="#6B60E5"/>
+        </linearGradient>
+    </defs>
+    <g fill="none" fill-rule="evenodd">
+        <g transform="translate(2 17.5)">
+            <rect width="20" height="4" fill="url(#a)" rx="1"/>
+            <circle cx="17.8" cy="2" r="1" fill="#FFF"/>
+            <circle cx="14.8" cy="2" r="1" fill="#FFF"/>
+            <path stroke="#FFF" stroke-linecap="round" stroke-width="1.6" d="M2.5 2h3"/>
+        </g>
+        <path fill="#FFF" stroke="url(#a)" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M8.013 10.898H.015c0-2.689 2.49-4.87 5.564-4.87 1.704 0 3.229.67 4.25 1.727a5.122 5.122 0 0 1 2.82-.823c2.561 0 4.637 1.785 4.637 3.985H8.013v-.019zM5.457 5.934c-1.635 0-2.96-1.308-2.96-2.922C2.497 1.4 3.822.09 5.457.09s2.96 1.309 2.96 2.922c0 1.614-1.325 2.922-2.96 2.922zm7.09.921c-1.362 0-2.466-1.07-2.466-2.39s1.104-2.391 2.466-2.391c1.363 0 2.467 1.07 2.467 2.39s-1.104 2.391-2.467 2.391z" transform="translate(3 4)"/>
+    </g>
+</svg>
