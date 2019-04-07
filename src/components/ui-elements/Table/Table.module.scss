@@ -1,0 +1,38 @@
+.table {
+  border-collapse: collapse;
+  th,
+  td {
+    padding: 8px;
+    text-align: left;
+    border-bottom: 1px solid #e5e5e5;
+    width: 64px;
+    height: 23px;
+    font-size: 14px;
+    font-weight: normal;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: normal;
+    letter-spacing: -0.3px;
+    text-align: center;
+    color: #4a4a4a;
+  }
+ 
+  .header {
+    color: #9b9b9b;
+  }
+  .flex_row{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .sort{
+    display: flex;
+    flex-direction: column;
+    margin:0 3px;
+    width:10px;
+    span{
+        line-height: 5px;
+        font-size: 1px;
+    }
+  }
+}
