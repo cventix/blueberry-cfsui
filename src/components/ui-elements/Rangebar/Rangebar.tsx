@@ -1,11 +1,10 @@
-import * as React from "react";
+import React from "react";
+import styles from "./Rangebar.module.scss";
+const RangeBar = ({value,updateRange}:any) => (
+  <div className={styles.styled_range}>
+      <input type="range" className={styles.track_range} value={value}/>
+      <input type="range" className={styles.thumb_range} value={value}/>
+  </div>
+);
 
-interface Iprops {
-  text: string;
-}
-
-const Rangebar: React.FunctionComponent<Iprops> = props => {
-  return <div>{props.text}</div>;
-};
-
-export default Rangebar;
+export default RangeBar;

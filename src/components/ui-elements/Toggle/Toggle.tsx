@@ -1,11 +1,14 @@
-import * as React from "react";
+import React from "react";
+import styles from "./Toggle.module.scss";
 
-interface Iprops {
-  text: string;
+interface Toggle {
+  checked: boolean;
+  disabled?: boolean;
 }
-
-const Toggle: React.FunctionComponent<Iprops> = props => {
-  return <div>{props.text}</div>;
-};
-
+const Toggle = ({ checked, disabled }: Toggle) => (
+  <label className={disabled ? styles.gray : styles.switch}>
+    <input type="checkbox" checked={checked} />
+    <span className={styles.knob} />
+  </label>
+);
 export default Toggle;
