@@ -9,7 +9,6 @@ class App extends Component {
       <div>
         <Navbar text="arezoo"/>
       </div>
-      
     );
   }
 }
