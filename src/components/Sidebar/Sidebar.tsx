@@ -8,7 +8,7 @@ interface Iprops {
 const Sidebar: React.FunctionComponent<Iprops> = props => {
 	return (
 		<aside className={styles.sidebar}>
-			<div className={styles.menuWrapper }></div>
+			<div className={styles.menuWrapper}></div>
 		</aside>
 	);
 };

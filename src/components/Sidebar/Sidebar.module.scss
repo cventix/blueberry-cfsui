@@ -3,12 +3,17 @@
 .sidebar {
 	position: relative;
 
+	@media(max-width: $tablet) {
+		display: none;
+	}
+
 	.menuWrapper {
 		position: fixed;
-		top: 0;
+		top: 70px;
 		right: 0;
 		bottom: 0;
 		width: $sidebar-width;
 		background: #fff;
+		opacity: 0.99;
 	}
 }

@@ -4,6 +4,9 @@ $light-font: 'vazir-light';
 $medium-font: 'vazir-medium';
 $bold-font: 'vazir-bold';
 
+/* default font-size */
+$font-size: 14px;
+
 /* pages padding responsive mode */
 $rsp-padding: 15px;
 
@@ -14,4 +17,12 @@ $sidebar-width: 260px;
 $default-height: 35px;
 $br-radius-lg: 100px;
 $br-radius-sm: 3px;
+
+/* default padding & margin */
+$default-padding: 30px;
+$default-margin: 30px;
+
+/* responsive resolution */
+$tablet: 768px;
+$web-medium: 992px;
 
