@@ -1,5 +1,14 @@
 @import "../../styles/global";
 
 .sidebar {
-	
+	position: relative;
+
+	.menuWrapper {
+		position: fixed;
+		top: 0;
+		right: 0;
+		bottom: 0;
+		width: $sidebar-width;
+		background: #fff;
+	}
 }

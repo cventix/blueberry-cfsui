@@ -34,7 +34,7 @@
 		@include flex(row, wrap);
 
 		.logoWrapper {
-			width: 260px;
+			width: $sidebar-width;
 			text-align: center;
 			@media(max-width: 768px) {
 				width: auto;
