@@ -11,7 +11,7 @@ interface Iprops {
 
 export const Dropdown = ({ isOpen, handleChange }: Iprops) => {
   return (
-    <React.Fragment>
+    <div className={styles.dropdownBox}>
       <button onClick={handleChange} className={styles.dpButton}>
         <div className={styles.more} />
       </button>
@@ -22,7 +22,7 @@ export const Dropdown = ({ isOpen, handleChange }: Iprops) => {
           <DropdownItem label={"three"} />
         </ul>
       )}
-    </React.Fragment>
+    </div>
   );
 };
 
