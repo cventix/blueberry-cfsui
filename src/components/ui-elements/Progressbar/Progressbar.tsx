@@ -1,14 +1,13 @@
 import React from "react";
 import styles from "./Progressbar.module.scss";
-import { any } from "prop-types";
 
- interface Iprops {
+export default interface Iprops {
   value: number;
   error?: boolean;
   width?:number;
 }
 
-const Progressbar = ({ value, error = false,width, ...props }: Iprops) => (
+export const Progressbar = ({ value, error = false,width, ...props }: Iprops) => (
   <div className={styles.progressContainer}>
     <progress
       value={value}
@@ -20,5 +19,3 @@ const Progressbar = ({ value, error = false,width, ...props }: Iprops) => (
     />
   </div>
 );
-
-export default {Progressbar,Iprops:any};
