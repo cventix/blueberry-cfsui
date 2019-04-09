@@ -1,7 +1,9 @@
 $body-dir: rtl;
+$body-bcgcolor: rgba(248, 248, 248, 0.82);
 
 /* type of fonts */
 $thin-font: 'vazir-thin';
+$regular-font: 'vazir-regular';
 $light-font: 'vazir-light';
 $medium-font: 'vazir-medium';
 $bold-font: 'vazir-bold';
@@ -11,27 +13,33 @@ $font-size: 14px;
 
 /* font */
 @font-face {
+	font-family: 'vazir-thin';
+	src: url('/fonts/vazir-thin.woff') format('woff'), url('/fonts/vazir-thin.ttf') format('truetype');
+	font-weight: 100;
+}
+
+@font-face {
+	font-family: 'vazir-regular';
+	src: url('/fonts/vazir.woff') format('woff'), url('/fonts/vazir.ttf') format('truetype');
+	font-weight: 200;
+}
+
+@font-face {
 	font-family: 'vazir-light';
 	src: url('/fonts/vazir-light.woff') format('woff'), url('/fonts/vazir-light.ttf') format('truetype');
-	font-weight: normal;
+	font-weight: 300;
 }
 
 @font-face {
 	font-family: 'vazir-medium';
 	src: url('/fonts/vazir-medium.woff') format('woff'), url('/fonts/vazir-medium.ttf') format('truetype');
-	font-weight: normal;
+	font-weight: 500;
 }
 
 @font-face {
 	font-family: 'vazir-bold';
 	src: url('/fonts/vazir-bold.woff') format('woff'), url('/fonts/vazir-bold.ttf') format('truetype');
 	font-weight: bold;
-}
-
-@font-face {
-	font-family: 'vazir-thin';
-	src: url('/fonts/vazir-thin.woff') format('woff'), url('/fonts/vazir-thin.ttf') format('truetype');
-	font-weight: normal;
 }
 
 /* general */
@@ -49,8 +57,8 @@ body, p, h1, h2, h3, h4, h5, h6, ul	{
 }
 
 body {
-	background: rgba(248, 248, 248, 0.82);
-	font-family: $light-font;
+	background: $body-bcgcolor;
+	font-family: $regular-font;
 	font-size: $font-size;
 	
 	@if $body-dir == rtl {

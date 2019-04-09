@@ -1,17 +1,16 @@
 import * as React from "react";
 
-interface Iprops {
+export default interface Iprops {
 	src: string;
-	alt: string;
-	className: string;
+	alt?: string;
+	className?: string;
 }
 
-const Icon = ({ src, ...props }: Iprops) => (
+export const Icon = ({ src, alt, className = "icon" }: Iprops) => (
 	<img 
-	{...props}
-	src={src} 
+	src={src}
+	alt={alt}
+	className={className}
 	/>
-)
-
-export default Icon;
+);
 

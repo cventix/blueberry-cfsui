@@ -1,6 +1,15 @@
 @import "../../styles/global";
 $img-size: 30px;
 
+/* changable margin with direction */
+@mixin margin-when-direction($margin) {
+	@if $body-dir == rtl {
+		margin-left: $margin;
+	} @else {
+		margin-right: $margin;
+	}
+}
+
 .navbar {
 	@include flex(row, wrap);
 	justify-content: space-between;
@@ -18,10 +27,10 @@ $img-size: 30px;
 		padding: 0 $rsp-padding;
 	}
 
-	ul {
+	.nav {
 		list-style: none;
 
-		li {
+		.iconLink {
 			cursor: pointer;
 
 			.icon {
@@ -58,6 +67,7 @@ $img-size: 30px;
 		}
 
 		.nav {
+			@include flex(row, wrap);
 			margin: 23px 0;
 			padding: 0;
 
@@ -65,49 +75,43 @@ $img-size: 30px;
 				display: none;
 			}
 
-			li {
-				margin-left: $default-margin;
+			.iconLink {
+				@include margin-when-direction($default-margin);
 
-				.label {
-					
+				span {
 					font-family: $medium-font;
+
+					@if $body-dir == rtl {
+						margin-right: 5px;
+					} @else {
+						margin-left: 5px;
+					}
 				}
 
 				&:first-child {
-					margin-right: $default-margin;
-
-					@media(min-width: $tablet + 1) and (max-width: $web-medium) {
-						margin-right: 0;
+					@if $body-dir == rtl {
+						margin-right: $default-margin - 5;
+					} @else {
+						margin-left: $default-margin - 5;
 					}
 				}
 
 				@media(min-width: $tablet + 1) and (max-width: $web-medium) {
 					margin-left: 22px;
 				}
-				@if $body-dir == rtl {
-					float: right;
-					.label {
-						margin-right: 5px;
-					}
-
-				} @else {
-					float: left;
-					.label {
-						margin-left: 5px;
-					}
-				}
 			}
 		}
 	}
 
 	.left {
-		margin-left: $default-margin;
+		@include margin-when-direction($default-margin);
 
 		@media(max-width: $tablet) {
-			margin-left: 0;
+			@include margin-when-direction(0);
 		}
 
 		.nav {
+			@include flex(row, wrap);
 			overflow: hidden;
 			clear: both;
 			margin-top: 20px;
@@ -116,16 +120,29 @@ $img-size: 30px;
 				margin-top: 25px;
 			}
 
-			li {
-				margin-right: 23px;
+			.avatar {
+				width: $img-size;
+				height: $img-size;
+				vertical-align: middle;
+				cursor: pointer;
+
+				@include border-radius(50%);
+				@media(max-width: $tablet) {
+					width: $img-size + 4;
+					height: $img-size + 4;
+				}
+			}
+
+			.iconLink {
+				@include margin-when-direction(23px);
 
 				.icon {
 					margin-top: 6px;
+				}
 
-					&.webIcn {
-						@media(max-width: $tablet) {
-							display: none;
-						}
+				&.webIcn {
+					@media(max-width: $tablet) {
+						display: none;
 					}
 				}
 
@@ -147,27 +164,12 @@ $img-size: 30px;
 
 					.icon {
 						margin-top: 4px;
-					}	
-				}
-
-				.avatar {
-					width: $img-size;
-					height: $img-size;
-					vertical-align: middle;
-
-					@include border-radius(50%);
-					@media(max-width: $tablet) {
-						width: $img-size + 4;
-						height: $img-size + 4;
 					}
 				}
 
-				@if $body-dir == rtl {
-					float: left;
-				} @else {
-					float: right;	
+				@media(max-width: $tablet) {
+					@include margin-when-direction(10px);
 				}
-
 			}
 		}
 	}
