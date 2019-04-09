@@ -1,58 +1,60 @@
-@import '../../../style/colors.scss';
-$background-gray : #e8eaeb;
+@import "../../../styles/global";
+$background-gray: #e8eaeb;
+$track-height: 10px;
 
 .styled_range {
+  direction: ltr;
   input[type="range"] {
     -webkit-appearance: none;
     background: transparent;
     position: absolute;
-    top: 0;
-    left: 0;
+   
+
+    &::-webkit-slider-thumb {
+      -webkit-appearance: none;
+    }
+
+    &:focus {
+      outline: none;
+    }
+
+    &::-webkit-slider-runnable-track {
+      width: 100%;
+      height: $track-height;
+    }
   }
 
-  input[type="range"]::-webkit-slider-thumb {
-    -webkit-appearance: none;
+  .track_range {
+    pointer-events: none;
+    &::-webkit-slider-runnable-track {
+      background: $background-gray;
+      border-radius: $br-radius-sm;
+      overflow: hidden;
+    }
+    &::-webkit-slider-thumb {
+      @include box-shadow(-600px 0 0 600px $green);
+      -webkit-appearance: none;
+      background: transparent;
+      height: 1px;
+      width: 1px;
+    }
   }
 
-  input[type="range"]:focus {
-    outline: none;
+  .thumb_range {
+    &::-webkit-slider-runnable-track {
+      background: transparent;
+      cursor: pointer;
+    }
+
+    &::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      border-radius: $track-height * 2;
+      height: $track-height * 2;
+      width: $track-height * 2;
+      background: url("../../../images/rangebarIcon/icon-range-slider-holder.svg")
+        center center no-repeat;
+      cursor: pointer;
+      margin: -($track-height/2) 0px 0px 0px;
+    }
   }
-
-  input[type="range"]::-webkit-slider-runnable-track {
-    width: 100%;
-    height: 12px;
-  }
-}
-.track_range {
-  pointer-events: none;
-}
-
-.track_range::-webkit-slider-runnable-track {
-  background: $background-gray;
-  border-radius: 6px;
-  overflow: hidden;
-}
-
-.track_range::-webkit-slider-thumb {
-  -webkit-appearance: none;
-  background: transparent;
-  height: 1px;
-  width: 1px;
-  box-shadow: -600px 0 0 600px $green;
-}
-
-.thumb_range::-webkit-slider-runnable-track {
-  background: transparent;
-  cursor: pointer;
-}
-
-.thumb_range::-webkit-slider-thumb {
-  -webkit-appearance: none;
-  border-radius: 20px;
-  height: 40px;
-  width: 40px;
-  background:  url("../../../assets/icon-range-slider-holder.svg") center center
-  no-repeat;
-  cursor: pointer;
-  margin: -12px 0px 0px 0px;
 }
