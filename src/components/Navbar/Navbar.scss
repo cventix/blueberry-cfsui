@@ -1,15 +1,6 @@
 @import "../../styles/global";
 $img-size: 30px;
 
-/* changable margin with direction */
-@mixin margin-when-direction($margin) {
-	@if $body-dir == rtl {
-		margin-left: $margin;
-	} @else {
-		margin-right: $margin;
-	}
-}
-
 .navbar {
 	@include flex(row, wrap);
 	justify-content: space-between;
@@ -17,26 +8,22 @@ $img-size: 30px;
 	top: 0;
 	right: 0;
 	left: 0;
-	height: 70px;
+	height: $navbar-height;
 	background-color: #fff;
 	z-index: 100;
 
 	@include box-shadow(0 2px 0 0 rgba(0, 0, 0, 0.05));
 	@media(max-width: $tablet) {
-		height: 80px;
+		height: $navbar-height + 10;
 		padding: 0 $rsp-padding;
 	}
 
 	.nav {
-		list-style: none;
-
 		.iconLink {
-			cursor: pointer;
-
+		
 			.icon {
 				width: $img-size - 6;
 				height: $img-size - 6;
-				vertical-align: middle;
 			}
 		}
 	}
@@ -76,15 +63,21 @@ $img-size: 30px;
 			}
 
 			.iconLink {
-				@include margin-when-direction($default-margin);
+				@include margin-with-direction($default-margin);
 
 				span {
-					font-family: $medium-font;
-
+					color: $text;
+					
 					@if $body-dir == rtl {
 						margin-right: 5px;
 					} @else {
 						margin-left: 5px;
+					}
+				}
+
+				&.current {
+					span {
+						font-family: $medium-font;
 					}
 				}
 
@@ -104,10 +97,10 @@ $img-size: 30px;
 	}
 
 	.left {
-		@include margin-when-direction($default-margin);
+		@include margin-with-direction($default-margin);
 
 		@media(max-width: $tablet) {
-			@include margin-when-direction(0);
+			@include margin-with-direction(0);
 		}
 
 		.nav {
@@ -134,7 +127,7 @@ $img-size: 30px;
 			}
 
 			.iconLink {
-				@include margin-when-direction(23px);
+				@include margin-with-direction(23px);
 
 				.icon {
 					margin-top: 6px;
@@ -146,13 +139,38 @@ $img-size: 30px;
 					}
 				}
 
+				&.notifIcn {
+					position: relative;
+
+					&:before {
+						content: '';
+						position: absolute;
+						top: 0;
+						width: 4px;
+						height: 4px;
+						background-color: $red;
+
+						@include border-radius(50%);
+						@if $body-dir == 'rtl' {
+							left: 10px;
+						} @else {
+							right: 14px;
+						}
+
+					}
+				}
+
 				&.status {
 					width: $img-size;
 					height: $img-size;
 					background-color: #f3f7fd;
 					text-align: center;
-
 					@include border-radius(50%);
+
+					.icon {
+						margin-top: 4px;
+					}
+
 					@media(max-width: $tablet) {
 						width: $img-size + 4;
 						height: $img-size + 4;
@@ -161,14 +179,10 @@ $img-size: 30px;
 							margin-top: 6px;
 						}
 					}
-
-					.icon {
-						margin-top: 4px;
-					}
 				}
 
 				@media(max-width: $tablet) {
-					@include margin-when-direction(10px);
+					@include margin-with-direction(10px);
 				}
 			}
 		}

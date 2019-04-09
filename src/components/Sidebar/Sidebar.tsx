@@ -1,14 +1,33 @@
 import * as React from "react";
-import styles from "./Sidebar.module.scss";
+
+// ui-elements
+import { Hr } from "../ui-elements/Hr";
+
+// internar component & styles
+import { ActionNav } from "./components/ActionNav";
+import { Nav } from "./components/Nav";
+import "./Sidebar.scss";
 
 export default interface Iprops {
   text: string;
 }
 
 export const Sidebar = ({ text }: Iprops) => {
+	const borderStyle = { 
+		backgroundColor: '#f2f2f2',
+		width:'100%',
+		height: '2px' 
+	};
+
 	return (
-		<aside className={styles.sidebar}>
-			<div className={styles.menuWrapper}></div>
+		<aside className="sidebar">
+			<div className="menuWrapper">
+				<div className="menu">
+					<ActionNav />
+					<Hr style={borderStyle}/>
+					<Nav />
+				</div>
+			</div>
 		</aside>
 	);
 };

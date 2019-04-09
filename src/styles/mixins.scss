@@ -22,3 +22,12 @@
 	flex-direction: $direction;
 	flex-wrap: $wrap-status;
 }
+
+/* changable margin with direction */
+@mixin margin-with-direction($margin) {
+	@if $body-dir == rtl {
+		margin-left: $margin;
+	} @else {
+		margin-right: $margin;
+	}
+}

@@ -1,0 +1,67 @@
+@import "../../styles/global";
+
+.sidebar {
+	position: relative;
+
+	@media(max-width: $tablet) {
+		display: none;
+	}
+
+	.menuWrapper {
+		position: fixed;
+		top: $navbar-height;
+		right: 0;
+		bottom: 0;
+		left: 0;
+		width: $sidebar-width;
+		background: #fff;
+		opacity: 0.99;
+
+		@if $body-dir == rtl {
+			right: 0;
+		} @else {
+			left: 0;
+		}
+
+		.menu {
+			position: absolute;
+			top: 40px;
+			right: 0;
+			bottom: 0;
+			left: 0;
+			padding: 0 $default-padding;
+			overflow: auto;
+
+			.iconLink {
+				img {
+					width: 18px;
+					height: 18px;
+
+					@include margin-with-direction(12px);
+				}
+			}
+
+			.actionNav {
+
+				.iconLink {
+					margin-bottom: 18px;
+					margin-right: 11px;
+
+					span {
+						font-family: $medium-font;
+					}
+				}
+			}
+
+			.nav {
+				margin-top: 16px;
+				
+				.iconLink {
+					margin-bottom: 13px;
+					color: #737373;
+				}
+			}
+
+		}
+	}
+}
