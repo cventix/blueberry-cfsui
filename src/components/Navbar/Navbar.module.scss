@@ -66,11 +66,11 @@ $img-size: 30px;
 			}
 
 			li {
-				float: right;
 				margin-left: $default-margin;
 
-				@media(min-width: $tablet + 1) and (max-width: $web-medium) {
-					margin-left: 22px;
+				.label {
+					
+					font-family: $medium-font;
 				}
 
 				&:first-child {
@@ -81,9 +81,20 @@ $img-size: 30px;
 					}
 				}
 
-				.label {
-					margin-right: 5px;
-					font-family: $medium-font;
+				@media(min-width: $tablet + 1) and (max-width: $web-medium) {
+					margin-left: 22px;
+				}
+				@if $body-dir == rtl {
+					float: right;
+					.label {
+						margin-right: 5px;
+					}
+
+				} @else {
+					float: left;
+					.label {
+						margin-left: 5px;
+					}
 				}
 			}
 		}
@@ -106,7 +117,6 @@ $img-size: 30px;
 			}
 
 			li {
-				float: left;
 				margin-right: 23px;
 
 				.icon {
@@ -137,9 +147,7 @@ $img-size: 30px;
 
 					.icon {
 						margin-top: 4px;
-					}
-
-					
+					}	
 				}
 
 				.avatar {
@@ -149,10 +157,17 @@ $img-size: 30px;
 
 					@include border-radius(50%);
 					@media(max-width: $tablet) {
-						width: 34px;
-						height: 34px;
+						width: $img-size + 4;
+						height: $img-size + 4;
 					}
 				}
+
+				@if $body-dir == rtl {
+					float: left;
+				} @else {
+					float: right;	
+				}
+
 			}
 		}
 	}

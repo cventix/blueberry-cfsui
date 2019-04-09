@@ -1,3 +1,14 @@
+$body-dir: rtl;
+
+/* type of fonts */
+$thin-font: 'vazir-thin';
+$light-font: 'vazir-light';
+$medium-font: 'vazir-medium';
+$bold-font: 'vazir-bold';
+
+/* default font-size */
+$font-size: 14px;
+
 /* font */
 @font-face {
 	font-family: 'vazir-light';
@@ -39,6 +50,12 @@ body, p, h1, h2, h3, h4, h5, h6, ul	{
 
 body {
 	background: rgba(248, 248, 248, 0.82);
-	font-family: 'vazir-light';
-	font-size: 14px;
+	font-family: $light-font;
+	font-size: $font-size;
+	
+	@if $body-dir == rtl {
+		direction: rtl;
+	} @else {
+		direction: ltr;
+	}
 }
