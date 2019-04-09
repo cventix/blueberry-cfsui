@@ -1,11 +1,29 @@
 import * as React from "react";
 
+import DropdownItem from "./DropdownItem";
+
+import styles from "./Dropdown.module.scss";
+
 interface Iprops {
-  text: string;
+  isOpen: boolean;
+  handleChange?: any;
 }
 
-const Dropdown: React.FunctionComponent<Iprops> = props => {
-  return <div>{props.text}</div>;
+export const Dropdown = ({ isOpen, handleChange }: Iprops) => {
+  return (
+    <React.Fragment>
+      <button onClick={handleChange} className={styles.dpButton}>
+        <div className={styles.more} />
+      </button>
+      {isOpen && (
+        <ul className={styles.dropdown}>
+          <DropdownItem label={"one"} />
+          <DropdownItem label={"two"} />
+          <DropdownItem label={"three"} />
+        </ul>
+      )}
+    </React.Fragment>
+  );
 };
 
 export default Dropdown;
