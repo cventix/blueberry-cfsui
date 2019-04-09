@@ -4,9 +4,10 @@ import { TableItem } from "./TableItem";
 export default interface Iprops {
   titles: any;
   dropdown?: boolean;
+  onSort?: any;
 }
 
-export const TableHeader = ({ titles, dropdown}: Iprops) => {
+export const TableHeader = ({ titles, dropdown, onSort }: Iprops) => {
   return (
     <thead>
       {titles && (
@@ -15,10 +16,13 @@ export const TableHeader = ({ titles, dropdown}: Iprops) => {
             if (label !== "type") {
               return (
                 <TableItem
+                  key={i}
                   label={label}
                   checkbox={label === "نام" ? true : false}
-                  sort={true}
-                  className={"header"}
+                  sortable={true}
+                  sortType={label === "تاریخ" ? "alphabet" : " "}
+                  onSort={onSort}
+                  className={label === "نام" ? ['header','show'] : ['header']}
                 />
               );
             }

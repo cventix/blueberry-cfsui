@@ -1,22 +1,22 @@
+@import "../../styles/global.scss";
 
-
-@import '../../styles/global.scss';
-
-$border-table:#e5e5e5;
-$table-header-color:#9b9b9b;
+$border-table: #e5e5e5;
+$table-header-color: #9b9b9b;
+$padding-td: 3%;
+$border-bottom: 1px solid $border-table;
 
 .table {
   border-collapse: collapse;
-  margin:  auto;
+  margin: auto;
   padding: 0;
   width: 50%;
   // table-layout: fixed;
 
   th,
   td {
-    padding: 2%;
+    padding: $padding-td;
     text-align: left;
-    border-bottom: 1px solid $border-table;
+    border-bottom: $border-bottom;
     height: 23px;
     font-size: 14px;
     font-weight: normal;
@@ -28,8 +28,9 @@ $table-header-color:#9b9b9b;
     color: $dk-gray;
   }
 
-  td{
+  td {
     text-align: right;
+    height: 23px;
   }
   .header {
     color: $table-header-color;
@@ -39,8 +40,8 @@ $table-header-color:#9b9b9b;
     display: -webkit-flex;
     display: flex;
     align-items: center;
-    *{
-      margin:0 7px;
+    * {
+      margin: 0 7px;
     }
   }
 
@@ -58,40 +59,25 @@ $table-header-color:#9b9b9b;
 
 @media screen and (max-width: 600px) {
   .table {
-    border: 0;
-    thead {
-      border: none;
-      clip: rect(0 0 0 0);
-      height: 1px;
-      margin: -1px;
-      overflow: hidden;
-      padding: 0;
-      position: absolute;
-      width: 1px;
-    }
-
-    tr {
-      border-bottom: 3px solid #ddd;
-      display: block;
-      margin-bottom: 0.625em;
-    }
-
     td {
-      border-bottom: 1px solid $border-table;
-      display: block;
-      font-size: 0.8em;
-      text-align: right;
+      display: none;
     }
-
-    td::before {
-      content: attr(data-label);
-      float: left;
-      font-weight: bold;
-      text-transform: uppercase;
+    thead {
+      border-bottom: $border-bottom;
     }
-
-    td:last-child {
-      border-bottom: 0;
+    .more {
+      float: right;
+    }
+    .left {
+      padding: 0 !important;
+      text-align: left;
+    }
+    .header {
+      border: 0;
+    }
+    .show {
+      display: table-cell;
+      padding: $padding-td * 2;
     }
   }
 }

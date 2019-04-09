@@ -6,21 +6,29 @@ export default interface Iprops {
   checkbox?: boolean;
   label: string;
   name?: string;
-  sort?: boolean;
-  className?: string;
+  sortable?: boolean;
+  onSort?: any;
+  sortType?: string;
+  className?: any;
   hasType?: any;
 }
+
+const splitter = (className: any) => {
+  return className.map((cls: any) => styles[cls]).join(" ");
+};
 
 export const TableItem = ({
   label,
   checkbox,
   name,
-  sort,
+  sortable,
+  onSort,
+  sortType,
   className,
   hasType
 }: Iprops) => {
   return (
-    <td data-label={name} className={className ? styles[className] : " "}>
+    <td data-label={name} className={className ? splitter(className) : " "}>
       <div className={styles.flex_row}>
         {checkbox && (
           <div className={[styles.flex_row, styles.checkbox].join(" ")}>
@@ -29,8 +37,8 @@ export const TableItem = ({
         )}
         {hasType && <img src={hasType} />}
         <div>{label}</div>
-        {sort && (
-          <div className={styles.sort}>
+        {sortable && (
+          <div className={styles.sort} onClick={() => onSort(label, sortType)}>
             <span>▲</span>
             <span>▼</span>
           </div>
