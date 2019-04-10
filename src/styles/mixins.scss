@@ -23,11 +23,52 @@
 	flex-wrap: $wrap-status;
 }
 
+/* transform */
+@mixin transform($value) {
+	-webkit-transform: $value;
+	-moz-transform: $value;
+	-ms-transform: $value;
+	-o-transform: $value;
+}
+
 /* changable margin with direction */
-@mixin margin-with-direction($margin) {
+@mixin margin-with-direction($value) {
 	@if $body-dir == rtl {
-		margin-left: $margin;
+		margin-left: $value;
 	} @else {
-		margin-right: $margin;
+		margin-right: $value;
 	}
 }
+
+// selectInput-theme
+@mixin selectInput-theme($type, $border-color, $background-color) {
+	width: 13px;
+	height: 13px;
+	border: 0.8px solid $border-color;
+	background-color: $background-color;
+
+	@if $type == checkbox {
+		@include border-radius(2.4px);
+	} @else if $type == radio {
+		@include border-radius(6.5px);
+	}
+}
+
+
+
+/* changable margin with direction */
+@mixin change-with-className($className) {
+	$classNames:
+		( default
+		, selected
+		, indeterminate
+		, disabled
+	);
+
+	@each $i in $classNames {
+		aside.#{nth($i, 1)} {
+			background: nth($i, 2);
+		}	
+	}
+}
+

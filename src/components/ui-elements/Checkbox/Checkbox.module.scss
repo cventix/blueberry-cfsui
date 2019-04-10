@@ -1,5 +1,6 @@
 @import "../../../styles/global";
+$checkbox: checkbox;
 
 .checkbox {
-	
+	@include selectInput-theme($checkbox, $dk-blue, $dk-blue)
 }

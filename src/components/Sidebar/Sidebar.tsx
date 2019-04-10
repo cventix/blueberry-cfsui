@@ -3,6 +3,8 @@ import * as React from "react";
 // ui-elements
 import { Hr } from "../ui-elements/Hr";
 import { Button } from "../ui-elements/Button/Button";
+import { Checkbox } from "../ui-elements/Checkbox/Checkbox";
+import { Radio } from "../ui-elements/Radio/Radio";
 
 // internar component & styles
 import { ActionNav } from "./components/ActionNav";
@@ -12,19 +14,14 @@ import "./Sidebar.scss";
 export default interface Iprops {}
 
 export const Sidebar = ({}: Iprops) => {
-	const borderStyle = { 
-		backgroundColor: '#f2f2f2',
-		width:'100%',
-		height: '2px' 
-	};
-
 	return (
 		<aside className="sidebar">
 			<div className="menuWrapper">
 				<div className="menu">
-					<Button />
+					<Checkbox />
+					<Radio />
 					<ActionNav />
-					<Hr style={borderStyle} />
+					<Hr />
 					<Nav />
 				</div>
 			</div>

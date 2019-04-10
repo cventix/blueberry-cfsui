@@ -1,11 +1,12 @@
 import * as React from "react";
 
-interface Iprops {
-  text: string;
-}
+// styles
+import styles from "./Radio.module.scss";
 
-const Radio: React.FunctionComponent<Iprops> = props => {
-  return <div>{props.text}</div>;
-};
 
-export default Radio;
+export default interface Iprops {}
+
+export const Radio = ({ }: Iprops) => (
+	<input type="radio" className={styles.radio}/>
+);
+

@@ -1,0 +1,6 @@
+@import "../../../styles/global";
+$radio: radio;
+
+.radio {
+	@include selectInput-theme($radio, $dk-blue, $dk-blue)
+}
