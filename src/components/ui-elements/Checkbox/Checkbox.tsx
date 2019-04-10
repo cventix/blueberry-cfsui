@@ -8,6 +8,6 @@ export default interface Iprops {}
 
 export const Checkbox = ({ }: Iprops) => (
 	<label>
-		<input type="text" className={styles.checkbox} disabled/>
+		<input type="checkbox" className={styles.checkbox}/>
 	</label>
 );

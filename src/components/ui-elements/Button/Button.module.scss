@@ -1,5 +1,66 @@
 @import "../../../styles/global";
 
 .btn {
-	
+	display: block;
+	font-family: $regular-font;
+	cursor: pointer;
+	@include border-radius(3px);
+
+	&.btnDefault {
+		@include btn-theme(linear-gradient(to top, #f7f7f7, #fff), $text, null);
+
+		&.btnDefaultOutline {
+
+		}	
+	}	
+
+	&.btnPrimary {
+		@include btn-theme(linear-gradient(to top, #2686f9, #4b9cfd), #fff, null);
+
+		&.btnPrimaryOutline {
+
+		}	
+	}
+
+	&.btnSuccess {
+		@include btn-theme(linear-gradient(to top, #2fd673, #3ae57c), #fff, null);
+
+		&.btnSuccessOutline {
+
+		}
+	}
+
+	&.btn-danger {
+		@include btn-theme(linear-gradient(to top, #f94926, #fd6b4b), #fff, null);
+
+		&.btnDangerOutline {
+
+		}
+	}
+
+	&.btnWarning {
+		@include btn-theme(linear-gradient(to top, #f2bf27, #f8cb45), #fff, null);
+	}
+
+	&.btnExtraRadius {
+		@include border-radius(100px);
+	}
+
+	/* btn size */
+	&.btnSm {
+		width: 70px;
+		height: 35px;
+		@include box-shadow(0 1px 3px 0 rgba(0, 0, 0, 0.15))
+	}
+
+	&.btnMd {
+		width: 120px;
+		height: 25px;
+	}
+
+	&.btnLg {
+		width: 200px;
+		height: 35px;
+		@include box-shadow(0 1px 3px 0 rgba(0, 0, 0, 0.15))
+	}
 }

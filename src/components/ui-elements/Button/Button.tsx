@@ -7,5 +7,5 @@ import styles from "./Button.module.scss";
 export default interface Iprops {}
 
 export const Button = ({ }: Iprops) => (
-	<button className="btn"></button>
+	<button className={styles.btnSuccess}></button>
 );

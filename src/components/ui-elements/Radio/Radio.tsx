@@ -7,6 +7,7 @@ import styles from "./Radio.module.scss";
 export default interface Iprops {}
 
 export const Radio = ({ }: Iprops) => (
-	<input type="radio" className={styles.radio}/>
+	<label>
+		<input type="radio" className={styles.radio}/>
+	</label>
 );
-

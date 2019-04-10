@@ -23,6 +23,13 @@
 	flex-wrap: $wrap-status;
 }
 
+/* button-theme */
+@mixin btn-theme($background, $btn-color, $border-color) {
+	background: $background;
+	color: $btn-color;
+	border: 1px solid $border-color;
+}
+
 /* transform */
 @mixin transform($value) {
 	-webkit-transform: $value;
@@ -41,34 +48,21 @@
 }
 
 // selectInput-theme
-@mixin selectInput-theme($type, $border-color, $background-color) {
+@mixin selectInput-theme($type, $className) {
 	width: 13px;
 	height: 13px;
-	border: 0.8px solid $border-color;
-	background-color: $background-color;
+	border-width: 0.8px;
+	border-style: solid;
 
 	@if $type == checkbox {
 		@include border-radius(2.4px);
 	} @else if $type == radio {
 		@include border-radius(6.5px);
 	}
-}
 
-
-
-/* changable margin with direction */
-@mixin change-with-className($className) {
-	$classNames:
-		( default
-		, selected
-		, indeterminate
-		, disabled
-	);
-
-	@each $i in $classNames {
-		aside.#{nth($i, 1)} {
-			background: nth($i, 2);
-		}	
+	@if $className == disabled {
+		background-color: $disabled-dk-gray;
+		border-color: $disabled-lt-gray;
 	}
 }
 
