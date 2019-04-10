@@ -1,0 +1,66 @@
+@import "../../../styles/global.scss";
+
+$dropdown-width: 140px;
+$dropdown-item-height: 37px;
+$padding: 20px;
+$dropdown-border: #e5e5e5;
+$left: 10px;
+$more-button: #9b9b9b;
+$more-button-size: 36px;
+$background-white: #fff;
+
+.dropdownBox {
+  position: relative;
+
+  .more::after {
+    content: "...";
+    font-size: $more-button-size;
+    display: flex;
+    justify-content: center;
+  }
+
+  .dpButton {
+    border: 0;
+    padding: 0;
+    background: 0;
+    color: $more-button;
+  }
+
+  .dpButton:hover {
+    color: $lt-blue;
+    cursor: pointer;
+  }
+
+  .dropdown {
+    @include flex(column, wrap);
+    @include border-radius($br-radius-sm);
+    @include box-shadow(0 1px 3px 0 rgba(0, 0, 0, 0.05));
+
+    position: absolute;
+    z-index: 4;
+    width: $dropdown-width;
+    list-style: none;
+    background: white;
+    border: solid 1px $dropdown-border;
+    left: -$left;
+
+    li {
+      display: flex;
+      align-items: center;
+      cursor: pointer;
+      color: $lt-gray;
+      padding: 0 $padding;
+      height: $dropdown-item-height;
+    }
+
+    li:hover {
+      background: $hover-gray;
+    }
+
+    a:link {
+      color: $lt-gray;
+      text-decoration: none;
+      border-bottom: 0;
+    }
+  }
+}

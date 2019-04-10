@@ -1,31 +1,31 @@
-@import '../../../style/colors.scss';
+@import "../../../style/colors.scss";
 
-.progressContainer{
-    position: relative;
-}
-
-.progressContainer progress {
+.progressContainer {
+  position: relative;
+  progress {
     background-color: #eee;
     height: 40px;
     border-radius: 40px;
-}
+  }
 
-.progressContainer progress::-webkit-progress-bar {
+  progress::-webkit-progress-bar {
     background-color: #eee;
     border-radius: 40px;
-}
+  }
 
-.progressContainer progress::-webkit-progress-value {
-
+  progress::-webkit-progress-value {
     border-radius: 40px;
-}
+  }
 
-.progressContainer  .red::-webkit-progress-value  {
-    background-color: $red !important; 
-}
-.progressContainer  .green::-webkit-progress-value  {
-    background-color: $green !important; 
-}
-.progressContainer  .yellow::-webkit-progress-value  {
-    background-color: $yellow !important; 
+  .red::-webkit-progress-value {
+    background-color: $red !important;
+  }
+
+  .green::-webkit-progress-value {
+    background-color: $green !important;
+  }
+
+  .yellow::-webkit-progress-value {
+    background-color: $yellow !important;
+  }
 }

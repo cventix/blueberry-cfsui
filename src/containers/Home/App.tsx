@@ -4,6 +4,93 @@ import { Navbar } from "../../components/Navbar/Navbar";
 import { Sidebar } from "../../components/Sidebar/Sidebar";
 import { Main } from "../../components/Main/Main";
 import "./App.css";
+import Table from "../../components/Table/Table";
+const table = [
+  {
+    id: 1,
+    number: 10,
+    name: "sth",
+    "some-other": "cxcxc",
+    "sth-number": 132048912849284
+  },
+  {
+    id: 2,
+    number: 323,
+    name: "fdf",
+    "some-other": "cxcxc",
+    "sth-number": 132048912849284
+  },
+  {
+    id: 1,
+    number: 10,
+    name: "sth",
+    "some-other": "cxcxc",
+    "sth-number": 132048912849284
+  },
+  {
+    id: 2,
+    number: 323,
+    name: "fdf",
+    "some-other": "cxcxc",
+    "sth-number": 132048912849284
+  },
+  {
+    id: 1,
+    number: 10,
+    name: "sth",
+    "some-other": "cxcxc",
+    "sth-number": 132048912849284
+  },
+  {
+    id: 2,
+    number: 323,
+    name: "fdf",
+    "some-other": "cxcxc",
+    "sth-number": 132048912849284
+  },
+  {
+    id: 1,
+    number: 10,
+    name: "sth",
+    "some-other": "cxcxc",
+    "sth-number": 132048912849284
+  },
+  {
+    id: 2,
+    number: 323,
+    name: "fdf",
+    "some-other": "cxcxc",
+    "sth-number": 132048912849284
+  },
+  {
+    id: 1,
+    number: 10,
+    name: "sth",
+    "some-other": "cxcxc",
+    "sth-number": 132048912849284
+  },
+  {
+    id: 2,
+    number: 323,
+    name: "fdf",
+    "some-other": "cxcxc",
+    "sth-number": 132048912849284
+  },
+  {
+    id: 1,
+    number: 10,
+    name: "sth",
+    "some-other": "cxcxc",
+    "sth-number": 132048912849284
+  },
+  {
+    id: 2,
+    number: 323,
+    name: "fdf",
+    "some-other": "cxcxc",
+    "sth-number": 132048912849284
+  }
+];
 
 class App extends Component {
   render() {
@@ -13,7 +100,6 @@ class App extends Component {
         <Sidebar />
         <Main>content</Main>
       </div>
-      
     );
   }
 }
