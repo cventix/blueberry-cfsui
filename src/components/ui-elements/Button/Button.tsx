@@ -1,11 +1,11 @@
 import * as React from "react";
 
-interface Iprops {
-  text: string;
-}
+// styles
+import styles from "./Button.module.scss";
 
-const Button: React.FunctionComponent<Iprops> = props => {
-  return <button>{props.text}</button>;
-};
 
-export default Button;
+export default interface Iprops {}
+
+export const Button = ({ }: Iprops) => (
+	<button className="btn"></button>
+);

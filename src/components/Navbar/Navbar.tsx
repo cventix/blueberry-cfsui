@@ -1,4 +1,4 @@
-// TODO - if has notification add notifIcn classname
+// TODO - if has notification add hasNotif classname
 // TODO - current page has current classname
 
 import * as React from "react"
@@ -38,7 +38,7 @@ export const Navbar = ({ }: Iprops) => {
 			</div>
 			<div className="left">
 				<div className="nav">
-					<IconLink icon={notifIcn} className="iconLink webIcn notifIcn" iconAlt={`Notif ${altIcn}`}/>
+					<IconLink icon={notifIcn} className="iconLink webIcn hasNotif" iconAlt={`Notif ${altIcn}`}/>
 					<IconLink icon={financeIcn} className="iconLink webIcn" iconAlt={`Finance ${altIcn}`}/>
 					<IconLink icon={statusIcn} className="iconLink status" iconAlt={`Status ${altIcn}`}/>
 					<Avatar/>
