@@ -2,6 +2,7 @@ import * as React from "react";
 
 // ui-elements
 import { Hr } from "../ui-elements/Hr";
+import { Button } from "../ui-elements/Button/Button";
 
 // internar component & styles
 import { ActionNav } from "./components/ActionNav";
@@ -21,8 +22,9 @@ export const Sidebar = ({}: Iprops) => {
 		<aside className="sidebar">
 			<div className="menuWrapper">
 				<div className="menu">
+					<Button />
 					<ActionNav />
-					<Hr style={borderStyle}/>
+					<Hr style={borderStyle} />
 					<Nav />
 				</div>
 			</div>

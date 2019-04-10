@@ -48,7 +48,7 @@ $img-size: 30px;
 				margin-top: 19.5px;
 
 				@media(max-width: $tablet) {
-					margin-top: 24.5px;
+					margin-top: 26px;
 				}
 			}
 		}
@@ -87,10 +87,6 @@ $img-size: 30px;
 					} @else {
 						margin-left: $default-margin - 5;
 					}
-				}
-
-				@media(min-width: $tablet + 1) and (max-width: $web-medium) {
-					margin-left: 22px;
 				}
 			}
 		}
@@ -139,7 +135,7 @@ $img-size: 30px;
 					}
 				}
 
-				&.notifIcn {
+				&.hasNotif {
 					position: relative;
 
 					&:before {

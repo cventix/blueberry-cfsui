@@ -12,9 +12,24 @@
 		margin-right: $sidebar-width;
 		padding-right: $default-padding;
 		padding-left: $default-padding;
+
+		@media(max-width: $tablet) {
+			margin-right: 0;
+		}
 	} @else {
 		margin-left: $sidebar-width;
 		padding-right: $default-padding;
 		padding-left: $default-padding;
+
+		@media(max-width: $tablet) {
+			margin-left: 0;
+		}
+	}
+	@media(max-width: $tablet) {
+		margin-top: $navbar-height + 10;
+		margin-left: 0;
+		padding-top: $default-padding - 10;
+		padding-right: $rsp-padding;
+		padding-left: $rsp-padding;
 	}
 }

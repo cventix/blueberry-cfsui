@@ -1,7 +1,0 @@
-@import "../../styles/global";
-
-.container {
-  @include flex(row, wrap);
-  width: 80%;
-  position: relative;
-}
