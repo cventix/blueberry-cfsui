@@ -8,10 +8,13 @@ $left: 10px;
 $more-button: #9b9b9b;
 $more-button-size: 36px;
 $background-white: #fff;
+$margin-top: -20px;
 
 .dropdownBox {
   position: relative;
-
+  .more {
+    margin-top: $margin-top;
+  }
   .more::after {
     content: "...";
     font-size: $more-button-size;
