@@ -19,7 +19,7 @@ export const Nav = () => {
 			<IconLink icon={vpsIcn} iconAlt={`vps ${altIcn}`} label="سرور و هاست"/>
 			<IconLink icon={internetIcn} iconAlt={`Internet ${altIcn}`} label="اینترنت"/>
 			<IconLink icon={notifIcn} iconAlt={`notif ${altIcn}`} label="تیکت‌ها"/>
-			<IconLink icon={financeIcn} iconAlt={`finance ${altIcn}`} label="اینترنت"/>
+			<IconLink icon={financeIcn} iconAlt={`finance ${altIcn}`} label="فاکتورها"/>
 		</div>
 	);
 }
