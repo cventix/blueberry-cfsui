@@ -10,7 +10,7 @@
 		@include btn-theme(linear-gradient(to top, #f7f7f7, #fff), $text, null);
 
 		&.btnDefaultOutline {
-
+			@include btn-theme(rgba(33, 211, 82, 0.1), $green, $green);
 		}	
 	}	
 
@@ -18,7 +18,7 @@
 		@include btn-theme(linear-gradient(to top, #2686f9, #4b9cfd), #fff, null);
 
 		&.btnPrimaryOutline {
-
+			@include btn-theme(#fff, #4a90e2, $lt-blue);
 		}	
 	}
 
@@ -26,15 +26,15 @@
 		@include btn-theme(linear-gradient(to top, #2fd673, #3ae57c), #fff, null);
 
 		&.btnSuccessOutline {
-
+			@include btn-theme(rgba(33, 211, 82, 0.1), $green, $green);
 		}
 	}
 
-	&.btn-danger {
+	&.btnDanger {
 		@include btn-theme(linear-gradient(to top, #f94926, #fd6b4b), #fff, null);
 
 		&.btnDangerOutline {
-
+			@include btn-theme(rgba(255, 71, 71, 0.1), $red, $red);
 		}
 	}
 
