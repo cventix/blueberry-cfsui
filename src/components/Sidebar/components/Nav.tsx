@@ -4,7 +4,6 @@ import * as React from "react";
 import { IconLink } from "../../ui-elements/IconLink";
 
 // icons
-// icons
 import fileCloudIcn from "../../../images/navbarIcons/file-cloud.svg";
 import vpsIcn from "../../../images/navbarIcons/vps.svg";
 import internetIcn from "../../../images/navbarIcons/internet.svg";
