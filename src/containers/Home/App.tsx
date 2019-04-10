@@ -9,9 +9,9 @@ class App extends Component {
   render() {
     return (
       <div>
-        <Navbar text="arezoo"/>
-        <Sidebar text="arezoo"/>
-        <Main text="arezoo"/>
+        <Navbar />
+        <Sidebar />
+        <Main>content</Main>
       </div>
       
     );

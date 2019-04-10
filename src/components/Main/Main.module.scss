@@ -3,11 +3,18 @@
 .main {
 	position: relative;
 	margin-top: $navbar-height;
-	margin-right: $sidebar-width;
 	padding-top: $default-padding + 10;
-	padding-right: $default-padding;
 	padding-bottom: 2 * $default-padding;
-	padding-left: $default-padding;
 	overflow: hidden;
 	z-index: 10;
+
+	@if $body-dir == rtl {
+		margin-right: $sidebar-width;
+		padding-right: $default-padding;
+		padding-left: $default-padding;
+	} @else {
+		margin-left: $sidebar-width;
+		padding-right: $default-padding;
+		padding-left: $default-padding;
+	}
 }

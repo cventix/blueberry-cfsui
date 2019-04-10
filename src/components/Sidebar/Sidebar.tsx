@@ -8,11 +8,9 @@ import { ActionNav } from "./components/ActionNav";
 import { Nav } from "./components/Nav";
 import "./Sidebar.scss";
 
-export default interface Iprops {
-  text: string;
-}
+export default interface Iprops {}
 
-export const Sidebar = ({ text }: Iprops) => {
+export const Sidebar = ({}: Iprops) => {
 	const borderStyle = { 
 		backgroundColor: '#f2f2f2',
 		width:'100%',

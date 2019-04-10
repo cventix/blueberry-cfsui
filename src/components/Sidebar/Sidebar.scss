@@ -45,7 +45,12 @@
 
 				.iconLink {
 					margin-bottom: 18px;
-					margin-right: 11px;
+
+					@if $body-dir == rtl {
+						margin-right: 11px;
+					} @else {
+						margin-left: 11px;
+					}
 
 					span {
 						font-family: $medium-font;

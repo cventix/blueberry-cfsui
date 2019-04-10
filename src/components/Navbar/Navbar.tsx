@@ -20,11 +20,9 @@ import notifIcn from "../../images/navbarIcons/notif.svg";
 // styles
 import "./Navbar.scss";
 
-export default interface Iprops {
-	text: string;
-}
+export default interface Iprops {}
 
-export const Navbar = ({ text }: Iprops) => {
+export const Navbar = ({ }: Iprops) => {
 	const altIcn = 'Icon';
 	return (
 		<div className="navbar">
