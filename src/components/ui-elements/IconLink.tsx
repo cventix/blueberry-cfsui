@@ -6,7 +6,7 @@ import { Icon } from "./Icon";
 export default interface Iprops {
 	className?: string;
 	icon: string;
-	iconAlt: string;
+	iconAlt?: string;
 	label?: string;
 	to?: string;
 	onClick?: void;

@@ -1,11 +1,13 @@
 import * as React from "react";
 
-interface Iprops {
-  text: string;
+// styles
+import styles from "./Input.module.scss";
+
+export default interface Iprops { 
 }
 
-const Input: React.FunctionComponent<Iprops> = props => {
-  return <div>{props.text}</div>;
+export const Input = ({ }: Iprops) => {
+	return (
+		<input type="text" />
+	);
 };
-
-export default Input;

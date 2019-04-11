@@ -1,11 +1,12 @@
 import * as React from "react";
 
-interface Iprops {
-  text: string;
+// styles
+import styles from "./Tooltip.module.scss";
+
+export default interface Iprops {
+	children: string;
 }
 
-const Tooltip: React.FunctionComponent<Iprops> = props => {
-  return <div>{props.text}</div>;
+export const Tooltip: React.FunctionComponent<Iprops> = props => {
+	return <div className={styles.tooltip}>{props.children}</div>;
 };
-
-export default Tooltip;

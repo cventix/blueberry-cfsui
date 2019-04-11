@@ -24,10 +24,10 @@
 }
 
 /* button-theme */
-@mixin btn-theme($background, $btn-color, $border-color) {
+@mixin btn-theme($background, $btn-color, $border) {
 	background: $background;
 	color: $btn-color;
-	border: 1px solid $border-color;
+	border: $border;
 }
 
 /* transform */

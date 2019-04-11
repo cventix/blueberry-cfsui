@@ -1,11 +1,17 @@
 import * as React from "react";
 
-interface Iprops {
-  text: string;
+// styles
+import styles from "./Toast.module.scss";
+
+export default interface Iprops {
+	children: string;
+	type: string;
 }
 
-const Toast: React.FunctionComponent<Iprops> = props => {
-  return <div>{props.text}</div>;
+export const Toast: React.FunctionComponent<Iprops> = props => {
+	return <div 
+	className={props.type == 'success' ? `${styles.toast} ${styles.success}` : `${styles.toast} ${styles.error}`}
+	>
+		{props.children}
+	</div>;
 };
-
-export default Toast;

@@ -1,66 +1,158 @@
 @import "../../../styles/global";
 
+@mixin widthShadow {
+	@include box-shadow(0 1px 3px 0 rgba(0, 0, 0, 0.15));
+}
+
 .btn {
 	display: block;
-	font-family: $regular-font;
+	font-family: $medium-font;
 	cursor: pointer;
+	border: 0;
 	@include border-radius(3px);
 
-	&.btnDefault {
-		@include btn-theme(linear-gradient(to top, #f7f7f7, #fff), $text, null);
+	/* btn tyes */
 
-		&.btnDefaultOutline {
-			@include btn-theme(rgba(33, 211, 82, 0.1), $green, $green);
-		}	
+	/* default */
+	&.btnDefault100 {
+		@include btn-theme(#e0dfdf, $dk-gray, 0);
+		@include widthShadow;
+	}
+
+	&.btnDefault50 {
+		@include btn-theme(linear-gradient(to top, #e0dfdf, #f2f0f0), $dk-gray, 0);
+		@include widthShadow;
+	}
+
+	&.btnDefault0 {
+		@include btn-theme(linear-gradient(to top, #f7f7f7, #fff), $dk-gray, 0);
+		@include widthShadow;
+	}
+
+	&.btnDefaultOutline {
+		@include btn-theme(rgba(33, 211, 82, 0.1), $green, 1px solid $green);
 	}	
 
-	&.btnPrimary {
-		@include btn-theme(linear-gradient(to top, #2686f9, #4b9cfd), #fff, null);
+	/* primary */
+	&.btnPrimary100 {
+		@include btn-theme(#1c7cef, #fff, 0);
+		@include widthShadow;
+	}	
 
-		&.btnPrimaryOutline {
-			@include btn-theme(#fff, #4a90e2, $lt-blue);
-		}	
+	&.btnPrimary50 {
+		@include btn-theme(linear-gradient(to top, #1c7cef, #4192f3), #fff, 0);
+		@include widthShadow;
+	}	
+
+	&.btnPrimary0 {
+		@include btn-theme(linear-gradient(to top, #2686f9, #4b9cfd), #fff, 0);
+		@include widthShadow;
 	}
 
-	&.btnSuccess {
-		@include btn-theme(linear-gradient(to top, #2fd673, #3ae57c), #fff, null);
-
-		&.btnSuccessOutline {
-			@include btn-theme(rgba(33, 211, 82, 0.1), $green, $green);
-		}
+	&.btnPrimaryOutline {
+		@include btn-theme(#fff, #4a90e2, 1px solid $lt-blue);
 	}
 
-	&.btnDanger {
-		@include btn-theme(linear-gradient(to top, #f94926, #fd6b4b), #fff, null);
-
-		&.btnDangerOutline {
-			@include btn-theme(rgba(255, 71, 71, 0.1), $red, $red);
-		}
+	/* secondary */
+	&.btnSecondary {
+		@include btn-theme(#f1f2f3, #b3bcc5, 1px solid #e5e7e9);
 	}
 
-	&.btnWarning {
-		@include btn-theme(linear-gradient(to top, #f2bf27, #f8cb45), #fff, null);
+	/* success */
+	&.btnSuccess100 {
+		@include btn-theme(#25cc69, #fff, 0);
+		@include widthShadow;
+	}	
+
+	&.btnSuccess50 {
+		@include btn-theme(linear-gradient(to top, #25cc69, #30db72), #fff, 0);
+		@include widthShadow;
+	}	
+
+	&.btnSuccess0 {
+		@include btn-theme(linear-gradient(to top, #2fd673, #3ae57c), #fff, 0);
+		@include widthShadow;
 	}
 
+	&.btnSuccessOutline {
+		@include btn-theme(rgba(33, 211, 82, 0.1), $green, 1px solid $green);
+	}
+
+	/* danger */
+	&.btnDanger100 {
+		@include btn-theme(#ef3f1c, #fff, 0);
+		@include widthShadow;
+	}	
+
+	&.btnDanger50 {
+		@include btn-theme(linear-gradient(to top, #ef3f1c, #f36141), #fff, 0);
+		@include widthShadow;
+	}	
+
+	&.btnDanger0 {
+		@include btn-theme(linear-gradient(to top, #f94926, #fd6b4b), #fff, 0);
+		@include widthShadow;
+	}
+
+	&.btnDangerOutline {
+		@include btn-theme(rgba(255, 71, 71, 0.1), $red, 1px solid $red);
+	}
+
+	/* warning */
+	&.btnWarning100 {
+		@include btn-theme(#e8b51d, #fff, 0);
+		@include widthShadow;
+	}	
+
+	&.btnWarning50 {
+		@include btn-theme(linear-gradient(to top, #e8b51d, #eec13b), #fff, 0);
+		@include widthShadow;
+	}	
+
+	&.btnWarning0 {
+		@include btn-theme(linear-gradient(to top, #f2bf27, #f8cb45), #fff, 0);
+		@include widthShadow;
+	}
+
+	/* with extra radius */
 	&.btnExtraRadius {
 		@include border-radius(100px);
+	}	
+
+	&.btnCircle {
+		width: 50px;
+		height: 50px;
+		@include border-radius(50px);
 	}
 
-	/* btn size */
+	/* example: next and previous btn */
+	&.btnControl {
+		@include btn-theme(#aeb0ba, #fff, 0);
+	}
+
+	/* btn sizes */
 	&.btnSm {
 		width: 70px;
 		height: 35px;
-		@include box-shadow(0 1px 3px 0 rgba(0, 0, 0, 0.15))
+		line-height: 35px;
 	}
 
 	&.btnMd {
 		width: 120px;
 		height: 25px;
+		line-height: 25px;
 	}
 
 	&.btnLg {
 		width: 200px;
 		height: 35px;
-		@include box-shadow(0 1px 3px 0 rgba(0, 0, 0, 0.15))
+		line-height: 35px;
+		
+	}	
+
+	&.btnVlg {
+		width: 222px;
+		height: 50px;
+		line-height: 50;
 	}
 }

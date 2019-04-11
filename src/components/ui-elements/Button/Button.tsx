@@ -3,9 +3,25 @@ import * as React from "react";
 // styles
 import styles from "./Button.module.scss";
 
+export default interface Iprops { 
+	className?: object;
+	onClick?: any;
+	style?: object;
+	children?: any;
+}
 
-export default interface Iprops {}
+const classCreator = (className: any) => {
+	return className.map((name: any) => styles[name]).join(' ');
+};
 
-export const Button = ({ }: Iprops) => (
-	<button className="btn"></button>
-);
+export const Button : React.FunctionComponent<Iprops> = props => {
+	return (
+		<button
+		className={props.className ? `${styles.btn} ${classCreator(props.className)}` : `${styles.btn}`}
+		onClick={props.onClick}
+		style={props.style}
+		>
+			{props.children}
+		</button>
+	);
+};
