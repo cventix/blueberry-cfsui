@@ -98,7 +98,7 @@ class App extends Component {
       <div>
         <Navbar />
         <Sidebar />
-        <Main>content</Main>
+        <Main>CONTENT</Main>
       </div>
     );
   }

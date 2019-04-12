@@ -9,7 +9,7 @@
 	font-family: $medium-font;
 	cursor: pointer;
 	border: 0;
-	@include border-radius(3px);
+	@include border-radius($br-radius-sm);
 
 	/* btn tyes */
 
@@ -116,7 +116,7 @@
 
 	/* with extra radius */
 	&.btnExtraRadius {
-		@include border-radius(100px);
+		@include border-radius($br-radius-lg);
 	}	
 
 	&.btnCircle {

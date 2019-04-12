@@ -1,0 +1,122 @@
+@import "../../styles/global";
+$stepbar-color: #e8eaeb;
+
+.stepbar {
+	position: relative;
+
+	.stepsWrapper {
+		position: absolute;
+		list-style: none;
+
+		.step {
+			position: relative;
+			float: right;
+			width: 256px;
+			height: 3px;
+
+			.item {
+				display: block;
+				width: 230px;
+				text-align: center;
+
+				.circle {
+					display: block;
+					width: 25px;
+					height: 25px;
+					border: 3px solid $stepbar-color;
+					margin-top: -8px;
+					margin-right: auto;
+					margin-left: auto;
+
+					@include border-radius(50%);
+				}
+
+				.caption {
+					color: $lt-gray;
+					font-size: $font-size - 2;
+					line-height: 32px;
+				}
+			}
+
+			&:first-child {
+				.caption {
+					padding-right: 74px
+				}
+			}
+
+			&:last-child {
+				width: 0;
+
+				.caption {
+					padding-left: 94px;
+				}
+
+				&:after {
+					width: 0;
+				}
+			}
+
+			&:after {
+				content: '';
+				position: absolute;
+				top: 3px;
+				right: 127px;
+				width: 234px;
+				height: 3px;
+				background: $stepbar-color;
+			}
+
+			&.completed, &.current {
+
+				.item {
+					.circle {
+						border: 3px solid $lt-blue;
+						background: #fff;
+						background-clip: padding-box;
+
+						&:before {
+							content: '';
+							display: inline-block;
+							width: 11px;
+							height: 11px;
+							margin-top: 3.5px;
+							@include border-radius(50px);
+						}
+					}
+				}
+			}
+
+			&.completed {
+				.item {
+
+					.circle {
+
+						&:before {
+							background-color: $lt-blue;
+						}
+					}
+				}
+
+				&:after {
+					background-color: $lt-blue;
+				}
+			}
+
+			&.current {
+				.item {
+
+					.circle {
+
+						&:before {
+							background-color: $stepbar-color;
+						}
+					}
+
+					.caption {
+						font-family: $medium-font;
+					}
+				}
+			}
+		}
+	}
+}

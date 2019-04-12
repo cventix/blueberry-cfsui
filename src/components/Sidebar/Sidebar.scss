@@ -32,11 +32,31 @@
 			padding: 0 $default-padding;
 			overflow: auto;
 
+			.upFromUrl {
+				margin-bottom: 14px;
+				width: 200px;
+				height: 35px;
+				line-height: 35px;
+				background: #f7f7f7;
+				font-family: $medium-font;
+				cursor: pointer;
+				border: 0;
+
+				@include border-radius($br-radius-sm);
+				@if $body-dir == rtl {
+					padding-right: 11px;
+					text-align: right;
+				} @else {
+					padding-left: 11px;
+					text-align: left;
+				}
+			}
+
 			.iconLink {
+				
 				img {
 					width: 18px;
 					height: 18px;
-
 					@include margin-with-direction(12px);
 				}
 			}

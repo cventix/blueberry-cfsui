@@ -1,0 +1,56 @@
+@import "../../../../styles/global";
+
+.upgradeAccount {
+	position: relative;
+	padding: 9px 14px 0 14px;
+	margin-top: 58px;
+	margin-bottom: 30px;
+	height: 126px;
+	border: 1px solid #fae68e;
+	text-align: center;
+	cursor: pointer;
+	@include border-radius($br-radius-sm);
+
+	.percent, .deleteQus {
+		font-family: $light-font;
+	}
+
+	.deleteQus {
+		padding-bottom: 13px;
+		font-size: $font-size - 2;
+		color: $dk-gray;
+	}
+
+	.bottom {
+		position: absolute;
+		bottom: 0;
+		right: 0;
+		left: 0;
+		padding: 8px 24px;
+		height: 40px;
+		line-height: 24px;
+		background-color: #fae68e;
+		color: $dk-gray;
+		font-family: $medium-font;
+
+		span {
+			@if $body-dir == rtl {
+				float: right;
+				margin-left: 8px;
+			} @else {
+				float: left;
+				margin-right: 8px;
+			}
+		}
+
+		img {
+			width: 12px;
+			height: 10px;
+			margin-bottom: -3px;
+			@if $body-dir == ltr {
+				@include transform(rotate(180deg));
+			}
+		}
+	}
+}
+
