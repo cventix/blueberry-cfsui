@@ -10,7 +10,7 @@ interface Iprops {
   data?: string[];
 }
 
-export const Dropdown: React.SFC<Iprops> = ({ data, isOpen, onToggle }) => {
+export const Dropdown: React.FunctionComponent<Iprops> = ({ data, isOpen, onToggle }) => {
   return (
     <div className={styles.dropdownBox}>
       <button onClick={onToggle} className={styles.dpButton}>

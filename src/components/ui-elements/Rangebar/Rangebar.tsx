@@ -7,7 +7,7 @@ export default interface Iprops {
   updateRange?: (e: string) => void;
 }
 
-export const RangeBar: React.SFC<Iprops> = ({ value, width, updateRange }) => (
+export const RangeBar: React.FunctionComponent<Iprops> = ({ value, width, updateRange }) => (
   <div className={styles.styled_range}>
     <input
       type="range"

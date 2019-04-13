@@ -7,7 +7,7 @@ interface Iprops {
   onToggle?: (e: boolean) => void;
   className?: string;
 }
-const Toggle: React.SFC<Iprops> = ({
+const Toggle: React.FunctionComponent<Iprops> = ({
   checked,
   disabled,
   onToggle,

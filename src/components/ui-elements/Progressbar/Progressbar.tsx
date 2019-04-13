@@ -7,7 +7,7 @@ export default interface Iprops {
   width?: number;
 }
 
-export const Progressbar: React.SFC<Iprops> = ({
+export const Progressbar: React.FunctionComponent<Iprops> = ({
   value,
   error = false,
   width,

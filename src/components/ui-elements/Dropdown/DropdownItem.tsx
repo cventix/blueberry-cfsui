@@ -6,7 +6,7 @@ interface Iprops {
   index?: number;
 }
 
-export const DropdownItem: React.SFC<Iprops> = ({
+export const DropdownItem: React.FunctionComponent<Iprops> = ({
   label,
   link,
   index

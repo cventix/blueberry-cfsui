@@ -16,7 +16,7 @@ export default interface Iprops {
   checkAll?: boolean;
   onSort?: any;
 }
-export const Table: React.SFC<Iprops> = ({
+export const Table: React.FunctionComponent<Iprops> = ({
   table,
   dropdown,
   onCheckAll,

@@ -9,7 +9,7 @@ export default interface Iprops {
   checkAll?: boolean;
 }
 
-export const TableHeader: React.SFC<Iprops> = ({
+export const TableHeader: React.FunctionComponent<Iprops> = ({
   titles,
   dropdown,
   onSort,

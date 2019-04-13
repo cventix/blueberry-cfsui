@@ -15,7 +15,7 @@ export default interface Iprops {
   dropdown?: boolean;
 }
 
-export const Card: React.SFC<Iprops> = ({ item, checkbox, dropdown }) => {
+export const Card: React.FunctionComponent<Iprops> = ({ item, checkbox, dropdown }) => {
   return (
     <div className={styles.item}>
       <div className={styles.type}>

@@ -20,7 +20,7 @@ const splitter = (className: any) => {
   return className.map((cls: any) => styles[cls]).join(" ");
 };
 
-export const TableItem: React.SFC<Iprops> = ({
+export const TableItem: React.FunctionComponent<Iprops> = ({
   label,
   checkbox,
   name,

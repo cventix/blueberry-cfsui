@@ -10,7 +10,7 @@ export default interface Iprops {
   checkAll?: boolean;
 }
 
-export const Grid: React.SFC<Iprops> = ({ table, checkbox }) => {
+export const Grid: React.FunctionComponent<Iprops> = ({ table, checkbox }) => {
   return (
     <div className={styles.container}>
       {table.map((item: any, index: number) => {
