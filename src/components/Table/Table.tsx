@@ -86,7 +86,7 @@ export class Table extends React.Component<any, any> {
                         checkAll={this.state.checkAll}
                         className={k === "نام" ? ["show"] : [" "]}
                         checkbox={k === "نام" ? true : false}
-                        hasType={k === "نام" && img}
+                        hasType={k === "نام" && item["type"]}
                       />
                     );
                   }

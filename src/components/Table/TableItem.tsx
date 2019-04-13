@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 
 import styles from "./Table.module.scss";
+import { Icon } from "../ui-elements/Icon";
 
 export default interface Iprops {
   checkbox?: boolean;
@@ -43,7 +44,7 @@ export const TableItem = ({
             />
           </div>
         )}
-        {hasType && <img src={hasType} />}
+        {hasType && <Icon mimetype={hasType}/>}
         <div>{label}</div>
         {sortable && (
           <div className={styles.sort} onClick={() => onSort(label, sortType)}>
