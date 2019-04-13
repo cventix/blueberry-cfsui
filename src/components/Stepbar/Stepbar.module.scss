@@ -1,29 +1,39 @@
 @import "../../styles/global";
 $stepbar-color: #e8eaeb;
 
+@keyframes stepbar {
+	from {
+		opacity: 0.4;
+	}
+
+	to {
+		opacity: 1;
+	}
+}
+
 .stepbar {
 	position: relative;
 
 	.stepsWrapper {
 		position: absolute;
 		list-style: none;
-		width: 1180px;
+		width: 1100px;
 
-		@include margin-with-direction(-590px);
+		@include margin-with-direction(-550px);
 		@if $body-dir == 'rtl' {
 			left: 50%;
 		} @else {
 			right: 50%;
 		}
 
-		@media(min-width: $web-medium + 1) and (max-width: $web-medium-max) {
-			width: 640px;
-			@include margin-with-direction(-210px);
-		}		
+		@media(min-width: $web-medium + 1) and (max-width: $web-medium-max + 100) {
+			width: 720px;
+			@include margin-with-direction(-360px);
+		}
 
 		@media(min-width: $tablet - 200) and (max-width: $web-medium) {
-			width: 424px;
-			@include margin-with-direction(-164px);
+			width: 504px;
+			@include margin-with-direction(-252px);
 		}
 
 		@media(max-width: $tablet - 199) {
@@ -33,7 +43,7 @@ $stepbar-color: #e8eaeb;
 
 		.step {
 			position: relative;
-			width: 255px;
+			width: 235px;
 			height: 3px;
 
 			@if $body-dir == 'rtl' {
@@ -42,12 +52,12 @@ $stepbar-color: #e8eaeb;
 				float: left;
 			}
 
-			@media(min-width: $web-medium) and (max-width: $web-medium-max) {
-				width: 160px;
+			@media(min-width: $web-medium + 1) and (max-width: $web-medium-max + 100) {
+				width: 145px;
 			}
 
 			@media(min-width: $tablet - 200) and (max-width: $web-medium) {
-				width: 106px;
+				width: 101px;
 			}
 
 			@media(max-width: $tablet - 199) {
@@ -58,6 +68,10 @@ $stepbar-color: #e8eaeb;
 				display: block;
 				width: 160px;
 				text-align: center;
+
+				@media(min-width: $web-medium + 1) and (max-width: $web-medium-max + 100) {
+					width: 140px;
+				}
 
 				@media(min-width: $tablet - 200) and (max-width: $web-medium) {
 					width: 100px;
@@ -102,7 +116,7 @@ $stepbar-color: #e8eaeb;
 						padding-left: 62px;
 					}
 
-					@media(max-width: $web-medium) {
+					@media(max-width: $web-medium-max) {
 						padding-right: 0;
 						padding-left: 0;
 					}
@@ -116,20 +130,12 @@ $stepbar-color: #e8eaeb;
 				.caption {
 
 					@if $body-dir == 'rtl' {
-						margin-right: -89px;
-
-						@media(min-width: $web-medium + 1) and (max-width: $web-medium-max) {
-							margin-left: -23px;
-						}
+						margin-right: -100px;
 					} @else {
-						margin-left: -89px;
-
-						@media(min-width: $web-medium + 1) and (max-width: $web-medium-max) {
-							margin-right: -23px;
-						}
+						margin-left: -100px;
 					}
 
-					@media(max-width: $web-medium) {
+					@media(max-width: $web-medium-max + 100) {
 						margin-right: 0;
 						margin-left: 0;
 					}
@@ -144,20 +150,21 @@ $stepbar-color: #e8eaeb;
 				content: '';
 				position: absolute;
 				top: 3px;
-				width: 230px;
+				width: 210px;
 				height: 3px;
 				background: $stepbar-color;
 
 				@if $body-dir == 'rtl' {
-					right: 93px;
+					right: 92px;
 
-					@media(min-width: $web-medium) and (max-width: $web-medium-max) {
-						width: 135px;
+					@media(min-width: $web-medium + 1) and (max-width: $web-medium-max + 100) {
+						width: 120px;
+						right: 83px;
 					}
 
 					@media(min-width: $tablet - 200) and (max-width: $web-medium) {
-						right: 64px;
-						width: 80px;
+						right: 63px;
+						width: 76px;
 					}
 
 					@media(max-width: $tablet - 199) {
@@ -167,13 +174,14 @@ $stepbar-color: #e8eaeb;
 				} @else {
 					left: 93px;
 
-					@media(min-width: $web-medium) and (max-width: $web-medium-max) {
-						width: 135px;
+					@media(min-width: $web-medium + 1) and (max-width: $web-medium-max + 100) {
+						width: 120px;
+						left: 82px;
 					}
 
 					@media(min-width: $tablet - 200) and (max-width: $web-medium) {
-						left: 64px;
-						width: 80px;
+						left: 63px;
+						width: 76px;
 					}
 
 					@media(max-width: $tablet - 199) {
@@ -223,7 +231,8 @@ $stepbar-color: #e8eaeb;
 				.item {
 
 					.circle {
-
+						@include animation(stepbar 2s linear infinite);
+						
 						&:before {
 							background-color: $stepbar-color;
 						}

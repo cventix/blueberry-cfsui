@@ -1,5 +1,82 @@
 @import "../../../styles/global";
 
 .checkbox {
-	@include selectInput-theme(checkbox, disabled)
+	position: relative;
+	cursor: pointer;
+
+	> input {
+		position: absolute;
+		height: 0;
+		width: 0;
+		opacity: 0;
+		cursor: pointer;
+
+		&:checked ~ .checkmark {
+			background-color: $dk-blue;
+			border: 1px solid $dk-blue;
+			-webkit-transition: all 500ms;
+			transition: all 500ms;
+
+			&:after {
+				display: block;
+			};
+		}
+	}
+
+	.checkmark {
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 13px;
+		height: 13px;
+		background-color: #fff;
+		border: 0.8px solid $disabled-lt-gray;
+		@include border-radius(2.4px);
+
+		&:after {
+			content: '';
+			display: none;
+			position: absolute;
+			left: 3px;
+			width: 1px;
+			height: 5px;
+			padding: 1px;
+			border: solid #fff;
+			border-width: 0 1.5px 1.5px 0;
+			@include transform(rotate(45deg));
+		}
+	}
+
+	&.indeterminate {
+
+		.checkmark {
+
+			&:after {
+				left: 1.5px;
+				width: 5px;
+				top: 4.5px;
+				height: 0;
+				background-color: #fff;
+				border: 0;
+				@include transform(none);
+			}
+		}
+	}
+
+	&.disIndeterminate {
+		.checkmark {
+
+			&:after {
+
+			}
+		}	
+	}
+
+	&.disabled {
+		cursor: not-allowed;
+
+		.checkmark {
+			background-color: $disabled-dk-gray;
+		}
+	}
 }

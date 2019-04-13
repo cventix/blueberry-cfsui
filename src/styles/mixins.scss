@@ -23,6 +23,32 @@
 	flex-wrap: $wrap-status;
 }
 
+/* transform */
+@mixin transform($value) {
+	-webkit-transform: $value;
+	-moz-transform: $value;
+	-ms-transform: $value;
+	-o-transform: $value;
+	transform: $value;
+}
+
+/* animation */
+@mixin animation($value) {
+	-webkit-animation: $value;
+	-moz-animation: $value;  
+	-o-animation: $value;
+	animation: $value;    
+}
+
+/* changable margin with direction */
+@mixin margin-with-direction($value) {
+	@if $body-dir == rtl {
+		margin-left: $value;
+	} @else {
+		margin-right: $value;
+	}
+}
+
 /* button-theme */
 @mixin btn-theme($background, $btn-color, $border) {
 	background: $background;
@@ -45,25 +71,9 @@
 @mixin placeholder {
 }
 
-/* transform */
-@mixin transform($value) {
-	-webkit-transform: $value;
-	-moz-transform: $value;
-	-ms-transform: $value;
-	-o-transform: $value;
-}
 
-/* changable margin with direction */
-@mixin margin-with-direction($value) {
-	@if $body-dir == rtl {
-		margin-left: $value;
-	} @else {
-		margin-right: $value;
-	}
-}
-
-// selectInput-theme
-@mixin selectInput-theme($type, $className) {
+/* checkbox-radio-theme */
+@mixin checkbox-radio-theme($type, $className) {
 	width: 13px;
 	height: 13px;
 	border-width: 0.8px;
