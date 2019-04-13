@@ -21,7 +21,6 @@ export class Table extends React.Component<any, any> {
     this.state = {
       table: props.table,
       checkAll: false,
-      isOpen: false,
       data: ["one", "two", "three"]
     };
   }
