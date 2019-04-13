@@ -5,21 +5,30 @@ export default interface Iprops {
   value: number;
   error?: boolean;
   width?: number;
+  height?: number;
+  color?: string;
 }
 
-export const Progressbar: React.SFC<Iprops> = ({
+export const Progressbar: React.FunctionComponent<Iprops> = ({
   value,
   error = false,
   width,
-  ...props
+  height,
+  color
 }) => (
   <div className={styles.progressContainer}>
     <progress
       value={value}
       max={100}
-      style={{ width: width }}
+      style={{ width: width, height: height }}
       className={
-        error ? styles.red : value === 100 ? styles.green : styles.yellow
+        color
+          ? styles[color]
+          : error
+          ? styles.red
+          : value === 100
+          ? styles.green
+          : styles.yellow
       }
     />
   </div>
