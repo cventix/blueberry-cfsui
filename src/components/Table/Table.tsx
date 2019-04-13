@@ -94,10 +94,6 @@ export class Table extends React.Component<any, any> {
                 {dropdown && (
                   <td className={[styles.show, styles.left].join(" ")}>
                     <EnhancedDropdown
-                      optionSelected={this.state.optionSelected}
-                      onSelect={option =>
-                        this.setState({ optionSelected: option })
-                      }
                       data={this.state.data}
                     />
                   </td>
