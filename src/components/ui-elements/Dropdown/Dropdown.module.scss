@@ -12,9 +12,12 @@ $margin-top: -20px;
 
 .dropdownBox {
   position: relative;
+  max-width: 100px;
+
   .more {
     margin-top: $margin-top;
   }
+  
   .more::after {
     content: "...";
     font-size: $more-button-size;
