@@ -7,9 +7,9 @@ $stepbar-color: #e8eaeb;
 	.stepsWrapper {
 		position: absolute;
 		list-style: none;
-		width: 1024px;
+		width: 1180px;
 
-		@include margin-with-direction(-402px);
+		@include margin-with-direction(-590px);
 		@if $body-dir == 'rtl' {
 			left: 50%;
 		} @else {
@@ -33,7 +33,7 @@ $stepbar-color: #e8eaeb;
 
 		.step {
 			position: relative;
-			width: 256px;
+			width: 255px;
 			height: 3px;
 
 			@if $body-dir == 'rtl' {
@@ -44,7 +44,7 @@ $stepbar-color: #e8eaeb;
 
 			@media(min-width: $web-medium) and (max-width: $web-medium-max) {
 				width: 160px;
-			}			
+			}
 
 			@media(min-width: $tablet - 200) and (max-width: $web-medium) {
 				width: 106px;
@@ -56,7 +56,7 @@ $stepbar-color: #e8eaeb;
 
 			.item {
 				display: block;
-				width: 230px;
+				width: 160px;
 				text-align: center;
 
 				@media(min-width: $tablet - 200) and (max-width: $web-medium) {
@@ -75,7 +75,7 @@ $stepbar-color: #e8eaeb;
 					margin-top: -8px;
 					margin-right: auto;
 					margin-left: auto;
-					@include border-radius(50%);
+					@include border-radius(50px);
 				}
 
 				.caption {
@@ -97,9 +97,9 @@ $stepbar-color: #e8eaeb;
 				.caption {
 
 					@if $body-dir == 'rtl' {
-						padding-right: 74px;
+						padding-right: 62px;
 					} @else {
-						padding-left: 74px;
+						padding-left: 62px;
 					}
 
 					@media(max-width: $web-medium) {
@@ -116,22 +116,22 @@ $stepbar-color: #e8eaeb;
 				.caption {
 
 					@if $body-dir == 'rtl' {
-						padding-left: 94px;
+						margin-right: -89px;
 
 						@media(min-width: $web-medium + 1) and (max-width: $web-medium-max) {
-							padding-left: 74px;
+							margin-left: -23px;
 						}
 					} @else {
-						padding-right: 94px;
+						margin-left: -89px;
 
 						@media(min-width: $web-medium + 1) and (max-width: $web-medium-max) {
-							padding-right: 74px;
+							margin-right: -23px;
 						}
 					}
 
 					@media(max-width: $web-medium) {
-						padding-right: 0;
-						padding-left: 0;
+						margin-right: 0;
+						margin-left: 0;
 					}
 				}
 
@@ -144,15 +144,14 @@ $stepbar-color: #e8eaeb;
 				content: '';
 				position: absolute;
 				top: 3px;
-				width: 234px;
+				width: 230px;
 				height: 3px;
 				background: $stepbar-color;
 
 				@if $body-dir == 'rtl' {
-					right: 127px;
+					right: 93px;
 
 					@media(min-width: $web-medium) and (max-width: $web-medium-max) {
-						right: 128px;
 						width: 135px;
 					}
 
@@ -166,10 +165,9 @@ $stepbar-color: #e8eaeb;
 						width: 48px;
 					}
 				} @else {
-					left: 127px;
+					left: 93px;
 
 					@media(min-width: $web-medium) and (max-width: $web-medium-max) {
-						left: 128px;
 						width: 135px;
 					}
 

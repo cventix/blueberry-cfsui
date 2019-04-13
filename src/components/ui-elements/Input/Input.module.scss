@@ -1,2 +1,6 @@
 @import "../../../styles/global";
 
+.textInput {
+	@include input-theme;
+	padding: 8px 10px; 
+}

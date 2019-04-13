@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { Navbar } from "../../components/Navbar/Navbar";
 import { Sidebar } from "../../components/Sidebar/Sidebar";
 import { Stepbar } from "../../components/Stepbar/Stepbar";
+import { Input } from "../../components/ui-elements/Input/Input";
 import { Main } from "../../components/Main/Main";
 import "./App.css";
 
@@ -23,7 +24,8 @@ class App extends Component {
         <Navbar />
         <Sidebar />
         <Main>
-          <Stepbar steps={steps} currentStep={2}/>
+          <Stepbar steps={steps} currentStep={0} />
+         
         </Main>
       </div>
     );

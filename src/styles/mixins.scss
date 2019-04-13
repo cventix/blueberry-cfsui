@@ -30,6 +30,21 @@
 	border: $border;
 }
 
+/* input-theme */
+@mixin input-theme {
+	width: 200px;
+	height: 35px;
+	border: 1px solid $input-border;
+	background: #fff;
+	color: $input-color;
+	font-family: $regular-font;
+	@include border-radius($br-radius-sm);
+}
+
+/* placeholder */
+@mixin placeholder {
+}
+
 /* transform */
 @mixin transform($value) {
 	-webkit-transform: $value;
