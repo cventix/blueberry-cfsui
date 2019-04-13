@@ -1,6 +1,17 @@
 @import "../../styles/global";
+$header-padding: 0 1.85% 0 4.5%;
+$header-margin-bottom: 33px;
+$title-margin-bottom: 20px;
 
 .container {
   @include flex(row, wrap);
   position: relative;
+}
+
+.header {
+  padding: $header-padding;
+  margin-bottom: $header-margin-bottom;
+  .title {
+    margin-bottom: $title-margin-bottom;
+  }
 }

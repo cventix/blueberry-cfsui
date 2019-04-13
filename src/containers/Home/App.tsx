@@ -23,7 +23,7 @@ class App extends Component {
         <Navbar />
         <Sidebar />
         <Main>
-          <Stepbar steps={steps} currentStep={2}/>
+          <Content/>
         </Main>
       </div>
     );

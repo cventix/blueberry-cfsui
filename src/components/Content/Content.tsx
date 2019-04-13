@@ -1,9 +1,8 @@
 import React from "react";
 import { Table } from "../Table/Table";
 import { Grid } from "../Grid/Grid";
+import { GridHeader } from "../Grid/GridHeader";
 
-import styles from "./Content.module.scss";
-import { Hr } from "../ui-elements/Hr";
 
 const table = [
   {
@@ -98,13 +97,14 @@ export class Content extends React.Component<any, any> {
   };
 
   onCheckAll = () => {
+      console.log('hjh')
     this.setState({ checkAll: !this.state.checkAll });
   };
 
   public render() {
     return (
       <div>
-        {this.state.view === "table" ? (
+        {this.state.view === "grid" ? (
           <Table
             dropdown={true}
             onCheckAll={this.onCheckAll}
@@ -114,11 +114,10 @@ export class Content extends React.Component<any, any> {
           />
         ) : (
           <div>
-            <div className={styles.header}>
-              <div className={styles.title}>happy</div>
-              <Hr />
-            </div>
+           <GridHeader  onCheckAll={this.onCheckAll}
+              checkAll={this.state.checkAll}/>
             <Grid
+              checkbox={true}
               onCheckAll={this.onCheckAll}
               checkAll={this.state.checkAll}
               table={this.state.table}

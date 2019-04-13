@@ -33,7 +33,7 @@ export const Table: React.SFC<Iprops> = ({
       />
       <tbody>
         {table &&
-          table.map((item: any, i: any) => {
+          table.map((item: any, i: number) => {
             return (
               <tr key={i}>
                 {Object.keys(item).map((k, i) => {
