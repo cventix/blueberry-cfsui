@@ -7,17 +7,65 @@ $stepbar-color: #e8eaeb;
 	.stepsWrapper {
 		position: absolute;
 		list-style: none;
+		width: 1024px;
+
+		@include margin-with-direction(-402px);
+		@if $body-dir == 'rtl' {
+			left: 50%;
+		} @else {
+			right: 50%;
+		}
+
+		@media(min-width: $web-medium + 1) and (max-width: $web-medium-max) {
+			width: 640px;
+			@include margin-with-direction(-210px);
+		}		
+
+		@media(min-width: $tablet - 200) and (max-width: $web-medium) {
+			width: 424px;
+			@include margin-with-direction(-164px);
+		}
+
+		@media(max-width: $tablet - 199) {
+			width: 320px;
+			@include margin-with-direction(-159px);
+		}
 
 		.step {
 			position: relative;
-			float: right;
 			width: 256px;
 			height: 3px;
+
+			@if $body-dir == 'rtl' {
+				float: right;
+			} @else {
+				float: left;
+			}
+
+			@media(min-width: $web-medium) and (max-width: $web-medium-max) {
+				width: 160px;
+			}			
+
+			@media(min-width: $tablet - 200) and (max-width: $web-medium) {
+				width: 106px;
+			}
+
+			@media(max-width: $tablet - 199) {
+				width: 64px;
+			}
 
 			.item {
 				display: block;
 				width: 230px;
 				text-align: center;
+
+				@media(min-width: $tablet - 200) and (max-width: $web-medium) {
+					width: 100px;
+				}
+
+				@media(max-width: $tablet - 199) {
+					width: 68px;
+				}
 
 				.circle {
 					display: block;
@@ -29,26 +77,65 @@ $stepbar-color: #e8eaeb;
 					margin-left: auto;
 
 					@include border-radius(50%);
+
+					@media(max-width: $tablet - 199) {
+						width: 20px;
+						height: 20px;
+						margin-top: -6px;
+					}
 				}
 
 				.caption {
 					color: $lt-gray;
 					font-size: $font-size - 2;
 					line-height: 32px;
+
+					@media (max-width: $web-medium) {
+						line-height: 0;
+					}
 				}
 			}
 
 			&:first-child {
 				.caption {
-					padding-right: 74px
+
+					@if $body-dir == 'rtl' {
+						padding-right: 74px;
+					} @else {
+						padding-left: 74px;
+					}
+
+					@media(max-width: $web-medium) {
+						padding-right: 0;
+						padding-left: 0;
+					}
 				}
+
 			}
 
 			&:last-child {
 				width: 0;
 
 				.caption {
-					padding-left: 94px;
+
+					@if $body-dir == 'rtl' {
+						padding-left: 94px;
+
+						@media(min-width: $web-medium + 1) and (max-width: $web-medium-max) {
+							padding-left: 74px;
+						}
+					} @else {
+						padding-right: 94px;
+
+						@media(min-width: $web-medium + 1) and (max-width: $web-medium-max) {
+							padding-right: 74px;
+						}
+					}
+
+					@media(max-width: $web-medium) {
+						padding-right: 0;
+						padding-left: 0;
+					}
 				}
 
 				&:after {
@@ -60,10 +147,45 @@ $stepbar-color: #e8eaeb;
 				content: '';
 				position: absolute;
 				top: 3px;
-				right: 127px;
 				width: 234px;
 				height: 3px;
 				background: $stepbar-color;
+
+				@if $body-dir == 'rtl' {
+					right: 127px;
+
+					@media(min-width: $web-medium) and (max-width: $web-medium-max) {
+						right: 128px;
+						width: 135px;
+					}
+
+					@media(min-width: $tablet - 200) and (max-width: $web-medium) {
+						right: 64px;
+						width: 80px;
+					}
+
+					@media(max-width: $tablet - 199) {
+						right: 44px;
+						width: 44px;
+					}
+				} @else {
+					left: 127px;
+
+					@media(min-width: $web-medium) and (max-width: $web-medium-max) {
+						left: 128px;
+						width: 135px;
+					}
+
+					@media(min-width: $tablet - 200) and (max-width: $web-medium) {
+						left: 64px;
+						width: 80px;
+					}
+
+					@media(max-width: $tablet - 199) {
+						left: 44px;
+						width: 44px;
+					}
+				}
 			}
 
 			&.completed, &.current {
@@ -80,7 +202,14 @@ $stepbar-color: #e8eaeb;
 							width: 11px;
 							height: 11px;
 							margin-top: 3.5px;
+
 							@include border-radius(50px);
+							@media(max-width: $tablet - 199) {
+								width: 10px;
+								height: 10px;
+								margin-top: 0;
+								margin-bottom: 2px;
+							}
 						}
 					}
 				}
