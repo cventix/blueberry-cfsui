@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import styles from "./Grid.module.scss";
-import { Card } from "../ui-elements/Card/Card";
+import { Card } from "./Card/Card";
 
 export default interface Iprops {
   checkbox?: boolean;
@@ -16,7 +16,7 @@ export const Grid = ({ table, checkbox }: Iprops) => {
           <Card
             item={item}
             checkbox={true}
-            dropdown={index == 3 ? true : false}
+            dropdown={true}
           />
         );
       })}
