@@ -1,68 +1,67 @@
 /* border-radius */
 @mixin border-radius($radius) {
-	-webkit-border-radius: $radius;
-	-moz-border-radius: $radius;
-	border-radius: $radius;
+  -webkit-border-radius: $radius;
+  -moz-border-radius: $radius;
+  border-radius: $radius;
 }
 
 /* box-shadow */
 @mixin box-shadow($box-shadow) {
-	-webkit-box-shadow: $box-shadow;
-	-moz-box-shadow: $box-shadow;
-	box-shadow: $box-shadow;
+  -webkit-box-shadow: $box-shadow;
+  -moz-box-shadow: $box-shadow;
+  box-shadow: $box-shadow;
 }
 
 /* display flex */
 @mixin flex($direction, $wrap-status) {
-	display: -webkit-box; 
-	display: -moz-box;
-	display: -ms-flexbox;
-	display: -webkit-flex; 
-	display: flex;
-	flex-direction: $direction;
-	flex-wrap: $wrap-status;
+  display: -webkit-box;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+  flex-direction: $direction;
+  flex-wrap: $wrap-status;
 }
 
 /* button-theme */
 @mixin btn-theme($background, $btn-color, $border) {
-	background: $background;
-	color: $btn-color;
-	border: $border;
+  background: $background;
+  color: $btn-color;
+  border: $border;
 }
 
 /* transform */
 @mixin transform($value) {
-	-webkit-transform: $value;
-	-moz-transform: $value;
-	-ms-transform: $value;
-	-o-transform: $value;
+  -webkit-transform: $value;
+  -moz-transform: $value;
+  -ms-transform: $value;
+  -o-transform: $value;
 }
 
 /* changable margin with direction */
 @mixin margin-with-direction($value) {
-	@if $body-dir == rtl {
-		margin-left: $value;
-	} @else {
-		margin-right: $value;
-	}
+  @if $body-dir == rtl {
+    margin-left: $value;
+  } @else {
+    margin-right: $value;
+  }
 }
 
 // selectInput-theme
 @mixin selectInput-theme($type, $className) {
-	width: 13px;
-	height: 13px;
-	border-width: 0.8px;
-	border-style: solid;
+  width: 13px;
+  height: 13px;
+  border-width: 0.8px;
+  border-style: solid;
 
-	@if $type == checkbox {
-		@include border-radius(2.4px);
-	} @else if $type == radio {
-		@include border-radius(6.5px);
-	}
+  @if $type == checkbox {
+    @include border-radius(2.4px);
+  } @else if $type == radio {
+    @include border-radius(6.5px);
+  }
 
-	@if $className == disabled {
-		background-color: $disabled-dk-gray;
-		border-color: $disabled-lt-gray;
-	}
+  @if $className == disabled {
+    background-color: $disabled-dk-gray;
+    border-color: $disabled-lt-gray;
+  }
 }
-

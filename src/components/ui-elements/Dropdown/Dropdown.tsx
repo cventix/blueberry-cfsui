@@ -1,13 +1,13 @@
-import * as React from "react";
+import * as React from 'react'
 
-import DropdownItem from "./DropdownItem";
+import DropdownItem from './DropdownItem'
 
-import styles from "./Dropdown.module.scss";
+import styles from './Dropdown.module.scss'
 
 interface Iprops {
-  isOpen: boolean;
-  onToggle?: () => void;
-  data?: string[];
+  isOpen: boolean
+  onToggle?: () => void
+  data?: string[]
 }
 
 export const Dropdown: React.FunctionComponent<Iprops> = ({ data, isOpen, onToggle }) => {
@@ -20,12 +20,12 @@ export const Dropdown: React.FunctionComponent<Iprops> = ({ data, isOpen, onTogg
         <ul className={styles.dropdown}>
           {data &&
             data.map((item: any, i: number) => {
-              return <DropdownItem label={item} index={i} key={i} />;
+              return <DropdownItem label={item} index={i} key={i} />
             })}
         </ul>
       )}
     </div>
-  );
-};
+  )
+}
 
-export default Dropdown;
+export default Dropdown

@@ -1,131 +1,121 @@
-import React from "react";
-import { Table } from "../Table/Table";
-import { Grid } from "../Grid/Grid";
+import React from 'react'
+import { Table } from '../Table/Table'
+import { Grid } from '../Grid/Grid'
 
-import styles from "./Content.module.scss";
-import { Hr } from "../ui-elements/Hr";
+import styles from './Content.module.scss'
+import { Hr } from '../ui-elements/Hr'
 
 const table = [
   {
-    نام: "رزومه ها",
+    نام: 'رزومه ها',
     مالک: 10,
-    تاریخ: "sth",
+    تاریخ: 'sth',
     حجم: 444,
-    "-": "-",
-    type: "folder"
+    '-': '-',
+    type: 'folder',
   },
   {
-    نام: "عکس های شخصی",
+    نام: 'عکس های شخصی',
     مالک: 323,
-    تاریخ: "fdf",
+    تاریخ: 'fdf',
     حجم: 444231,
-    "-": "-",
-    type: "folder"
+    '-': '-',
+    type: 'folder',
   },
   {
-    نام: "موسیقی",
+    نام: 'موسیقی',
     مالک: 10,
-    تاریخ: "sth",
+    تاریخ: 'sth',
     حجم: 42323,
-    "-": "-",
-    type: "music"
+    '-': '-',
+    type: 'music',
   },
   {
-    نام: "رزومه",
+    نام: 'رزومه',
     مالک: 10,
-    تاریخ: "sth",
+    تاریخ: 'sth',
     حجم: 4234324,
-    "-": "-",
-    type: "folder"
+    '-': '-',
+    type: 'folder',
   },
   {
-    نام: "رزومه",
+    نام: 'رزومه',
     مالک: 323,
-    تاریخ: "fdf",
+    تاریخ: 'fdf',
     حجم: 21321,
-    "-": "-",
-    type: "folder"
+    '-': '-',
+    type: 'folder',
   },
   {
-    نام: "رزومه",
+    نام: 'رزومه',
     مالک: 10,
-    تاریخ: "sth",
+    تاریخ: 'sth',
     حجم: 5325,
-    "-": "-",
-    type: "video"
-  }
-];
+    '-': '-',
+    type: 'video',
+  },
+]
 
 export class Content extends React.Component<any, any> {
   constructor(props: any) {
-    super(props);
+    super(props)
     this.state = {
       table: table,
       checkAll: false,
-      view: "table"
-    };
+      view: 'table',
+    }
   }
 
   onSort = (sortBy: string, type: string) => {
-    let table = this.state.table;
+    let table = this.state.table
     switch (type) {
-      case "alphabet":
+      case 'alphabet':
         table &&
           table.sort((a: any, b: any) => {
             if (a[sortBy] < b[sortBy]) {
-              return -1;
+              return -1
             }
             if (a[sortBy] > b[sortBy]) {
-              return 1;
+              return 1
             }
-            return 0;
-          });
-        break;
+            return 0
+          })
+        break
       default:
         table &&
           table.sort((a: any, b: any) => {
-            if (this.state[sortBy] !== "ascending") {
-              this.setState({ [sortBy]: "ascending" });
-              return a[sortBy] - b[sortBy];
+            if (this.state[sortBy] !== 'ascending') {
+              this.setState({ [sortBy]: 'ascending' })
+              return a[sortBy] - b[sortBy]
             } else {
-              this.setState({ [sortBy]: "decending" });
-              return b[sortBy] - a[sortBy];
+              this.setState({ [sortBy]: 'decending' })
+              return b[sortBy] - a[sortBy]
             }
-          });
+          })
     }
 
-    this.setState({ table });
-  };
+    this.setState({ table })
+  }
 
   onCheckAll = () => {
-    this.setState({ checkAll: !this.state.checkAll });
-  };
+    this.setState({ checkAll: !this.state.checkAll })
+  }
 
   public render() {
     return (
       <div>
-        {this.state.view === "table" ? (
-          <Table
-            dropdown={true}
-            onCheckAll={this.onCheckAll}
-            checkAll={this.state.checkAll}
-            onSort={this.onSort}
-            table={this.state.table}
-          />
+        {this.state.view === 'table' ? (
+          <Table dropdown={true} onCheckAll={this.onCheckAll} checkAll={this.state.checkAll} onSort={this.onSort} table={this.state.table} />
         ) : (
           <div>
             <div className={styles.header}>
               <div className={styles.title}>happy</div>
               <Hr />
             </div>
-            <Grid
-              onCheckAll={this.onCheckAll}
-              checkAll={this.state.checkAll}
-              table={this.state.table}
-            />
+            <Grid onCheckAll={this.onCheckAll} checkAll={this.state.checkAll} table={this.state.table} />
           </div>
         )}
       </div>
-    );
+    )
   }
 }

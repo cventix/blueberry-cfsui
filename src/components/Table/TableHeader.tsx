@@ -1,43 +1,38 @@
-import React, { Component } from "react";
-import { TableItem } from "./TableItem";
+import React, { Component } from 'react'
+import { TableItem } from './TableItem'
 
 export default interface Iprops {
-  titles: any;
-  dropdown?: boolean;
-  onSort?: any;
-  onCheckAll?: any;
-  checkAll?: boolean;
+  titles: any
+  dropdown?: boolean
+  onSort?: any
+  onCheckAll?: any
+  checkAll?: boolean
 }
 
-export const TableHeader: React.FunctionComponent<Iprops> = ({
-  titles,
-  dropdown,
-  onSort,
-  onCheckAll
-}) => {
+export const TableHeader: React.FunctionComponent<Iprops> = ({ titles, dropdown, onSort, onCheckAll }) => {
   return (
     <thead>
       {titles && (
         <tr>
           {Object.keys(titles).map((label, i) => {
-            if (label !== "type") {
+            if (label !== 'type') {
               return (
                 <TableItem
                   key={i}
                   label={label}
-                  checkbox={label === "نام" ? true : false}
+                  checkbox={label === 'نام' ? true : false}
                   onCheckAll={onCheckAll}
                   sortable={true}
-                  sortType={label === "تاریخ" ? "alphabet" : " "}
+                  sortType={label === 'تاریخ' ? 'alphabet' : ' '}
                   onSort={onSort}
-                  className={label === "نام" ? ["header", "show"] : ["header"]}
+                  className={label === 'نام' ? ['header', 'show'] : ['header']}
                 />
-              );
+              )
             }
           })}
           {dropdown && <td />}
         </tr>
       )}
     </thead>
-  );
-};
+  )
+}
