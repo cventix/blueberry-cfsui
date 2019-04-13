@@ -10,67 +10,30 @@ import styles from "./Table.module.scss";
 const EnhancedDropdown = enhancer(Dropdown);
 
 export default interface Iprops {
-  table: object[];
+  table?: object[];
   dropdown?: boolean;
+  onCheckAll?: () => void;
+  checkAll?: boolean;
+  onSort?: any;
 }
-
-export class Table extends React.Component<Iprops, any> {
-  constructor(props: Iprops) {
-    super(props);
-    this.state = {
-      table: props.table,
-      checkAll: false
-    };
-  }
-
-  onSort = (sortBy: string, type: string) => {
-    let table = this.state.table;
-    switch (type) {
-      case "alphabet":
-        table &&
-          table.sort((a: any, b: any) => {
-            if (a[sortBy] < b[sortBy]) {
-              return -1;
-            }
-            if (a[sortBy] > b[sortBy]) {
-              return 1;
-            }
-            return 0;
-          });
-        break;
-      default:
-        table &&
-          table.sort((a: any, b: any) => {
-            if (this.state[sortBy] !== "ascending") {
-              this.setState({ [sortBy]: "ascending" });
-              return a[sortBy] - b[sortBy];
-            } else {
-              this.setState({ [sortBy]: "decending" });
-              return b[sortBy] - a[sortBy];
-            }
-          });
-    }
-
-    this.setState({ table });
-  };
-
-  oncheckAll = () => {
-    this.setState({ checkAll: !this.state.checkAll });
-  };
- 
-  public render() {
-    let { table, dropdown } = this.props;
-    return (
-      <table className={styles.table}>
-        <TableHeader
-          titles={table[0]}
-          dropdown={dropdown}
-          onSort={this.onSort}
-          checkAll={this.state.checkAll}
-          oncheckAll={this.oncheckAll}
-        />
-        <tbody>
-          {this.state.table.map((item: any, i: any) => {
+export const Table: React.SFC<Iprops> = ({
+  table,
+  dropdown,
+  onCheckAll,
+  checkAll,
+  onSort
+}) => {
+  return (
+    <table className={styles.table}>
+      <TableHeader
+        titles={table && table[0]}
+        dropdown={dropdown}
+        {...onCheckAll && { checkAll: checkAll, onCheckAll: onCheckAll }}
+        onSort={onSort}
+      />
+      <tbody>
+        {table &&
+          table.map((item: any, i: any) => {
             return (
               <tr key={i}>
                 {Object.keys(item).map((k, i) => {
@@ -80,7 +43,7 @@ export class Table extends React.Component<Iprops, any> {
                         name={k}
                         key={i}
                         label={item[k]}
-                        checkAll={this.state.checkAll}
+                        checkAll={checkAll}
                         className={k === "نام" ? ["show"] : [" "]}
                         checkbox={k === "نام" ? true : false}
                         hasType={k === "نام" && item["type"]}
@@ -96,8 +59,7 @@ export class Table extends React.Component<Iprops, any> {
               </tr>
             );
           })}
-        </tbody>
-      </table>
-    );
-  }
-}
+      </tbody>
+    </table>
+  );
+};

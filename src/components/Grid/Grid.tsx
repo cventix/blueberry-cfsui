@@ -6,6 +6,8 @@ export default interface Iprops {
   checkbox?: boolean;
   table: object[];
   isOpen?: boolean;
+  onCheckAll?: () => void;
+  checkAll?: boolean;
 }
 
 export const Grid: React.SFC<Iprops> = ({ table, checkbox }) => {

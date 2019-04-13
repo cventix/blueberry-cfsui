@@ -5,15 +5,15 @@ export default interface Iprops {
   titles: any;
   dropdown?: boolean;
   onSort?: any;
-  oncheckAll: any;
-  checkAll: boolean;
+  onCheckAll?: any;
+  checkAll?: boolean;
 }
 
 export const TableHeader: React.SFC<Iprops> = ({
   titles,
   dropdown,
   onSort,
-  oncheckAll
+  onCheckAll
 }) => {
   return (
     <thead>
@@ -26,7 +26,7 @@ export const TableHeader: React.SFC<Iprops> = ({
                   key={i}
                   label={label}
                   checkbox={label === "نام" ? true : false}
-                  oncheckAll={oncheckAll}
+                  onCheckAll={onCheckAll}
                   sortable={true}
                   sortType={label === "تاریخ" ? "alphabet" : " "}
                   onSort={onSort}

@@ -1,7 +1,7 @@
 import React, { Component } from "react";
+import { Icon } from "../ui-elements/Icon";
 
 import styles from "./Table.module.scss";
-import { Icon } from "../ui-elements/Icon";
 
 export default interface Iprops {
   checkbox?: boolean;
@@ -12,7 +12,7 @@ export default interface Iprops {
   sortType?: string;
   className?: any;
   hasType?: any;
-  oncheckAll?: any;
+  onCheckAll?: any;
   checkAll?: boolean;
 }
 
@@ -29,22 +29,23 @@ export const TableItem: React.SFC<Iprops> = ({
   sortType,
   className,
   hasType,
-  oncheckAll,
+  onCheckAll,
   checkAll
 }) => {
   return (
     <td
       data-label={name}
       className={className ? splitter(className) : " "}
-      {...(sortable && { onClick: () => onSort(label, sortType) })}
+      {...sortable && { onClick: () => onSort(label, sortType) }}
     >
       <div className={styles.flex_row}>
         {checkbox && (
           <div className={[styles.flex_row, styles.checkbox].join(" ")}>
             <input
               type="checkbox"
-              onChange={oncheckAll}
-              checked={checkAll ? true : false}
+              onChange={onCheckAll}
+              checked={checkAll}
+              defaultChecked={checkAll}
             />
           </div>
         )}
