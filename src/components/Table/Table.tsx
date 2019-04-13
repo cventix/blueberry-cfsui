@@ -3,7 +3,6 @@ import React, { Component } from "react";
 import { TableHeader } from "./TableHeader";
 import { TableItem } from "./TableItem";
 import Dropdown from "../ui-elements/Dropdown/Dropdown";
-import img from "../../images/typeIcons/icon-folder.svg";
 import { EnhanceDropdown as enhancer } from "../ui-elements/Dropdown/EnhanceDropdown";
 
 import styles from "./Table.module.scss";
@@ -11,17 +10,16 @@ import styles from "./Table.module.scss";
 const EnhancedDropdown = enhancer(Dropdown);
 
 export default interface Iprops {
-  table: any;
+  table: object[];
   dropdown?: boolean;
 }
 
-export class Table extends React.Component<any, any> {
+export class Table extends React.Component<Iprops, any> {
   constructor(props: Iprops) {
     super(props);
     this.state = {
       table: props.table,
-      checkAll: false,
-      data: ["one", "two", "three"]
+      checkAll: false
     };
   }
 
@@ -29,26 +27,28 @@ export class Table extends React.Component<any, any> {
     let table = this.state.table;
     switch (type) {
       case "alphabet":
-        table.sort((a: any, b: any) => {
-          if (a[sortBy] < b[sortBy]) {
-            return -1;
-          }
-          if (a[sortBy] > b[sortBy]) {
-            return 1;
-          }
-          return 0;
-        });
+        table &&
+          table.sort((a: any, b: any) => {
+            if (a[sortBy] < b[sortBy]) {
+              return -1;
+            }
+            if (a[sortBy] > b[sortBy]) {
+              return 1;
+            }
+            return 0;
+          });
         break;
       default:
-        table.sort((a: any, b: any) => {
-          if (this.state[sortBy] !== "ascending") {
-            this.setState({ [sortBy]: "ascending" });
-            return a[sortBy] - b[sortBy];
-          } else {
-            this.setState({ [sortBy]: "decending" });
-            return b[sortBy] - a[sortBy];
-          }
-        });
+        table &&
+          table.sort((a: any, b: any) => {
+            if (this.state[sortBy] !== "ascending") {
+              this.setState({ [sortBy]: "ascending" });
+              return a[sortBy] - b[sortBy];
+            } else {
+              this.setState({ [sortBy]: "decending" });
+              return b[sortBy] - a[sortBy];
+            }
+          });
     }
 
     this.setState({ table });
@@ -57,9 +57,7 @@ export class Table extends React.Component<any, any> {
   oncheckAll = () => {
     this.setState({ checkAll: !this.state.checkAll });
   };
-  onOpenDropdown = () => {
-    this.setState({ isOpen: !this.state.isOpen });
-  };
+ 
   public render() {
     let { table, dropdown } = this.props;
     return (
@@ -92,9 +90,7 @@ export class Table extends React.Component<any, any> {
                 })}
                 {dropdown && (
                   <td className={[styles.show, styles.left].join(" ")}>
-                    <EnhancedDropdown
-                      data={this.state.data}
-                    />
+                    <EnhancedDropdown data={["one", "two", "three"]} />
                   </td>
                 )}
               </tr>

@@ -12,7 +12,7 @@ export default interface Iprops {
   sortType?: string;
   className?: any;
   hasType?: any;
-  oncheckAll?  : any;
+  oncheckAll?: any;
   checkAll?: boolean;
 }
 
@@ -20,7 +20,7 @@ const splitter = (className: any) => {
   return className.map((cls: any) => styles[cls]).join(" ");
 };
 
-export const TableItem = ({
+export const TableItem: React.SFC<Iprops> = ({
   label,
   checkbox,
   name,
@@ -31,9 +31,13 @@ export const TableItem = ({
   hasType,
   oncheckAll,
   checkAll
-}: Iprops) => {
+}) => {
   return (
-    <td data-label={name} className={className ? splitter(className) : " "}>
+    <td
+      data-label={name}
+      className={className ? splitter(className) : " "}
+      {...(sortable && { onClick: () => onSort(label, sortType) })}
+    >
       <div className={styles.flex_row}>
         {checkbox && (
           <div className={[styles.flex_row, styles.checkbox].join(" ")}>
@@ -44,10 +48,10 @@ export const TableItem = ({
             />
           </div>
         )}
-        {hasType && <Icon mimetype={hasType}/>}
+        {hasType && <Icon mimetype={hasType} />}
         <div>{label}</div>
         {sortable && (
-          <div className={styles.sort} onClick={() => onSort(label, sortType)}>
+          <div className={styles.sort}>
             <span>▲</span>
             <span>▼</span>
           </div>

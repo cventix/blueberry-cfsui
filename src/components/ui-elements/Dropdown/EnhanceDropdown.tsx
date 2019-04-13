@@ -1,16 +1,16 @@
 import * as React from "react";
 
-interface MyProps {
+interface IProps {
   data: object;
 }
 
-interface MyState {
+interface IState {
   isOpen: boolean;
 }
 
 export const EnhanceDropdown = (ComposedComponent: any) =>
-  class extends React.Component<MyProps, MyState> {
-    constructor(props: MyProps) {
+  class extends React.Component<IProps, IState> {
+    constructor(props: IProps) {
       super(props);
       this.state = { isOpen: false };
       this.onToggle = this.onToggle.bind(this);

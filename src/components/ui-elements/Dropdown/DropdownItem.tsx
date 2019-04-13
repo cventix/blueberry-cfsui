@@ -3,13 +3,16 @@ import * as React from "react";
 interface Iprops {
   label: string;
   link?: string;
-  onSelect?: any;
   index?: number;
 }
 
-export const DropdownItem = ({ label, link, onSelect, index }: Iprops) => {
+export const DropdownItem: React.SFC<Iprops> = ({
+  label,
+  link,
+  index
+}) => {
   return (
-    <li onClick={() => onSelect(index)}>
+    <li>
       <a href={link}>{label} </a>
     </li>
   );

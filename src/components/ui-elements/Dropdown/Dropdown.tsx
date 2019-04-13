@@ -8,15 +8,9 @@ interface Iprops {
   isOpen: boolean;
   onToggle?: () => void;
   data?: string[];
-  onSelect?: (e: string) => void;
 }
 
-export const Dropdown: React.SFC<Iprops> = ({
-  data,
-  onSelect,
-  isOpen,
-  onToggle
-}) => {
+export const Dropdown: React.SFC<Iprops> = ({ data, isOpen, onToggle }) => {
   return (
     <div className={styles.dropdownBox}>
       <button onClick={onToggle} className={styles.dpButton}>
@@ -26,9 +20,7 @@ export const Dropdown: React.SFC<Iprops> = ({
         <ul className={styles.dropdown}>
           {data &&
             data.map((item: any, i: number) => {
-              return (
-                <DropdownItem label={item} onSelect={onSelect} index={i} key={i}/>
-              );
+              return <DropdownItem label={item} index={i} key={i} />;
             })}
         </ul>
       )}
