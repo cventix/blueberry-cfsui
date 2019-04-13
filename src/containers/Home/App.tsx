@@ -1,97 +1,12 @@
 import React, { Component } from "react";
-import logo from "./logo.svg";
 import { Navbar } from "../../components/Navbar/Navbar";
 import { Sidebar } from "../../components/Sidebar/Sidebar";
 import { Stepbar } from "../../components/Stepbar/Stepbar";
 import { Main } from "../../components/Main/Main";
 import "./App.css";
-import Table from "../../components/Table/Table";
-const table = [
-  {
-    id: 1,
-    number: 10,
-    name: "sth",
-    "some-other": "cxcxc",
-    "sth-number": 132048912849284
-  },
-  {
-    id: 2,
-    number: 323,
-    name: "fdf",
-    "some-other": "cxcxc",
-    "sth-number": 132048912849284
-  },
-  {
-    id: 1,
-    number: 10,
-    name: "sth",
-    "some-other": "cxcxc",
-    "sth-number": 132048912849284
-  },
-  {
-    id: 2,
-    number: 323,
-    name: "fdf",
-    "some-other": "cxcxc",
-    "sth-number": 132048912849284
-  },
-  {
-    id: 1,
-    number: 10,
-    name: "sth",
-    "some-other": "cxcxc",
-    "sth-number": 132048912849284
-  },
-  {
-    id: 2,
-    number: 323,
-    name: "fdf",
-    "some-other": "cxcxc",
-    "sth-number": 132048912849284
-  },
-  {
-    id: 1,
-    number: 10,
-    name: "sth",
-    "some-other": "cxcxc",
-    "sth-number": 132048912849284
-  },
-  {
-    id: 2,
-    number: 323,
-    name: "fdf",
-    "some-other": "cxcxc",
-    "sth-number": 132048912849284
-  },
-  {
-    id: 1,
-    number: 10,
-    name: "sth",
-    "some-other": "cxcxc",
-    "sth-number": 132048912849284
-  },
-  {
-    id: 2,
-    number: 323,
-    name: "fdf",
-    "some-other": "cxcxc",
-    "sth-number": 132048912849284
-  },
-  {
-    id: 1,
-    number: 10,
-    name: "sth",
-    "some-other": "cxcxc",
-    "sth-number": 132048912849284
-  },
-  {
-    id: 2,
-    number: 323,
-    name: "fdf",
-    "some-other": "cxcxc",
-    "sth-number": 132048912849284
-  }
-];
+
+import { Content } from "../../components/Content/Content";
+import { Table } from "../../components/Table/Table";
 
 const steps = [
   'انتخاب سیستم عامل',

@@ -1,23 +1,21 @@
 import React, { Component } from "react";
 import styles from "./Grid.module.scss";
-import { Card } from "../ui-elements/Card/Card";
+import { Card } from "./Card/Card";
 
 export default interface Iprops {
   checkbox?: boolean;
-  table: any;
+  table: object[];
   isOpen?: boolean;
+  onCheckAll?: () => void;
+  checkAll?: boolean;
 }
 
-export const Grid = ({ table, checkbox }: Iprops) => {
+export const Grid: React.SFC<Iprops> = ({ table, checkbox }) => {
   return (
     <div className={styles.container}>
       {table.map((item: any, index: number) => {
         return (
-          <Card
-            item={item}
-            checkbox={true}
-            dropdown={index == 3 ? true : false}
-          />
+          <Card key={index} item={item} checkbox={checkbox} dropdown={true} />
         );
       })}
     </div>

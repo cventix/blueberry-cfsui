@@ -6,20 +6,22 @@ import styles from "./Dropdown.module.scss";
 
 interface Iprops {
   isOpen: boolean;
-  handleChange?: any;
+  onToggle?: () => void;
+  data?: string[];
 }
 
-export const Dropdown = ({ isOpen, handleChange }: Iprops) => {
+export const Dropdown: React.SFC<Iprops> = ({ data, isOpen, onToggle }) => {
   return (
     <div className={styles.dropdownBox}>
-      <button onClick={handleChange} className={styles.dpButton}>
+      <button onClick={onToggle} className={styles.dpButton}>
         <div className={styles.more} />
       </button>
       {isOpen && (
         <ul className={styles.dropdown}>
-          <DropdownItem label={"one"} />
-          <DropdownItem label={"two"} />
-          <DropdownItem label={"three"} />
+          {data &&
+            data.map((item: any, i: number) => {
+              return <DropdownItem label={item} index={i} key={i} />;
+            })}
         </ul>
       )}
     </div>

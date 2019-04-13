@@ -5,7 +5,6 @@
 	margin-top: $navbar-height;
 	padding-top: $default-padding + 10;
 	padding-bottom: 2 * $default-padding;
-	overflow: hidden;
 	z-index: 10;
 
 	@if $body-dir == rtl {

@@ -5,9 +5,16 @@ export default interface Iprops {
   titles: any;
   dropdown?: boolean;
   onSort?: any;
+  onCheckAll?: any;
+  checkAll?: boolean;
 }
 
-export const TableHeader = ({ titles, dropdown, onSort }: Iprops) => {
+export const TableHeader: React.SFC<Iprops> = ({
+  titles,
+  dropdown,
+  onSort,
+  onCheckAll
+}) => {
   return (
     <thead>
       {titles && (
@@ -19,10 +26,11 @@ export const TableHeader = ({ titles, dropdown, onSort }: Iprops) => {
                   key={i}
                   label={label}
                   checkbox={label === "نام" ? true : false}
+                  onCheckAll={onCheckAll}
                   sortable={true}
                   sortType={label === "تاریخ" ? "alphabet" : " "}
                   onSort={onSort}
-                  className={label === "نام" ? ['header','show'] : ['header']}
+                  className={label === "نام" ? ["header", "show"] : ["header"]}
                 />
               );
             }

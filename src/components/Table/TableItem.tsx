@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { Icon } from "../ui-elements/Icon";
 
 import styles from "./Table.module.scss";
 
@@ -11,13 +12,15 @@ export default interface Iprops {
   sortType?: string;
   className?: any;
   hasType?: any;
+  onCheckAll?: any;
+  checkAll?: boolean;
 }
 
 const splitter = (className: any) => {
   return className.map((cls: any) => styles[cls]).join(" ");
 };
 
-export const TableItem = ({
+export const TableItem: React.SFC<Iprops> = ({
   label,
   checkbox,
   name,
@@ -25,20 +28,31 @@ export const TableItem = ({
   onSort,
   sortType,
   className,
-  hasType
-}: Iprops) => {
+  hasType,
+  onCheckAll,
+  checkAll
+}) => {
   return (
-    <td data-label={name} className={className ? splitter(className) : " "}>
+    <td
+      data-label={name}
+      className={className ? splitter(className) : " "}
+      {...sortable && { onClick: () => onSort(label, sortType) }}
+    >
       <div className={styles.flex_row}>
         {checkbox && (
           <div className={[styles.flex_row, styles.checkbox].join(" ")}>
-            <input type="checkbox" />
+            <input
+              type="checkbox"
+              onChange={onCheckAll}
+              checked={checkAll}
+              defaultChecked={checkAll}
+            />
           </div>
         )}
-        {hasType && <img src={hasType} />}
+        {hasType && <Icon mimetype={hasType} />}
         <div>{label}</div>
         {sortable && (
-          <div className={styles.sort} onClick={() => onSort(label, sortType)}>
+          <div className={styles.sort}>
             <span>▲</span>
             <span>▼</span>
           </div>

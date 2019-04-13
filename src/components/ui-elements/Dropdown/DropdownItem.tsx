@@ -3,9 +3,14 @@ import * as React from "react";
 interface Iprops {
   label: string;
   link?: string;
+  index?: number;
 }
 
-export const DropdownItem = ({ label, link }: Iprops) => {
+export const DropdownItem: React.SFC<Iprops> = ({
+  label,
+  link,
+  index
+}) => {
   return (
     <li>
       <a href={link}>{label} </a>

@@ -5,18 +5,19 @@ $icon-length: 60px;
 $margin: 13px;
 $background-white: #fff;
 $side-length: 10px;
-$margin:4px;
+$margin: 4px;
+$date-font-size: 10px;
 
 .item {
   @include box-shadow(0 1px 2px 0 rgba(0, 0, 0, 0.1));
   @include border-radius(2.6px);
   @include flex(column, wrap);
 
-  width: $box-length;
+  min-width: $box-length;
   height: $box-length;
   position: relative;
   background-color: $background-white;
-  margin: 4px;
+  margin: $box-length / 10;
   flex: 0 1 calc(16% - 8px);
   justify-content: center;
   align-items: center;
@@ -35,14 +36,22 @@ $margin:4px;
     position: absolute;
     bottom: $side-length;
     left: $side-length;
+  }
 
-   
+  .info {
+    @include flex(column, wrap);
+    justify-content: center;
+    align-items: center;
+    .date {
+      font-family: "vazir-light";
+      font-size: $date-font-size;
+    }
   }
 
   .type,
   img {
     width: $icon-length;
     height: $icon-length;
-    margin-bottom: $margin;
+    margin-top: -$margin * 2;
   }
 }

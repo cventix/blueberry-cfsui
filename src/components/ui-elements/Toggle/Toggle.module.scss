@@ -1,10 +1,12 @@
-@import "../../../style/colors.scss";
+@import "../../../styles/global.scss";
 
-$height: 40px;
-$width: 70px;
+$height: 24px;
+$width: 40px;
+
 .switch {
   position: relative;
   display: inline-block;
+  cursor: pointer;
   width: $width;
   height: $height;
   input[type="checkbox"] {
@@ -12,6 +14,65 @@ $width: 70px;
   }
   input:checked + .knob {
     animation: colorChange 0.4s linear forwards;
+  }
+  input:checked + .knob:before {
+    animation: turnON 0.4s linear forwards;
+  }
+}
+
+.toggle-sm {
+  .switch {
+    $width: $width / 2;
+    $height: $height / 2;
+    width: $width;
+    height: $height;
+    .knob:before {
+      left: -$height * 0.48;
+      top: $height * 0.2;
+      width: ($height * 0.6);
+      height: ($height * 0.6);
+    }
+  }
+}
+.knob {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  border-radius: $height;
+  :before {
+    position: absolute;
+    background-color: white;
+    content: "";
+    left: $height * 0.18;
+    top: $height * 0.2;
+    width: ($height * 0.6);
+    height: ($height * 0.6);
+    border-radius: 50%;
+  }
+}
+
+.knob:before {
+  position: absolute;
+  background-color: white;
+  content: "";
+  left: $height * 0.18;
+  top: $height * 0.2;
+  width: ($height * 0.6);
+  height: ($height * 0.6);
+  border-radius: 50%;
+}
+
+.gray {
+  position: relative;
+  display: inline-block;
+  opacity: 0.3;
+  width: $width;
+  height: $height;
+  input[type="checkbox"] {
+    display: none;
   }
   input:checked + .knob:before {
     animation: turnON 0.4s linear forwards;
@@ -36,40 +97,5 @@ $width: 70px;
   to {
     transform: translateX($width - ($height * 0.99));
     box-shadow: -10px 0px 44px 0px #434343;
-  }
-}
-
-.knob {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: #ccc;
-  border-radius: $height;
-}
-
-.knob:before {
-  position: absolute;
-  background-color: white;
-  content: "";
-  left: $height * 0.18;
-  top: $height * 0.14;
-  width: ($height * 0.7);
-  height: ($height * 0.7);
-  border-radius: 50%;
-}
-
-.gray {
-  position: relative;
-  display: inline-block;
-  opacity: 0.3;
-  width: $width;
-  height: $height;
-  input[type="checkbox"] {
-    display: none;
-  }
-  input:checked + .knob:before {
-    animation: turnON 0.4s linear forwards;
   }
 }
