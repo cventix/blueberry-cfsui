@@ -18,7 +18,7 @@ export const UpgradeAccount = ({ percent = 70 }: Iprops) => {
 	return (
 		<div className={styles.upgradeAccount}>
 			<div className={styles.percent}>٪{`${percent}`} از حجم شما استفاده شده</div>
-			<Progressbar value={percent} height={8} color={'green'}/>
+			<div className={styles.progressbar}><Progressbar value={percent} height={8} color={'green'}/></div>
 			<span className={styles.deleteQus}>می‌خواهید فایل‌هایتان حذف نشود؟</span>
 			<IconLink icon={arrowLeftIcn} className={styles.bottom} iconAlt="arrow-left" label="ارتقاء حساب میزبانی"/>
 		</div>
