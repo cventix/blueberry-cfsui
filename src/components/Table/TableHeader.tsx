@@ -5,9 +5,11 @@ export default interface Iprops {
   titles: any;
   dropdown?: boolean;
   onSort?: any;
+  oncheckAll: any;
+  checkAll: boolean;
 }
 
-export const TableHeader = ({ titles, dropdown, onSort }: Iprops) => {
+export const TableHeader = ({ titles, dropdown, onSort, oncheckAll }: Iprops) => {
   return (
     <thead>
       {titles && (
@@ -19,6 +21,7 @@ export const TableHeader = ({ titles, dropdown, onSort }: Iprops) => {
                   key={i}
                   label={label}
                   checkbox={label === "نام" ? true : false}
+                  oncheckAll={oncheckAll}
                   sortable={true}
                   sortType={label === "تاریخ" ? "alphabet" : " "}
                   onSort={onSort}

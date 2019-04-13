@@ -4,8 +4,11 @@ import { TableHeader } from "./TableHeader";
 import { TableItem } from "./TableItem";
 import Dropdown from "../ui-elements/Dropdown/Dropdown";
 import img from "../../images/typeIcons/icon-folder.svg";
+import { EnhanceDropdown as enhancer } from "../ui-elements/Dropdown/EnhanceDropdown";
 
 import styles from "./Table.module.scss";
+
+const EnhancedDropdown = enhancer(Dropdown);
 
 export default interface Iprops {
   table: any;
@@ -16,7 +19,10 @@ export class Table extends React.Component<any, any> {
   constructor(props: Iprops) {
     super(props);
     this.state = {
-      table: props.table
+      table: props.table,
+      checkAll: false,
+      isOpen: false,
+      data: ["one", "two", "three"]
     };
   }
 
@@ -49,6 +55,12 @@ export class Table extends React.Component<any, any> {
     this.setState({ table });
   };
 
+  oncheckAll = () => {
+    this.setState({ checkAll: !this.state.checkAll });
+  };
+  onOpenDropdown = () => {
+    this.setState({ isOpen: !this.state.isOpen });
+  };
   public render() {
     let { table, dropdown } = this.props;
     return (
@@ -57,6 +69,8 @@ export class Table extends React.Component<any, any> {
           titles={table[0]}
           dropdown={dropdown}
           onSort={this.onSort}
+          checkAll={this.state.checkAll}
+          oncheckAll={this.oncheckAll}
         />
         <tbody>
           {this.state.table.map((item: any, i: any) => {
@@ -69,7 +83,8 @@ export class Table extends React.Component<any, any> {
                         name={k}
                         key={i}
                         label={item[k]}
-                        className={k === "نام" ? ['show'] : [' ']}
+                        checkAll={this.state.checkAll}
+                        className={k === "نام" ? ["show"] : [" "]}
                         checkbox={k === "نام" ? true : false}
                         hasType={k === "نام" && img}
                       />
@@ -77,8 +92,14 @@ export class Table extends React.Component<any, any> {
                   }
                 })}
                 {dropdown && (
-                  <td className={[styles.show,styles.left].join(" ")}>
-                    <Dropdown isOpen={false} />
+                  <td className={[styles.show, styles.left].join(" ")}>
+                    <EnhancedDropdown
+                      optionSelected={this.state.optionSelected}
+                      onSelect={option =>
+                        this.setState({ optionSelected: option })
+                      }
+                      data={this.state.data}
+                    />
                   </td>
                 )}
               </tr>

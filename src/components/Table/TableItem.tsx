@@ -11,6 +11,8 @@ export default interface Iprops {
   sortType?: string;
   className?: any;
   hasType?: any;
+  oncheckAll?  : any;
+  checkAll?: boolean;
 }
 
 const splitter = (className: any) => {
@@ -25,14 +27,20 @@ export const TableItem = ({
   onSort,
   sortType,
   className,
-  hasType
+  hasType,
+  oncheckAll,
+  checkAll
 }: Iprops) => {
   return (
     <td data-label={name} className={className ? splitter(className) : " "}>
       <div className={styles.flex_row}>
         {checkbox && (
           <div className={[styles.flex_row, styles.checkbox].join(" ")}>
-            <input type="checkbox" />
+            <input
+              type="checkbox"
+              onChange={oncheckAll}
+              checked={checkAll ? true : false}
+            />
           </div>
         )}
         {hasType && <img src={hasType} />}
