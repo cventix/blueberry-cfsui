@@ -28,7 +28,7 @@ $stepbar-color: #e8eaeb;
 
 		@media(max-width: $tablet - 199) {
 			width: 320px;
-			@include margin-with-direction(-159px);
+			@include margin-with-direction(-160px);
 		}
 
 		.step {
@@ -51,7 +51,7 @@ $stepbar-color: #e8eaeb;
 			}
 
 			@media(max-width: $tablet - 199) {
-				width: 64px;
+				width: 73.75px;
 			}
 
 			.item {
@@ -64,7 +64,7 @@ $stepbar-color: #e8eaeb;
 				}
 
 				@media(max-width: $tablet - 199) {
-					width: 68px;
+					width: 25px;
 				}
 
 				.circle {
@@ -75,14 +75,7 @@ $stepbar-color: #e8eaeb;
 					margin-top: -8px;
 					margin-right: auto;
 					margin-left: auto;
-
 					@include border-radius(50%);
-
-					@media(max-width: $tablet - 199) {
-						width: 20px;
-						height: 20px;
-						margin-top: -6px;
-					}
 				}
 
 				.caption {
@@ -92,6 +85,10 @@ $stepbar-color: #e8eaeb;
 
 					@media (max-width: $web-medium) {
 						line-height: 0;
+					}
+
+					@media(max-width: $tablet - 199) {
+						display: none;
 					}
 				}
 			}
@@ -165,8 +162,8 @@ $stepbar-color: #e8eaeb;
 					}
 
 					@media(max-width: $tablet - 199) {
-						right: 44px;
-						width: 44px;
+						right: 25px;
+						width: 48px;
 					}
 				} @else {
 					left: 127px;
@@ -182,8 +179,8 @@ $stepbar-color: #e8eaeb;
 					}
 
 					@media(max-width: $tablet - 199) {
-						left: 44px;
-						width: 44px;
+						left: 25px;
+						width: 48px;
 					}
 				}
 			}
@@ -202,14 +199,7 @@ $stepbar-color: #e8eaeb;
 							width: 11px;
 							height: 11px;
 							margin-top: 3.5px;
-
 							@include border-radius(50px);
-							@media(max-width: $tablet - 199) {
-								width: 10px;
-								height: 10px;
-								margin-top: 0;
-								margin-bottom: 2px;
-							}
 						}
 					}
 				}
