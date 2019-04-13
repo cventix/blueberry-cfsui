@@ -13,6 +13,6 @@ export const formatBytes = (bytes: number = 0,toFixed :number = 2): string => {
     bytes /= 1024;
     unit++;
   }
-  
-  return `${bytes.toFixed(toFixed)} ${units[unit]}`;
+
+  return `${parseFloat(bytes.toFixed(toFixed).toString())} ${units[unit]}`;
 };

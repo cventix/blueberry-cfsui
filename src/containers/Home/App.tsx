@@ -4,91 +4,57 @@ import { Navbar } from "../../components/Navbar/Navbar";
 import { Sidebar } from "../../components/Sidebar/Sidebar";
 import { Main } from "../../components/Main/Main";
 import "./App.css";
-import Table from "../../components/Table/Table";
+import { Table } from "../../components/Table/Table";
+import { Grid } from "../../components/Grid/Grid";
+
 const table = [
   {
-    id: 1,
-    number: 10,
-    name: "sth",
-    "some-other": "cxcxc",
-    "sth-number": 132048912849284
+    نام: 'رزومه ها',
+    مالک: 10,
+    تاریخ: "sth",
+    حجم:444,
+    "-": "-",
+    type: "folder"
   },
   {
-    id: 2,
-    number: 323,
-    name: "fdf",
-    "some-other": "cxcxc",
-    "sth-number": 132048912849284
+    نام: 'عکس های شخصی',
+    مالک: 323,
+    تاریخ: "fdf",
+    حجم:444231,
+    "-": "-",
+    type: "folder"
   },
   {
-    id: 1,
-    number: 10,
-    name: "sth",
-    "some-other": "cxcxc",
-    "sth-number": 132048912849284
+    نام: 'موسیقی',
+    مالک: 10,
+    تاریخ: "sth",
+    حجم:42323,
+    "-": "-",
+    type: "music"
   },
   {
-    id: 2,
-    number: 323,
-    name: "fdf",
-    "some-other": "cxcxc",
-    "sth-number": 132048912849284
+    نام: 'رزومه',
+    مالک: 10,
+    تاریخ: "sth",
+    حجم: 4234324,
+    "-": "-",
+    type: "folder"
   },
   {
-    id: 1,
-    number: 10,
-    name: "sth",
-    "some-other": "cxcxc",
-    "sth-number": 132048912849284
+    نام: 'رزومه',
+    مالک: 323,
+    تاریخ: "fdf",
+    حجم:21321,
+    "-": "-",
+    type: "folder"
   },
   {
-    id: 2,
-    number: 323,
-    name: "fdf",
-    "some-other": "cxcxc",
-    "sth-number": 132048912849284
-  },
-  {
-    id: 1,
-    number: 10,
-    name: "sth",
-    "some-other": "cxcxc",
-    "sth-number": 132048912849284
-  },
-  {
-    id: 2,
-    number: 323,
-    name: "fdf",
-    "some-other": "cxcxc",
-    "sth-number": 132048912849284
-  },
-  {
-    id: 1,
-    number: 10,
-    name: "sth",
-    "some-other": "cxcxc",
-    "sth-number": 132048912849284
-  },
-  {
-    id: 2,
-    number: 323,
-    name: "fdf",
-    "some-other": "cxcxc",
-    "sth-number": 132048912849284
-  },
-  {
-    id: 1,
-    number: 10,
-    name: "sth",
-    "some-other": "cxcxc",
-    "sth-number": 132048912849284
-  },
-  {
-    id: 2,
-    number: 323,
-    name: "fdf",
-    "some-other": "cxcxc",
-    "sth-number": 132048912849284
+    نام: 'رزومه',
+    مالک: 10,
+    تاریخ: "sth",
+    حجم:5325,
+    "-": "-",
+    type: "video"
   }
 ];
 
@@ -98,7 +64,7 @@ class App extends Component {
       <div>
         <Navbar />
         <Sidebar />
-        <Main>content</Main>
+        <Main><Grid table={table}/></Main>
       </div>
     );
   }
