@@ -2,9 +2,9 @@ import React from "react";
 import styles from "./Rangebar.module.scss";
 
 export default interface Iprops {
-  value?: number;
+  value?: string;
   width?: number;
-  updateRange?: void;
+  updateRange?: (e: string) => void;
 }
 
 export const RangeBar: React.SFC<Iprops> = ({ value, width, updateRange }) => (
@@ -19,7 +19,8 @@ export const RangeBar: React.SFC<Iprops> = ({ value, width, updateRange }) => (
       type="range"
       className={styles.thumb_range}
       style={{ width: width }}
-      value={value}
+      defaultValue={value}
+      {...updateRange && { onChange: e => updateRange(e.target.value) }}
     />
   </div>
 );
