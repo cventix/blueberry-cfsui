@@ -3,7 +3,8 @@ import { Navbar } from "../../components/Navbar/Navbar";
 import { Sidebar } from "../../components/Sidebar/Sidebar";
 import { Stepbar } from "../../components/Stepbar/Stepbar";
 import { Main } from "../../components/Main/Main";
-import { TextInput } from "../../components/ui-elements/Input/Input";
+import { Checkbox } from "../../components/ui-elements/Checkbox/Checkbox";
+import { Radio } from "../../components/ui-elements/Radio/Radio";
 import "./App.css";
 
 import { Content } from "../../components/Content/Content";
@@ -25,7 +26,8 @@ class App extends Component {
         <Navbar />
         <Sidebar />
         <Main>
-        
+        <Checkbox  type="indeterminate" disabled={true} checked={true}/>
+
         
         </Main>
       </div>
