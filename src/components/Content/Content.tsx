@@ -7,6 +7,7 @@ import { Breadcrumb } from "../ui-elements/Breadcrumb/Breadcrumb";
 import { Button } from "../ui-elements/Button/Button";
 import { IconLink } from "../ui-elements/IconLink";
 import arrowLeft from "../../images/arrow-left.svg";
+import arrowLeftGray from "../../images/arrow-left-gray.svg";
 
 import styles from "./Content.module.scss";
 
@@ -40,30 +41,6 @@ const table = [
     حجم: 42323,
     "-": "-",
     type: "music"
-  },
-  {
-    نام: "رزومه",
-    مالک: 10,
-    تاریخ: "sth",
-    حجم: 4234324,
-    "-": "-",
-    type: "folder"
-  },
-  {
-    نام: "رزومه",
-    مالک: 323,
-    تاریخ: "fdf",
-    حجم: 21321,
-    "-": "-",
-    type: "folder"
-  },
-  {
-    نام: "رزومه",
-    مالک: 10,
-    تاریخ: "sth",
-    حجم: 5325,
-    "-": "-",
-    type: "video"
   }
 ];
 
@@ -176,17 +153,16 @@ export class Content extends React.Component<any, any> {
                 onSort={this.onSort}
                 table={this.state.table}
               />
-              <Button
-                className={["btnDefault0", "btnLg"]}
-                style={{ marginBottom: "15px" }}
-              >
-                <IconLink
-                  className={styles.arrow}
-                  icon={arrowLeft}
-                  iconAlt={`new-folder`}
-                  label="پوشه جدید"
-                />
-              </Button>
+              <div className={styles.footer}>
+                <Button className={["btnDefault0", "btnLg"]}>
+                  <IconLink
+                    className={styles.arrow}
+                    icon={arrowLeftGray}
+                    iconAlt={`new-folder`}
+                    label="پوشه جدید"
+                  />
+                </Button>
+              </div>
             </React.Fragment>
           )}
         </div>
