@@ -23,19 +23,29 @@
   flex-wrap: $wrap-status;
 }
 
-/* button-theme */
-@mixin btn-theme($background, $btn-color, $border) {
-  background: $background;
-  color: $btn-color;
-  border: $border;
-}
-
 /* transform */
 @mixin transform($value) {
   -webkit-transform: $value;
   -moz-transform: $value;
   -ms-transform: $value;
   -o-transform: $value;
+  transform: $value;
+}
+
+/* transition */
+@mixin transition($value) {
+  -webkit-transition: $value;
+  -moz-transition: $value;
+  -o-transition: $value;
+  transition: $value;
+}
+
+/* animation */
+@mixin animation($value) {
+  -webkit-animation: $value;
+  -moz-animation: $value;
+  -o-animation: $value;
+  animation: $value;
 }
 
 /* changable margin with direction */
@@ -47,8 +57,43 @@
   }
 }
 
-// selectInput-theme
-@mixin selectInput-theme($type, $className) {
+/* button-theme */
+@mixin btn-theme($background, $btn-color, $border) {
+  background: $background;
+  color: $btn-color;
+  border: $border;
+}
+
+/* input-theme */
+@mixin input-theme {
+  position: relative;
+  width: 200px;
+  height: 35px;
+  border: 1px solid $input-border;
+  background: #fff;
+  color: $lt-gray;
+  font-family: $regular-font;
+  @include border-radius($br-radius-sm);
+  @include placeholder($input-color);
+}
+
+/* placeholder */
+@mixin placeholder($color) {
+  ::placeholder {
+    color: $color;
+  }
+
+  :-ms-input-placeholder {
+    color: $color;
+  }
+
+  ::-ms-input-placeholder {
+    color: $color;
+  }
+}
+
+/* checkbox-radio-theme */
+@mixin checkbox-radio-theme($type, $className) {
   width: 13px;
   height: 13px;
   border-width: 0.8px;

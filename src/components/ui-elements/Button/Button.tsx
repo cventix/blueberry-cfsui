@@ -2,7 +2,6 @@ import * as React from 'react'
 
 // styles
 import styles from './Button.module.scss'
-
 export default interface Iprops {
   className?: object
   onClick?: () => void

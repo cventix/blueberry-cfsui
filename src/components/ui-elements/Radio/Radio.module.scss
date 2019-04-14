@@ -1,5 +1,5 @@
 @import "../../../styles/global";
 
 .radio {
-	@include selectInput-theme(radio, disabled)
+	@include checkbox-radio-theme(radio, disabled)
 }

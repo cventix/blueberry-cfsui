@@ -3,6 +3,7 @@ import { Navbar } from '../../components/Navbar/Navbar'
 import { Sidebar } from '../../components/Sidebar/Sidebar'
 import { Stepbar } from '../../components/Stepbar/Stepbar'
 import { Main } from '../../components/Main/Main'
+import { TextInput } from '../../components/ui-elements/Input/Input'
 import './App.css'
 
 import { Content } from '../../components/Content/Content'
@@ -16,9 +17,7 @@ class App extends Component {
       <div>
         <Navbar />
         <Sidebar />
-        <Main>
-          <Content />
-        </Main>
+        <Main />
       </div>
     )
   }
