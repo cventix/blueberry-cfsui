@@ -2,6 +2,7 @@ import React from "react";
 import { Hr } from "../ui-elements/Hr";
 
 import styles from "./Grid.module.scss";
+import { Checkbox } from "../ui-elements/Checkbox/Checkbox";
 
 export default interface Iprops {
   onCheckAll?: () => void;
@@ -22,11 +23,7 @@ export const GridHeader: React.FunctionComponent<Iprops> = ({
       {...onSort && { onClick: () => onSort("نام") }}
     >
       <div className={styles.title + " rowItem"}>
-        <input
-          type="checkbox"
-          {...onCheckAll && { onChange: () => onCheckAll() }}
-          defaultChecked={checkAll}
-        />
+      <Checkbox onChange={onCheckAll}/>
         <span>نام</span>
         {sortable && (
           <div className={styles.sort}>

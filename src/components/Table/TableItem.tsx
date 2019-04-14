@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { Icon } from '../ui-elements/Icon'
 
 import styles from './Table.module.scss'
+import { Checkbox } from '../ui-elements/Checkbox/Checkbox';
 
 export default interface Iprops {
   checkbox?: boolean
@@ -37,7 +38,7 @@ export const TableItem: React.FunctionComponent<Iprops> = ({
       <div className={'rowItem'}>
         {checkbox && (
           <div className={' rowItem'}>
-            <input type="checkbox" onChange={onCheckAll} checked={checkAll} defaultChecked={checkAll} />
+            <Checkbox onChange={onCheckAll} checked={checkAll}/>
           </div>
         )}
         {hasType && <Icon mimetype={hasType} />}

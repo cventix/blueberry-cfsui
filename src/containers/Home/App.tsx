@@ -17,7 +17,9 @@ class App extends Component {
       <div>
         <Navbar />
         <Sidebar />
-        <Main />
+        <Main>
+          <Content />
+        </Main>
       </div>
     )
   }

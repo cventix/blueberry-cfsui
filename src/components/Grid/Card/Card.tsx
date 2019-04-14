@@ -6,6 +6,7 @@ import { Icon } from '../../ui-elements/Icon'
 import { formatBytes } from '../../../services/internal/utils/formatBytes'
 
 import styles from './Card.module.scss'
+import { Checkbox } from '../../ui-elements/Checkbox/Checkbox'
 
 const EnhancedDropdown = enhancer(Dropdown)
 
@@ -26,11 +27,7 @@ export const Card: React.FunctionComponent<Iprops> = ({ item, checkbox, dropdown
           {item['تاریخ']} ,{formatBytes(item['حجم'])}
         </span>
       </div>
-      {checkbox && (
-        <div className={styles.checkbox}>
-          <input type="checkbox" checked={checkAll} />
-        </div>
-      )}
+      {checkbox && <Checkbox checked={checkAll} className={styles.checkbox} />}
       {dropdown && (
         <div className={styles.dropdown}>
           <EnhancedDropdown data={['option one', 'option two', 'option three']} />
