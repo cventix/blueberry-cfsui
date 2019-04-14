@@ -32,6 +32,14 @@
 	transform: $value;
 }
 
+/* transition */
+@mixin transition($value) {
+	-webkit-transition: $value;
+	-moz-transition: $value;
+	-o-transition: $value;
+	transition: $value;
+}
+
 /* animation */
 @mixin animation($value) {
 	-webkit-animation: $value;

@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import { Navbar } from "../../components/Navbar/Navbar";
 import { Sidebar } from "../../components/Sidebar/Sidebar";
 import { Stepbar } from "../../components/Stepbar/Stepbar";
-import { Checkbox } from "../../components/ui-elements/Checkbox/Checkbox";
 import { Main } from "../../components/Main/Main";
 import "./App.css";
 
@@ -19,13 +18,13 @@ const steps = [
 
 class App extends Component {
   render() {
+
     return (
       <div>
         <Navbar />
         <Sidebar />
         <Main>
-          <Stepbar steps={steps} currentStep={2} />
-          <Checkbox className="selected dis"/>
+          <Stepbar steps={steps} currentStep={1} />
         </Main>
       </div>
     );

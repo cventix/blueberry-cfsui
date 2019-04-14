@@ -37,60 +37,51 @@
 			content: '';
 			display: none;
 			position: absolute;
-			padding: 1px;
-		}
-	}
-
-	&.selected {
-
-		.checkmark {
-
-			&:after {
-				left: 3px;
-				width: 1px;
-				height: 5px;
-				border: solid #fff;
-				border-width: 0 1.5px 1.5px 0;
-				@include transform(rotate(45deg));
-			}
-		}
-	}
-
-	&.dis {
-		> input {
-			&:checked ~ .checkmark {
-				background-color: $disabled-dk-gray;
-				border: 1px solid $disabled-lt-gray;
-			}
+			right: 4px;
+			width: 3px;
+			height: 7px;
+			border-style: solid;
+			border-color: #fff;
+			border-width: 0 1.5px 1.5px 0;
+			@include transform(rotate(45deg));
 		}
 	}
 
 	&.indeterminate {
 
 		.checkmark {
-
 			&:after {
-				left: 1.5px;
-				width: 5px;
+				right: 2px;
+				width: 6px;
 				top: 4.5px;
+				height: 1px;
 				background-color: #fff;
-				border: 0;
 				@include transform(none);
 			}
 		}
 	}
 
-	&.disIndeterminate {
+	&.disableWithChecked, &.disabled {
+		cursor: not-allowed;
+	}
+
+	&.disableWithChecked {
+
+		&:checked ~ .checkmark {
+			background: $disabled-lt-gray;
+		}
+
 		.checkmark {
+			border: 1px solid $disabled-lt-gray !important;
+			background-color: $disabled-dk-gray !important;
 
 			&:after {
-
+				border-color: $disabled-lt-gray !important;
 			}
-		}	
+		}
 	}
 
 	&.disabled {
-		cursor: not-allowed;
 
 		.checkmark {
 			background-color: $disabled-dk-gray;

@@ -4,14 +4,14 @@ import * as React from "react";
 import styles from "./Button.module.scss";
 
 export default interface Iprops { 
-	className?: object;
+	className?:  string[];
 	onClick?: any;
 	style?: object;
 	children?: any;
 }
 
-const classCreator = (className: any) => {
-	return className.map((name: any) => styles[name]).join(' ');
+const classCreator = (className: string[]) => {
+	return className.map((name: string) => styles[name]).join(' ');
 };
 
 export const Button : React.FunctionComponent<Iprops> = props => {
