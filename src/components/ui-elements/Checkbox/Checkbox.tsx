@@ -8,12 +8,14 @@ export default interface Iprops {
 	className?: string;
 }
 
-const createClassName = (className: string) => {
+const createClassName = (className?: string) => {
 	if (className == null)
 		className = `${styles.checkbox}`;
 
-	if (className === 'indeterminate')
-		className = `${styles.checkbox} ${styles.indeterminate}`;
+	if (className === 'selected')
+		className = `${styles.checkbox} ${styles.selected}`;
+	if (className === 'selected dis')
+		className = `${styles.checkbox} ${styles.dis}`;
 	return className;
 }
 

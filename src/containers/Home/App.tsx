@@ -25,7 +25,7 @@ class App extends Component {
         <Sidebar />
         <Main>
           <Stepbar steps={steps} currentStep={2} />
-          <Checkbox />
+          <Checkbox className="selected dis"/>
         </Main>
       </div>
     );
