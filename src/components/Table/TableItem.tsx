@@ -38,9 +38,9 @@ export const TableItem: React.SFC<Iprops> = ({
       className={className ? splitter(className) : " "}
       {...sortable && { onClick: () => onSort(label, sortType) }}
     >
-      <div className={styles.flex_row}>
+      <div className={'rowItem'}>
         {checkbox && (
-          <div className={[styles.flex_row, styles.checkbox].join(" ")}>
+          <div className={ ' rowItem'}>
             <input
               type="checkbox"
               onChange={onCheckAll}

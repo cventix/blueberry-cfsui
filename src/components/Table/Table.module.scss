@@ -3,7 +3,7 @@
 $border-table: #e5e5e5;
 $table-header-color: #9b9b9b;
 $padding-td: 3%;
-$border-bottom: 1px solid $border-table;
+$border-bottom: 1.5px solid $border-table;
 
 .table {
   border-collapse: collapse;
@@ -14,35 +14,23 @@ $border-bottom: 1px solid $border-table;
 
   th,
   td {
-    padding: $padding-td;
+    padding: $padding-td 0;
     text-align: left;
     border-bottom: $border-bottom;
-    height: 23px;
-    font-size: 14px;
-    font-weight: normal;
-    font-style: normal;
-    font-stretch: normal;
-    line-height: normal;
-    letter-spacing: -0.3px;
-    text-align: center;
     color: $dk-gray;
   }
-
+  tr {
+    td:last-child {
+      text-align: left;
+    }
+  }
   td {
     text-align: right;
     height: 23px;
   }
   .header {
+    padding-top: 0;
     color: $table-header-color;
-  }
-
-  .flex_row {
-    display: -webkit-flex;
-    display: flex;
-    align-items: center;
-    * {
-      margin: 0 7px;
-    }
   }
 
   .sort {
