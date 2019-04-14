@@ -30,31 +30,14 @@ export const TableItem: React.FunctionComponent<Iprops> = ({
   className,
   hasType,
   onCheckAll,
-  checkAll,
+  checkAll
 }) => {
   return (
-<<<<<<< HEAD
     <td data-label={name} className={className ? splitter(className) : ' '} {...sortable && { onClick: () => onSort(label, sortType) }}>
-      <div className={styles.flex_row}>
-        {checkbox && (
-          <div className={[styles.flex_row, styles.checkbox].join(' ')}>
-            <input type="checkbox" onChange={onCheckAll} checked={checkAll} defaultChecked={checkAll} />
-=======
-    <td
-      data-label={name}
-      className={className ? splitter(className) : " "}
-      {...sortable && { onClick: () => onSort(label, sortType) }}
-    >
       <div className={'rowItem'}>
         {checkbox && (
-          <div className={ ' rowItem'}>
-            <input
-              type="checkbox"
-              onChange={onCheckAll}
-              checked={checkAll}
-              defaultChecked={checkAll}
-            />
->>>>>>> 8927f9658fb209b4e10bd360cc0bdbbdf41f45bf
+          <div className={' rowItem'}>
+            <input type="checkbox" onChange={onCheckAll} checked={checkAll} defaultChecked={checkAll} />
           </div>
         )}
         {hasType && <Icon mimetype={hasType} />}
