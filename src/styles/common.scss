@@ -1,8 +1,16 @@
 // all links with icon (IconLink component)
 .iconLink {
-	cursor: pointer;
-	
-	img {
-		vertical-align: middle;
-	}
+  cursor: pointer;
+
+  img {
+    vertical-align: middle;
+  }
+}
+.rowItem {
+  display: -webkit-flex;
+  display: flex;
+  align-items: center;
+  * {
+    margin-left: 7px;
+  }
 }
