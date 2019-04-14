@@ -17,15 +17,17 @@ $date-font-size: 10px;
   height: $box-length;
   position: relative;
   background-color: $background-white;
-  margin: $box-length / 10;
-  flex: 0 1 calc(16% - 8px);
+  margin: $box-length / 10 0 $box-length / 10 $box-length / 10;
+  flex: 0 1 calc(18% -16px);
   justify-content: center;
   align-items: center;
 
   @media (max-width: $tablet*1.5) {
     flex: 0 1 calc(30% - 8px);
   }
-
+  &:nth-child(5n + 5) {
+    margin-left: 0;
+  }
   .checkbox {
     position: absolute;
     bottom: $side-length;

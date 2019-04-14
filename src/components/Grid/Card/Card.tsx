@@ -12,10 +12,11 @@ const EnhancedDropdown = enhancer(Dropdown);
 export default interface Iprops {
   item?: any;
   checkbox?: boolean;
+  checkAll?:boolean;
   dropdown?: boolean;
 }
 
-export const Card: React.SFC<Iprops> = ({ item, checkbox, dropdown }) => {
+export const Card: React.SFC<Iprops> = ({ item, checkbox, dropdown ,checkAll}) => {
   return (
     <div className={styles.item}>
       <div className={styles.type}>
@@ -29,7 +30,7 @@ export const Card: React.SFC<Iprops> = ({ item, checkbox, dropdown }) => {
       </div>
       {checkbox && (
         <div className={styles.checkbox}>
-          <input type="checkbox" />
+          <input type="checkbox" checked={checkAll}/>
         </div>
       )}
       {dropdown && (

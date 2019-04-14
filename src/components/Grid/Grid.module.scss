@@ -1,17 +1,30 @@
 @import "../../styles/global";
+@import "./Card//Card.module.scss";
+
 $header-padding: 0 1.85% 0 4.5%;
 $header-margin-bottom: 33px;
 $title-margin-bottom: 20px;
-
 .container {
   @include flex(row, wrap);
   position: relative;
+  justify-content: space-between;
 }
 
 .header {
-  padding: $header-padding;
-  margin-bottom: $header-margin-bottom;
+  margin-bottom: $header-margin-bottom - 16px;
   .title {
+    @include flex(row, wrap);
+    color: $text-gray;
+    align-items: center;
     margin-bottom: $title-margin-bottom;
+  }
+  .sort {
+    @include flex(column, wrap);
+    margin: 0 3px;
+    width: 10px;
+    span {
+      line-height: 6px;
+      font-size: 1px;
+    }
   }
 }
