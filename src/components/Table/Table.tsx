@@ -10,6 +10,7 @@ import styles from './Table.module.scss'
 const EnhancedDropdown = enhancer(Dropdown)
 
 export default interface Iprops {
+<<<<<<< HEAD
   table?: object[]
   dropdown?: boolean
   onCheckAll?: () => void
@@ -20,9 +21,35 @@ export const Table: React.FunctionComponent<Iprops> = ({ table, dropdown, onChec
   return (
     <table className={styles.table}>
       <TableHeader titles={table && table[0]} dropdown={dropdown} {...onCheckAll && { checkAll: checkAll, onCheckAll: onCheckAll }} onSort={onSort} />
+=======
+  table?: object[];
+  dropdown?: boolean;
+  onCheckAll?: () => void;
+  checkAll?: boolean;
+  onSort?: any;
+  tabletView?: boolean;
+}
+export const Table: React.SFC<Iprops> = ({
+  table,
+  dropdown,
+  onCheckAll,
+  checkAll,
+  onSort,
+  tabletView
+}) => {
+  return (
+    <table className={styles.table}>
+      <TableHeader
+        titles={table && table[0]}
+        dropdown={dropdown}
+        {...onCheckAll && { checkAll: checkAll, onCheckAll: onCheckAll }}
+        onSort={onSort}
+        tabletView={tabletView}
+      />
+>>>>>>> 8927f9658fb209b4e10bd360cc0bdbbdf41f45bf
       <tbody>
         {table &&
-          table.map((item: any, i: any) => {
+          table.map((item: any, i: number) => {
             return (
               <tr key={i}>
                 {Object.keys(item).map((k, i) => {

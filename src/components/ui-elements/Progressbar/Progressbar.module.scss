@@ -3,9 +3,10 @@ $border-rds-size: 40px;
 
 .progressContainer {
   position: relative;
-
+  direction: ltr;
   progress {
     background-color: #eee;
+    width: 100%;
     height: 40px;
     @include border-radius($border-rds-size);
   }

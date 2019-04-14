@@ -10,12 +10,22 @@ import styles from './Card.module.scss'
 const EnhancedDropdown = enhancer(Dropdown)
 
 export default interface Iprops {
+<<<<<<< HEAD
   item?: any
   checkbox?: boolean
   dropdown?: boolean
 }
 
 export const Card: React.FunctionComponent<Iprops> = ({ item, checkbox, dropdown }) => {
+=======
+  item?: any;
+  checkbox?: boolean;
+  checkAll?:boolean;
+  dropdown?: boolean;
+}
+
+export const Card: React.SFC<Iprops> = ({ item, checkbox, dropdown ,checkAll}) => {
+>>>>>>> 8927f9658fb209b4e10bd360cc0bdbbdf41f45bf
   return (
     <div className={styles.item}>
       <div className={styles.type}>{item && item['type'] && <Icon mimetype={item['type']} />}</div>
@@ -27,7 +37,7 @@ export const Card: React.FunctionComponent<Iprops> = ({ item, checkbox, dropdown
       </div>
       {checkbox && (
         <div className={styles.checkbox}>
-          <input type="checkbox" />
+          <input type="checkbox" checked={checkAll}/>
         </div>
       )}
       {dropdown && (
