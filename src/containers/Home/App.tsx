@@ -26,7 +26,7 @@ class App extends Component {
         <Sidebar />
         <Main>
         
-          <TextInput placeholder="name" message="lkrek" label="nswqkje"/>
+        
         </Main>
       </div>
     );

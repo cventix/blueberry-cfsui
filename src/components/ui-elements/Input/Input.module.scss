@@ -22,6 +22,10 @@
 		&:focus {
 			border: 1px solid $lt-blue;
 		}
+
+		&.error {
+			border: 1px solid $red;
+		}
 	}
 
 	.errorMessage {
