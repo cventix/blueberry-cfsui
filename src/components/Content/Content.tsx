@@ -3,6 +3,18 @@ import { Table } from "../Table/Table";
 import { Grid } from "../Grid/Grid";
 import { GridHeader } from "../Grid/GridHeader";
 import { Contentheader } from "./Contentheader";
+import { Breadcrumb } from "../ui-elements/Breadcrumb/Breadcrumb";
+import { Button } from "../ui-elements/Button/Button";
+import { IconLink } from "../ui-elements/IconLink";
+import arrowLeft from "../../images/arrow-left.svg";
+
+import styles from "./Content.module.scss";
+
+const history = [
+  { title: "پوشه اصلی", link: "/" },
+  { title: "پوشه فرعی", link: "/" },
+  { title: "پوشه تست", link: "/", active: true }
+];
 
 const table = [
   {
@@ -61,11 +73,27 @@ export class Content extends React.Component<any, any> {
     this.state = {
       table: table,
       checkAll: false,
-      view: "table"
+      view: "grid",
+      width: 0,
+      height: 0
     };
+
+    this.updateWindowDimensions = this.updateWindowDimensions.bind(this);
+  }
+  componentDidMount() {
+    this.updateWindowDimensions();
+    window.addEventListener("resize", this.updateWindowDimensions);
   }
 
-  onSort = (sortBy: string, type: string) => {
+  componentWillUnmount() {
+    window.removeEventListener("resize", this.updateWindowDimensions);
+  }
+
+  updateWindowDimensions() {
+    this.setState({ width: window.innerWidth, height: window.innerHeight });
+  }
+
+  onSort = (sortBy: string, type?: string) => {
     let table = this.state.table;
     switch (type) {
       case "alphabet":
@@ -105,33 +133,63 @@ export class Content extends React.Component<any, any> {
   };
 
   public render() {
-    return (
-      <div>
-        <Contentheader view={this.state.view} switchView={this.switchView}/>
-        {this.state.view === "grid" ? (
+    console.log(this.state.width);
+    if (this.state.width < 768) {
+      return (
+        <React.Fragment>
+          <Breadcrumb history={history} />
           <Table
             dropdown={true}
+            tabletView={true}
             onCheckAll={this.onCheckAll}
             checkAll={this.state.checkAll}
             onSort={this.onSort}
             table={this.state.table}
           />
-        ) : (
-          <div>
-            <GridHeader
-              onCheckAll={this.onCheckAll}
-              checkAll={this.state.checkAll}
-              sortable={true}
-            />
-            <Grid
-              checkbox={true}
-              onCheckAll={this.onCheckAll}
-              checkAll={this.state.checkAll}
-              table={this.state.table}
-            />
-          </div>
-        )}
-      </div>
-    );
+        </React.Fragment>
+      );
+    } else
+      return (
+        <div>
+          <Contentheader view={this.state.view} switchView={this.switchView} />
+          {this.state.view === "table" ? (
+            <div>
+              <GridHeader
+                onCheckAll={this.onCheckAll}
+                checkAll={this.state.checkAll}
+                sortable={true}
+                onSort={this.onSort}
+              />
+              <Grid
+                checkbox={true}
+                onCheckAll={this.onCheckAll}
+                checkAll={this.state.checkAll}
+                table={this.state.table}
+              />
+            </div>
+          ) : (
+            <React.Fragment>
+              <Table
+                dropdown={true}
+                onCheckAll={this.onCheckAll}
+                checkAll={this.state.checkAll}
+                onSort={this.onSort}
+                table={this.state.table}
+              />
+              <Button
+                className={["btnDefault0", "btnLg"]}
+                style={{ marginBottom: "15px" }}
+              >
+                <IconLink
+                  className={styles.arrow}
+                  icon={arrowLeft}
+                  iconAlt={`new-folder`}
+                  label="پوشه جدید"
+                />
+              </Button>
+            </React.Fragment>
+          )}
+        </div>
+      );
   }
 }

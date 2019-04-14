@@ -15,13 +15,15 @@ export default interface Iprops {
   onCheckAll?: () => void;
   checkAll?: boolean;
   onSort?: any;
+  tabletView?: boolean;
 }
 export const Table: React.SFC<Iprops> = ({
   table,
   dropdown,
   onCheckAll,
   checkAll,
-  onSort
+  onSort,
+  tabletView
 }) => {
   return (
     <table className={styles.table}>
@@ -30,6 +32,7 @@ export const Table: React.SFC<Iprops> = ({
         dropdown={dropdown}
         {...onCheckAll && { checkAll: checkAll, onCheckAll: onCheckAll }}
         onSort={onSort}
+        tabletView={tabletView}
       />
       <tbody>
         {table &&

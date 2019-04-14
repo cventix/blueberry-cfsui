@@ -7,16 +7,21 @@ export default interface Iprops {
   onCheckAll?: () => void;
   checkAll?: boolean;
   sortable?: boolean;
+  onSort?: (sortBy: string, type?: string) => void;
 }
 
 export const GridHeader: React.FunctionComponent<Iprops> = ({
   onCheckAll,
   checkAll,
-  sortable
+  sortable,
+  onSort
 }) => {
   return (
-    <div className={styles.header}>
-      <div className={styles.title+' rowItem'}>
+    <div
+      className={styles.header}
+      {...onSort && { onClick: () => onSort("نام") }}
+    >
+      <div className={styles.title + " rowItem"}>
         <input
           type="checkbox"
           {...onCheckAll && { onChange: () => onCheckAll() }}

@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+    <g fill="none" fill-rule="evenodd" stroke="#B3BCC5" stroke-width="1.8" transform="matrix(-1 0 0 1 22 2)">
+        <rect width="10.473" height="3.417" x="8.291" y="1.335" rx=".909"/>
+        <rect width="3.417" height="3.417" x="1.335" y="1.335" rx=".909"/>
+        <rect width="10.473" height="3.417" x="8.291" y="8.291" rx=".909"/>
+        <rect width="3.417" height="3.417" x="1.335" y="8.291" rx=".909"/>
+        <rect width="10.473" height="3.417" x="8.291" y="15.248" rx=".909"/>
+        <rect width="3.417" height="3.417" x="1.335" y="15.248" rx=".909"/>
+    </g>
+</svg>

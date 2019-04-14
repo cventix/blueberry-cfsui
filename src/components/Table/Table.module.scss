@@ -45,7 +45,7 @@ $border-bottom: 1.5px solid $border-table;
   }
 }
 
-@media screen and (max-width: 600px) {
+@media screen and (max-width: $tablet) {
   .table {
     td {
       display: none;
@@ -65,7 +65,18 @@ $border-bottom: 1.5px solid $border-table;
     }
     .show {
       display: table-cell;
-      padding: $padding-td * 2;
+      padding: $padding-td * 2 3px;
+
+      .icn {
+
+         img {
+          vertical-align: middle;
+          margin-left: 6px;
+        }
+      }
     }
+
+  
+    
   }
 }
