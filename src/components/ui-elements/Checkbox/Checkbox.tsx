@@ -15,7 +15,7 @@ const createClassName = (type?: string, disabled?: boolean, checked?: boolean) =
 	let classNames = [`${styles.checkbox}`];
 	if (disabled)
 		classNames.push(`${styles.disabled}`);
-	if(disabled && checked)
+	if (disabled && checked)
 		classNames.push(`${styles.disableWithChecked}`);
 	if (type === 'indeterminate')
 		classNames.push(`${styles.indeterminate}`);

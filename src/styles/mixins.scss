@@ -66,17 +66,30 @@
 
 /* input-theme */
 @mixin input-theme {
+	position: relative;
 	width: 200px;
 	height: 35px;
 	border: 1px solid $input-border;
 	background: #fff;
-	color: $input-color;
+	color: $lt-gray;
 	font-family: $regular-font;
 	@include border-radius($br-radius-sm);
+	@include placeholder($input-color)
 }
 
 /* placeholder */
-@mixin placeholder {
+@mixin placeholder ($color) {
+	::placeholder {
+		color: $color;
+	}
+
+	:-ms-input-placeholder {
+		color: $color;
+	}
+
+	::-ms-input-placeholder {
+	color: $color;
+	}
 }
 
 
