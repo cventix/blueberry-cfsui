@@ -2,7 +2,7 @@ import React from "react";
 import { Table } from "../Table/Table";
 import { Grid } from "../Grid/Grid";
 import { GridHeader } from "../Grid/GridHeader";
-
+import { Contentheader } from "./Contentheader";
 
 const table = [
   {
@@ -97,13 +97,17 @@ export class Content extends React.Component<any, any> {
   };
 
   onCheckAll = () => {
-      console.log('hjh')
     this.setState({ checkAll: !this.state.checkAll });
+  };
+
+  switchView = (view: string) => {
+    this.setState({ view });
   };
 
   public render() {
     return (
       <div>
+        <Contentheader view={this.state.view} switchView={this.switchView}/>
         {this.state.view === "grid" ? (
           <Table
             dropdown={true}
@@ -114,8 +118,11 @@ export class Content extends React.Component<any, any> {
           />
         ) : (
           <div>
-           <GridHeader  onCheckAll={this.onCheckAll}
-              checkAll={this.state.checkAll}/>
+            <GridHeader
+              onCheckAll={this.onCheckAll}
+              checkAll={this.state.checkAll}
+              sortable={true}
+            />
             <Grid
               checkbox={true}
               onCheckAll={this.onCheckAll}

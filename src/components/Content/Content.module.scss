@@ -1,0 +1,21 @@
+@import "../../styles/global.scss";
+
+.header {
+  @include flex(row, wrap);
+  justify-content: space-between;
+  margin-bottom: 60px;
+  .left {
+    display: flex;
+    justify-self: flex-end;
+    align-items: center;
+    cursor: pointer;
+  }
+}
+.RowItem{
+  display: -webkit-flex;
+  display: flex;
+  align-items: center;
+  * {
+    margin-left:  7px;
+  }
+}
