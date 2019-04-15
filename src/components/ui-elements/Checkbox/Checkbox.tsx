@@ -28,7 +28,7 @@ export const Checkbox = ({ disabled = false,  checked = false, className, type, 
 			<input 
 			type="checkbox" 
 			disabled={disabled} 
-			{...(checked ? {checked:checked} : {onChange:(e: any)=>  onChange && onChange(e)})}
+			{...(checked ? {checked:checked} : {onChange:(e: any) =>  onChange && onChange(e)})}
 			/>
 			<span className={styles.checkmark}></span>
 		</label>

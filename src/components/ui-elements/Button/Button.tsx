@@ -5,7 +5,7 @@ import styles from "./Button.module.scss";
 
 export default interface Iprops { 
 	className?:  string[];
-	onClick?: any;
+	onClick?: ()=>void;
 	style?: object;
 	children?: any;
 }

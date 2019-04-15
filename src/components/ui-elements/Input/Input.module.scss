@@ -1,4 +1,21 @@
 @import "../../../styles/global";
+@mixin type-input($type) {
+
+	.textInput {
+		border: 1px solid;
+
+		@if $type == error {
+			border-color: $red;
+		} @else if $type == success {
+			border-color: $green;
+		} @else if $type == disabled {
+			background-color: $disabled-dk-gray;
+			color: $input-color;
+			border-color: #d6d7d7;
+		}
+	}
+	
+}
 
 .inputWrapper {
 
@@ -12,6 +29,7 @@
 
 	.textInput {
 		@include input-theme;
+		border: 1px solid $input-border;
 		padding: 8px 10px;
 		margin-bottom: 6px;
 
@@ -22,13 +40,21 @@
 		&:focus {
 			border: 1px solid $lt-blue;
 		}
-
-		&.error {
-			border: 1px solid $red;
-		}
 	}
 
-	.errorMessage {
+	&.error {
+		@include type-input(error);
+	}
+
+	&.success {
+		@include type-input(success);
+	}
+
+	&.disabled {
+		@include type-input(disabled);
+	}
+
+	.shoowErorrMsg {
 		display: block;
 
 		> img {
@@ -42,5 +68,9 @@
 			color: $red;
 			font-size: $font-size - 4;
 		}
+	}
+
+	.hide {
+		display: none;
 	}
 }

@@ -1,0 +1,52 @@
+@import "../../../styles/global";
+@mixin border-reset($dir) {
+	border#{$dir}: 0 $important;
+}
+
+.valueCopyInput {
+	@include input-theme;
+	width: 284px;
+	border: 1px solid $input-border;
+
+	input {
+		left: 57px;
+		top: 4px;
+		width: 221px;
+		direction: ltr;
+		height: 28px $important;
+		position: absolute $important;
+		border-left: 1px solid $input-border $important;
+		@include border-radius(initial $important);
+		@include border-reset(-top);
+		@include border-reset(-right);
+		@include border-reset(-bottom);
+
+		&:focus {
+			@include border-reset(-top);
+			@include border-reset(-right);
+			@include border-reset(-bottom);
+		}
+	}
+
+	> button {
+		position: absolute;
+		top: 5px;
+		left: 2px;
+
+		.copy {
+			font-family: $medium-font;
+			font-size: $font-size - 2;
+			color: $lt-gray;
+
+			&:hover {
+				color: $dk-blue
+			}
+		}
+
+		&.done {
+			.copy {
+				color: $green;
+			}
+		}
+	}
+}

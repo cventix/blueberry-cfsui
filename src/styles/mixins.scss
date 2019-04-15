@@ -69,7 +69,6 @@
 	position: relative;
 	width: 200px;
 	height: 35px;
-	border: 1px solid $input-border;
 	background: #fff;
 	color: $lt-gray;
 	font-family: $regular-font;
@@ -163,11 +162,11 @@
 		}
 
 		.checkmark {
-			border: 1px solid $disabled-lt-gray !important;
-			background-color: $disabled-dk-gray !important;
+			border: 1px solid $disabled-lt-gray $important;
+			background-color: $disabled-dk-gray $important;
 
 			&:after {
-				background: $disabled-lt-gray !important;
+				background: $disabled-lt-gray $important;
 			}
 		}
 	}
