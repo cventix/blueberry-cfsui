@@ -34,7 +34,7 @@ class App extends Component {
         <Main>
           <TextInput placeholder="نام کاربری" label="نلم کاربری" success={true}/>
           <SearchInput />
-          <ValueCopyInput />
+          <ValueCopyInput onClick={() => {}} />
           <SelectInput options={options} placeholder="آیتمی را لنتخاب"/>
         </Main>
       </div>
