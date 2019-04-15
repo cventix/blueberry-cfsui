@@ -7,6 +7,7 @@ import { TextInput } from "../../components/ui-elements/Input/Input";
 import { SearchInput } from "../../components/ui-elements/SearchInput/SearchInput";
 import { ValueCopyInput } from "../../components/ui-elements/ValueCopyInput/ValueCopyInput";
 import { SelectInput } from "../../components/ui-elements/SelectInput/SelectInput";
+import { Toast } from "../../components/ui-elements/Toast/Toast";
 import "./App.css";
 
 import { Content } from "../../components/Content/Content";
@@ -36,6 +37,7 @@ class App extends Component {
           <SearchInput />
           <ValueCopyInput onClick={() => {}} />
           <SelectInput options={options} placeholder="آیتمی را لنتخاب"/>
+          <Toast error={true}>erewr</Toast>
         </Main>
       </div>
     );

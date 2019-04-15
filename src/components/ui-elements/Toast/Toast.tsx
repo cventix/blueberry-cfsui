@@ -5,12 +5,13 @@ import styles from "./Toast.module.scss";
 
 export default interface Iprops {
 	children: string;
-	type: string;
+	error?: boolean;
+	success?: boolean
 }
 
 export const Toast: React.FunctionComponent<Iprops> = props => {
 	return <div 
-	className={props.type == 'success' ? `${styles.toast} ${styles.success}` : `${styles.toast} ${styles.error}`}
+	className={props.success ? `${styles.toast} ${styles.success}` : `${styles.toast} ${styles.error}`}
 	>
 		{props.children}
 	</div>;
