@@ -21,7 +21,7 @@ const createClassName = (type?: string, disabled?: boolean, checked?: boolean) =
 
 export const Checkbox = ({ disabled = false, checked = false, className, type, onChange }: Iprops) => {
   return (
-    <label className={className ? createClassName(type, disabled, checked) +" " +className : createClassName(type, disabled, checked)}>
+    <label className={className ? createClassName(type, disabled, checked) + ' ' + className : createClassName(type, disabled, checked)}>
       <input type="checkbox" disabled={disabled} {...(checked ? { checked: checked } : { onChange: (e: any) => onChange && onChange(e) })} />
       <span className={styles.checkmark} />
     </label>
