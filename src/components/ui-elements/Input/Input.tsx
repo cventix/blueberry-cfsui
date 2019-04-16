@@ -19,8 +19,6 @@ export default interface Iprops {
 	success?: boolean
 	withIcon?: boolean;
 	icon?: string;
-	right?: boolean ;
-	left?: boolean ;
 	style?: object;
 }
 
@@ -34,8 +32,6 @@ export const TextInput = ({
 	success, 
 	withIcon, 
 	icon,
-	right,
-	left,
 	style}: Iprops) => {
 	return (
 		<div className={
@@ -45,9 +41,7 @@ export const TextInput = ({
 			} style={style}>
 			<label className={styles.label}>{label}</label>
 			<input type="text" 
-			className={(withIcon && right) ? `${styles.textInput} ${styles.right}` :
-			(withIcon && left) ? `${styles.textInput} ${styles.left}` : 
-			`${styles.textInput}`} 
+			className={styles.textInput} 
 			placeholder={placeholder} 
 			disabled={disabled} 
 			onChange={(e: any) => onChange && onChange(e.target.value)}
