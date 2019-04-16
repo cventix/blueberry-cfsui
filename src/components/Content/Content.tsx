@@ -1,21 +1,17 @@
-import React from "react";
-import { Table } from "../Table/Table";
-import { Grid } from "../Grid/Grid";
-import { GridHeader } from "../Grid/GridHeader";
-import { Contentheader } from "./Contentheader";
-import { Breadcrumb } from "../ui-elements/Breadcrumb/Breadcrumb";
-import { Button } from "../ui-elements/Button/Button";
-import { IconLink } from "../ui-elements/IconLink";
-import arrowLeft from "../../images/arrow-left.svg";
-import arrowLeftGray from "../../images/arrow-left-gray.svg";
+import React from 'react'
+import { Table } from '../Table/Table'
+import { Grid } from '../Grid/Grid'
+import { GridHeader } from '../Grid/GridHeader'
+import { Contentheader } from './Contentheader'
+import { Breadcrumb } from '../ui-elements/Breadcrumb/Breadcrumb'
+import { Button } from '../ui-elements/Button/Button'
+import { IconLink } from '../ui-elements/IconLink'
+import arrowLeft from '../../images/arrow-left.svg'
+import arrowBottom from '../../images/buttonIcons/icon-btn-arrow-bottom.svg'
 
-import styles from "./Content.module.scss";
+import styles from './Content.module.scss'
 
-const history = [
-  { title: "پوشه اصلی", link: "/" },
-  { title: "پوشه فرعی", link: "/" },
-  { title: "پوشه تست", link: "/", active: true }
-];
+const history = [{ title: 'پوشه اصلی', link: '/' }, { title: 'پوشه فرعی', link: '/' }, { title: 'پوشه تست', link: '/', active: true }]
 
 const table = [
   {
@@ -39,10 +35,34 @@ const table = [
     مالک: 10,
     تاریخ: 'sth',
     حجم: 42323,
-    "-": "-",
-    type: "music"
-  }
-];
+    '-': '-',
+    type: 'music',
+  },
+  {
+    نام: 'رزومه ها',
+    مالک: 10,
+    تاریخ: 'sth',
+    حجم: 444,
+    '-': '-',
+    type: 'folder',
+  },
+  {
+    نام: 'عکس های شخصی',
+    مالک: 323,
+    تاریخ: 'fdf',
+    حجم: 444231,
+    '-': '-',
+    type: 'folder',
+  },
+  {
+    نام: 'موسیقی',
+    مالک: 10,
+    تاریخ: 'sth',
+    حجم: 42323,
+    '-': '-',
+    type: 'music',
+  },
+]
 
 export class Content extends React.Component<any, any> {
   constructor(props: any) {
@@ -50,28 +70,29 @@ export class Content extends React.Component<any, any> {
     this.state = {
       table: table,
       checkAll: false,
-      view: "grid",
+      view: 'grid',
       width: 0,
-      height: 0
-    };
+      height: 0,
+      optionSelected: 0,
+    }
 
-    this.updateWindowDimensions = this.updateWindowDimensions.bind(this);
+    this.updateWindowDimensions = this.updateWindowDimensions.bind(this)
   }
   componentDidMount() {
-    this.updateWindowDimensions();
-    window.addEventListener("resize", this.updateWindowDimensions);
+    this.updateWindowDimensions()
+    window.addEventListener('resize', this.updateWindowDimensions)
   }
 
   componentWillUnmount() {
-    window.removeEventListener("resize", this.updateWindowDimensions);
+    window.removeEventListener('resize', this.updateWindowDimensions)
   }
 
   updateWindowDimensions() {
-    this.setState({ width: window.innerWidth, height: window.innerHeight });
+    this.setState({ width: window.innerWidth, height: window.innerHeight })
   }
 
   onSort = (sortBy: string, type?: string) => {
-    let table = this.state.table;
+    let table = this.state.table
     switch (type) {
       case 'alphabet':
         table &&
@@ -106,11 +127,13 @@ export class Content extends React.Component<any, any> {
   }
 
   switchView = (view: string) => {
-    this.setState({ view });
-  };
-
+    this.setState({ view })
+  }
+  onSelect = (optionSelected: number) => {
+    this.setState({ optionSelected })
+  }
   public render() {
-    console.log(this.state.width);
+    console.log(this.state.width)
     if (this.state.width < 768) {
       return (
         <React.Fragment>
@@ -124,48 +147,35 @@ export class Content extends React.Component<any, any> {
             table={this.state.table}
           />
         </React.Fragment>
-      );
+      )
     } else
       return (
         <div>
           <Contentheader view={this.state.view} switchView={this.switchView} />
-          {this.state.view === "table" ? (
+          {this.state.view === 'table' ? (
             <div>
-              <GridHeader
-                onCheckAll={this.onCheckAll}
-                checkAll={this.state.checkAll}
-                sortable={true}
-                onSort={this.onSort}
-              />
-              <Grid
-                checkbox={true}
-                onCheckAll={this.onCheckAll}
-                checkAll={this.state.checkAll}
-                table={this.state.table}
-              />
+              <GridHeader onCheckAll={this.onCheckAll} checkAll={this.state.checkAll} sortable={true} onSort={this.onSort} />
+              <Grid checkbox={true} onCheckAll={this.onCheckAll} checkAll={this.state.checkAll} table={this.state.table} />
             </div>
           ) : (
             <React.Fragment>
               <Table
                 dropdown={true}
+                optionSelected={this.state.optionSelected}
+                onSelect={this.onSelect}
                 onCheckAll={this.onCheckAll}
                 checkAll={this.state.checkAll}
                 onSort={this.onSort}
                 table={this.state.table}
               />
               <div className={styles.footer}>
-                <Button className={["btnDefault0", "btnLg"]}>
-                  <IconLink
-                    className={styles.arrow}
-                    icon={arrowLeftGray}
-                    iconAlt={`new-folder`}
-                    label="پوشه جدید"
-                  />
+                <Button className={['btnDefault0', 'btnLg']}>
+                  <IconLink icon={arrowBottom} className={styles.arrow} iconAlt={`new-folder`} label="پوشه جدید" />
                 </Button>
               </div>
             </React.Fragment>
           )}
         </div>
-      );
+      )
   }
 }

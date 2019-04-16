@@ -1,9 +1,18 @@
-import React, { Component } from "react";
-import { Navbar } from "../../components/Navbar/Navbar";
-import { Sidebar } from "../../components/Sidebar/Sidebar";
-import { Main } from "../../components/Main/Main";
-import { SearchInput } from "../../components/ui-elements/SearchInput/SearchInput";
-import "./App.css";
+import React, { Component } from 'react'
+import { Navbar } from '../../components/Navbar/Navbar'
+import { Sidebar } from '../../components/Sidebar/Sidebar'
+import { Stepbar } from '../../components/Stepbar/Stepbar'
+import { Main } from '../../components/Main/Main'
+import { TextInput } from '../../components/ui-elements/Input/Input'
+import './App.css'
+
+import { Content } from '../../components/Content/Content'
+import { Table } from '../../components/Table/Table'
+import { Modal } from '../../components/ui-elements/Modal/Modal'
+import { Preview } from '../../components/ui-elements/Preview/Preview'
+import icon from '../../images/buttonIcons/icon-btn-arrow-bottom.svg'
+
+const steps = ['انتخاب سیستم عامل', 'انتخاب مدت سرویس', 'انتخاب طرح', 'اطلاعات کارت شبکه', 'انتخاب نام سرور و ثبت نهایی']
 
 class App extends Component {
   render() {
@@ -11,7 +20,9 @@ class App extends Component {
       <div>
         <Navbar />
         <Sidebar />
-        <Main><SearchInput withSetting={true}/></Main>
+        <Main>
+          <Content />
+        </Main>
       </div>
     )
   }

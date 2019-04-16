@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { Icon } from '../ui-elements/Icon'
 
 import styles from './Table.module.scss'
+import { Checkbox } from '../ui-elements/Checkbox/Checkbox'
 
 export default interface Iprops {
   checkbox?: boolean
@@ -16,7 +17,7 @@ export default interface Iprops {
   checkAll?: boolean
 }
 
-const splitter = (className: any) => {
+export const splitter = (className: any) => {
   return className.map((cls: any) => styles[cls]).join(' ')
 }
 
@@ -30,14 +31,14 @@ export const TableItem: React.FunctionComponent<Iprops> = ({
   className,
   hasType,
   onCheckAll,
-  checkAll
+  checkAll,
 }) => {
   return (
     <td data-label={name} className={className ? splitter(className) : ' '} {...sortable && { onClick: () => onSort(label, sortType) }}>
       <div className={'rowItem'}>
         {checkbox && (
           <div className={' rowItem'}>
-            <input type="checkbox" onChange={onCheckAll} checked={checkAll} defaultChecked={checkAll} />
+            <Checkbox onChange={onCheckAll} checked={checkAll} />
           </div>
         )}
         {hasType && <Icon mimetype={hasType} />}

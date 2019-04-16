@@ -18,7 +18,7 @@ export const Button: React.FunctionComponent<Iprops> = props => {
   return (
     <button
       className={props.className ? `${styles.btn} ${classCreator(props.className)}` : `${styles.btn}`}
-      onClick={() => props.onClick}
+      onClick={() => props.onClick && props.onClick()}
       style={props.style}
     >
       {props.children}

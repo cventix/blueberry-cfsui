@@ -1,4 +1,4 @@
-@import "../../styles/global.scss";
+@import '../../styles/global.scss';
 
 $arrow-width: 16px;
 
@@ -22,22 +22,16 @@ $arrow-width: 16px;
   }
 }
 .footer {
-  @include flex(row,wrap);
+  @include flex(row, wrap);
 
-  margin-top:100px;
+  margin-top: 100px;
   justify-content: center;
-  
+
   .arrow {
     color: $text-gray;
     img {
-      @include transform(rotate(-90deg));
-      border: 1px solid $text-gray;
-      padding: 3px 3px 2px;
-      width: $arrow-width;
-      height: $arrow-width;
-      border-radius: 50%;
+      margin-left: 15px;
       vertical-align: middle;
-      margin-left: $arrow-width;
     }
   }
 }

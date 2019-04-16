@@ -7,8 +7,28 @@
 		@include checkbox-radio-theme(checkbox, disableWithChecked);
 	}
 
-	&.disabled {
-		@include checkbox-radio-theme(checkbox, disabled);
+	.checkmark {
+		display: block;
+		top: 0;
+		left: 0;
+		width: 13px;
+		height: 13px;
+		background-color: #fff;
+		border: 0.8px solid $disabled-lt-gray;
+		@include border-radius(2.4px);
+
+		&:after {
+			content: '';
+			display: none;
+			position: absolute;
+			right: 4px;
+			width: 3px;
+			height: 7px;
+			border-style: solid;
+			border-color: #fff;
+			border-width: 0 1.5px 1.5px 0;
+			@include transform(rotate(45deg));
+		}
 	}
 
 	&.indeterminate {
