@@ -15,15 +15,6 @@ import icon from '../../images/buttonIcons/icon-btn-arrow-bottom.svg'
 const steps = ['انتخاب سیستم عامل', 'انتخاب مدت سرویس', 'انتخاب طرح', 'اطلاعات کارت شبکه', 'انتخاب نام سرور و ثبت نهایی']
 
 class App extends Component {
-  state = { show: false }
-
-  showModal = () => {
-    this.setState({ show: true })
-  }
-
-  hideModal = () => {
-    this.setState({ show: false })
-  }
   render() {
     return (
       <div>
@@ -31,13 +22,6 @@ class App extends Component {
         <Sidebar />
         <Main>
           <Content />
-          <Modal show={this.state.show} handleClose={this.hideModal}>
-            <img src={icon} />
-            jkjk
-          </Modal>
-          <button type="button" onClick={this.showModal}>
-            open
-          </button>
         </Main>
       </div>
     )
