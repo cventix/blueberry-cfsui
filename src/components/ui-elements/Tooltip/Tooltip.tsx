@@ -4,9 +4,10 @@ import * as React from 'react'
 import styles from './Tooltip.module.scss'
 
 export default interface Iprops {
-  children: string
+	children: string;
+	width?: number;
 }
 
 export const Tooltip: React.FunctionComponent<Iprops> = props => {
-  return <div className={styles.tooltip}>{props.children}</div>
-}
+	return <div className={styles.tooltip} style={{ width: props.width }}>{props.children}</div>;
+};

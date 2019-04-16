@@ -1,0 +1,50 @@
+@import "../../../styles/global";
+
+.searchInput {
+	position: relative;
+
+	> button {
+		position: absolute;
+		top: 8px;
+		height: 33px;
+		background: #fff;
+
+		@if $body-dir == 'rtl' {
+			margin-right: -30px;
+		} @else if $body-dir == 'ltr' {
+			margin-left: -30px;
+		}
+
+		> img {
+			width: 12px;
+			height: 12px;
+			margin-top: 10px;
+		}
+	}
+
+	.setting {
+		position: absolute;
+		top: 7px;
+		display: inline-block;
+		width: 36px;
+		height: $default-height;
+		background: #f5f5fe;
+		border: 1px solid $input-border;
+		text-align: center;
+
+
+		@if $body-dir == 'rtl' {
+			margin-right: -2px;
+			border-top-left-radius: $br-radius-sm;
+			border-bottom-left-radius: $br-radius-sm;
+		} @else {
+			margin-left: -2px;
+			border-top-right-radius: $br-radius-sm;
+			border-bottom-right-radius: $br-radius-sm;
+		}
+
+		> img {
+			margin-top: 9px;
+		}
+	}
+}

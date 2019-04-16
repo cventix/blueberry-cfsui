@@ -1,5 +1,5 @@
-// TODO - if has notification add hasNotif classname
-// TODO - current page has current classname
+// TODO: if has notification add hasNotif classname
+// TODO: current page has current classname
 
 import * as React from 'react'
 

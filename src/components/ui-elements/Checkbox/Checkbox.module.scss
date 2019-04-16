@@ -1,90 +1,28 @@
 @import "../../../styles/global";
 
 .checkbox {
-	position: relative;
-	cursor: pointer;
+	@include checkbox-radio-theme(checkbox, null);
 
-	> input {
-		position: absolute;
-		height: 0;
-		width: 0;
-		opacity: 0;
-		cursor: pointer;
-
-		&:checked ~ .checkmark {
-			background-color: $dk-blue;
-			border: 1px solid $dk-blue;
-			-webkit-transition: all 500ms;
-			transition: all 500ms;
-
-			&:after {
-				display: block;
-			};
-		}
+	&.disableWithChecked {
+		@include checkbox-radio-theme(checkbox, disableWithChecked);
 	}
 
-	.checkmark {
-		position: absolute;
-		top: 0;
-		left: 0;
-		width: 13px;
-		height: 13px;
-		background-color: #fff;
-		border: 0.8px solid $disabled-lt-gray;
-		@include border-radius(2.4px);
-
-		&:after {
-			content: '';
-			display: none;
-			position: absolute;
-			right: 4px;
-			width: 3px;
-			height: 7px;
-			border-style: solid;
-			border-color: #fff;
-			border-width: 0 1.5px 1.5px 0;
-			@include transform(rotate(45deg));
-		}
+	&.disabled {
+		@include checkbox-radio-theme(checkbox, disabled);
 	}
 
 	&.indeterminate {
 
 		.checkmark {
 			&:after {
-				right: 2px;
-				width: 6px;
-				top: 4.5px;
+				top: 7.4px;
+				right: 3px;
+				width: 7px;
 				height: 1px;
-				background-color: #fff;
+    			border-width: 0;
+    			background: #fff;
 				@include transform(none);
 			}
-		}
-	}
-
-	&.disableWithChecked, &.disabled {
-		cursor: not-allowed;
-	}
-
-	&.disableWithChecked {
-
-		&:checked ~ .checkmark {
-			background: $disabled-lt-gray;
-		}
-
-		.checkmark {
-			border: 1px solid $disabled-lt-gray !important;
-			background-color: $disabled-dk-gray !important;
-
-			&:after {
-				border-color: $disabled-lt-gray !important;
-			}
-		}
-	}
-
-	&.disabled {
-
-		.checkmark {
-			background-color: $disabled-dk-gray;
 		}
 	}
 }

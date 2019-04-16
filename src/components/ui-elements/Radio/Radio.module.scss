@@ -1,5 +1,13 @@
 @import "../../../styles/global";
 
 .radio {
-	@include checkbox-radio-theme(radio, disabled)
+	@include checkbox-radio-theme(radio, null);
+
+	&.disableWithChecked {
+		@include checkbox-radio-theme(radio, disableWithChecked);
+	}
+
+	&.disabled {
+		@include checkbox-radio-theme(radio, disabled);
+	}
 }

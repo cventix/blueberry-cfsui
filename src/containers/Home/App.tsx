@@ -1,15 +1,9 @@
-import React, { Component } from 'react'
-import { Navbar } from '../../components/Navbar/Navbar'
-import { Sidebar } from '../../components/Sidebar/Sidebar'
-import { Stepbar } from '../../components/Stepbar/Stepbar'
-import { Main } from '../../components/Main/Main'
-import { TextInput } from '../../components/ui-elements/Input/Input'
-import './App.css'
-
-import { Content } from '../../components/Content/Content'
-import { Table } from '../../components/Table/Table'
-
-const steps = ['انتخاب سیستم عامل', 'انتخاب مدت سرویس', 'انتخاب طرح', 'اطلاعات کارت شبکه', 'انتخاب نام سرور و ثبت نهایی']
+import React, { Component } from "react";
+import { Navbar } from "../../components/Navbar/Navbar";
+import { Sidebar } from "../../components/Sidebar/Sidebar";
+import { Main } from "../../components/Main/Main";
+import { SearchInput } from "../../components/ui-elements/SearchInput/SearchInput";
+import "./App.css";
 
 class App extends Component {
   render() {
@@ -17,7 +11,7 @@ class App extends Component {
       <div>
         <Navbar />
         <Sidebar />
-        <Main />
+        <Main><SearchInput withSetting={true}/></Main>
       </div>
     )
   }

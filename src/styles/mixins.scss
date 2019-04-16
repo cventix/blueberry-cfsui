@@ -66,15 +66,14 @@
 
 /* input-theme */
 @mixin input-theme {
-  position: relative;
-  width: 200px;
-  height: 35px;
-  border: 1px solid $input-border;
-  background: #fff;
-  color: $lt-gray;
-  font-family: $regular-font;
-  @include border-radius($br-radius-sm);
-  @include placeholder($input-color);
+	position: relative;
+	width: 200px;
+	height: 35px;
+	background: #fff;
+	color: $lt-gray;
+	font-family: $regular-font;
+	@include border-radius($br-radius-sm);
+	@include placeholder($input-color)
 }
 
 /* placeholder */
@@ -94,19 +93,87 @@
 
 /* checkbox-radio-theme */
 @mixin checkbox-radio-theme($type, $className) {
-  width: 13px;
-  height: 13px;
-  border-width: 0.8px;
-  border-style: solid;
+	position: relative;
+	cursor: pointer;
 
-  @if $type == checkbox {
-    @include border-radius(2.4px);
-  } @else if $type == radio {
-    @include border-radius(6.5px);
-  }
+	> input {
+		position: absolute;
+		height: 0;
+		width: 0;
+		opacity: 0;
+		cursor: pointer;
 
-  @if $className == disabled {
-    background-color: $disabled-dk-gray;
-    border-color: $disabled-lt-gray;
-  }
+		&:checked ~ .checkmark {
+			background-color: $dk-blue;
+			border: 1px solid $dk-blue;
+			@include transition(all 500ms);
+
+			&:after {
+				display: block;
+			};
+		}
+	}
+
+	.checkmark {
+		display: inline-block;
+		width: 13px;
+		height: 13px;
+		background-color: #fff;
+		border: 0.8px solid $disabled-lt-gray;
+		@if $type == checkbox {
+			@include border-radius(2.4px);
+		} @else if $type == radio {
+			@include border-radius(6.5px);
+		}
+
+		&:after {
+			content: '';
+			display: none;
+			position: absolute;
+			@include transform(rotate(45deg));
+
+			@if $type == checkbox {
+				right: 4px;
+				width: 3px;
+				height: 7px;
+				border-style: solid;
+				border-color: #fff;
+				border-width: 0 1.5px 1.5px 0;
+			} @else if $type == radio {
+				top: 6px;
+				right: 5px;
+				width: 3px;
+				height: 3px;
+				background: #fff;
+				@include border-radius(50px);
+			}
+		}
+	}
+
+	@if $className == disableWithChecked or $className == disabled  {
+		cursor: not-allowed;
+	}
+
+	@if $className == disableWithChecked {
+
+		.disableWithChecked:checked ~ .checkmark {
+			background: $disabled-lt-gray;
+		}
+
+		.checkmark {
+			border: 1px solid $disabled-lt-gray $important;
+			background-color: $disabled-dk-gray $important;
+
+			&:after {
+				background: $disabled-lt-gray $important;
+			}
+		}
+	}
+
+	@if $className == disabled {
+
+		.checkmark {
+			background-color: $disabled-dk-gray;
+		}
+	}
 }
