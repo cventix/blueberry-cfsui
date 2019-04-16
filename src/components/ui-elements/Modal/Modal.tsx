@@ -1,6 +1,6 @@
 import * as React from 'react'
 import { Icon } from '../Icon'
-import close from '../../../images/close.svg'
+import close from '../../../images/buttonIcons/icon-btn-refresh-copy.svg'
 
 import styles from './Modal.module.scss'
 
@@ -22,7 +22,8 @@ export const Modal: React.FunctionComponent<Iprops> = props => {
         <div className={styles.header}>
           <span className={styles.title}>{props.title}</span>
           <button className={styles.close} onClick={props.handleClose}>
-            <span className={styles.closeIcon}>+</span>
+          <Icon className={styles.closeIcon} src={close}/>
+            {/* <span className={styles.closeIcon}>+</span> */}
           </button>
         </div>
 

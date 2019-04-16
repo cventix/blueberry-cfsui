@@ -7,7 +7,7 @@ import { Breadcrumb } from '../ui-elements/Breadcrumb/Breadcrumb'
 import { Button } from '../ui-elements/Button/Button'
 import { IconLink } from '../ui-elements/IconLink'
 import arrowLeft from '../../images/arrow-left.svg'
-import arrowLeftGray from '../../images/arrow-left-gray.svg'
+import arrowBottom from '../../images/buttonIcons/icon-btn-arrow-bottom.svg'
 
 import styles from './Content.module.scss'
 
@@ -20,7 +20,7 @@ const table = [
     تاریخ: 'sth',
     حجم: 444,
     '-': '-',
-    type: 'folder',
+    type: 'folder'
   },
   {
     نام: 'عکس های شخصی',
@@ -28,7 +28,7 @@ const table = [
     تاریخ: 'fdf',
     حجم: 444231,
     '-': '-',
-    type: 'folder',
+    type: 'folder'
   },
   {
     نام: 'موسیقی',
@@ -36,7 +36,7 @@ const table = [
     تاریخ: 'sth',
     حجم: 42323,
     '-': '-',
-    type: 'music',
+    type: 'music'
   },
   {
     نام: 'رزومه ها',
@@ -44,7 +44,7 @@ const table = [
     تاریخ: 'sth',
     حجم: 444,
     '-': '-',
-    type: 'folder',
+    type: 'folder'
   },
   {
     نام: 'عکس های شخصی',
@@ -52,7 +52,7 @@ const table = [
     تاریخ: 'fdf',
     حجم: 444231,
     '-': '-',
-    type: 'folder',
+    type: 'folder'
   },
   {
     نام: 'موسیقی',
@@ -60,8 +60,8 @@ const table = [
     تاریخ: 'sth',
     حجم: 42323,
     '-': '-',
-    type: 'music',
-  },
+    type: 'music'
+  }
 ]
 
 export class Content extends React.Component<any, any> {
@@ -73,6 +73,7 @@ export class Content extends React.Component<any, any> {
       view: 'grid',
       width: 0,
       height: 0,
+      optionSelected: 0
     }
 
     this.updateWindowDimensions = this.updateWindowDimensions.bind(this)
@@ -128,7 +129,9 @@ export class Content extends React.Component<any, any> {
   switchView = (view: string) => {
     this.setState({ view })
   }
-
+  onSelect = (optionSelected: number) => {
+    this.setState({ optionSelected })
+  }
   public render() {
     console.log(this.state.width)
     if (this.state.width < 768) {
@@ -156,10 +159,18 @@ export class Content extends React.Component<any, any> {
             </div>
           ) : (
             <React.Fragment>
-              <Table dropdown={true} onCheckAll={this.onCheckAll} checkAll={this.state.checkAll} onSort={this.onSort} table={this.state.table} />
+              <Table
+                dropdown={true}
+                optionSelected={this.state.optionSelected}
+                onSelect={this.onSelect}
+                onCheckAll={this.onCheckAll}
+                checkAll={this.state.checkAll}
+                onSort={this.onSort}
+                table={this.state.table}
+              />
               <div className={styles.footer}>
                 <Button className={['btnDefault0', 'btnLg']}>
-                  <IconLink className={styles.arrow} icon={arrowLeftGray} iconAlt={`new-folder`} label="پوشه جدید" />
+                  <IconLink icon={arrowBottom} className={styles.arrow} iconAlt={`new-folder`} label="پوشه جدید" />
                 </Button>
               </div>
             </React.Fragment>

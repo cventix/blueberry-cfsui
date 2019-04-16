@@ -20,6 +20,7 @@ $best-number: 23px;
     border-radius: 3px;
     top: 50%;
     left: 50%;
+
   }
   .header {
     @include flex(row, wrap);
@@ -37,7 +38,6 @@ $best-number: 23px;
       color: $lt-gray;
     }
     .close {
-      @include transform(rotate(45deg));
       cursor: pointer;
       border: 0;
       background: 0;
@@ -45,16 +45,16 @@ $best-number: 23px;
       justify-self: flex-end;
     }
     .closeIcon {
-      font-size: 18px;
-      color: $lt-gray;
-      vertical-align: middle;
+      width: 10px;
     }
   }
 }
 .displayBlock {
   display: block;
+  transition: all 2s linear;
 }
 
 .displayNone {
+  opacity: 0;
   display: none;
 }

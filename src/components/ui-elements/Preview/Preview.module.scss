@@ -1,0 +1,58 @@
+@import '../../../styles/global.scss';
+$header-height: 83px;
+$margin-top: 70px;
+$preview-header-color: #8b8e9b;
+$padding: 30px;
+
+.previewBox {
+  margin-top: $navbar-height;
+  margin-right: $sidebar-width;
+  height: 100%;
+  .previewMain{
+    left: 41%;
+  }
+  .header {
+    @include flex(row, wrap);
+    justify-content: space-between;
+    align-items: center;
+    height: $header-height;
+    padding: 0 $padding;
+    background-color: $preview-header-color;
+    .fileName {
+      color: white;
+      font-size: 16px;
+    }
+    .icon {
+      vertical-align: middle;
+      font-family: 'vazir-medium';
+      img {
+        margin-left: 10px;
+      }
+    }
+  }
+
+  .bottomBar{
+    @include flex(row,wrap);
+    justify-content: center;
+    .icon {
+        margin-bottom: -4px;
+    }
+  }
+  .arrows {
+    @include flex(row, wrap);
+    padding: 0 30px;
+    height: 60%;
+    justify-content: space-between;
+    align-items: center;
+    section {
+      top: auto;
+    }
+    .icon {
+        margin-bottom: -7px;
+        width: 66%;
+    }
+    .iconRight {
+      @include transform(rotate(180deg));
+    }
+  }
+}
