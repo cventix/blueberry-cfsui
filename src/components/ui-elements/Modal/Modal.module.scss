@@ -1,6 +1,17 @@
 @import '../../../styles//global.scss';
 $header-height: 45px;
 $best-number: 23px;
+@keyframes popout {
+  from {
+    @include transform(scale(0));
+  }
+  80% {
+    @include transform(scale(1.2));
+  }
+  to {
+    @include transform(scale(1));
+  }
+}
 
 .modal {
   position: fixed;
@@ -50,11 +61,10 @@ $best-number: 23px;
   }
 }
 .displayBlock {
-  display: block;
-  transition: all 2s linear;
+  visibility: visible ;
+  animation: popout 1s ease;
 }
 
 .displayNone {
-  opacity: 0;
-  display: none;
+  visibility: hidden;
 }
