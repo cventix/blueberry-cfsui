@@ -1,4 +1,4 @@
-@import "../../../styles/global.scss";
+@import '../../../styles/global.scss';
 
 $dropdown-width: 140px;
 $dropdown-item-height: 37px;
@@ -17,9 +17,9 @@ $margin-top: -20px;
   .more {
     margin-top: $margin-top;
   }
-  
+
   .more::after {
-    content: "...";
+    content: '...';
     font-size: $more-button-size;
     display: flex;
     justify-content: center;
@@ -41,7 +41,11 @@ $margin-top: -20px;
     @include flex(column, wrap);
     @include border-radius($br-radius-sm);
     @include box-shadow(0 1px 3px 0 rgba(0, 0, 0, 0.05));
-
+    @if ($body-dir= 'ltr') {
+      text-align: right;
+    } @else {
+      text-align: left;
+    }
     position: absolute;
     z-index: 4;
     width: $dropdown-width;
@@ -49,17 +53,24 @@ $margin-top: -20px;
     background: white;
     border: solid 1px $dropdown-border;
     left: -$left;
+    font-size: 12px;
 
     li {
       display: flex;
       align-items: center;
       cursor: pointer;
       color: $lt-gray;
-      padding: 0 $padding;
-      height: $dropdown-item-height;
+      padding: $padding/2 $padding;
+      min-height: $dropdown-item-height;
+      a {
+        width: 100%;
+      }
     }
 
     li:hover {
+      background: $hover-gray;
+    }
+    .selected {
       background: $hover-gray;
     }
 
@@ -67,6 +78,40 @@ $margin-top: -20px;
       color: $lt-gray;
       text-decoration: none;
       border-bottom: 0;
+      width: 100%;
+    }
+    .label {
+      line-height: 2.5;
+      position: relative;
+    }
+    .description {
+      font-family: 'vazir-light';
+      font-size: 8px;
+      line-height: 2.25;
+    }
+    .bordered {
+      border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+      &:last-child {
+        border: 0;
+      }
+    }
+
+    .checkmark {
+      display: inline-block;
+      position: absolute;
+      top: 30%;
+      &:after {
+        content: '';
+        display: block;
+        width: 3px;
+        height: 6px;
+        border: solid 0.8px $lt-gray;
+        border-width: 0 2px 2px 0;
+        transform: rotate(45deg);
+      }
+    }
+    .text {
+      margin-right: 17px;
     }
   }
 }

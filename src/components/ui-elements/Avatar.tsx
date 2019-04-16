@@ -1,19 +1,14 @@
-import * as React from "react";
+import * as React from 'react'
 
 // ui-elements
-import { Icon } from "./Icon";
+import { Icon } from './Icon'
 
 // icon
-import avatarIcon from "../../images/navbarIcons/avatar.svg";
+import avatarIcon from '../../images/navbarIcons/avatar.svg'
 
 export default interface Iprops {
-	profileImg?: string;
-	alt?: string;
+  profileImg?: string
+  alt?: string
 }
 
-export const Avatar = ({ profileImg, alt }: Iprops) => 
-(
-	<Icon src={profileImg ? profileImg : avatarIcon} alt="Avatar Image" className="avatar"/>
-);
-
-
+export const Avatar = ({ profileImg, alt }: Iprops) => <Icon src={profileImg ? profileImg : avatarIcon} alt="Avatar Image" className="avatar" />

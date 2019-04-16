@@ -1,7 +1,7 @@
-import * as React from "react";
+import * as React from 'react'
 
 // styles
-import styles from "./Tooltip.module.scss";
+import styles from './Tooltip.module.scss'
 
 export default interface Iprops {
 	children: string;

@@ -1,25 +1,26 @@
-import * as React from "react";
+import * as React from 'react'
 
 // ui-elements
-import { IconLink } from "../../ui-elements/IconLink";
+import { IconLink } from '../../ui-elements/IconLink'
 
 // icons
-import fileCloudIcn from "../../../images/navbarIcons/file-cloud.svg";
-import vpsIcn from "../../../images/navbarIcons/vps.svg";
-import internetIcn from "../../../images/navbarIcons/internet.svg";
-import notifIcn from "../../../images/navbarIcons/notif.svg";
-import financeIcn from "../../../images/navbarIcons/finance.svg";
+import fileCloudIcon from '../../../images/navbarIcons/file-cloud.svg'
+import vpsIcon from '../../../images/navbarIcons/vps.svg'
+import internetIcon from '../../../images/navbarIcons/internet.svg'
+import notifIcon from '../../../images/navbarIcons/notif.svg'
+import financeIcon from '../../../images/navbarIcons/finance.svg'
 
-export const Nav = () => {
-	const altIcn = 'Icon';
-	return (
-		<div className="nav">
-			<IconLink icon={fileCloudIcn} iconAlt={`content-delivery ${altIcn}`} label="شبکه تحویل محتوا"/>
-			<IconLink icon={vpsIcn} iconAlt={`vps ${altIcn}`} label="سرور و هاست"/>
-			<IconLink icon={internetIcn} iconAlt={`Internet ${altIcn}`} label="اینترنت"/>
-			<IconLink icon={notifIcn} iconAlt={`notif ${altIcn}`} label="تیکت‌ها"/>
-			<IconLink icon={financeIcn} iconAlt={`finance ${altIcn}`} label="فاکتورها"/>
-		</div>
-	);
+export default interface Iprops {}
+
+export const Nav: React.FunctionComponent<Iprops> = () => {
+  const altIcon = 'Icon'
+  return (
+    <div className="nav">
+      <IconLink icon={fileCloudIcon} iconAlt={`content-delivery ${altIcon}`} label="شبکه تحویل محتوا" />
+      <IconLink icon={vpsIcon} iconAlt={`vps ${altIcon}`} label="سرور و هاست" />
+      <IconLink icon={internetIcon} iconAlt={`Internet ${altIcon}`} label="اینترنت" />
+      <IconLink icon={notifIcon} iconAlt={`notif ${altIcon}`} label="تیکت‌ها" />
+      <IconLink icon={financeIcon} iconAlt={`finance ${altIcon}`} label="فاکتورها" />
+    </div>
+  )
 }
-

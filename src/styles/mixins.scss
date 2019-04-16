@@ -1,67 +1,67 @@
 /* border-radius */
 @mixin border-radius($radius) {
-	-webkit-border-radius: $radius;
-	-moz-border-radius: $radius;
-	border-radius: $radius;
+  -webkit-border-radius: $radius;
+  -moz-border-radius: $radius;
+  border-radius: $radius;
 }
 
 /* box-shadow */
 @mixin box-shadow($box-shadow) {
-	-webkit-box-shadow: $box-shadow;
-	-moz-box-shadow: $box-shadow;
-	box-shadow: $box-shadow;
+  -webkit-box-shadow: $box-shadow;
+  -moz-box-shadow: $box-shadow;
+  box-shadow: $box-shadow;
 }
 
 /* display flex */
 @mixin flex($direction, $wrap-status) {
-	display: -webkit-box; 
-	display: -moz-box;
-	display: -ms-flexbox;
-	display: -webkit-flex; 
-	display: flex;
-	flex-direction: $direction;
-	flex-wrap: $wrap-status;
+  display: -webkit-box;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+  flex-direction: $direction;
+  flex-wrap: $wrap-status;
 }
 
 /* transform */
 @mixin transform($value) {
-	-webkit-transform: $value;
-	-moz-transform: $value;
-	-ms-transform: $value;
-	-o-transform: $value;
-	transform: $value;
+  -webkit-transform: $value;
+  -moz-transform: $value;
+  -ms-transform: $value;
+  -o-transform: $value;
+  transform: $value;
 }
 
 /* transition */
 @mixin transition($value) {
-	-webkit-transition: $value;
-	-moz-transition: $value;
-	-o-transition: $value;
-	transition: $value;
+  -webkit-transition: $value;
+  -moz-transition: $value;
+  -o-transition: $value;
+  transition: $value;
 }
 
 /* animation */
 @mixin animation($value) {
-	-webkit-animation: $value;
-	-moz-animation: $value;  
-	-o-animation: $value;
-	animation: $value;    
+  -webkit-animation: $value;
+  -moz-animation: $value;
+  -o-animation: $value;
+  animation: $value;
 }
 
 /* changable margin with direction */
 @mixin margin-with-direction($value) {
-	@if $body-dir == rtl {
-		margin-left: $value;
-	} @else {
-		margin-right: $value;
-	}
+  @if $body-dir == rtl {
+    margin-left: $value;
+  } @else {
+    margin-right: $value;
+  }
 }
 
 /* button-theme */
 @mixin btn-theme($background, $btn-color, $border) {
-	background: $background;
-	color: $btn-color;
-	border: $border;
+  background: $background;
+  color: $btn-color;
+  border: $border;
 }
 
 /* input-theme */
@@ -77,20 +77,19 @@
 }
 
 /* placeholder */
-@mixin placeholder ($color) {
-	::placeholder {
-		color: $color;
-	}
+@mixin placeholder($color) {
+  ::placeholder {
+    color: $color;
+  }
 
-	:-ms-input-placeholder {
-		color: $color;
-	}
+  :-ms-input-placeholder {
+    color: $color;
+  }
 
-	::-ms-input-placeholder {
-	color: $color;
-	}
+  ::-ms-input-placeholder {
+    color: $color;
+  }
 }
-
 
 /* checkbox-radio-theme */
 @mixin checkbox-radio-theme($type, $className) {
@@ -178,4 +177,3 @@
 		}
 	}
 }
-

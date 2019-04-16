@@ -1,11 +1,10 @@
-@import "../../../styles/global.scss";
+@import '../../../styles/global.scss';
 
 $box-length: 160px;
 $icon-length: 60px;
 $margin: 13px;
 $background-white: #fff;
 $side-length: 10px;
-$margin: 4px;
 $date-font-size: 10px;
 
 .item {
@@ -17,8 +16,8 @@ $date-font-size: 10px;
   height: $box-length;
   position: relative;
   background-color: $background-white;
-  margin: $box-length / 10;
-  flex: 0 1 calc(16% - 8px);
+  margin: $box-length / 10 + 3px;
+  flex: 0 1 calc(18% -16px);
   justify-content: center;
   align-items: center;
 
@@ -26,6 +25,21 @@ $date-font-size: 10px;
     flex: 0 1 calc(30% - 8px);
   }
 
+  &:nth-child(6n + 6),
+  &:nth-child(1) {
+    @if $body-dir == 'ltr' {
+      margin-left: 0;
+    } @else {
+      margin-right: 0;
+    }
+  }
+  &:nth-child(5n + 5) {
+    @if $body-dir == 'ltr' {
+      margin-right: 0;
+    } @else {
+      margin-left: 0;
+    }
+  }
   .checkbox {
     position: absolute;
     bottom: $side-length;
@@ -42,9 +56,13 @@ $date-font-size: 10px;
     @include flex(column, wrap);
     justify-content: center;
     align-items: center;
+    margin-top: $margin;
     .date {
-      font-family: "vazir-light";
+      font-family: 'vazir-light';
       font-size: $date-font-size;
+      color: $lt-gray;
+      margin-top: $margin/2;
+      margin-bottom: $margin/4;
     }
   }
 
@@ -52,6 +70,5 @@ $date-font-size: 10px;
   img {
     width: $icon-length;
     height: $icon-length;
-    margin-top: -$margin * 2;
   }
 }

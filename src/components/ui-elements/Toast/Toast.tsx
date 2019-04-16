@@ -1,7 +1,7 @@
-import * as React from "react";
+import * as React from 'react'
 
 // styles
-import styles from "./Toast.module.scss";
+import styles from './Toast.module.scss'
 
 export default interface Iprops {
 	children: string;

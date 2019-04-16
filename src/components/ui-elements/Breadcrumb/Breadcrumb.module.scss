@@ -1,0 +1,25 @@
+@import '../../../styles//global.scss';
+
+.breadcrumb {
+  @include flex(row, wrap);
+  justify-self: flex-start;
+  align-items: center;
+  font-size: 14px;
+  flex-grow: 2;
+
+  @if $body-dir == 'ltr' {
+    img {
+      @include transform(rotate(180deg));
+    }
+  
+  }
+  .item {
+    color: $text-gray;
+    text-decoration: none;
+    cursor: pointer;
+    margin: 0 9px;
+  }
+  .active {
+    color: $dk-gray;
+  }
+}

@@ -1,7 +1,7 @@
-import * as React from "react";
+import * as React from 'react'
 
 // styles
-import styles from "./Radio.module.scss";
+import styles from './Radio.module.scss'
 
 export default interface Iprops {
 	disabled?: boolean;

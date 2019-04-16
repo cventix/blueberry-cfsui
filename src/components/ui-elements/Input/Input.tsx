@@ -1,13 +1,13 @@
-import * as React from "react";
+import * as React from 'react'
 
 // ui-elements
-import { Icon } from "../Icon";
+import { Icon } from '../Icon'
 
 // icons
-import errorIcon from "../../../images/error.svg";
+import errorIcon from '../../../images/error.svg'
 
 // styles
-import styles from "./Input.module.scss";
+import styles from './Input.module.scss'
 
 export default interface Iprops { 
 	placeholder: string;

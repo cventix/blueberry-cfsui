@@ -1,0 +1,70 @@
+@import '../../../styles//global.scss';
+$header-height: 45px;
+$best-number: 23px;
+@keyframes popout {
+  from {
+    @include transform(scale(0));
+  }
+  80% {
+    @include transform(scale(1.2));
+  }
+  to {
+    @include transform(scale(1));
+  }
+}
+
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.6);
+
+  .modalMain {
+    @include box-shadow(0 5px 15px 0 rgba(0, 0, 0, 0.1));
+    @include transform(translate(-50%, -50%));
+    position: fixed;
+    background: white;
+    min-width: $best-number * 10;
+    height: auto;
+    border-radius: 3px;
+    top: 50%;
+    left: 50%;
+
+  }
+  .header {
+    @include flex(row, wrap);
+    @include box-shadow(0 1px 0 0 #e5e5e5);
+    @include border-radius($br-radius-sm);
+    justify-content: space-between;
+    height: $header-height;
+    background: $modal-header;
+    margin-bottom: $best-number;
+    .title {
+      @include flex(row, wrap);
+      margin-right: 23px;
+      align-items: center;
+      font-family: 'vazir-medium';
+      color: $lt-gray;
+    }
+    .close {
+      cursor: pointer;
+      border: 0;
+      background: 0;
+      margin: $header-height/4;
+      justify-self: flex-end;
+    }
+    .closeIcon {
+      width: 10px;
+    }
+  }
+}
+.displayBlock {
+  visibility: visible ;
+  animation: popout 1s ease;
+}
+
+.displayNone {
+  visibility: hidden;
+}
