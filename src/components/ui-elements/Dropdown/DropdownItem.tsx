@@ -13,13 +13,13 @@ interface Iprops {
   bordered?: boolean
 }
 
-export const DropdownItem: React.FunctionComponent<Iprops> = ({ label, link, index, onSelect, isSelected, selectable, description, bordered}) => {
-  let liClassName;
+export const DropdownItem: React.FunctionComponent<Iprops> = ({ label, link, index, onSelect, isSelected, selectable, description, bordered }) => {
+  let liClassName
   if (bordered) {
     liClassName = styles.bordered
   }
   if (isSelected === index) {
-    liClassName += ' '+styles.selected
+    liClassName += ' ' + styles.selected
   }
   console.log(liClassName)
   return (

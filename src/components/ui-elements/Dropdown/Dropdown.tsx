@@ -13,15 +13,14 @@ interface Iprops {
   width?: number
 }
 
-export const Dropdown: React.FunctionComponent<Iprops> = ({ data, isOpen, onToggle, isSelected, onSelect, width
- }) => {
+export const Dropdown: React.FunctionComponent<Iprops> = ({ data, isOpen, onToggle, isSelected, onSelect, width }) => {
   return (
-    <div className={styles.dropdownBox} >
+    <div className={styles.dropdownBox}>
       <button onClick={onToggle} className={styles.dpButton}>
         <div className={styles.more} />
       </button>
       {isOpen && (
-        <ul className={styles.dropdown} style={{width:width}}>
+        <ul className={styles.dropdown} style={{ width: width }}>
           {data &&
             data.map((item: any, i: number) => {
               return (

@@ -19,7 +19,7 @@ export default interface Iprops {
   onSelect?: (option: number) => void
   optionSelected?: number
 }
-export const Table: React.SFC<Iprops> = ({ table, dropdown, onCheckAll, checkAll, onSort, tabletView,onSelect,optionSelected}) => {
+export const Table: React.SFC<Iprops> = ({ table, dropdown, onCheckAll, checkAll, onSort, tabletView, onSelect, optionSelected }) => {
   return (
     <table className={styles.table}>
       <TableHeader
@@ -58,7 +58,7 @@ export const Table: React.SFC<Iprops> = ({ table, dropdown, onCheckAll, checkAll
                       data={[
                         { label: 'عمومی', description: 'فایل در موتور های جستجو و صفحات پرشین گیگ نمایش داده می شود' },
                         { label: 'با لینک' },
-                        { label: 'خصوصی' }
+                        { label: 'خصوصی' },
                       ]}
                     />
                   </td>

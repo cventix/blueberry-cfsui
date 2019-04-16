@@ -22,7 +22,7 @@ export const Modal: React.FunctionComponent<Iprops> = props => {
         <div className={styles.header}>
           <span className={styles.title}>{props.title}</span>
           <button className={styles.close} onClick={props.handleClose}>
-          <Icon className={styles.closeIcon} src={close}/>
+            <Icon className={styles.closeIcon} src={close} />
             {/* <span className={styles.closeIcon}>+</span> */}
           </button>
         </div>

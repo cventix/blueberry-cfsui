@@ -20,7 +20,7 @@ const table = [
     تاریخ: 'sth',
     حجم: 444,
     '-': '-',
-    type: 'folder'
+    type: 'folder',
   },
   {
     نام: 'عکس های شخصی',
@@ -28,7 +28,7 @@ const table = [
     تاریخ: 'fdf',
     حجم: 444231,
     '-': '-',
-    type: 'folder'
+    type: 'folder',
   },
   {
     نام: 'موسیقی',
@@ -36,7 +36,7 @@ const table = [
     تاریخ: 'sth',
     حجم: 42323,
     '-': '-',
-    type: 'music'
+    type: 'music',
   },
   {
     نام: 'رزومه ها',
@@ -44,7 +44,7 @@ const table = [
     تاریخ: 'sth',
     حجم: 444,
     '-': '-',
-    type: 'folder'
+    type: 'folder',
   },
   {
     نام: 'عکس های شخصی',
@@ -52,7 +52,7 @@ const table = [
     تاریخ: 'fdf',
     حجم: 444231,
     '-': '-',
-    type: 'folder'
+    type: 'folder',
   },
   {
     نام: 'موسیقی',
@@ -60,8 +60,8 @@ const table = [
     تاریخ: 'sth',
     حجم: 42323,
     '-': '-',
-    type: 'music'
-  }
+    type: 'music',
+  },
 ]
 
 export class Content extends React.Component<any, any> {
@@ -73,7 +73,7 @@ export class Content extends React.Component<any, any> {
       view: 'grid',
       width: 0,
       height: 0,
-      optionSelected: 0
+      optionSelected: 0,
     }
 
     this.updateWindowDimensions = this.updateWindowDimensions.bind(this)

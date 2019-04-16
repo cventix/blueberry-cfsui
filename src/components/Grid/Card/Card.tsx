@@ -15,7 +15,6 @@ export default interface Iprops {
   checkbox?: boolean
   checkAll?: boolean
   dropdown?: boolean
-  
 }
 
 export const Card: React.FunctionComponent<Iprops> = ({ item, checkbox, dropdown, checkAll }) => {
