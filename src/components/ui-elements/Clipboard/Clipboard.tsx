@@ -8,15 +8,15 @@ import { TextInput } from "../Input/Input";
 import { Button } from "../Button/Button";
 
 // styles
-import styles from "./ValueCopyInput.module.scss";
+import styles from "./Clipboard.module.scss";
 
 export default interface Iprops { 
 	onClick: ()=>void;
 }
 
-export const ValueCopyInput = ({ onClick }: Iprops) => {
+export const Clipboard = ({ onClick }: Iprops) => {
 	return (
-		<div className={styles.valueCopyInput}>
+		<div className={styles.clipboard}>
 			<TextInput placeholder="http://cdn.persiangig.com/..." />
 			<Button onClick={onClick}>
 				<span className={styles.copy}>کپی کن</span>

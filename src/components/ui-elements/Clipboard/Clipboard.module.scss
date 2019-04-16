@@ -3,18 +3,19 @@
 	border#{$dir}: 0 $important;
 }
 
-.valueCopyInput {
+.clipboard {
 	@include input-theme;
 	width: 284px;
 	border: 1px solid $input-border;
 
 	input {
 		left: 57px;
-		top: 4px;
+		top: 3px;
 		width: 221px;
 		direction: ltr;
 		height: 28px $important;
 		position: absolute $important;
+		margin-bottom: 0 $important;
 		border-left: 1px solid $input-border $important;
 		@include border-radius(initial $important);
 		@include border-reset(-top);
@@ -30,8 +31,9 @@
 
 	> button {
 		position: absolute;
-		top: 5px;
+		top: 0;
 		left: 2px;
+		height: 33px;
 		background-color: #fff;
 
 		.copy {
