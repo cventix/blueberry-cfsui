@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import { Navbar } from "../../components/Navbar/Navbar";
 import { Sidebar } from "../../components/Sidebar/Sidebar";
 import { Main } from "../../components/Main/Main";
-import { SearchInput } from "../../components/ui-elements/SearchInput/SearchInput";
 import "./App.css";
 
 class App extends Component {
@@ -11,7 +10,7 @@ class App extends Component {
       <div>
         <Navbar />
         <Sidebar />
-        <Main><SearchInput withSetting={true}/></Main>
+        <Main></Main>
       </div>
     );
   }

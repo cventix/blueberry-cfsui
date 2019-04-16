@@ -31,7 +31,7 @@
 		background: #f5f5fe;
 		border: 1px solid $input-border;
 		text-align: center;
-
+		cursor: pointer;
 
 		@if $body-dir == 'rtl' {
 			margin-right: -2px;
