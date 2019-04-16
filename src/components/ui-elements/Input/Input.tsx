@@ -17,6 +17,10 @@ export default interface Iprops {
 	message?: string;
 	error?: boolean;
 	success?: boolean
+	withIcon?: boolean;
+	icon?: string;
+	right?: boolean ;
+	left?: boolean ;
 	style?: object;
 }
 
@@ -28,6 +32,10 @@ export const TextInput = ({
 	message, 
 	error = false, 
 	success, 
+	withIcon, 
+	icon,
+	right,
+	left,
 	style}: Iprops) => {
 	return (
 		<div className={
@@ -37,11 +45,14 @@ export const TextInput = ({
 			} style={style}>
 			<label className={styles.label}>{label}</label>
 			<input type="text" 
-			className={styles.textInput} 
+			className={(withIcon && right) ? `${styles.textInput} ${styles.right}` :
+			(withIcon && left) ? `${styles.textInput} ${styles.left}` : 
+			`${styles.textInput}`} 
 			placeholder={placeholder} 
 			disabled={disabled} 
-			onChange={(e: any) =>  onChange && onChange(e.target.value)}
+			onChange={(e: any) => onChange && onChange(e.target.value)}
 			/>
+			<Icon className={withIcon  ? styles.withIcon : styles.hide} src={icon}/>
 			<span className={error ? styles.shoowErorrMsg : styles.hide}>
 				<Icon src={errorIcon} />
 				<span>{message}</span>

@@ -1,8 +1,13 @@
-// all links with icon (IconLink component)
+/* all links with icon (IconLink component) */
 .iconLink {
 	cursor: pointer;
 	
 	img {
 		vertical-align: middle;
 	}
+}
+
+/* hide items */
+.hide {
+	display: none;
 }
