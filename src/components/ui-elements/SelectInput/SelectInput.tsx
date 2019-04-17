@@ -68,8 +68,8 @@ const styles = {
 
 export const SelectInput = ({ options, onChange, selected, placeholder }: Iprops) => (
   <Select
-    options={options}
     isMulti
+    options={options}
     styles={styles}
     className={style.selectInput}
     onChange={onChange}
