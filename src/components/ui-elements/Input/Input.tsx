@@ -39,13 +39,13 @@ export const TextInput = ({ placeholder, onChange, label, disabled = false, mess
       <label className={styles.label}>{label}</label>
       <input
         type="text"
-        className={styles.textInput}
+        className={withIcon ? styles.textInput : `${styles.textInput} ${styles.reset}`}
         placeholder={placeholder}
         disabled={disabled}
         onChange={(e: any) => onChange && onChange(e.target.value)}
       />
-      <Icon className={withIcon ? styles.withIcon : styles.hide} src={icon} />
-      <span className={error ? styles.shoowErorrMsg : styles.hide}>
+      <Icon className={withIcon ? styles.withIcon : `hide`} src={icon} />
+      <span className={error ? styles.shoowErorrMsg : `hide`}>
         <Icon src={errorIcon} />
         <span>{message}</span>
       </span>

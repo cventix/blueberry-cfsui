@@ -24,7 +24,7 @@ export const SearchInput = ({ withSetting = false }: Iprops) => {
       <Button>
         <Icon src={searchIcon} />
       </Button>
-      <IconLink icon={settingIcon} className={withSetting ? `${styles.setting}` : `${styles.hide}`} />
+      <IconLink icon={settingIcon} className={withSetting ? `${styles.setting}` : `hide`} />
     </div>
   )
 }
