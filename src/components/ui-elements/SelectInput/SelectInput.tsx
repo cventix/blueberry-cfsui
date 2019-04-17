@@ -4,6 +4,7 @@ import * as React from 'react'
 import Select from 'react-select'
 
 import style from './SelectInput.module.scss'
+import { ngettext, msgid, t } from 'ttag';
 
 export default interface Iprops {
   options: any[]
@@ -75,6 +76,6 @@ export const SelectInput = ({ options, onChange, selected, placeholder }: Iprops
     onChange={onChange}
     value={selected}
     placeholder={placeholder}
-    noOptionsMessage={() => 'آیتمی وجود ندارد'}
+    noOptionsMessage={() => t`آیتمی وجود ندارد`}
   />
 )
