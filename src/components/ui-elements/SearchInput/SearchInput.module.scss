@@ -1,50 +1,51 @@
-@import "../../../styles/global";
+@import '../../../styles/global';
 
 .searchInput {
-	position: relative;
+  position: relative;
+  > input {
+	z-index: -1;
+  }
+  > button {
+    position: absolute;
+    top: 8px;
+    height: 33px;
+    background: #fff;
 
-	> button {
-		position: absolute;
-		top: 8px;
-		height: 33px;
-		background: #fff;
+    @if $body-dir == 'rtl' {
+      margin-right: -30px;
+    } @else if $body-dir == 'ltr' {
+      margin-left: -30px;
+    }
 
-		@if $body-dir == 'rtl' {
-			margin-right: -30px;
-		} @else if $body-dir == 'ltr' {
-			margin-left: -30px;
-		}
+    > img {
+      width: 12px;
+      height: 12px;
+      margin-top: 10px;
+    }
+  }
 
-		> img {
-			width: 12px;
-			height: 12px;
-			margin-top: 10px;
-		}
-	}
+  .setting {
+    margin-top: 2px;
+    display: inline-block;
+    width: 36px;
+    height: $default-height;
+    background: #f5f5fe;
+    border: 1px solid $input-border;
+	text-align: center;
+	vertical-align: middle;
 
-	.setting {
-		position: absolute;
-		top: 7px;
-		display: inline-block;
-		width: 36px;
-		height: $default-height;
-		background: #f5f5fe;
-		border: 1px solid $input-border;
-		text-align: center;
+    @if $body-dir == 'rtl' {
+      margin-right: -2px;
+      border-top-left-radius: $br-radius-sm;
+      border-bottom-left-radius: $br-radius-sm;
+    } @else {
+      margin-left: -2px;
+      border-top-right-radius: $br-radius-sm;
+      border-bottom-right-radius: $br-radius-sm;
+    }
 
-
-		@if $body-dir == 'rtl' {
-			margin-right: -2px;
-			border-top-left-radius: $br-radius-sm;
-			border-bottom-left-radius: $br-radius-sm;
-		} @else {
-			margin-left: -2px;
-			border-top-right-radius: $br-radius-sm;
-			border-bottom-right-radius: $br-radius-sm;
-		}
-
-		> img {
-			margin-top: 9px;
-		}
-	}
+    > img {
+      margin-top: 9px;
+    }
+  }
 }

@@ -1,0 +1,31 @@
+@import '../../../styles/global.scss';
+
+.row {
+  @include flex(row, wrap);
+  width: 100%;
+}
+.column {
+  @include flex(column, wrap);
+  flex-basis: 100%;
+  flex: 1;
+  padding: 0 23px;
+}
+.textBox {
+  @include flex(column, wrap);
+  margin-bottom: 15px;
+  .text {
+    letter-spacing: -0.2px;
+    color: $dk-gray;
+  }
+  .subText {
+    font-family: 'vazir-light';
+    font-size: 10px;
+    color: $text-gray;
+  }
+}
+.clipBoard {
+  margin-bottom: 8px;
+}
+.dropdown {
+  margin-bottom: 12px;
+}

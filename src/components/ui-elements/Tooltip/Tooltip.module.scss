@@ -1,31 +1,75 @@
-@import "../../../styles/global";
+@import '../../../styles/global';
+
+$border-transparent: 6px solid transparent;
+$border-gray: 6px solid $lt-gray;
+
+@mixin bottom {
+  top: 98%;
+  border-right: 6px solid transparent;
+  border-left: 6px solid transparent;
+  border-top: 6px solid $lt-gray;
+}
+
+@mixin top {
+  bottom: 98%;
+  border-right: 6px solid transparent;
+  border-left: 6px solid transparent;
+  border-bottom: 6px solid $lt-gray;
+}
 
 .tooltip {
-	position: relative;
-	padding: 3px 21px;
-	color: #fff;
-	background-color: $lt-gray;
-	text-align: center;
-	@include border-radius($br-radius-sm);
-	@include box-shadow(0 1px 3px 0 rgba(0, 0, 0, 0.15));
+  @include flex(column, wrap);
+  justify-content: center;
 
-	&:after {
-		content: '';
-		position: absolute;
-		top: 98%;
-		width: 0; 
-		height: 0;
-		border-top: 6px solid $lt-gray;
-		border-right: 6px solid transparent;
-		border-left: 6px solid transparent;
+  .text {
+    display: none;
+  }
+}
+.tooltip {
+  display: inline-block;
+  position: relative;
+  text-align: left;
+}
 
-		@if $body-dir == 'rtl' {
-			right: 50%;
-			margin-right: -3px;
+.tooltip .text {
+  display: none;
+  position: absolute;
+  padding: 7px 0;
+  color: #fff;
+  background-color: $lt-gray;
+  text-align: center;
+  font-size: 10px;
+  left: -15px;
+  z-index: 3;
+  @include border-radius($br-radius-sm);
+  @include box-shadow(0 1px 3px 0 rgba(0, 0, 0, 0.15));
+  &:after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 0;
+    @if $body-dir == 'rtl' {
+      right: 50%;
+      margin-right: -3px;
+    } @else {
+      left: 50%;
+      margin-left: -3px;
+    }
+  }
+}
+.flex {
+  display: flex;
+}
+.top:after {
+  @include top;
+}
+.bottom:after {
+  @include bottom;
+}
 
-		} @else {
-			left: 50%;
-			margin-left: -3px;
-		}
-	}
+.tooltip:hover .text {
+  display: block;
+}
+.columnReverse {
+  flex-direction: column-reverse;
 }

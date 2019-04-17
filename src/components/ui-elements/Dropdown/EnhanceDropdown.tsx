@@ -5,6 +5,7 @@ interface IProps {
   width?: number
   onSelect?: (option: number) => void
   optionSelected?: number
+  position?: any
 }
 
 interface IState {

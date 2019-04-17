@@ -41,6 +41,7 @@ export const Navbar: React.FunctionComponent<Iprops> = ({  }: Iprops) => {
           <IconLink icon={notifIcon} className="iconLink webIcon hasNotif" iconAlt={`Notif ${altIcon}`} />
           <IconLink icon={financeIcon} className="iconLink webIcon" iconAlt={`Finance ${altIcon}`} />
           <IconLink icon={statusIcon} className="iconLink status" iconAlt={`Status ${altIcon}`} />
+
           <Avatar />
         </div>
       </div>

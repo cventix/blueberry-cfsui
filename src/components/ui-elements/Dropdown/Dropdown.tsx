@@ -7,20 +7,37 @@ import styles from './Dropdown.module.scss'
 interface Iprops {
   isOpen: boolean
   onToggle?: () => void
-  data?: string[]
+  data?: object[]
   isSelected?: number
   onSelect?: () => void
   width?: number
+  noButton?: boolean
+  position?: any
 }
 
-export const Dropdown: React.FunctionComponent<Iprops> = ({ data, isOpen, onToggle, isSelected, onSelect, width }) => {
+export const Dropdown: React.FunctionComponent<Iprops> = ({
+  data,
+  isOpen,
+  onToggle,
+  isSelected,
+  onSelect,
+  width,
+  noButton,
+  children,
+  position = 'absolute',
+}) => {
   return (
     <div className={styles.dropdownBox}>
-      <button onClick={onToggle} className={styles.dpButton}>
-        <div className={styles.more} />
-      </button>
+      {children
+        ? children
+        : !noButton && (
+            <button onClick={onToggle} className={styles.dpButton}>
+              <div className={styles.more} />
+            </button>
+          )}
+
       {isOpen && (
-        <ul className={styles.dropdown} style={{ width: width }}>
+        <ul className={position ? [styles[position], styles.dropdown].join(' ') : styles.dropdown} style={{ width: width }}>
           {data &&
             data.map((item: any, i: number) => {
               return (

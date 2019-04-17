@@ -13,12 +13,13 @@ export default interface Iprops {
   handleClose?: () => void
   show?: boolean
   title?: string
+  width?: number
 }
 
 export const Modal: React.FunctionComponent<Iprops> = props => {
   return (
     <div className={props.show ? [styles.modal, styles.displayBlock].join(' ') : [styles.modal, styles.displayNone].join(' ')}>
-      <section className={styles.modalMain}>
+      <section className={styles.modalMain} style={{ width: props.width }}>
         <div className={styles.header}>
           <span className={styles.title}>{props.title}</span>
           <button className={styles.close} onClick={props.handleClose}>

@@ -1,0 +1,16 @@
+@import '../../../styles/global.scss';
+
+.uploadModal {
+  @include flex(column, wrap);
+  color:$dk-gray;
+  margin-top: 45px;
+  justify-content: center;
+  align-items: center;
+  .row {
+    @include flex(row, wrap);
+    align-items: center;
+    justify-content: space-between;
+    width: 80%;
+    margin: 15px 0 48px;
+  }
+}

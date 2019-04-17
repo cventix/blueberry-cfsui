@@ -7,12 +7,12 @@ $title-margin-bottom: 20px;
 .container {
   @include flex(row, wrap);
   position: relative;
-  // justify-content: space-between;
+  
 }
 
 .header {
   margin-bottom: $header-margin-bottom - 16px;
-  display: relative;
+
   .title {
     @include flex(row, wrap);
     color: $text-gray;

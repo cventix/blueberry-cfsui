@@ -1,13 +1,13 @@
 import * as React from 'react'
 
 // styles
-import styles from "./Button.module.scss";
+import styles from './Button.module.scss'
 
-export default interface Iprops { 
-	className?:  string[];
-	onClick?: ()=>void;
-	style?: object;
-	children?: any;
+export default interface Iprops {
+  className?: string[]
+  onClick?: () => void
+  style?: object
+  children?: any
 }
 
 const classCreator = (className: any) => {

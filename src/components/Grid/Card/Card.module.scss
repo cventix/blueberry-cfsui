@@ -16,14 +16,10 @@ $date-font-size: 10px;
   height: $box-length;
   position: relative;
   background-color: $background-white;
-  margin: $box-length / 10 + 3px;
+  margin: calc((11% + 9px) / 5);
   flex: 0 1 calc(18% -16px);
   justify-content: center;
   align-items: center;
-
-  @media (max-width: $tablet*1.5) {
-    flex: 0 1 calc(30% - 8px);
-  }
 
   &:nth-child(6n + 6),
   &:nth-child(1) {
@@ -33,6 +29,7 @@ $date-font-size: 10px;
       margin-right: 0;
     }
   }
+
   &:nth-child(5n + 5) {
     @if $body-dir == 'ltr' {
       margin-right: 0;
@@ -40,6 +37,7 @@ $date-font-size: 10px;
       margin-left: 0;
     }
   }
+
   .checkbox {
     position: absolute;
     bottom: $side-length;
@@ -70,5 +68,12 @@ $date-font-size: 10px;
   img {
     width: $icon-length;
     height: $icon-length;
+  }
+  @media (max-width: $web-medium-max + 75px) {
+    margin: $box-length / 10 - 3px !important;
+  }
+  @media (max-width: $tablet*1.5) {
+    flex: 0 1 calc(30% - 8px);
+    margin: $box-length / 10 - 3px !important;
   }
 }

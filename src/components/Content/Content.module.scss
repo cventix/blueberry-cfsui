@@ -1,14 +1,19 @@
 @import '../../styles/global.scss';
 
 $arrow-width: 16px;
+.flex {
+  display: flex;
+  &:nth-child(2){
+    margin-left:20px;
+  }
+}
 
 .header {
-  @include flex(row, wrap);
+  display: flex;
   justify-content: space-between;
   margin-bottom: 60px;
   .left {
     display: flex;
-    justify-self: flex-end;
     align-items: center;
     cursor: pointer;
   }
