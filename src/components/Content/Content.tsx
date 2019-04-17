@@ -63,12 +63,18 @@ const table = [
     type: 'music',
   },
 ]
-
+const sort = (data: any) => {
+  var sortOrder = ['folder', 'image', 'music']
+  data.sort(function(a: any, b: any) {
+    return sortOrder.indexOf(a.type) - sortOrder.indexOf(b.type)
+  })
+  return data
+}
 export class Content extends React.Component<any, any> {
   constructor(props: any) {
     super(props)
     this.state = {
-      table: table,
+      table: sort(table),
       checkAll: false,
       view: 'grid',
       width: 0,
