@@ -6,10 +6,12 @@
     vertical-align: middle;
   }
 }
+
 .rowItem {
   display: -webkit-flex;
   display: flex;
   align-items: center;
+  
   * {
     margin-left: 7px;
   }

@@ -1,0 +1,36 @@
+@import '../../../styles/global.scss';
+
+.langSwitch{
+	width: 55px;
+	height: 20px;
+	border: 1px solid $dk-blue;
+	text-align: center;
+	line-height: 18px;
+	@include border-radius($br-radius-lg);
+
+	.item {
+		display: inline-block;
+		font-size: $font-size - 3;
+		color: $dk-blue;
+		text-decoration: none;
+
+		&.active {
+			width: 25px;
+			height: 14px;
+			background-color: $dk-blue;
+			color: #fff;
+			text-align: center;
+			@include border-radius(78.4px);
+		}
+
+		&:nth-child(2) {
+			margin-top: 2px;
+
+			@if $body-dir == 'rtl' {
+				margin-right: 6px;
+			} @else {
+				margin-left: 6px;
+			}
+		}
+	}
+}

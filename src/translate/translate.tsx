@@ -13,6 +13,7 @@ if (locale !== 'fa') {
 	const translationsObj = require(`./${locale}.po.json`);
 	addLocale(locale, translationsObj);
 	useLocale(locale);
+	// document.body.setAttribute('style', 'direction: ltr');
 }
 
 export const set = (key: string, value: string) => document.cookie = `${key}=${value}`;

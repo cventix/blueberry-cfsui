@@ -1,4 +1,5 @@
 import * as React from 'react'
+import { t } from 'ttag'
 
 // ui-elements
 import { Hr } from '../ui-elements/Hr'
@@ -23,9 +24,9 @@ export const Sidebar: React.FunctionComponent<Iprops> = ({  }: Iprops) => {
       <div className="menuWrapper">
         <div className="menu">
           <Button className={['btnPrimary0', 'btnLg']} style={{ marginBottom: '15px' }}>
-            <IconLink icon={uploadIcon} iconAlt="upload icon" label="آپلود فایل" />
+            <IconLink icon={uploadIcon} iconAlt="upload icon" label={t`آپلود فایل`} />
           </Button>
-          <IconLink icon={upFromUrlIcon} className="iconLink upFromUrl" iconAlt="upload icon" label="آپلود فایل از URL" />
+          <IconLink icon={upFromUrlIcon} className="iconLink upFromUrl" iconAlt="upload icon" label={t`آپلود فایل از URL`} />
           <ActionNav />
           <Hr />
           <UpgradeAccount />

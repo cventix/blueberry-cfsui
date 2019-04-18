@@ -2,6 +2,7 @@
 // TODO: current page has current classname
 
 import * as React from 'react'
+import { t } from 'ttag'
 
 // ui-elements
 import { Icon } from '../ui-elements/Icon'
@@ -31,9 +32,9 @@ export const Navbar: React.FunctionComponent<Iprops> = ({  }: Iprops) => {
           <Icon src={logo} className="logo" alt="pg-logo" />
         </a>
         <div className="nav">
-          <IconLink icon={fileCloudIcon} className="iconLink current" iconAlt={`File-cloud ${altIcon}`} label="میزبانی‌فایل" />
-          <IconLink icon={vpsIcon} iconAlt={`vps ${altIcon}`} label="سرور و هاست" />
-          <IconLink icon={internetIcon} iconAlt={`Internet ${altIcon}`} label="اینترنت" />
+          <IconLink icon={fileCloudIcon} className="iconLink current" iconAlt={`File-cloud ${altIcon}`} label={t`میزبانی‌فایل`} />
+          <IconLink icon={vpsIcon} iconAlt={`vps ${altIcon}`} label={t`سرور و هاست`} />
+          <IconLink icon={internetIcon} iconAlt={`Internet ${altIcon}`} label={t`اینترنت`} />
         </div>
       </div>
       <div className="left">

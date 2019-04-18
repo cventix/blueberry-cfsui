@@ -1,4 +1,5 @@
 import * as React from 'react'
+import { t } from 'ttag'
 
 // ui-elements
 import { IconLink } from '../../ui-elements/IconLink'
@@ -16,11 +17,11 @@ export const Nav: React.FunctionComponent<Iprops> = () => {
   const altIcon = 'Icon'
   return (
     <div className="nav">
-      <IconLink icon={fileCloudIcon} iconAlt={`content-delivery ${altIcon}`} label="شبکه تحویل محتوا" />
-      <IconLink icon={vpsIcon} iconAlt={`vps ${altIcon}`} label="سرور و هاست" />
-      <IconLink icon={internetIcon} iconAlt={`Internet ${altIcon}`} label="اینترنت" />
-      <IconLink icon={notifIcon} iconAlt={`notif ${altIcon}`} label="تیکت‌ها" />
-      <IconLink icon={financeIcon} iconAlt={`finance ${altIcon}`} label="فاکتورها" />
+      <IconLink icon={fileCloudIcon} iconAlt={`content-delivery ${altIcon}`} label={t`شبکه تحویل محتوا`} />
+      <IconLink icon={vpsIcon} iconAlt={`vps ${altIcon}`} label={t`سرور و هاست`} />
+      <IconLink icon={internetIcon} iconAlt={`Internet ${altIcon}`} label={t`اینترنت`} />
+      <IconLink icon={notifIcon} iconAlt={`notif ${altIcon}`} label={t`تیکت ها`} />
+      <IconLink icon={financeIcon} iconAlt={`finance ${altIcon}`} label={t`فاکتور ها`} />
     </div>
   )
 }

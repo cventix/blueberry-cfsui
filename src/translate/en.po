@@ -6,5 +6,38 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-msgid "امورش ttag"
-msgstr "Вивчити React"
+msgid "میزبانی‌فایل"
+msgstr "File hosting"
+
+msgid "سرور و هاست"
+msgstr "Server and Host"
+
+msgid "اینترنت"
+msgstr "Internet"
+
+msgid "آپلود فایل"
+msgstr "File upload"
+
+msgid "آپلود فایل از"
+msgstr "Upload file from"
+
+msgid "پوشه جدید"
+msgstr "New Folder"
+
+msgid "انتقال"
+msgstr "Transfer"
+
+msgid "حذف"
+msgstr "Delete"
+
+msgid "ارتقاء حساب میزبانی"
+msgstr "Upgrade the hosting account"
+
+msgid "شبکه تحویل محتوا"
+msgstr "Content delivery network"
+
+msgid "تیکت ها"
+msgstr "Tickets"
+
+msgid "فاکتور ها"
+msgstr "Invoices"
