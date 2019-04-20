@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { Navbar } from '../../components/Navbar/Navbar'
 import { Sidebar } from '../../components/Sidebar/Sidebar'
+
 import { Stepbar } from '../../components/Stepbar/Stepbar'
 import { Main } from '../../components/Main/Main'
 import { LangSwitcher } from '../../components/ui-elements/LangSwitcher/LangSwitcher'
@@ -28,8 +29,8 @@ class App extends Component {
         <Sidebar />
         
         <Main>
-          <Content />
-          <LangSwitcher/>
+          
+          <LangSwitcher />
         </Main>
       </div>
     )

@@ -1,6 +1,6 @@
 @import '../../../styles/global.scss';
 
-.langSwitch{
+.langSwitch {
 	width: 55px;
 	height: 20px;
 	border: 1px solid $dk-blue;
@@ -25,11 +25,16 @@
 
 		&:nth-child(2) {
 			margin-top: 2px;
+			margin-right: 4.5px;
+		}
+	}
+}
 
-			@if $body-dir == 'rtl' {
-				margin-right: 6px;
-			} @else {
-				margin-left: 6px;
+.ltr {
+	.langSwitch {
+		.item {
+			&:nth-child(2) {
+				margin-left: 4.5px;
 			}
 		}
 	}

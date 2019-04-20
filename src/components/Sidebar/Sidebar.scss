@@ -14,12 +14,8 @@
 		width: $sidebar-width;
 		background: #fff;
 		opacity: 0.99;
-
-		@if $body-dir == rtl {
-			right: 0;
-		} @else {
-			left: 0;
-		}
+		right: 0;
+		left: auto;
 
 		.menu {
 			position: absolute;
@@ -39,15 +35,9 @@
 				font-family: $medium-font;
 				cursor: pointer;
 				border: 0;
-
+				padding-right: 11px;
+				text-align: right;
 				@include border-radius($br-radius-sm);
-				@if $body-dir == rtl {
-					padding-right: 11px;
-					text-align: right;
-				} @else {
-					padding-left: 11px;
-					text-align: left;
-				}
 			}
 
 			.iconLink {
@@ -63,13 +53,8 @@
 
 				.iconLink {
 					margin-bottom: 18px;
-
-					@if $body-dir == rtl {
-						margin-right: 11px;
-					} @else {
-						margin-left: 11px;
-					}
-
+					margin-right: 11px;
+					
 					span {
 						font-family: $medium-font;
 					}
@@ -86,6 +71,27 @@
 				}
 			}
 
+		}
+	}
+}
+
+.ltr {
+	.sidebar {
+		.menuWrapper {
+			right: auto;
+			left: 0;
+
+			.menu {
+				.upFromUrl {
+					padding-right: 0;
+					padding-left: 11px;
+					text-align: left;
+				}
+
+				.actionNav {
+					margin-left: 11px;
+				}
+			}
 		}
 	}
 }
