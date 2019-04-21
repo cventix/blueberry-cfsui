@@ -1,4 +1,5 @@
-import { addLocale, useLocale } from 'ttag';
+import * as React from 'react'
+import { addLocale, useLocale } from 'ttag'
 
 const LOCALE_STORAGE = '__language';
 

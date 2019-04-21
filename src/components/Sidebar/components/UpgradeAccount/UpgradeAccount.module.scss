@@ -45,7 +45,6 @@
 			width: 12px;
 			height: 10px;
 			margin-bottom: -3px;
-			@include transform(rotate(180deg));
 		}
 	}
 }
@@ -59,7 +58,7 @@
 			}
 
 			img {
-				@include transform(none);
+				@include transform(rotate(180deg));
 			}
 		}
 	}

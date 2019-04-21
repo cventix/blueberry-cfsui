@@ -45,7 +45,7 @@
 				img {
 					width: 18px;
 					height: 18px;
-					@include margin-with-direction(12px);
+					margin-left: 12px;
 				}
 			}
 
@@ -88,8 +88,17 @@
 					text-align: left;
 				}
 
+				.iconLink {
+					img {
+						margin-right: 12px;
+					}
+				}
+
 				.actionNav {
-					margin-left: 11px;
+					.iconLink {
+						margin-right: 0;
+						margin-left: 11px;
+					}
 				}
 			}
 		}

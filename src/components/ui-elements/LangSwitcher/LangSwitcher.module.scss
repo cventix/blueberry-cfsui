@@ -1,6 +1,8 @@
-@import '../../../styles/global.scss';
+@import '../../../styles/global';
 
 .langSwitch {
+	display: block;
+	margin: 0 auto;
 	width: 55px;
 	height: 20px;
 	border: 1px solid $dk-blue;
@@ -10,6 +12,7 @@
 
 	.item {
 		display: inline-block;
+		margin-right: 4.5px;
 		font-size: $font-size - 3;
 		color: $dk-blue;
 		text-decoration: none;
@@ -17,15 +20,15 @@
 		&.active {
 			width: 25px;
 			height: 14px;
+			margin-top: 2px;
 			background-color: $dk-blue;
 			color: #fff;
 			text-align: center;
 			@include border-radius(78.4px);
 		}
 
-		&:nth-child(2) {
-			margin-top: 2px;
-			margin-right: 4.5px;
+		&:last-child {
+			margin-right: 0;
 		}
 	}
 }
@@ -33,8 +36,11 @@
 .ltr {
 	.langSwitch {
 		.item {
-			&:nth-child(2) {
-				margin-left: 4.5px;
+			margin-left: 4.5px;
+			margin-right: 0;
+
+			&:last-child {
+				margin-left: 0;
 			}
 		}
 	}

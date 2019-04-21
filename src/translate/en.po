@@ -18,8 +18,8 @@ msgstr "Internet"
 msgid "آپلود فایل"
 msgstr "File upload"
 
-msgid "آپلود فایل از"
-msgstr "Upload file from"
+msgid "آپلود فایل از URL"
+msgstr "File upload from URL"
 
 msgid "پوشه جدید"
 msgstr "New Folder"
