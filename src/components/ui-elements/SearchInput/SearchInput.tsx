@@ -16,16 +16,17 @@ import styles from './SearchInput.module.scss'
 // interface
 export default interface Iprops {
   withSetting?: boolean
+  placeHolder: string
 }
 
-export const SearchInput = ({ withSetting = false }: Iprops) => {
+export const SearchInput = ({ withSetting = false, placeHolder }: Iprops) => {
   return (
     <div className={styles.searchInput}>
-      <TextInput placeholder="Placeholder" style={{ display: 'inline-block' }} />
+      <TextInput placeholder={placeHolder} style={{ display: 'inline-block' }} />
       <Button>
         <Icon src={searchIcon} />
       </Button>
-      <IconLink icon={settingIcon} className={withSetting ? `${styles.setting}` : `hide`} />
+      <IconLink icon={settingIcon} className={withSetting ? `${styles.setting}` : `${styles.hide}`} />
     </div>
   )
 }
