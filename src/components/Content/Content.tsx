@@ -6,7 +6,6 @@ import { Contentheader } from './Contentheader'
 import { Breadcrumb } from '../ui-elements/Breadcrumb/Breadcrumb'
 import { Button } from '../ui-elements/Button/Button'
 import { IconLink } from '../ui-elements/IconLink'
-import arrowLeft from '../../images/arrow-left.svg'
 import arrowBottom from '../../images/buttonIcons/icon-btn-arrow-bottom.svg'
 
 import styles from './Content.module.scss'
@@ -63,14 +62,27 @@ const table = [
     type: 'music',
   },
 ]
-const sort = (data: any) => {
+const sort = (data: object[]) => {
   var sortOrder = ['folder', 'image', 'music']
   data.sort(function(a: any, b: any) {
     return sortOrder.indexOf(a.type) - sortOrder.indexOf(b.type)
   })
   return data
 }
-export class Content extends React.Component<any, any> {
+
+export interface IProps {}
+export interface IState {
+  table: any
+  checkAll: boolean
+  view: string
+  width: number
+  height: number
+  optionSelected: number
+  ascending: string
+  [key: string]: any
+}
+
+export class Content extends React.Component<IProps, IState> {
   constructor(props: any) {
     super(props)
     this.state = {
@@ -80,6 +92,7 @@ export class Content extends React.Component<any, any> {
       width: 0,
       height: 0,
       optionSelected: 0,
+      ascending: 'ascending',
     }
 
     this.updateWindowDimensions = this.updateWindowDimensions.bind(this)

@@ -1,8 +1,8 @@
 import React from 'react'
-
-import styles from './Breadcrumb.module.scss'
 import { Icon } from '../Icon'
 import bigger from '../../../images/bigger.svg'
+
+import styles from './Breadcrumb.module.scss'
 
 interface BreadcrumbItem {
   title: string

@@ -1,9 +1,9 @@
 import * as React from 'react'
 import { Modal } from '../Modal/Modal'
-
-import styles from './Sharemodal.module.scss'
 import { ClipBoard } from '../Clipboard/Clipboard'
 import Dropdown from '../Dropdown/Dropdown'
+
+import styles from './Sharemodal.module.scss'
 
 export default interface Iprops {
   show?: boolean

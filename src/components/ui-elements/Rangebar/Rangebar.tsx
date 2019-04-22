@@ -1,4 +1,5 @@
 import React from 'react'
+
 import styles from './Rangebar.module.scss'
 
 export default interface Iprops {

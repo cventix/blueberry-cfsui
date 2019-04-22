@@ -1,8 +1,8 @@
 import React from 'react'
 import { Hr } from '../ui-elements/Hr'
+import { Checkbox } from '../ui-elements/Checkbox/Checkbox'
 
 import styles from './Grid.module.scss'
-import { Checkbox } from '../ui-elements/Checkbox/Checkbox'
 
 export default interface Iprops {
   onCheckAll?: () => void

@@ -1,13 +1,14 @@
 import * as React from 'react'
 
 import modalStyles from '../Modal/Modal.module.scss'
-import styles from './Preview.module.scss'
 import { Button } from '../Button/Button'
 import { Icon } from '../Icon'
 import closeIcon from '../../../images/buttonIcons/icon-close.svg'
 import arrowLeft from '../../../images/arrow-left-white.svg'
 import zoomIn from '../../../images/buttonIcons/zoom-in.svg'
 import zoomOut from '../../../images/buttonIcons/zoom-out.svg'
+
+import styles from './Preview.module.scss'
 
 export const splitter = (className: any) => {
   return className.map((cls: any) => styles[cls]).join(' ')
@@ -37,6 +38,7 @@ export const Preview: React.FunctionComponent<Iprops> = props => {
       content = 'video'
       break
   }
+
   return (
     <div className={props.show ? [modalStyles.modal, modalStyles.displayBlock].join(' ') : [modalStyles.modal, modalStyles.displayNone].join(' ')}>
       <div className={styles.previewBox}>

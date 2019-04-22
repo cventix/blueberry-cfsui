@@ -1,11 +1,9 @@
 import * as React from 'react'
 import { Modal } from '../Modal/Modal'
-
-import styles from './Uploadmodal.module.scss'
-import { ClipBoard } from '../Clipboard/Clipboard'
-import Dropdown from '../Dropdown/Dropdown'
 import { TextInput } from '../Input/Input'
 import { Button } from '../Button/Button'
+
+import styles from './Uploadmodal.module.scss'
 
 export default interface Iprops {
   show?: boolean

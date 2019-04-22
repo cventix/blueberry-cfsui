@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
-import styles from './Grid.module.scss'
 import { Card } from './Card/Card'
-import { GridHeader } from './GridHeader'
+
+import styles from './Grid.module.scss'
 
 export default interface Iprops {
   checkbox?: boolean
