@@ -22,7 +22,7 @@
 	}
 
 	.progressbar{
-margin :0 6px 2px 6px;
+		margin :0 6px 2px 6px;
 	}
 
 	.bottom {
@@ -36,22 +36,28 @@ margin :0 6px 2px 6px;
 		background-color: #fae68e;
 		color: $dk-gray;
 		font-family: $medium-font;
-
 		span {
-			@if $body-dir == rtl {
-				float: right;
-				margin-left: 8px;
-			} @else {
-				float: left;
-				margin-right: 8px;
-			}
+			float: right;
+			margin-left: 8px;
 		}
 
 		img {
 			width: 12px;
 			height: 10px;
 			margin-bottom: -3px;
-			@if $body-dir == ltr {
+		}
+	}
+}
+
+.ltr {
+	.upgradeAccount {
+		.bottom {
+			span {
+				float: left;
+				margin-right: 8px;
+			}
+
+			img {
 				@include transform(rotate(180deg));
 			}
 		}

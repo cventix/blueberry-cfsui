@@ -1,4 +1,3 @@
-$body-dir: rtl;
 $body-bcgcolor: rgba(248, 248, 248, 0.82);
 
 /* type of fonts */
@@ -68,10 +67,13 @@ body {
   background: $body-bcgcolor;
   font-family: $regular-font;
   font-size: $font-size;
-
-  @if $body-dir == rtl {
+  &.rtl {
     direction: rtl;
-  } @else {
+  }
+
+  &.ltr {
     direction: ltr;
   }
 }
+
+

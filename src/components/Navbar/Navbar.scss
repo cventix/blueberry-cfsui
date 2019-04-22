@@ -63,16 +63,11 @@ $img-size: 30px;
 			}
 
 			.iconLink {
-				@include margin-with-direction($default-margin);
+				margin-left: $default-margin;
 
 				span {
 					color: $dk-gray;
-					
-					@if $body-dir == rtl {
-						margin-right: 5px;
-					} @else {
-						margin-left: 5px;
-					}
+					margin-right: 5px;
 				}
 
 				&.current {
@@ -82,21 +77,17 @@ $img-size: 30px;
 				}
 
 				&:first-child {
-					@if $body-dir == rtl {
-						margin-right: $default-margin - 5;
-					} @else {
-						margin-left: $default-margin - 5;
-					}
+					margin-right: $default-margin - 5;
 				}
 			}
 		}
 	}
 
 	.left {
-		@include margin-with-direction($default-margin);
+		margin-left: $default-margin;
 
 		@media(max-width: $tablet) {
-			@include margin-with-direction(0);
+			margin-left: 0;
 		}
 
 		.nav {
@@ -123,15 +114,16 @@ $img-size: 30px;
 			}
 
 			.iconLink {
-				@include margin-with-direction(23px);
+				margin-left: 23px;
 
 				.icon {
 					margin-top: 6px;
 				}
 
-				&.webIcn {
+				&.webIcon {
 					@media(max-width: $tablet) {
 						display: none;
+						width: 1502px
 					}
 				}
 
@@ -145,14 +137,8 @@ $img-size: 30px;
 						width: 4px;
 						height: 4px;
 						background-color: $red;
-
+						left: 10px;
 						@include border-radius(50%);
-						@if $body-dir == 'rtl' {
-							left: 10px;
-						} @else {
-							right: 14px;
-						}
-
 					}
 				}
 
@@ -178,7 +164,56 @@ $img-size: 30px;
 				}
 
 				@media(max-width: $tablet) {
-					@include margin-with-direction(10px);
+					margin-left: 10px;
+				}
+			}
+		}
+	}
+}
+
+.ltr {
+	.navbar {
+		.right {
+			.nav {
+				.iconLink {
+					margin-right: $default-margin;
+					margin-left: 0;
+
+					span {
+						margin-left: 5px;
+						margin-right: 0;
+					}
+
+					&:first-child {
+						margin-left: $default-margin - 5;
+					}
+				}
+			}	 
+		}
+
+		.left {
+			margin-right: $default-margin;
+			margin-left: 0;
+
+			@media(max-width: $tablet) {
+				margin-right: 0;
+			}
+
+			.nav {
+				.iconLink {
+					margin-right: 21px;
+					margin-left: 0;
+
+					&.hasNotif {
+						&:before {
+							left: 5px;
+						}
+					}
+
+					@media(max-width: $tablet) {
+						margin-right: 10px;
+						margin-left: 0;
+					}
 				}
 			}
 		}

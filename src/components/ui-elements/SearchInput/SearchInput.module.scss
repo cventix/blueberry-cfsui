@@ -2,9 +2,7 @@
 
 .searchInput {
   position: relative;
-  > input {
-	z-index: -1;
-  }
+
   > button {
     position: absolute;
     top: 8px;
@@ -25,14 +23,15 @@
   }
 
   .setting {
-    margin-top: 2px;
+    position: absolute;
+    top: 7px;
     display: inline-block;
     width: 36px;
     height: $default-height;
     background: #f5f5fe;
     border: 1px solid $input-border;
-	text-align: center;
-	vertical-align: middle;
+    text-align: center;
+    cursor: pointer;
 
     @if $body-dir == 'rtl' {
       margin-right: -2px;

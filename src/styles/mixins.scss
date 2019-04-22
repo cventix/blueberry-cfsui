@@ -50,11 +50,12 @@
 
 /* changable margin with direction */
 @mixin margin-with-direction($value) {
-  @if $body-dir == rtl {
-    margin-left: $value;
-  } @else {
-    margin-right: $value;
-  }
+	.rtl {
+		margin-left: $value;
+	}
+	.ltr {
+		margin-right: $value;
+	}
 }
 
 /* button-theme */
@@ -133,7 +134,7 @@
 			@include transform(rotate(45deg));
 
 			@if $type == checkbox {
-				right: 4px;
+				right: 4.5px;
 				width: 3px;
 				height: 7px;
 				border-style: solid;
@@ -165,7 +166,11 @@
 			background-color: $disabled-dk-gray $important;
 
 			&:after {
-				background: $disabled-lt-gray $important;
+				@if $type == checkbox {
+					border-color: $disabled-lt-gray $important;
+				} @else {
+					background: $disabled-lt-gray $important;
+				}
 			}
 		}
 	}

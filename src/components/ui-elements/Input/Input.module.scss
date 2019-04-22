@@ -45,12 +45,15 @@
 			border: 1px solid $lt-blue;
 		}
 
-		&.right {
+		@if $body-dir == 'rtl' {
 			padding-right: 36px;
+		} @else {
+			padding-left: 36px;
 		}
 
-		&.left {
-			padding-left: 36px;
+		&.reset {
+			padding-right: 10px;
+			padding-left: 10px
 		}
 	}
 

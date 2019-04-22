@@ -1,4 +1,5 @@
 import * as React from 'react'
+import { t } from 'ttag'
 
 // ui-elements
 import { IconLink } from '../../ui-elements/IconLink'
@@ -14,9 +15,9 @@ export const ActionNav: React.FunctionComponent<Iprops> = () => {
   const altIcon = 'Icon'
   return (
     <div className="actionNav">
-      <IconLink icon={newFolderIcon} iconAlt={`new-folder ${altIcon}`} label="پوشه جدید" />
-      <IconLink icon={moveIcon} iconAlt={`move ${altIcon}`} label="انتقال" />
-      <IconLink icon={deleteIcon} iconAlt={`delete ${altIcon}`} label="حذف" />
+      <IconLink icon={newFolderIcon} iconAlt={`new-folder ${altIcon}`} label={t`پوشه جدید`} />
+      <IconLink icon={moveIcon} iconAlt={`move ${altIcon}`} label={t`انتقال`} />
+      <IconLink icon={deleteIcon} iconAlt={`delete ${altIcon}`} label={t`حذف`} />
     </div>
   )
 }

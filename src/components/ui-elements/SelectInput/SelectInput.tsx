@@ -4,13 +4,13 @@ import * as React from 'react'
 import Select from 'react-select'
 
 import style from './SelectInput.module.scss'
+import { ngettext, msgid, t } from 'ttag';
 
 export default interface Iprops {
   options: any[]
   onChange?: () => void
   selected?: object
   placeholder: string
-  isMulti?: boolean
 }
 
 const styles = {
@@ -67,15 +67,15 @@ const styles = {
   }),
 }
 
-export const SelectInput = ({ options, onChange, selected, placeholder, isMulti }: Iprops) => (
+export const SelectInput = ({ options, onChange, selected, placeholder }: Iprops) => (
   <Select
+    isMulti
     options={options}
     styles={styles}
     className={style.selectInput}
     onChange={onChange}
     value={selected}
     placeholder={placeholder}
-    noOptionsMessage={() => 'آیتمی وجود ندارد'}
-    {...isMulti && { isMulti: isMulti }}
+    noOptionsMessage={() => t`آیتمی وجود ندارد`}
   />
 )

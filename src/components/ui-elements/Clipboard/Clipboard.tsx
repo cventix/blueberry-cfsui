@@ -1,5 +1,5 @@
-// TODO copy to clipboard in onclick
-// TODO when copied add done class to span
+// TODO: copy to clipboard in onclick
+// TODO: when copied add done class to span
 
 import * as React from 'react'
 
@@ -11,13 +11,14 @@ import { Button } from '../Button/Button'
 import styles from './Clipboard.module.scss'
 
 export default interface Iprops {
-  onClick?: () => void
+  onClick: () => void
+  placeholder: string
 }
 
-export const ClipBoard = ({ onClick }: Iprops) => {
+export const Clipboard = ({ onClick, placeholder }: Iprops) => {
   return (
     <div className={styles.clipboard}>
-      <TextInput placeholder="http://cdn.persiangig.com/..." />
+      <TextInput placeholder={placeholder} />
       <Button onClick={onClick}>
         <span className={styles.copy}>کپی کن</span>
       </Button>
