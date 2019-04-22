@@ -13,6 +13,7 @@ import settingIcon from '../../../images/setting.svg'
 // styles
 import styles from './SearchInput.module.scss'
 
+// interface
 export default interface Iprops {
   withSetting?: boolean
 }
