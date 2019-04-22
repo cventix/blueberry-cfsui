@@ -7,9 +7,7 @@ import Toggle from '../../../ui-elements/Toggle/Toggle'
 // styles
 import styles from './FileFiltering.module.scss'
 
-export default interface Iprops {
-
-}
+export default interface Iprops {}
 
 export const FileFiltering = ({}: Iprops) => {
 	return (
