@@ -16,25 +16,24 @@ $stepbar-color: #e8eaeb;
 
 	.stepsWrapper {
 		position: absolute;
+		left: 50%;
+		margin-left: -550px;
 		list-style: none;
 		width: 1100px;
-		left: 50%;
-
-		@include margin-with-direction(-550px);
 
 		@media(min-width: $web-medium + 1) and (max-width: $web-medium-max + 100) {
 			width: 720px;
-			@include margin-with-direction(-360px);
+			margin-left: -360px;
 		}
 
 		@media(min-width: $tablet - 200) and (max-width: $web-medium) {
 			width: 504px;
-			@include margin-with-direction(-252px);
+			margin-left: -252px;
 		}
 
 		@media(max-width: $tablet - 199) {
 			width: 320px;
-			@include margin-with-direction(-160px);
+			margin-left: -160px;
 		}
 
 		.step {
@@ -210,44 +209,46 @@ $stepbar-color: #e8eaeb;
 
 body:lang(en) {
 	.stepbar {
-		right: 50%;
-		left: 0;
-
 		.stepsWrapper {
+
 			.step {
 				float: left;
 
 				&:first-child {
 					.caption {
 						padding-right: 0;
-						padding-left: 62px;
+						margin-right: -40px;
 					}
 				}
 
 				&:last-child {
 					.caption {
 						margin-right: 0;
-						margin-left: -100px;
+						margin-left: -89px;
 					}
 				}
 
+				.item {
+					.caption {
+						@media(max-width: $web-medium-max) {
+							margin: 0;
+							padding: 0;
+						}
+					}
+				}
 				&:after {
-					right: 0;
 					left: 93px;
 
 					@media(min-width: $web-medium + 1) and (max-width: $web-medium-max + 100) {
-						width: 120px;
 						left: 82px;
 					}
 
 					@media(min-width: $tablet - 200) and (max-width: $web-medium) {
 						left: 63px;
-						width: 76px;
 					}
 
 					@media(max-width: $tablet - 199) {
 						left: 25px;
-						width: 48px;
 					}
 				}
 			}

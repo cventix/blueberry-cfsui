@@ -14,14 +14,14 @@ const classCreator = (className: any) => {
   return className.map((name: any) => styles[name]).join(' ')
 }
 
-export const Button: React.FunctionComponent<Iprops> = props => {
+export const Button = ({className, onClick, style, children}: Iprops) => {
   return (
     <button
-      className={props.className ? `${styles.btn} ${classCreator(props.className)}` : `${styles.btn}`}
-      onClick={() => props.onClick && props.onClick()}
-      style={props.style}
+      className={className ? `${styles.btn} ${classCreator(className)}` : `${styles.btn}`}
+      onClick={() => onClick && onClick()}
+      style={style}
     >
-      {props.children}
+      {children}
     </button>
   )
 }

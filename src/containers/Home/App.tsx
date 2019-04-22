@@ -1,10 +1,12 @@
 import React, { Component } from 'react'
+import { t } from 'ttag'
 import { Navbar } from '../../components/Navbar/Navbar'
 import { Sidebar } from '../../components/Sidebar/Sidebar'
 
-import { Stepbar } from '../../components/Stepbar/Stepbar'
+
 import { Main } from '../../components/Main/Main'
 import { LangSwitcher } from '../../components/ui-elements/LangSwitcher/LangSwitcher'
+import { Stepbar } from '../../components/Stepbar/Stepbar'
 import './App.css'
 
 import { Content } from '../../components/Content/Content'
@@ -14,7 +16,7 @@ import { Preview } from '../../components/ui-elements/Preview/Preview'
 import icon from '../../images/buttonIcons/icon-btn-arrow-bottom.svg'
 
 
-const steps = ['انتخاب سیستم عامل', 'انتخاب مدت سرویس', 'انتخاب طرح', 'اطلاعات کارت شبکه', 'انتخاب نام سرور و ثبت نهایی']
+const steps = [t`انتخاب سیستم عامل`, t`انتخاب مدت سرویس`, t`انتخاب طرح`, t`اطلاعات کارت شبکه`, t`انتخاب نام سرور و ثبت نهایی`]
 const options = [
   { value: 'chocolate', label: 'Chocolate' },
   { value: 'strawberry', label: 'Strawberry' },

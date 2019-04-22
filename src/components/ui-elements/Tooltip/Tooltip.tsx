@@ -8,10 +8,10 @@ export default interface Iprops {
   width?: number
 }
 
-export const Tooltip: React.FunctionComponent<Iprops> = props => {
+export const Tooltip = ({children, width}: Iprops) => {
   return (
-    <div className={styles.tooltip} style={{ width: props.width }}>
-      {props.children}
+    <div className={styles.tooltip} style={{ width: width }}>
+  children}
     </div>
   )
 }

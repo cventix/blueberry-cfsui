@@ -9,6 +9,7 @@ $width: 40px;
   cursor: pointer;
   width: $width;
   height: $height;
+  vertical-align: middle;
   input[type="checkbox"] {
     display: none;
   }

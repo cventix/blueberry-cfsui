@@ -10,10 +10,12 @@ export default interface Iprops {
   width?: number
 }
 
-export const Toast: React.FunctionComponent<Iprops> = props => {
+export const Toast = ({children, error, success, width}: Iprops) => {
   return (
-    <div className={props.success ? `${styles.toast} ${styles.success}` : `${styles.toast} ${styles.error}`} style={{ width: props.width }}>
-      {props.children}
+    <div 
+    className={success ? `${styles.toast} ${styles.success}` : `${styles.toast} ${styles.error}`} 
+    style={{ width: width }}>
+      {children}
     </div>
   )
 }

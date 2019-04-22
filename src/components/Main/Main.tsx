@@ -7,6 +7,6 @@ export default interface Iprops {
   children?: any
 }
 
-export const Main: React.FunctionComponent<Iprops> = props => {
-  return <section className={styles.main}>{props.children}</section>
+export const Main = ({children}: Iprops) => {
+  return <section className={styles.main}>{children}</section>
 }

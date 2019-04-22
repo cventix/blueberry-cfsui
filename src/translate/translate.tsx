@@ -10,10 +10,10 @@ export const saveLocale = (locale: string) => localStorage.setItem(LOCALE_STORAG
 const locale = getLocale()
 
 if (locale !== 'fa') {
-  const translationsObj = require(`./${locale}.po.json`);
-  addLocale(locale, translationsObj);
-  useLocale(locale);
-  document.body.setAttribute('lang', 'en');
+  const translationsObj = require(`./${locale}.po.json`)
+  addLocale(locale, translationsObj)
+  useLocale(locale)
+  document.body.setAttribute('lang', `${locale}`)
 } else {
-  document.body.setAttribute('lang', 'fa');
+  document.body.setAttribute('lang', 'fa')
 }
