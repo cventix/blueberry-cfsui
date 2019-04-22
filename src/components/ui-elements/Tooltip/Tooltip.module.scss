@@ -6,6 +6,7 @@
 	color: #fff;
 	background-color: $lt-gray;
 	text-align: center;
+	
 	@include border-radius($br-radius-sm);
 	@include box-shadow(0 1px 3px 0 rgba(0, 0, 0, 0.15));
 
@@ -18,12 +19,14 @@
 		border-top: 6px solid $lt-gray;
 		border-right: 6px solid transparent;
 		border-left: 6px solid transparent;
+		right: 50%;
+		margin-right: -3px;
+	}
+}
 
-		@if $body-dir == 'rtl' {
-			right: 50%;
-			margin-right: -3px;
-
-		} @else {
+body:lang(en) {
+	.tooltip {
+		&:after {
 			left: 50%;
 			margin-left: -3px;
 		}

@@ -12,8 +12,8 @@
 
 	.item {
 		display: inline-block;
-		margin-right: 4.5px;
-		font-size: $font-size - 3;
+		
+		font-size: $font-size - 4;
 		color: $dk-blue;
 		text-decoration: none;
 
@@ -28,19 +28,17 @@
 		}
 
 		&:last-child {
-			margin-right: 0;
+			margin-right: 4.5px;
 		}
 	}
 }
 
-.ltr {
+body:lang(en) {
 	.langSwitch {
 		.item {
-			margin-left: 4.5px;
-			margin-right: 0;
 
 			&:last-child {
-				margin-left: 0;
+				margin-left: 4.5px;
 			}
 		}
 	}

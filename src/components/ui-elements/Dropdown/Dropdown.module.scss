@@ -41,11 +41,7 @@ $margin-top: -20px;
     @include flex(column, wrap);
     @include border-radius($br-radius-sm);
     @include box-shadow(0 1px 3px 0 rgba(0, 0, 0, 0.05));
-    @if ($body-dir= 'ltr') {
-      text-align: right;
-    } @else {
-      text-align: left;
-    }
+    text-align: right;
     position: absolute;
     z-index: 4;
     width: $dropdown-width;
@@ -85,7 +81,7 @@ $margin-top: -20px;
       position: relative;
     }
     .description {
-      font-family: 'vazir-light';
+      font-family: $light-font;
       font-size: 8px;
       line-height: 2.25;
     }
@@ -112,6 +108,14 @@ $margin-top: -20px;
     }
     .text {
       margin-right: 17px;
+    }
+  }
+}
+
+body:lang(en) {
+  .dropdownBox {
+    .dropdown {
+      text-align: left;
     }
   }
 }

@@ -1,12 +1,14 @@
 import React, { Component } from 'react'
 
 import Dropdown from '../../ui-elements/Dropdown/Dropdown'
+import { Checkbox } from '../../ui-elements/Checkbox/Checkbox'
 import { EnhanceDropdown as enhancer } from '../../ui-elements/Dropdown/EnhanceDropdown'
+
 import { Icon } from '../../ui-elements/Icon'
+
 import { formatBytes } from '../../../services/internal/utils/formatBytes'
 
 import styles from './Card.module.scss'
-import { Checkbox } from '../../ui-elements/Checkbox/Checkbox'
 
 const EnhancedDropdown = enhancer(Dropdown)
 

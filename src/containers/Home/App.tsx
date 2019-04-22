@@ -27,9 +27,7 @@ class App extends Component {
       <div>
         <Navbar />
         <Sidebar />
-        
         <Main>
-          
           <LangSwitcher />
         </Main>
       </div>

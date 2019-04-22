@@ -7,12 +7,6 @@
   font-size: 14px;
   flex-grow: 2;
 
-  @if $body-dir == 'ltr' {
-    img {
-      @include transform(rotate(180deg));
-    }
-  
-  }
   .item {
     color: $text-gray;
     text-decoration: none;
@@ -21,5 +15,13 @@
   }
   .active {
     color: $dk-gray;
+  }
+}
+
+body:lang(en) {
+  .breadcrumb {
+    img {
+      @include transform(rotate(180deg));
+    }
   }
 }

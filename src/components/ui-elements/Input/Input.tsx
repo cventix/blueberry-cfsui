@@ -39,7 +39,7 @@ export const TextInput = ({ placeholder, onChange, label, disabled = false, mess
       <label className={styles.label}>{label}</label>
       <input
         type="text"
-        className={withIcon ? styles.textInput : `${styles.textInput} ${styles.reset}`}
+        className={withIcon ? `${styles.textInput} ${styles.hasIcon}` : styles.textInput}
         placeholder={placeholder}
         disabled={disabled}
         onChange={(e: any) => onChange && onChange(e.target.value)}
