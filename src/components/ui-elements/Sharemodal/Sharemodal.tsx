@@ -20,7 +20,7 @@ export const ShareModal: React.FunctionComponent<Iprops> = ({ show, title, width
             <span className={styles.subText}> لینک به صفحه نمایش محتویات این فولدر</span>
           </div>
           <div className={styles.clipBoard}>
-            <ClipBoard />
+            <ClipBoard onClick={() => {}} placeholder="placeholder" />
           </div>
           <div className={styles.dropdown}>
             <Dropdown
@@ -30,7 +30,7 @@ export const ShareModal: React.FunctionComponent<Iprops> = ({ show, title, width
               data={[
                 { label: 'عمومی', description: 'فایل در موتور های جستجو و صفحات پرشین گیگ نمایش داده می شود' },
                 { label: 'با لینک' },
-                { label: 'خصوصی' },
+                { label: 'خصوصی' }
               ]}
               position={'relative'}
               width={284}

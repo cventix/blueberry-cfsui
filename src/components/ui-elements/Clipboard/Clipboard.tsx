@@ -15,7 +15,7 @@ export default interface Iprops {
   placeholder: string
 }
 
-export const Clipboard = ({ onClick, placeholder }: Iprops) => {
+export const ClipBoard = ({ onClick, placeholder }: Iprops) => {
   return (
     <div className={styles.clipboard}>
       <TextInput placeholder={placeholder} />
