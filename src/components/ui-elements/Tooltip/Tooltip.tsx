@@ -3,6 +3,7 @@ import * as React from 'react'
 // styles
 import styles from './Tooltip.module.scss'
 
+//component interface
 export default interface Iprops {
   children: any
   width?: number
