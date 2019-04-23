@@ -1,4 +1,6 @@
 import React, { Component } from 'react'
+import { connect } from 'react-redux'
+
 import { Navbar } from '../../components/Navbar/Navbar'
 import { Sidebar } from '../../components/Sidebar/Sidebar'
 
@@ -15,23 +17,34 @@ import icon from '../../images/buttonIcons/icon-btn-arrow-bottom.svg'
 
 // Services
 import { bottle } from '../../services'
+import { PayloadInterface } from '../../services/internal/store/reducers/authReducer'
+import { setUserCredentials, setToken, login } from '../../services/internal/store/actions'
 
 const steps = ['انتخاب سیستم عامل', 'انتخاب مدت سرویس', 'انتخاب طرح', 'اطلاعات کارت شبکه', 'انتخاب نام سرور و ثبت نهایی']
 const options = [{ value: 'chocolate', label: 'Chocolate' }, { value: 'strawberry', label: 'Strawberry' }, { value: 'vanilla', label: 'Vanilla' }]
 
-class App extends Component {
+class App extends Component<{ login: any }, {}> {
   private rest: any
+  private auth: any
   constructor(props: any) {
     super(props)
     this.rest = bottle.container.Rest
+    this.auth = bottle.container.Auth
   }
 
   async componentDidMount() {
+    // try {
+    //   const result = await this.rest.get({ url: '/rest/documents?sort=+discriminator,+name' })
+    //   console.log('RESULT', result)
+    // } catch (error) {
+    //   console.log('Error: ', error.message)
+    // }
+
     try {
-      const result = await this.rest.get({ url: '/documents?sort=+discriminator,+name' })
-      console.log(result)
+      const result = await this.props.login({ email: 'mirmahna.s@gmail.com', password: '@mir123Amir' })
+      console.log('###', result)
     } catch (error) {
-      console.log('Error: ', error.message)
+      console.log('E: ', error)
     }
   }
 
@@ -49,4 +62,15 @@ class App extends Component {
   }
 }
 
-export default App
+const mapDispatchToProps = (dispatch: any) => {
+  return {
+    login: (payload: PayloadInterface) => dispatch(login(payload)),
+    setToken: (token: string) => dispatch(setToken(token)),
+    setUserInfo: (payload: PayloadInterface) => dispatch(setUserCredentials(payload))
+  }
+}
+
+export default connect(
+  null,
+  mapDispatchToProps
+)(App)

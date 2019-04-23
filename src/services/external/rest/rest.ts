@@ -11,7 +11,7 @@ class Rest {
   constructor(config: any, storage: any) {
     this._config = config
     this._storage = storage
-    this._storage.setItem('token', 'VhtGvHrtO/rwlxwRV4LfEw==')
+    // this._storage.setItem('token', 'VhtGvHrtO/rwlxwRV4LfEw==')
     window.document.cookie = `token="${this._storage.getItem('token')}"`
     this._headers = {
       'Content-Type': 'application/json',
@@ -27,10 +27,12 @@ class Rest {
   private async _base({ method = 'GET', url = '', headers = {}, body = {} }) {
     try {
       this._headers = { ...this._headers, headers }
-      const { data, status, statusText } = await this._http({ method, url, headers: this._headers, data: body })
-      if (status === 200 && statusText === 'OK') return data
-    } catch (error) {
-      throw error
+      console.log(`%c[${method}]: ${url}`, 'font-weight: bold')
+      const { data } = await this._http({ method, url, headers: this._headers, data: body })
+      return data
+    } catch ({ response: { data } }) {
+      // console.log(error.response)
+      throw data
     }
   }
 

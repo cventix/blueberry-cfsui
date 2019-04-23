@@ -7,14 +7,14 @@ interface StateInterface {
 
 interface ActionInterface {
   type: string
-  isLoading: boolean
+  isLoading?: boolean
 }
 
 const initialState: StateInterface = {
   isLoading: false
 }
 
-const loadingReducer = (state: StateInterface = initialState, action: ActionInterface) => {
+const loadingReducer = (state: StateInterface = initialState, action: any) => {
   switch (action.type) {
     case actionTypes.SET_LOADING_STATE:
       return {

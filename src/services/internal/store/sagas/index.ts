@@ -1,13 +1,11 @@
 import { takeEvery, all, takeLatest } from 'redux-saga/effects'
 
 import { actionTypes } from '../actions/types'
-// import { login, register, forgetPassword, resetPassword, verifyMobile, logout } from './auth'
+import { login } from './auth'
 // import { getUserInfo } from './user'
 
 function* watchAuth() {
-  yield takeEvery(actionTypes.SET_LOADING_STATE, () => {
-    console.log('loading')
-  })
+  yield takeEvery(actionTypes.LOGIN, login)
   //   yield takeEvery(actionTypes.REGISTER, register)
   //   yield takeEvery(actionTypes.FORGET_PASSWORD, forgetPassword)
   //   yield takeEvery(actionTypes.CHANGE_PASSWORD, resetPassword)
