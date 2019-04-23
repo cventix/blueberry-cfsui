@@ -3,7 +3,7 @@ class Config {
   private config: any
   constructor() {
     this.config = {
-      baseUrl: 'http://us.cdn.persiangig.com/cfs/rest',
+      baseUrl: 'http://mtn.cdn.persiangig.com/cfs/',
       appLanguage: 'fa',
       storage: localStorage,
       httpClient: axios,

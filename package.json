@@ -2,6 +2,7 @@
   "name": "blueberry-cfsui",
   "version": "0.1.0",
   "private": true,
+  "proxy": "http://mtn.cdn.persiangig.com/cfs/rest",
   "dependencies": {
     "@types/jest": "24.0.11",
     "@types/node": "11.13.0",

@@ -14,7 +14,7 @@ import { Preview } from '../../components/ui-elements/Preview/Preview'
 import icon from '../../images/buttonIcons/icon-btn-arrow-bottom.svg'
 
 // Services
-import { bottle } from '../../services/index'
+import { bottle } from '../../services'
 
 const steps = ['انتخاب سیستم عامل', 'انتخاب مدت سرویس', 'انتخاب طرح', 'اطلاعات کارت شبکه', 'انتخاب نام سرور و ثبت نهایی']
 const options = [{ value: 'chocolate', label: 'Chocolate' }, { value: 'strawberry', label: 'Strawberry' }, { value: 'vanilla', label: 'Vanilla' }]
@@ -26,9 +26,13 @@ class App extends Component {
     this.rest = bottle.container.Rest
   }
 
-  componentDidMount() {
-    const result = this.rest.get('myUrl', new Map<string, string>([['token', 'shaghz']]))
-    console.log(result)
+  async componentDidMount() {
+    try {
+      const result = await this.rest.get({ url: '/documents?sort=+discriminator,+name' })
+      console.log(result)
+    } catch (error) {
+      console.log('Error: ', error.message)
+    }
   }
 
   render() {
