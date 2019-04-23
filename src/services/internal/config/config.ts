@@ -1,7 +1,4 @@
 import axios from 'axios'
-import { injectable, inject } from 'inversify'
-
-@injectable()
 class Config {
   private config: any
   constructor() {

@@ -14,8 +14,7 @@ import { Preview } from '../../components/ui-elements/Preview/Preview'
 import icon from '../../images/buttonIcons/icon-btn-arrow-bottom.svg'
 
 // Services
-import { myContainer } from '../../services/index'
-import { TYPES } from '../../services/types'
+import { bottle } from '../../services/index'
 
 const steps = ['انتخاب سیستم عامل', 'انتخاب مدت سرویس', 'انتخاب طرح', 'اطلاعات کارت شبکه', 'انتخاب نام سرور و ثبت نهایی']
 const options = [{ value: 'chocolate', label: 'Chocolate' }, { value: 'strawberry', label: 'Strawberry' }, { value: 'vanilla', label: 'Vanilla' }]
@@ -24,7 +23,7 @@ class App extends Component {
   private rest: any
   constructor(props: any) {
     super(props)
-    this.rest = myContainer.get(TYPES.Rest)
+    this.rest = bottle.container.Rest
   }
 
   componentDidMount() {

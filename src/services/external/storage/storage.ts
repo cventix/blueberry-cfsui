@@ -1,6 +1,3 @@
-import { injectable, inject } from 'inversify'
-import { TYPES } from '../../types'
-
 interface IStorageDriver {
   getItem(key: string): string
   setItem(key: string, value: string): void
@@ -8,11 +5,10 @@ interface IStorageDriver {
   clear(): void
 }
 
-@injectable()
 class Storage {
   private config: any
   private storage: IStorageDriver
-  constructor(@inject(TYPES.Config) config: any) {
+  constructor(config: any) {
     this.config = config
     this.storage = this.config.get('storage')
   }
