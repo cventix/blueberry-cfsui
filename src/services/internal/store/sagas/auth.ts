@@ -1,21 +1,19 @@
-import { put, call } from 'redux-saga/effects'
+import { put } from 'redux-saga/effects'
 import * as actions from '../actions'
 
 import { bottle } from '../../../index'
-// @ts-ignore
-const auth = bottle.service.Auth
-// @ts-ignore
-const storage = bottle.service.Storage
+
+const auth = bottle.container.Auth
+const storage = bottle.container.Storage
 
 export function* login(action: any) {
   try {
-    yield put(actions.setUserCredentials({ token: action.payload.token }))
     yield put(actions.setLoadingState(true))
-    const response = yield auth.login(action.payload.email, action.payload.password)
-    console.log('resp', response)
+    const { token, user } = yield auth.login(action.payload.email, action.payload.password)
     yield put(actions.setLoadingState(false))
-    yield put(actions.setToken(response.token))
-    yield storage.setItem('token', response.token)
+    yield put(actions.setToken({ token }))
+    yield put(actions.setUserCredentials({ username: user.username }))
+    yield storage.setItem('token', token)
   } catch (err) {
     yield put(actions.setLoadingState(false))
   }

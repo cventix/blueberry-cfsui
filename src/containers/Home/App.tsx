@@ -39,10 +39,8 @@ class App extends Component<{ login: any }, {}> {
     // } catch (error) {
     //   console.log('Error: ', error.message)
     // }
-
     try {
-      const result = await this.props.login({ email: 'mirmahna.s@gmail.com', password: '@mir123Amir' })
-      console.log('###', result)
+      await this.props.login({ email: 'mirmahna.s@gmail.com', password: '@mir123Amir' })
     } catch (error) {
       console.log('E: ', error)
     }

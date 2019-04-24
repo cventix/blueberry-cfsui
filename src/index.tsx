@@ -1,9 +1,7 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import { Provider } from 'react-redux'
-import { store } from './services/internal/store/configStore'
-import { rootSaga } from './services/internal/store/sagas'
-import { sagaMiddleware } from './services/internal/store/sagas/middleware'
+import store from './services/internal/store/configStore'
 import './index.css'
 import App from './containers/Home/App'
 import * as serviceWorker from './serviceWorker'
@@ -14,8 +12,6 @@ ReactDOM.render(
   </Provider>,
   document.getElementById('root')
 )
-
-sagaMiddleware.run(rootSaga)
 
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.
