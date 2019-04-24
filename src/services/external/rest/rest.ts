@@ -1,17 +1,25 @@
+import { StorageInterface } from '../storage/storage'
+import { ConfigInterface } from '../../internal/config/config'
 interface InputInterface {
   url: string
   headers?: object
   body?: object
 }
-class Rest {
-  private _config: any
+
+export interface RestInterface {
+  get(input: InputInterface): Promise<object>
+  post(input: InputInterface): Promise<object>
+  put(input: InputInterface): Promise<object>
+  delete(input: InputInterface): Promise<object>
+}
+class Rest implements RestInterface {
+  private _config: ConfigInterface
   private _http: any
-  private _storage: any
+  private _storage: StorageInterface
   private _headers: object
-  constructor(config: any, storage: any) {
+  constructor(config: ConfigInterface, storage: StorageInterface) {
     this._config = config
     this._storage = storage
-    // this._storage.setItem('token', 'VhtGvHrtO/rwlxwRV4LfEw==')
     window.document.cookie = `token="${this._storage.getItem('token')}"`
     this._headers = {
       'Content-Type': 'application/json',
@@ -27,7 +35,7 @@ class Rest {
   private async _base({ method = 'GET', url = '', headers = {}, body = {} }) {
     try {
       this._headers = { ...this._headers, headers }
-      console.log(`%c[${method}]: ${url}`, 'font-weight: bold')
+      console.log(`%c[${method}]: ${url}`, 'font-weight: bold; color: #3e3e3e;')
       const { data } = await this._http({ method, url, headers: this._headers, data: body })
       return data
     } catch ({ response: { data } }) {

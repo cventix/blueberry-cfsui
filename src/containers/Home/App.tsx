@@ -24,21 +24,7 @@ const steps = ['انتخاب سیستم عامل', 'انتخاب مدت سروی
 const options = [{ value: 'chocolate', label: 'Chocolate' }, { value: 'strawberry', label: 'Strawberry' }, { value: 'vanilla', label: 'Vanilla' }]
 
 class App extends Component<{ login: any }, {}> {
-  private rest: any
-  private auth: any
-  constructor(props: any) {
-    super(props)
-    this.rest = bottle.container.Rest
-    this.auth = bottle.container.Auth
-  }
-
   async componentDidMount() {
-    // try {
-    //   const result = await this.rest.get({ url: '/rest/documents?sort=+discriminator,+name' })
-    //   console.log('RESULT', result)
-    // } catch (error) {
-    //   console.log('Error: ', error.message)
-    // }
     try {
       await this.props.login({ email: 'mirmahna.s@gmail.com', password: '@mir123Amir' })
     } catch (error) {

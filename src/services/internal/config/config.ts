@@ -1,8 +1,19 @@
 import axios from 'axios'
-class Config {
-  private config: any
+interface IConfig {
+  baseUrl?: string
+  appLanguage?: string
+  storage?: any
+  httpClient: any
+  fetchTimeout?: number
+  [key: string]: any
+}
+export interface ConfigInterface {
+  get(key: string): any
+}
+class Config implements ConfigInterface {
+  private _config: IConfig
   constructor() {
-    this.config = {
+    this._config = {
       baseUrl: 'http://mtn.cdn.persiangig.com/cfs/',
       appLanguage: 'fa',
       storage: localStorage,
@@ -12,7 +23,7 @@ class Config {
   }
 
   get(key: string) {
-    return this.config[key]
+    return this._config[key]
   }
 }
 

@@ -1,14 +1,16 @@
-interface IStorageDriver {
+import { ConfigInterface } from '../../internal/config/config'
+
+export interface StorageInterface {
   getItem(key: string): string
   setItem(key: string, value: string): void
   removeItem(key: string): void
   clear(): void
 }
 
-class Storage {
-  private config: any
-  private storage: IStorageDriver
-  constructor(config: any) {
+class Storage implements StorageInterface {
+  private config: ConfigInterface
+  private storage: StorageInterface
+  constructor(config: ConfigInterface) {
     this.config = config
     this.storage = this.config.get('storage')
   }

@@ -1,12 +1,15 @@
 import { SHA1 } from 'crypto-js'
+import { RestInterface } from '../../external/rest/rest'
 
-interface AuthInterface {
-  login(): void
+export interface AuthInterface {
+  login(email: string, password: string): Promise<object>
+  register(email: string, username: string, password: string): Promise<object>
+  signout(): Promise<object>
 }
 
-class Auth {
-  private _rest: any
-  constructor(rest: any) {
+class Auth implements AuthInterface {
+  private _rest: RestInterface
+  constructor(rest: RestInterface) {
     this._rest = rest
   }
 
@@ -20,7 +23,7 @@ class Auth {
   }
 
   async register(email: string, username: string, password: string) {
-    const url = 'rest/users/signup'
+    const url = '/rest/users/signup'
     const body = {
       email,
       username,
