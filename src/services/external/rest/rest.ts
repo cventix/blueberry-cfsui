@@ -6,6 +6,13 @@ interface InputInterface {
   body?: object
 }
 
+interface IBaseInput {
+  method?: string
+  url: string
+  headers?: object
+  body?: object
+}
+
 export interface RestInterface {
   get(input: InputInterface): Promise<object>
   post(input: InputInterface): Promise<object>
@@ -32,11 +39,16 @@ class Rest implements RestInterface {
     })
   }
 
-  private async _base({ method = 'GET', url = '', headers = {}, body = {} }) {
+  private async _base({ method, url, headers, body }: IBaseInput = { method: 'GET', url, headers: {}, body }) {
     try {
-      this._headers = { ...this._headers, headers }
+      if (headers) this._headers = { ...this._headers, headers }
       console.log(`%c[${method}]: ${url}`, 'font-weight: bold; color: #3e3e3e;')
-      const { data } = await this._http({ method, url, headers: this._headers, data: body })
+      const httpInput = { method, url, headers: this._headers }
+      if (body) {
+        ;(httpInput as any).data = body
+      }
+      console.log('httpInput', httpInput)
+      const { data } = await this._http(httpInput)
       return data
     } catch ({ response: { data } }) {
       // console.log(error.response)
@@ -44,7 +56,7 @@ class Rest implements RestInterface {
     }
   }
 
-  async get({ url, headers = {} }: InputInterface) {
+  async get({ url, headers }: InputInterface) {
     try {
       return await this._base({ method: 'GET', url, headers })
     } catch (error) {
@@ -52,7 +64,7 @@ class Rest implements RestInterface {
     }
   }
 
-  async post({ url, headers = {}, body }: InputInterface) {
+  async post({ url, headers, body }: InputInterface) {
     try {
       return await this._base({ method: 'POST', url, headers, body })
     } catch (error) {
@@ -60,7 +72,7 @@ class Rest implements RestInterface {
     }
   }
 
-  async put({ url, headers = {}, body }: InputInterface) {
+  async put({ url, headers, body }: InputInterface) {
     try {
       return await this._base({ method: 'PUT', url, headers, body })
     } catch (error) {
@@ -68,7 +80,7 @@ class Rest implements RestInterface {
     }
   }
 
-  async delete({ url, headers = {} }: InputInterface) {
+  async delete({ url, headers }: InputInterface) {
     try {
       return await this._base({ method: 'DELETE', url, headers })
     } catch (error) {

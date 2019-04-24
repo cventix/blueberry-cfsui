@@ -19,14 +19,34 @@ import icon from '../../images/buttonIcons/icon-btn-arrow-bottom.svg'
 import { bottle } from '../../services'
 import { PayloadInterface } from '../../services/internal/store/reducers/authReducer'
 import { setUserCredentials, setToken, login } from '../../services/internal/store/actions'
+import { DocumentsInterface } from '../../services/internal/repositories/documents'
 
 const steps = ['انتخاب سیستم عامل', 'انتخاب مدت سرویس', 'انتخاب طرح', 'اطلاعات کارت شبکه', 'انتخاب نام سرور و ثبت نهایی']
 const options = [{ value: 'chocolate', label: 'Chocolate' }, { value: 'strawberry', label: 'Strawberry' }, { value: 'vanilla', label: 'Vanilla' }]
 
 class App extends Component<{ login: any }, {}> {
+  private _documents: DocumentsInterface
+  constructor(props: any) {
+    super(props)
+    this._documents = bottle.container.Documents
+  }
+
   async componentDidMount() {
     try {
-      await this.props.login({ email: 'mirmahna.s@gmail.com', password: '@mir123Amir' })
+      await this.props.login({ email: 'mirmahna.s@gmail.com', password: '13731377' })
+      const result = await this._documents.getDocuments()
+      console.log('#', result)
+      // const result2 = await this._documents.createFolder({ name: 'new_folder', description: 'just for test' })
+      // console.log('@', result2)
+      // const result3 = await this._documents.renameFolder({ folderId: 19851, name: 'new_shaghz' })
+      // console.log('*', result3)
+      // const result4 = await this._documents.moveDocuments({ documentIds: [19803, 19807], targetId: 19853 })
+      // console.log('$', result4)
+      // const result5 = await this._documents.shareDocuments({
+      //   documentIds: [19804],
+      //   userEmails: ['mirmahna.asdasdasd@gmail.com']
+      // })
+      // console.log('%', result5)
     } catch (error) {
       console.log('E: ', error)
     }
