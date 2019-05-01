@@ -21,10 +21,11 @@ export default interface Iprops {
   icon?: string
   style?: object
   name?: string
+  type?: string
   value?: string
 }
 
-export const TextInput = ({ placeholder, onChange,name, label,value, disabled = false, message, error = false, success, withIcon, icon, style }: Iprops) => {
+export const TextInput = ({ placeholder, onChange,name, label,value,type="text", disabled = false, message, error = false, success, withIcon, icon, style }: Iprops) => {
   return (
     <div
       className={
@@ -40,7 +41,7 @@ export const TextInput = ({ placeholder, onChange,name, label,value, disabled = 
     >
       <label className={styles.label}>{label}</label>
       <input
-        type="text"
+        type={type}
         className={withIcon ? styles.textInput : `${styles.textInput} ${styles.reset}`}
         placeholder={placeholder}
         value={value}

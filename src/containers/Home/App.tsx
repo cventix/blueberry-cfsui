@@ -39,8 +39,6 @@ class App extends Component<{ login: any; setUserInfo: any; history: any }, {}> 
 
     try {
       await this.props.login({ email: 'mirmahna.s@gmail.com', password: '13731377' })
-      let blah = this.props.setUserInfo({ username: 'w' })
-      console.log(blah)
       // const result = await this._documents.getDocuments()
       // console.log('#', result)
       // const result2 = await this._documents.createFolder({ name: 'new_folder', description: 'just for test' })
