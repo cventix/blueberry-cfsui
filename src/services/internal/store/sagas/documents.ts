@@ -7,9 +7,13 @@ import { formatDate } from '../../utils/formatDates'
 const documents = bottle.container.Documents
 
 export function* getDocuments(action: any) {
+  let folderInfo
+  if (action.payload) folderInfo = { isChildren: action.payload.isChildren, path: action.payload.path }
+  console.log(action)
   try {
     yield put(actions.setLoadingState(true))
-    const data = yield documents.getDocuments()
+    let data = yield documents.getDocuments(folderInfo)
+    if (folderInfo) data = data.children
     yield put(actions.setDocuments(data))
     yield put(actions.setLoadingState(false))
   } catch (err) {
@@ -19,7 +23,6 @@ export function* getDocuments(action: any) {
 
 export function* createFolder(action: any) {
   let folderInfo = { name: action.payload.name, description: action.payload.description, parentId: action.payload.parentId }
-  console.log(action)
   try {
     yield put(actions.setLoadingState(true))
     let response = yield documents.createFolder(folderInfo)

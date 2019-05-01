@@ -24,7 +24,7 @@ import { DocumentsInterface } from '../../services/internal/repositories/documen
 const steps = ['انتخاب سیستم عامل', 'انتخاب مدت سرویس', 'انتخاب طرح', 'اطلاعات کارت شبکه', 'انتخاب نام سرور و ثبت نهایی']
 const options = [{ value: 'chocolate', label: 'Chocolate' }, { value: 'strawberry', label: 'Strawberry' }, { value: 'vanilla', label: 'Vanilla' }]
 
-class App extends Component<{ login: any; setUserInfo: any }, {}> {
+class App extends Component<{ login: any; setUserInfo: any; history: any }, {}> {
   private _documents: DocumentsInterface
   constructor(props: any) {
     super(props)
@@ -73,7 +73,7 @@ class App extends Component<{ login: any; setUserInfo: any }, {}> {
         <Navbar />
         <Sidebar createFolderModal={this.createFolderModal} showModal={this.state.showcFmodal} handleCFClose={this.handleCFClose} />
         <Main showModal={this.state.showModal}>
-          <Content />
+          <Content history={this.props.history} />
           <LangSwitcher />
         </Main>
       </div>

@@ -6,6 +6,7 @@ import Dropdown from '../ui-elements/Dropdown/Dropdown'
 import { EnhanceDropdown as enhancer } from '../ui-elements/Dropdown/EnhanceDropdown'
 
 import styles from './Table.module.scss'
+import { Link } from 'react-router-dom'
 
 const EnhancedDropdown = enhancer(Dropdown)
 
@@ -18,6 +19,7 @@ export default interface Iprops {
   tabletView?: boolean
   onSelect?: (option: number) => void
   onRenameDocument?: (e: any) => void
+  handleNavigate?:any
   optionSelected?: number
   position?: any
   dropDownData?: any
@@ -31,8 +33,10 @@ export const Table: React.FunctionComponent<Iprops> = ({
   tabletView,
   onSelect,
   dropDownData,
+  handleNavigate,
   optionSelected
 }) => {
+  console.log(handleNavigate)
   return (
     <table className={styles.table}>
       <TableHeader
@@ -46,34 +50,36 @@ export const Table: React.FunctionComponent<Iprops> = ({
         {table &&
           table.map((item: any, i: number) => {
             return (
-              <tr key={i}>
-                {Object.keys(item).map((k, i) => {
-                  if (k !== 'type' && k !== 'id') {
-                    return (
-                      <TableItem
-                        name={k}
-                        key={i}
-                        label={item[k]}
-                        checkAll={checkAll}
-                        className={k === 'name' ? ['show'] : [' ']}
-                        checkbox={k === 'name' ? true : false}
-                        hasType={k === 'name' && item['type']}
+              <tr key={i} onClick={()=>handleNavigate(item.name,item.id)}>
+                  {Object.keys(item).map((k, i) => {
+                    if (k !== 'type' && k !== 'id') {
+                      return (
+                        <TableItem
+                          name={k}
+                          key={i}
+                  
+                          label={item[k]}
+                          checkAll={checkAll}
+                          className={k === 'name' ? ['show'] : [' ']}
+                          checkbox={k === 'name' ? true : false}
+                          hasType={k === 'name' && item['type']}
+                        />
+                      )
+                    }
+                  })}
+                  {dropdown && (
+                    <td className={[styles.show, styles.left].join(' ')}>
+                      <EnhancedDropdown
+                        width={138}
+                        optionSelected={optionSelected}
+                        onSelect={onSelect}
+                        position={'absoulte'}
+                        data={dropDownData && dropDownData}
+                        id={item.id}
                       />
-                    )
-                  }
-                })}
-                {dropdown && (
-                  <td className={[styles.show, styles.left].join(' ')}>
-                    <EnhancedDropdown
-                      width={138}
-                      optionSelected={optionSelected}
-                      onSelect={onSelect}
-                      position={'absoulte'}
-                      data={dropDownData && dropDownData}
-                      id={item.id}
-                    />
-                  </td>
-                )}
+                    </td>
+                  )}
+               
               </tr>
             )
           })}

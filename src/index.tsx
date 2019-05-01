@@ -5,10 +5,12 @@ import store from './services/internal/store/configStore'
 import './index.css'
 import App from './containers/Home/App'
 import * as serviceWorker from './serviceWorker'
+import { Routes } from './Routes';
 
 ReactDOM.render(
+  
   <Provider store={store}>
-    <App />
+    <Routes />
   </Provider>,
   document.getElementById('root')
 )

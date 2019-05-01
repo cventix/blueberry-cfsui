@@ -16,11 +16,12 @@ export default interface Iprops {
   checkAll?: boolean
   dropdown?: boolean
   dropDownData?: any
+  handleNavigate?: any
 }
 
-export const Card: React.FunctionComponent<Iprops> = ({ item, checkbox, dropdown, checkAll ,dropDownData}) => {
+export const Card: React.FunctionComponent<Iprops> = ({ item, checkbox,handleNavigate, dropdown, checkAll ,dropDownData}) => {
   return (
-    <div className={styles.item}>
+    <div className={styles.item} onClick={()=>handleNavigate(item['fullPath'])}>
       <div className={styles.type}>{item && item['type'] && <Icon mimetype={item['type']} />}</div>
       <div className={styles.info}>
         <span className={styles.name}>{item['name']}</span>

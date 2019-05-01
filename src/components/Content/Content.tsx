@@ -20,56 +20,7 @@ import { formatBytes } from '../../services/internal/utils/formatBytes'
 import { Modal } from '../ui-elements/Modal/Modal'
 import { RenameFile } from '../ui-elements/Modal/ModalContent/RenameFile'
 import { UploadModal } from '../ui-elements/Uploadmodal/Uploadmodal'
-const table = [
-  {
-    نام: 'رزومه ها',
-    مالک: 10,
-    تاریخ: 'sth',
-    حجم: 444,
-    '-': '-',
-    type: 'folder'
-  },
-  {
-    نام: 'عکس های شخصی',
-    مالک: 323,
-    تاریخ: 'fdf',
-    حجم: 444231,
-    '-': '-',
-    type: 'folder'
-  },
-  {
-    نام: 'موسیقی',
-    مالک: 10,
-    تاریخ: 'sth',
-    حجم: 42323,
-    '-': '-',
-    type: 'music'
-  },
-  {
-    نام: 'رزومه ها',
-    مالک: 10,
-    تاریخ: 'sth',
-    حجم: 444,
-    '-': '-',
-    type: 'folder'
-  },
-  {
-    نام: 'عکس های شخصی',
-    مالک: 323,
-    تاریخ: 'fdf',
-    حجم: 444231,
-    '-': '-',
-    type: 'folder'
-  },
-  {
-    نام: 'موسیقی',
-    مالک: 10,
-    تاریخ: 'sth',
-    حجم: 42323,
-    '-': '-',
-    type: 'music'
-  }
-]
+
 const history = [{ title: 'پوشه اصلی', link: '/' }, { title: 'پوشه فرعی', link: '/' }, { title: 'پوشه تست', link: '/', active: true }]
 
 const sort = (data: object[]) => {
@@ -87,6 +38,7 @@ export interface IProps {
   moveDocuments?: any
   shareDocuments?: any
   data?: any
+  history?: any
 }
 
 export interface IState {
@@ -121,7 +73,16 @@ class Content extends React.Component<IProps, IState> {
     this._documents = bottle.container.Documents
     this.updateWindowDimensions = this.updateWindowDimensions.bind(this)
   }
+  getDocument = async () => {
+    try {
+      let result = await this.props.getDocuments()
+      this.setState({ table: this.props.data }, () => console.log(this.state.table))
 
+      // this.setState({ table: result},()=>console.log(this.state.table))
+    } catch (error) {
+      console.log('E: ', error)
+    }
+  }
   async componentDidMount() {
     this.updateWindowDimensions()
     window.addEventListener('resize', this.updateWindowDimensions)
@@ -142,11 +103,13 @@ class Content extends React.Component<IProps, IState> {
         id: each.id,
         type: each.genericType,
         name: each.name,
+        fullPath: each.fullPath,
         created_at: formatDate(each.createdAt),
         owner: each.owner.displayName,
         size: each.size ? formatBytes({ bytes: each.size, lang: 'fa' }) : '---'
       })
     })
+
     this.setState({
       table
     })
@@ -225,7 +188,20 @@ class Content extends React.Component<IProps, IState> {
   closeRenameModalclose = () => {
     this.setState({ showRename: false, renameFileId: '' })
   }
+  handleNavigate = (name: any, id: number) => {
+    this.props.history.push(name)
+    this.onGetDocument(name)
+  }
+  onGetDocument = async (path: any) => {
+    try {
+      let result = await this.props.getDocuments({ isChildren: true, path })
+      // this.setState({ table: this.props.data }, () => console.log(this.state.table))
 
+      // this.setState({ table: result},()=>console.log(this.state.table))
+    } catch (error) {
+      console.log('E: ', error)
+    }
+  }
   // showToast() {
   //   this.setState(
   //     {
@@ -237,7 +213,9 @@ class Content extends React.Component<IProps, IState> {
   //     }
   //   )
   // }
-
+  componentWillMount() {
+    console.log(this.props.history)
+  }
   public render() {
     let dropDownData = [
       { label: ' دانلود فایل' },
@@ -253,12 +231,14 @@ class Content extends React.Component<IProps, IState> {
         modal = <RenameFile changeHandler={this.changeHandler} handleSubmit={this.onRenameDocument} />
         break
     }
+    console.log(this.props.history)
     if (this.state.width < 768) {
       return (
         <React.Fragment>
           <Breadcrumb history={history} />
           <Table
             dropdown={true}
+            handleNavigate={this.handleNavigate}
             dropDownData={dropDownData}
             tabletView={true}
             onCheckAll={this.onCheckAll}
@@ -277,7 +257,14 @@ class Content extends React.Component<IProps, IState> {
           {this.state.view === 'table' ? (
             <div>
               <GridHeader onCheckAll={this.onCheckAll} checkAll={this.state.checkAll} sortable={true} onSort={this.onSort} />
-              <Grid dropDownData={dropDownData} checkbox={true} onCheckAll={this.onCheckAll} checkAll={this.state.checkAll} table={this.state.table} />
+              <Grid
+                dropDownData={dropDownData}
+                checkbox={true}
+                handleNavigate={this.handleNavigate}
+                onCheckAll={this.onCheckAll}
+                checkAll={this.state.checkAll}
+                table={this.state.table}
+              />
             </div>
           ) : (
             <React.Fragment>
@@ -287,6 +274,7 @@ class Content extends React.Component<IProps, IState> {
                 optionSelected={this.state.optionSelected}
                 onSelect={this.onSelect}
                 onCheckAll={this.onCheckAll}
+                handleNavigate={this.handleNavigate}
                 checkAll={this.state.checkAll}
                 onSort={this.onSort}
                 table={this.state.table}
@@ -316,7 +304,7 @@ const mapStateToProps = (state: IState) => ({ document: state.document })
 
 const mapDispatchToProps = (dispatch: any) => {
   return {
-    getDocuments: () => dispatch(getDocuments()),
+    getDocuments: (value: any) => dispatch(getDocuments(value)),
     createFolder: () => dispatch(createFolder()),
     renameFolder: (value: any) => dispatch(renameFolder(value)),
     moveDocuments: () => dispatch(moveDocuments()),
