@@ -18,7 +18,6 @@ export const SwitchIcon: React.FunctionComponent<Iprops> = ({ switchView, view, 
     <div className={styles.flex} onClick={() => switchView(nextView)}>
       <Tooltip text={' نمایش لیستی'} width={90} height={27} position={'top'}>
         <Icon src={view !== nextView ? icon : activeicon} />
-        dsd
       </Tooltip>
     </div>
   )

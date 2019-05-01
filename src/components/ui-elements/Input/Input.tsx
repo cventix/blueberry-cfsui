@@ -10,7 +10,7 @@ import errorIcon from '../../../images/error.svg'
 import styles from './Input.module.scss'
 
 export default interface Iprops {
-  placeholder: string
+  placeholder?: string
   onChange?: (e: any) => void
   label?: string
   disabled?: boolean
@@ -20,9 +20,11 @@ export default interface Iprops {
   withIcon?: boolean
   icon?: string
   style?: object
+  name?: string
+  value?: string
 }
 
-export const TextInput = ({ placeholder, onChange, label, disabled = false, message, error = false, success, withIcon, icon, style }: Iprops) => {
+export const TextInput = ({ placeholder, onChange,name, label,value, disabled = false, message, error = false, success, withIcon, icon, style }: Iprops) => {
   return (
     <div
       className={
@@ -41,8 +43,10 @@ export const TextInput = ({ placeholder, onChange, label, disabled = false, mess
         type="text"
         className={withIcon ? styles.textInput : `${styles.textInput} ${styles.reset}`}
         placeholder={placeholder}
+        value={value}
+        name={name}
         disabled={disabled}
-        onChange={(e: any) => onChange && onChange(e.target.value)}
+        onChange={(e: any) => onChange && onChange(e)}
       />
       <Icon className={withIcon ? styles.withIcon : `hide`} src={icon} />
       <span className={error ? styles.shoowErorrMsg : `hide`}>

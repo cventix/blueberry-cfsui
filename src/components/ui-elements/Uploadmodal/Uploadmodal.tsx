@@ -9,19 +9,19 @@ export default interface Iprops {
   show?: boolean
   title?: string
   width?: number
+  formDescription?: string
+  children?: any
+  handleClose?: () => void
 }
 
-export const UploadModal: React.FunctionComponent<Iprops> = ({ show, title, width }) => {
+export const UploadModal: React.FunctionComponent<Iprops> = ({ show, title, formDescription, width, handleClose, children }) => {
   return (
-    <Modal show={show} title={title} width={width}>
+    <Modal show={show} title={title} width={width} handleClose={handleClose}>
       <div className={styles.uploadModal}>
         <div>
-          <span>برای آپلود آدرس اینترنتی خود را در فرم زیر وارد نمایید</span>
+          <span>{formDescription}</span>
         </div>
-        <div className={styles.row}>
-          <TextInput placeholder={'http://example.com'} style={{ width: 425 }} />
-          <Button className={['btnPrimary0', 'btnSm']}>آپلود</Button>
-        </div>
+        <div className={styles.row}>{children}</div>
       </div>
     </Modal>
   )

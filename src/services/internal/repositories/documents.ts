@@ -1,27 +1,27 @@
 import { RestInterface } from '../../external/rest/rest'
 
-interface IGetDocumentsInput {
+export interface IGetDocumentsInput {
   isChildren?: boolean
   path?: string
 }
 
-interface ICreateFolderInput {
+export interface ICreateFolderInput {
   name: string
   description?: string
   parentId?: number
 }
 
-interface IRenameFolderInput {
+export interface IRenameFolderInput {
   folderId: number
   name: string
 }
 
-interface IMoveDocumentsInput {
+export interface IMoveDocumentsInput {
   documentIds: Array<number>
   targetId: number
 }
 
-interface IShareDocumentsInput {
+export interface IShareDocumentsInput {
   documentIds: Array<number>
   userEmails: Array<string>
 }

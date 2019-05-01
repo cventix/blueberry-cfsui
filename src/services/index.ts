@@ -20,5 +20,6 @@ declare module 'bottlejs' {
     Storage: Storage
     Rest: Rest
     Auth: Auth
+    Documents: Documents
   }
 }

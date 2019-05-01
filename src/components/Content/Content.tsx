@@ -1,4 +1,5 @@
 import React from 'react'
+import { connect } from 'react-redux'
 import { Table } from '../Table/Table'
 import { Grid } from '../Grid/Grid'
 import { GridHeader } from '../Grid/GridHeader'
@@ -7,11 +8,18 @@ import { Breadcrumb } from '../ui-elements/Breadcrumb/Breadcrumb'
 import { Button } from '../ui-elements/Button/Button'
 import { IconLink } from '../ui-elements/IconLink'
 import arrowBottom from '../../images/buttonIcons/icon-btn-arrow-bottom.svg'
+import { DocumentsInterface } from '../../services/internal/repositories/documents'
 
 import styles from './Content.module.scss'
 
-const history = [{ title: 'پوشه اصلی', link: '/' }, { title: 'پوشه فرعی', link: '/' }, { title: 'پوشه تست', link: '/', active: true }]
-
+// Services
+import { bottle } from '../../services'
+import { getDocuments, createFolder, renameFolder, moveDocuments, shareDocuments } from '../../services/internal/store/actions'
+import { formatDate } from '../../services/internal/utils/formatDates'
+import { formatBytes } from '../../services/internal/utils/formatBytes'
+import { Modal } from '../ui-elements/Modal/Modal'
+import { RenameFile } from '../ui-elements/Modal/ModalContent/RenameFile'
+import { UploadModal } from '../ui-elements/Uploadmodal/Uploadmodal'
 const table = [
   {
     نام: 'رزومه ها',
@@ -19,7 +27,7 @@ const table = [
     تاریخ: 'sth',
     حجم: 444,
     '-': '-',
-    type: 'folder',
+    type: 'folder'
   },
   {
     نام: 'عکس های شخصی',
@@ -27,7 +35,7 @@ const table = [
     تاریخ: 'fdf',
     حجم: 444231,
     '-': '-',
-    type: 'folder',
+    type: 'folder'
   },
   {
     نام: 'موسیقی',
@@ -35,7 +43,7 @@ const table = [
     تاریخ: 'sth',
     حجم: 42323,
     '-': '-',
-    type: 'music',
+    type: 'music'
   },
   {
     نام: 'رزومه ها',
@@ -43,7 +51,7 @@ const table = [
     تاریخ: 'sth',
     حجم: 444,
     '-': '-',
-    type: 'folder',
+    type: 'folder'
   },
   {
     نام: 'عکس های شخصی',
@@ -51,7 +59,7 @@ const table = [
     تاریخ: 'fdf',
     حجم: 444231,
     '-': '-',
-    type: 'folder',
+    type: 'folder'
   },
   {
     نام: 'موسیقی',
@@ -59,9 +67,11 @@ const table = [
     تاریخ: 'sth',
     حجم: 42323,
     '-': '-',
-    type: 'music',
-  },
+    type: 'music'
+  }
 ]
+const history = [{ title: 'پوشه اصلی', link: '/' }, { title: 'پوشه فرعی', link: '/' }, { title: 'پوشه تست', link: '/', active: true }]
+
 const sort = (data: object[]) => {
   var sortOrder = ['folder', 'image', 'music']
   data.sort(function(a: any, b: any) {
@@ -70,36 +80,77 @@ const sort = (data: object[]) => {
   return data
 }
 
-export interface IProps {}
+export interface IProps {
+  getDocuments?: any
+  createFolder?: any
+  renameFolder?: any
+  moveDocuments?: any
+  shareDocuments?: any
+  data?: any
+}
+
 export interface IState {
   table: any
   checkAll: boolean
   view: string
   width: number
   height: number
-  optionSelected: number
+  optionSelected?: number
   ascending: string
   [key: string]: any
 }
 
-export class Content extends React.Component<IProps, IState> {
+class Content extends React.Component<IProps, IState> {
+  private _documents: DocumentsInterface
   constructor(props: any) {
     super(props)
     this.state = {
-      table: sort(table),
+      table: '',
       checkAll: false,
       view: 'grid',
       width: 0,
       height: 0,
-      optionSelected: 0,
+      modalView: 'renameFile',
       ascending: 'ascending',
+      name: '',
+      showRename: false,
+      description: '',
+      showToast: false,
+      message: ''
     }
-
+    this._documents = bottle.container.Documents
     this.updateWindowDimensions = this.updateWindowDimensions.bind(this)
   }
-  componentDidMount() {
+
+  async componentDidMount() {
     this.updateWindowDimensions()
     window.addEventListener('resize', this.updateWindowDimensions)
+    try {
+      let result = await this.props.getDocuments()
+      console.log(result)
+      this.setState({ table: this.props.data }, () => console.log(this.state.table))
+
+      // this.setState({ table: result},()=>console.log(this.state.table))
+    } catch (error) {
+      console.log('E: ', error)
+    }
+  }
+
+  componentWillReceiveProps(nextProps: any) {
+    let table: any[] = []
+    nextProps.document.documents.map((each: any) => {
+      table.push({
+        id: each.id,
+        type: each.genericType,
+        name: each.name,
+        created_at: formatDate(each.createdAt),
+        // owner: { displayName: each.owner.displayName, id: each.owner.id },
+        size: each.size ? formatBytes({ bytes: each.size, lang: 'fa' }) : '---'
+      })
+    })
+    this.setState({
+      table
+    })
   }
 
   componentWillUnmount() {
@@ -151,25 +202,78 @@ export class Content extends React.Component<IProps, IState> {
   onSelect = (optionSelected: number) => {
     this.setState({ optionSelected })
   }
+
+  onRenameDocument = async (e: any) => {
+    if (e) e.preventDefault()
+    try {
+      let result = await this.props.renameFolder({ folderId: this.state.renameFileId, name: this.state.renameInput })
+      this.setState({ showRename: false })
+    } catch (error) {
+      console.log('E: ', error)
+    }
+  }
+
+  changeHandler = (event: any) => {
+    this.setState({
+      [event.target.name]: event.target.value
+    })
+  }
+
+  openRenameModal = (renameFileId: number) => {
+    this.setState({ showRename: true, renameFileId })
+  }
+
+  closeRenameModalclose = () => {
+    this.setState({ showRename: false, renameFileId: '' })
+  }
+
+  // showToast() {
+  //   this.setState(
+  //     {
+  //       showToast: true,
+  //       message: 'پوشه ایجاد شد'
+  //     },
+  //     () => {
+  //       setTimeout(() => this.setState({ showToast: false }), 3000)
+  //     }
+  //   )
+  // }
+
   public render() {
-    console.log(this.state.width)
+    let dropDownData = [
+      { label: ' دانلود فایل' },
+      { label: 'تغییر نام', onClick: this.openRenameModal },
+      { label: 'اشتراک گذاری' },
+      { label: 'افزودن توضیح' },
+      { label: 'دریافت لینک‌ها' },
+      { label: 'حذف فایل' }
+    ]
+    let modal
+    switch (this.state.modalView) {
+      case 'renameFile':
+        modal = <RenameFile changeHandler={this.changeHandler} handleSubmit={this.onRenameDocument} />
+        break
+    }
     if (this.state.width < 768) {
       return (
         <React.Fragment>
           <Breadcrumb history={history} />
           <Table
             dropdown={true}
+            dropDownData={dropDownData}
             tabletView={true}
             onCheckAll={this.onCheckAll}
             checkAll={this.state.checkAll}
             onSort={this.onSort}
             table={this.state.table}
+            onRenameDocument={this.onRenameDocument}
           />
+          <Modal show={true}>{modal}</Modal>
         </React.Fragment>
       )
     } else
       return (
-        <div>
+        <React.Fragment>
           <Contentheader view={this.state.view} switchView={this.switchView} />
           {this.state.view === 'table' ? (
             <div>
@@ -180,21 +284,48 @@ export class Content extends React.Component<IProps, IState> {
             <React.Fragment>
               <Table
                 dropdown={true}
+                dropDownData={dropDownData}
                 optionSelected={this.state.optionSelected}
                 onSelect={this.onSelect}
                 onCheckAll={this.onCheckAll}
                 checkAll={this.state.checkAll}
                 onSort={this.onSort}
                 table={this.state.table}
+                onRenameDocument={this.onRenameDocument}
               />
               <div className={styles.footer}>
-                <Button className={['btnDefault0', 'btnLg']}>
-                  <IconLink icon={arrowBottom} className={styles.arrow} iconAlt={`new-folder`} label="پوشه جدید" />
+                <Button className={['btnDefault0', 'btnLg']} onClick={this.props.createFolder}>
+                  <IconLink icon={arrowBottom} className={styles.arrow} iconAlt={`new-folder`} label="نمایش بیشتر" />
                 </Button>
               </div>
             </React.Fragment>
           )}
-        </div>
+          <UploadModal
+            show={this.state.showRename}
+            width={640}
+            title={'تغییر نام'}
+            formDescription={' نام جدید را در فرم زیر وارد نمایید'}
+            handleClose={this.closeRenameModalclose}
+          >
+            {modal}
+          </UploadModal>
+        </React.Fragment>
       )
   }
 }
+const mapStateToProps = (state: IState) => ({ document: state.document })
+
+const mapDispatchToProps = (dispatch: any) => {
+  return {
+    getDocuments: () => dispatch(getDocuments()),
+    createFolder: () => dispatch(createFolder()),
+    renameFolder: (value: any) => dispatch(renameFolder(value)),
+    moveDocuments: () => dispatch(moveDocuments()),
+    shareDocuments: () => dispatch(shareDocuments())
+  }
+}
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Content)

@@ -16,18 +16,22 @@ import { Nav } from './components/Nav'
 import { IconLink } from '../ui-elements/IconLink'
 import './Sidebar.scss'
 
-export default interface Iprops {}
+export default interface Iprops {
+  createFolderModal?: () => void
+  handleCFClose?: any
+  showModal?: boolean
+}
 
-export const Sidebar: React.FunctionComponent<Iprops> = ({  }: Iprops) => {
+export const Sidebar: React.FunctionComponent<Iprops> = ({ createFolderModal,handleCFClose, showModal }: Iprops) => {
   return (
-    <aside className="sidebar">
+    <aside className="sidebar" >
       <div className="menuWrapper">
         <div className="menu">
           <Button className={['btnPrimary0', 'btnLg']} style={{ marginBottom: '15px' }}>
             <IconLink icon={uploadIcon} iconAlt="upload icon" label={t`آپلود فایل`} />
           </Button>
           <IconLink icon={upFromUrlIcon} className="iconLink upFromUrl" iconAlt="upload icon" label={t`آپلود فایل از URL`} />
-          <ActionNav />
+          <ActionNav createFolderModal={createFolderModal} handleCFClose={handleCFClose} showModal={showModal}/>
           <Hr />
           <UpgradeAccount />
           <Hr />

@@ -6,6 +6,7 @@ interface IProps {
   onSelect?: (option: number) => void
   optionSelected?: number
   position?: any
+  id?: number
 }
 
 interface IState {
@@ -50,6 +51,8 @@ export const EnhanceDropdown = (ComposedComponent: any) =>
             {...this.props}
             onToggle={this.onToggle}
             isOpen={this.state.isOpen}
+            id={this.props.id}
+            selectable={false}
             data={this.props.data}
             isSelected={this.props.optionSelected}
             onSelect={this.onSelect}

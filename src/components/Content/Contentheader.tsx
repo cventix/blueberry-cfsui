@@ -19,7 +19,6 @@ export default interface Iprops {
 }
 
 export const Contentheader: React.FunctionComponent<Iprops> = ({ switchView, view }) => {
-  console.log(view)
   return (
     <div className={styles.header}>
       <Breadcrumb history={history} />

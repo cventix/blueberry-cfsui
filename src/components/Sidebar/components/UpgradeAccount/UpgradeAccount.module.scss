@@ -9,6 +9,7 @@
 	border: 1px solid #fae68e;
 	text-align: center;
 	cursor: pointer;
+	z-index: -1;
 	@include border-radius($br-radius-sm);
 
 	.percent, .deleteQus {

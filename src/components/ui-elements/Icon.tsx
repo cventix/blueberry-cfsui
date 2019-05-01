@@ -5,7 +5,7 @@ import image from '../../images/typeIcons/icon-folder.svg'
 import music from '../../images/typeIcons/icon-music.svg'
 import zip from '../../images/typeIcons/icon-zip.svg'
 import video from '../../images/typeIcons/icon-video.svg'
-
+import pdf from '../../images/typeIcons/icon-pdf.svg'
 export default interface Iprops {
   src?: string
   alt?: string
@@ -36,8 +36,11 @@ const renderIconSrc = (mimetype: string) => {
     case 'video':
       src = video
       break
-    case 'zip':
+    case  'archive':
       src = zip
+      break
+      case  'pdf':
+      src = pdf
       break
   }
   return src

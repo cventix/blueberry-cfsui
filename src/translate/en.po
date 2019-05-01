@@ -41,3 +41,15 @@ msgstr "Tickets"
 
 msgid "فاکتور ها"
 msgstr "Invoices"
+
+msgid "نام"
+msgstr "Name"
+
+msgid "پوشه"
+msgstr "Folder"
+
+msgid "ایجاد"
+msgstr "Create"
+
+msgid "جدید"
+msgstr "new"

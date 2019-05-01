@@ -39,13 +39,13 @@ class Rest implements RestInterface {
     })
   }
 
-  private async _base({ method, url, headers, body }: IBaseInput = { method: 'GET', url, headers: {}, body }) {
+  private async _base({ method = 'GET', url, headers = {}, body }: IBaseInput) {
     try {
       if (headers) this._headers = { ...this._headers, headers }
       console.log(`%c[${method}]: ${url}`, 'font-weight: bold; color: #3e3e3e;')
       const httpInput = { method, url, headers: this._headers }
       if (body) {
-        ;(httpInput as any).data = body
+        (httpInput as any).data = body
       }
       console.log('httpInput', httpInput)
       const { data } = await this._http(httpInput)

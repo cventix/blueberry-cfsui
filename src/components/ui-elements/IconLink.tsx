@@ -9,11 +9,12 @@ export default interface Iprops {
   iconAlt?: string
   label?: string
   to?: string
-  onClick?: void
+  onClick?: any
 }
 
-export const IconLink = ({ className = 'iconLink', icon, iconAlt, label }: Iprops) => (
-  <div className={className}>
+export const IconLink = ({ className = 'iconLink', icon, iconAlt, label, onClick }: Iprops) => (
+  
+  <div className={className} onClick={()=>onClick()}>
     <Icon src={icon} alt={iconAlt} />
     <span>{label}</span>
   </div>

@@ -17,10 +17,22 @@ export default interface Iprops {
   onSort?: any
   tabletView?: boolean
   onSelect?: (option: number) => void
+  onRenameDocument?: (e: any) => void
   optionSelected?: number
   position?: any
+  dropDownData?: any
 }
-export const Table: React.FunctionComponent<Iprops> = ({ table, dropdown, onCheckAll, checkAll, onSort, tabletView, onSelect, optionSelected }) => {
+export const Table: React.FunctionComponent<Iprops> = ({
+  table,
+  dropdown,
+  onCheckAll,
+  checkAll,
+  onSort,
+  tabletView,
+  onSelect,
+  dropDownData,
+  optionSelected
+}) => {
   return (
     <table className={styles.table}>
       <TableHeader
@@ -36,16 +48,16 @@ export const Table: React.FunctionComponent<Iprops> = ({ table, dropdown, onChec
             return (
               <tr key={i}>
                 {Object.keys(item).map((k, i) => {
-                  if (k !== 'type') {
+                  if (k !== 'type' && k !== 'id') {
                     return (
                       <TableItem
                         name={k}
                         key={i}
                         label={item[k]}
                         checkAll={checkAll}
-                        className={k === 'نام' ? ['show'] : [' ']}
-                        checkbox={k === 'نام' ? true : false}
-                        hasType={k === 'نام' && item['type']}
+                        className={k === 'name' ? ['show'] : [' ']}
+                        checkbox={k === 'name' ? true : false}
+                        hasType={k === 'name' && item['type']}
                       />
                     )
                   }
@@ -53,15 +65,12 @@ export const Table: React.FunctionComponent<Iprops> = ({ table, dropdown, onChec
                 {dropdown && (
                   <td className={[styles.show, styles.left].join(' ')}>
                     <EnhancedDropdown
-                      width={282}
+                      width={138}
                       optionSelected={optionSelected}
                       onSelect={onSelect}
                       position={'absoulte'}
-                      data={[
-                        { label: 'عمومی', description: 'فایل در موتور های جستجو و صفحات پرشین گیگ نمایش داده می شود' },
-                        { label: 'با لینک' },
-                        { label: 'خصوصی' },
-                      ]}
+                      data={dropDownData && dropDownData}
+                      id={item.id}
                     />
                   </td>
                 )}

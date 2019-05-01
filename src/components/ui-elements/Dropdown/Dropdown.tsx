@@ -13,6 +13,8 @@ interface Iprops {
   width?: number
   noButton?: boolean
   position?: any
+  id?: number
+  selectable?: boolean
 }
 
 export const Dropdown: React.FunctionComponent<Iprops> = ({
@@ -23,8 +25,10 @@ export const Dropdown: React.FunctionComponent<Iprops> = ({
   onSelect,
   width,
   noButton,
+  selectable,
+  id,
   children,
-  position = 'absolute',
+  position = 'absolute'
 }) => {
   return (
     <div className={styles.dropdownBox}>
@@ -44,11 +48,13 @@ export const Dropdown: React.FunctionComponent<Iprops> = ({
                 <DropdownItem
                   label={item.label}
                   index={i}
-                  selectable={true}
+                  selectable={selectable}
                   key={i}
-                  bordered={true}
+                  id={id}
+                  bordered={false}
                   isSelected={isSelected}
                   onSelect={onSelect}
+                  {...item.onClick && { onClick: item.onClick }}
                   {...item.description && { description: item.description }}
                 />
               )

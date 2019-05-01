@@ -22,15 +22,19 @@ export const Card: React.FunctionComponent<Iprops> = ({ item, checkbox, dropdown
     <div className={styles.item}>
       <div className={styles.type}>{item && item['type'] && <Icon mimetype={item['type']} />}</div>
       <div className={styles.info}>
-        <span>{item['نام']}</span>
+        <span>{item['name']}</span>
         <span className={styles.date}>
-          {item['تاریخ']} ,{formatBytes(item['حجم'])}
+          {item['created_at']} {item['size'] && item['size'] !== '---' && `,${item['size']}`}
         </span>
       </div>
       {checkbox && <Checkbox checked={checkAll} className={styles.checkbox} />}
       {dropdown && (
         <div className={styles.dropdown}>
-          <EnhancedDropdown data={['option one', 'option two', 'option three']} />
+          <EnhancedDropdown data={[
+                        { label: 'عمومی', description: 'فایل در موتور های جستجو و صفحات پرشین گیگ نمایش داده می شود' },
+                        { label: 'با لینک' },
+                        { label: 'خصوصی' },
+                      ]} />
         </div>
       )}
     </div>

@@ -1,42 +1,51 @@
-@import "../../../styles/global";
+@import '../../../styles/global';
 
 .toast {
-	position: relative;
-	padding: 5px 13px;
-	color: #fff;
-	@include border-radius($br-radius-sm);
-	@include box-shadow(0 1px 3px 0 rgba(0, 0, 0, 0.15));
+  position: fixed;
+  bottom: 100px;
+  left: 100px;
+  padding: 5px 13px;
+  z-index: 2000;
+  color: #fff;
+  transform: translateX(-50%) translateY(300%);
+  transition: transform 0.35s ease;
+  @include border-radius($br-radius-sm);
+  @include box-shadow(0 1px 3px 0 rgba(0, 0, 0, 0.15));
 
-	&:after {
-		content: '';
-		position: absolute;
-		top: 98%;
-		margin-left: -3px;
-		width: 0; 
-		height: 0;
-		border-right: 6px solid transparent;
-		border-left: 6px solid transparent;
+  &.visible {
+    transform: translateX(-50%) translateY(-50%);
+  }
 
-		@if $body-dir == 'rtl' {
-			left: 20%;
-		} @else {
-			right: 20%;
-		}
-	}
+  &:after {
+    content: '';
+    position: absolute;
+    top: 98%;
+    margin-left: -3px;
+    width: 0;
+    height: 0;
+    border-right: 6px solid transparent;
+    border-left: 6px solid transparent;
 
-	&.success {
-		background-color: $green;
+    @if $body-dir == 'rtl' {
+      left: 20%;
+    } @else {
+      right: 20%;
+    }
+  }
 
-		&:after {
-			border-top: 6px solid $green;
-		}
-	}	
+  &.success {
+    background-color: $green;
 
-	&.error {
-		background-color: $red;
+    &:after {
+      border-top: 6px solid $green;
+    }
+  }
 
-		&:after {
-			border-top: 6px solid $red;
-		}
-	}
+  &.error {
+    background-color: $red;
+
+    &:after {
+      border-top: 6px solid $red;
+    }
+  }
 }
