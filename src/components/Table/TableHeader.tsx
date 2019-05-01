@@ -21,7 +21,7 @@ export const TableHeader: React.SFC<Iprops> = ({ titles, dropdown, onSort, onChe
       {titles && (
         <tr>
           {Object.keys(titles).map((label, i) => {
-            if (label !== 'type') {
+            if (label !== 'type' && label !=='id') {
               return (
                 <TableItem
                   key={i}

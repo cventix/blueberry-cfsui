@@ -9,13 +9,14 @@ export default interface Iprops {
   isOpen?: boolean
   onCheckAll?: () => void
   checkAll?: boolean
+  dropDownData?: any
 }
 
-export const Grid: React.FunctionComponent<Iprops> = ({ table, checkbox, checkAll }) => {
+export const Grid: React.FunctionComponent<Iprops> = ({ table, checkbox, checkAll, dropDownData }) => {
   return (
     <div className={styles.container}>
       {table.map((item: any, index: number) => {
-        return <Card key={index} item={item} checkbox={checkbox} dropdown={true} checkAll={checkAll} />
+        return <Card key={index} dropDownData={dropDownData} item={item} checkbox={checkbox} dropdown={true} checkAll={checkAll} />
       })}
     </div>
   )

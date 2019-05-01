@@ -63,7 +63,15 @@ $date-font-size: 10px;
       margin-bottom: $margin/4;
     }
   }
-
+  .name{
+    width: 100px;
+    justify-content: center;
+    display: flex;
+    white-space: nowrap;
+    overflow: hidden;
+    direction: ltr;
+    text-overflow: ellipsis;
+  }
   .type,
   img {
     width: $icon-length;

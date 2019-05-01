@@ -127,7 +127,6 @@ class Content extends React.Component<IProps, IState> {
     window.addEventListener('resize', this.updateWindowDimensions)
     try {
       let result = await this.props.getDocuments()
-      console.log(result)
       this.setState({ table: this.props.data }, () => console.log(this.state.table))
 
       // this.setState({ table: result},()=>console.log(this.state.table))
@@ -144,7 +143,7 @@ class Content extends React.Component<IProps, IState> {
         type: each.genericType,
         name: each.name,
         created_at: formatDate(each.createdAt),
-        // owner: { displayName: each.owner.displayName, id: each.owner.id },
+        owner: each.owner.displayName,
         size: each.size ? formatBytes({ bytes: each.size, lang: 'fa' }) : '---'
       })
     })
@@ -278,7 +277,7 @@ class Content extends React.Component<IProps, IState> {
           {this.state.view === 'table' ? (
             <div>
               <GridHeader onCheckAll={this.onCheckAll} checkAll={this.state.checkAll} sortable={true} onSort={this.onSort} />
-              <Grid checkbox={true} onCheckAll={this.onCheckAll} checkAll={this.state.checkAll} table={this.state.table} />
+              <Grid dropDownData={dropDownData} checkbox={true} onCheckAll={this.onCheckAll} checkAll={this.state.checkAll} table={this.state.table} />
             </div>
           ) : (
             <React.Fragment>

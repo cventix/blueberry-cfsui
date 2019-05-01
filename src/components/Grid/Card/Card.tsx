@@ -15,14 +15,15 @@ export default interface Iprops {
   checkbox?: boolean
   checkAll?: boolean
   dropdown?: boolean
+  dropDownData?: any
 }
 
-export const Card: React.FunctionComponent<Iprops> = ({ item, checkbox, dropdown, checkAll }) => {
+export const Card: React.FunctionComponent<Iprops> = ({ item, checkbox, dropdown, checkAll ,dropDownData}) => {
   return (
     <div className={styles.item}>
       <div className={styles.type}>{item && item['type'] && <Icon mimetype={item['type']} />}</div>
       <div className={styles.info}>
-        <span>{item['name']}</span>
+        <span className={styles.name}>{item['name']}</span>
         <span className={styles.date}>
           {item['created_at']} {item['size'] && item['size'] !== '---' && `,${item['size']}`}
         </span>
@@ -30,11 +31,7 @@ export const Card: React.FunctionComponent<Iprops> = ({ item, checkbox, dropdown
       {checkbox && <Checkbox checked={checkAll} className={styles.checkbox} />}
       {dropdown && (
         <div className={styles.dropdown}>
-          <EnhancedDropdown data={[
-                        { label: 'عمومی', description: 'فایل در موتور های جستجو و صفحات پرشین گیگ نمایش داده می شود' },
-                        { label: 'با لینک' },
-                        { label: 'خصوصی' },
-                      ]} />
+          <EnhancedDropdown data={dropDownData} id={item.id}/>
         </div>
       )}
     </div>
