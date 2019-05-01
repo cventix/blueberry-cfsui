@@ -39,7 +39,7 @@ class CFmodal extends React.Component<Iprops, any> {
     try {
       console.log(this.props.createFolder)
       let result = await this.props.createFolder({ name: this.state.name })
-      this.props.handleCFClose();
+      this.props.handleCFClose()
       console.log(result)
       // this.setState({ table: result},()=>console.log(this.state.table))
     } catch (error) {
