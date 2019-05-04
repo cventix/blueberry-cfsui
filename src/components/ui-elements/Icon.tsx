@@ -1,7 +1,7 @@
 import * as React from 'react'
 import folder from '../../images/typeIcons/icon-folder.svg'
-import excel from '../../images/typeIcons/icon-image.svg'
-import image from '../../images/typeIcons/icon-folder.svg'
+import excel from '../../images/typeIcons/icon-excel.svg'
+import image from '../../images/typeIcons/icon-image.svg'
 import music from '../../images/typeIcons/icon-music.svg'
 import zip from '../../images/typeIcons/icon-zip.svg'
 import video from '../../images/typeIcons/icon-video.svg'
@@ -23,6 +23,7 @@ export const Icon = ({ src, alt, className = 'icon', style, mimetype }: Iprops) 
 
 const renderIconSrc = (mimetype: string) => {
   let src
+  console.log(mimetype)
   switch (mimetype) {
     case 'folder':
       src = folder

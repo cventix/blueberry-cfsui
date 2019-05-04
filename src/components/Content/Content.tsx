@@ -41,7 +41,7 @@ export interface IProps {
   removeFolder?: any
   data?: any
   history?: any
-  location?:any
+  location?: any
 }
 
 export interface IState {
@@ -107,6 +107,7 @@ class Content extends React.Component<IProps, IState> {
         id: each.id,
         type: each.genericType,
         name: each.name,
+        discriminator: each.discriminator,
         fullPath: each.fullPath,
         created_at: formatDate(each.createdAt),
         owner: each.owner.displayName,
@@ -175,7 +176,6 @@ class Content extends React.Component<IProps, IState> {
       let result = await this.props.renameFolder({ folderId: this.state.renameFileId, name: this.state.renameInput })
       this.setState({ showRename: false })
       console.log(result)
-     
     } catch (error) {
       console.log('E: ', error)
     }
@@ -199,9 +199,15 @@ class Content extends React.Component<IProps, IState> {
   }
 
   handleNavigate = (name: any, id: number) => {
-  
-    this.props.history.push(name)
-    this.onGetDocument(name)
+    let discriminator = this.state.table.filter((obj: any) => {
+      console.log(obj.name == name)
+      return obj.name == name
+    })[0].discriminator
+    console.log(discriminator)
+    if (discriminator === 'D') {
+      this.props.history.push(name)
+      this.onGetDocument(name)
+    }
   }
   onGetDocument = async (path: any) => {
     try {
@@ -224,13 +230,8 @@ class Content extends React.Component<IProps, IState> {
   //     }
   //   )
   // }
-  componentDidUpdate() {
-    console.log('rerender')
-  }
 
-  
   public render() {
-  console.log('j')
     let dropDownData = [
       { label: ' دانلود فایل' },
       { label: 'تغییر نام', onClick: this.openRenameModal },

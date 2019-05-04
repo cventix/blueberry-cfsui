@@ -53,7 +53,7 @@ export const Table: React.FunctionComponent<Iprops> = ({
             return (
               <tr key={i} onClick={() => handleNavigate(item.name, item.id)}>
                 {Object.keys(item).map((k, i) => {
-                  if (k !== 'type' && k !== 'id' && k !== 'fullPath') {
+                  if (k !== 'type' && k !== 'id' && k !== 'fullPath' && k !== 'discriminator') {
                     return (
                       <TableItem
                         name={k}
