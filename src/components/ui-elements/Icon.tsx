@@ -6,6 +6,9 @@ import music from '../../images/typeIcons/icon-music.svg'
 import zip from '../../images/typeIcons/icon-zip.svg'
 import video from '../../images/typeIcons/icon-video.svg'
 import pdf from '../../images/typeIcons/icon-pdf.svg'
+import icon from '../../images/typeIcons/icon.svg'
+import code from '../../images/typeIcons/icon-code.svg'
+
 export default interface Iprops {
   src?: string
   alt?: string
@@ -28,7 +31,7 @@ const renderIconSrc = (mimetype: string) => {
       src = excel
       break
     case 'image':
-      src = excel
+      src = image
       break
     case 'music':
       src = music
@@ -36,11 +39,20 @@ const renderIconSrc = (mimetype: string) => {
     case 'video':
       src = video
       break
-    case  'archive':
+    case 'archive':
       src = zip
       break
-      case  'pdf':
+    case 'pdf':
       src = pdf
+      break
+    case 'pdf':
+      src = pdf
+      break
+    case 'code':
+      src = code
+      break
+    default:
+      src = icon
       break
   }
   return src

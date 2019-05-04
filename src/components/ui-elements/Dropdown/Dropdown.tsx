@@ -54,7 +54,7 @@ export const Dropdown: React.FunctionComponent<Iprops> = ({
                   bordered={false}
                   isSelected={isSelected}
                   onSelect={onSelect}
-                  {...item.onClick && { onClick: item.onClick }}
+                  {...item.onClick && { onClick: ()=>item.onClick(id) }}
                   {...item.description && { description: item.description }}
                 />
               )

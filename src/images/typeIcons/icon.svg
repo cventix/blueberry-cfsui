@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 28 28">
+    <g fill="none" fill-rule="evenodd">
+        <rect width="28" height="28" fill="#D8E4F8" rx="2"/>
+        <text fill="#B4CDF4" font-family="LucidaGrande-Bold, Lucida Grande" font-size="10" font-weight="bold">
+            <tspan x="3" y="17">icon</tspan>
+        </text>
+    </g>
+</svg>

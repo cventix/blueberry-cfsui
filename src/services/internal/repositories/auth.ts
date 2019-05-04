@@ -23,7 +23,9 @@ class Auth implements AuthInterface {
   }
 
   async register(email: string, username: string, password: string) {
+    console.log('hi')
     const url = '/rest/users/signup'
+    console.log('hi')
     const body = {
       email,
       username,

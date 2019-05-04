@@ -20,13 +20,13 @@ export const TableHeader: React.SFC<Iprops> = ({ titles, dropdown, onSort, onChe
     <thead>
       {titles && (
         <tr>
-          {Object.keys(titles).map((label, i) => {
-            if (label !== 'type' && label !=='id') {
+          {titles.map((label:any, i:number) => {
+            if (label !== 'type' && label !=='id' && label !=='fullPath') {
               return (
                 <TableItem
                   key={i}
                   label={label}
-                  checkbox={label === 'نام' ? true : false}
+                  checkbox={label === 'name' ? true : false}
                   onCheckAll={onCheckAll}
                   sortable={true}
                   sortType={label === 'تاریخ' ? 'alphabet' : ' '}

@@ -7,7 +7,7 @@ export const login = actionBuilder(actionTypes.LOGIN, 'payload')
 
 export const setToken = actionBuilder(actionTypes.SET_TOKEN, 'payload')
 
-// export const register = actionBuilder(actionTypes.REGISTER, 'email', 'username', 'password')
+export const register = actionBuilder(actionTypes.REGISTER, 'email', 'username', 'password')
 
 // export const forgetPassword = actionBuilder(actionTypes.FORGET_PASSWORD, 'mobile')
 

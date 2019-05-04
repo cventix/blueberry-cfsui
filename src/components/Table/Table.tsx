@@ -19,7 +19,7 @@ export default interface Iprops {
   tabletView?: boolean
   onSelect?: (option: number) => void
   onRenameDocument?: (e: any) => void
-  handleNavigate?:any
+  handleNavigate?: any
   optionSelected?: number
   position?: any
   dropDownData?: any
@@ -36,11 +36,12 @@ export const Table: React.FunctionComponent<Iprops> = ({
   handleNavigate,
   optionSelected
 }) => {
-  console.log(handleNavigate)
-  return (
+  const header = ['نام', 'مالک', 'تاریخ', 'حجم']
+  console.log(table && table.length)
+  return table && table.length > 0 ? (
     <table className={styles.table}>
       <TableHeader
-        titles={table && table[0]}
+        titles={header}
         dropdown={dropdown}
         {...onCheckAll && { checkAll: checkAll, onCheckAll: onCheckAll }}
         onSort={onSort}
@@ -50,40 +51,40 @@ export const Table: React.FunctionComponent<Iprops> = ({
         {table &&
           table.map((item: any, i: number) => {
             return (
-              <tr key={i} onClick={()=>handleNavigate(item.name,item.id)}>
-                  {Object.keys(item).map((k, i) => {
-                    if (k !== 'type' && k !== 'id') {
-                      return (
-                        <TableItem
-                          name={k}
-                          key={i}
-                  
-                          label={item[k]}
-                          checkAll={checkAll}
-                          className={k === 'name' ? ['show'] : [' ']}
-                          checkbox={k === 'name' ? true : false}
-                          hasType={k === 'name' && item['type']}
-                        />
-                      )
-                    }
-                  })}
-                  {dropdown && (
-                    <td className={[styles.show, styles.left].join(' ')}>
-                      <EnhancedDropdown
-                        width={138}
-                        optionSelected={optionSelected}
-                        onSelect={onSelect}
-                        position={'absoulte'}
-                        data={dropDownData && dropDownData}
-                        id={item.id}
+              <tr key={i} onClick={() => handleNavigate(item.name, item.id)}>
+                {Object.keys(item).map((k, i) => {
+                  if (k !== 'type' && k !== 'id' && k !== 'fullPath') {
+                    return (
+                      <TableItem
+                        name={k}
+                        key={i}
+                        label={item[k]}
+                        checkAll={checkAll}
+                        className={k === 'name' ? ['show'] : [' ']}
+                        checkbox={k === 'name' ? true : false}
+                        hasType={k === 'name' && item['type']}
                       />
-                    </td>
-                  )}
-               
+                    )
+                  }
+                })}
+                {dropdown && (
+                  <td className={[styles.show, styles.left].join(' ')}>
+                    <EnhancedDropdown
+                      width={138}
+                      optionSelected={optionSelected}
+                      onSelect={onSelect}
+                      position={'absoulte'}
+                      data={dropDownData && dropDownData}
+                      id={item.id}
+                    />
+                  </td>
+                )}
               </tr>
             )
           })}
       </tbody>
     </table>
+  ) : (
+    <div>داده ای وجود ندارد</div>
   )
 }

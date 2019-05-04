@@ -5,7 +5,7 @@ import store from './services/internal/store/configStore'
 import './index.css'
 import App from './containers/Home/App'
 import * as serviceWorker from './serviceWorker'
-import { Routes } from './Routes';
+import Routes  from './Routes';
 
 ReactDOM.render(
   

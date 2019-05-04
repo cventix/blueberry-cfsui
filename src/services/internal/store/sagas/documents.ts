@@ -20,12 +20,24 @@ export function* getDocuments(action: any) {
     yield put(actions.setLoadingState(false))
   }
 }
+export function* removeFolder(action: any) {
 
+  try {
+    yield put(actions.setLoadingState(true))
+    let data = yield documents.removeFolder(action)
+    console.log(data,action)
+    yield put(actions.setLoadingState(false))
+  } catch (err) {
+    yield put(actions.setLoadingState(false))
+  }
+}
 export function* createFolder(action: any) {
   let folderInfo = { name: action.payload.name, description: action.payload.description, parentId: action.payload.parentId }
   try {
     yield put(actions.setLoadingState(true))
     let response = yield documents.createFolder(folderInfo)
+    let data = yield documents.getDocuments()
+    yield put(actions.setDocuments(data))
     yield put(actions.setResponse(response))
     yield put(actions.setLoadingState(false))
   } catch (err) {
@@ -40,6 +52,8 @@ export function* renameFolder(action: any) {
     yield put(actions.setLoadingState(true))
     yield documents.renameFolder(renameInfo)
     let response = yield documents.renameFolder(renameInfo)
+    let data = yield documents.getDocuments()
+    yield put(actions.setDocuments(data))
     yield put(actions.setResponse(response))
     yield put(actions.setLoadingState(false))
   } catch (err) {

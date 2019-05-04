@@ -78,7 +78,14 @@ class Documents implements DocumentsInterface {
       throw error
     }
   }
-
+  async removeFolder({ folderId, name }: IRenameFolderInput) {
+    const url = `/rest/documents/remove?id=${folderId}`
+    try {
+      return await this._rest.delete({ url })
+    } catch (error) {
+      throw error
+    }
+  }
   async moveDocuments({ documentIds, targetId }: IMoveDocumentsInput) {
     const url = `/rest/documents/move?ids=${documentIds.join()}&targetId=${targetId}`
     try {

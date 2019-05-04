@@ -19,7 +19,6 @@ export default interface Iprops {
 
 export const ActionNav: React.FunctionComponent<Iprops> = props => {
   const altIcon = 'Icon'
-  console.log(props)
   return (
     <div className="actionNav">
       <IconLink icon={newFolderIcon} iconAlt={`new-folder ${altIcon}`} label={t`پوشه جدید`} onClick={props.createFolderModal} />

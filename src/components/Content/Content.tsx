@@ -20,6 +20,7 @@ import { formatBytes } from '../../services/internal/utils/formatBytes'
 import { Modal } from '../ui-elements/Modal/Modal'
 import { RenameFile } from '../ui-elements/Modal/ModalContent/RenameFile'
 import { UploadModal } from '../ui-elements/Uploadmodal/Uploadmodal'
+import { removeFolder } from '../../services/internal/store/sagas/documents'
 
 const history = [{ title: 'پوشه اصلی', link: '/' }, { title: 'پوشه فرعی', link: '/' }, { title: 'پوشه تست', link: '/', active: true }]
 
@@ -37,8 +38,10 @@ export interface IProps {
   renameFolder?: any
   moveDocuments?: any
   shareDocuments?: any
+  removeFolder?: any
   data?: any
   history?: any
+  location?:any
 }
 
 export interface IState {
@@ -83,6 +86,7 @@ class Content extends React.Component<IProps, IState> {
       console.log('E: ', error)
     }
   }
+
   async componentDidMount() {
     this.updateWindowDimensions()
     window.addEventListener('resize', this.updateWindowDimensions)
@@ -170,6 +174,8 @@ class Content extends React.Component<IProps, IState> {
     try {
       let result = await this.props.renameFolder({ folderId: this.state.renameFileId, name: this.state.renameInput })
       this.setState({ showRename: false })
+      console.log(result)
+     
     } catch (error) {
       console.log('E: ', error)
     }
@@ -182,13 +188,18 @@ class Content extends React.Component<IProps, IState> {
   }
 
   openRenameModal = (renameFileId: number) => {
-    this.setState({ showRename: true, renameFileId })
+    let renameInput = this.state.table.filter((obj: any) => {
+      return obj.id === renameFileId
+    })[0].name
+    this.setState({ showRename: true, renameInput, renameFileId })
   }
 
   closeRenameModalclose = () => {
     this.setState({ showRename: false, renameFileId: '' })
   }
+
   handleNavigate = (name: any, id: number) => {
+  
     this.props.history.push(name)
     this.onGetDocument(name)
   }
@@ -213,10 +224,13 @@ class Content extends React.Component<IProps, IState> {
   //     }
   //   )
   // }
-  componentWillMount() {
-    console.log(this.props.history)
+  componentDidUpdate() {
+    console.log('rerender')
   }
+
+  
   public render() {
+  console.log('j')
     let dropDownData = [
       { label: ' دانلود فایل' },
       { label: 'تغییر نام', onClick: this.openRenameModal },
@@ -228,7 +242,7 @@ class Content extends React.Component<IProps, IState> {
     let modal
     switch (this.state.modalView) {
       case 'renameFile':
-        modal = <RenameFile changeHandler={this.changeHandler} handleSubmit={this.onRenameDocument} />
+        modal = <RenameFile value={this.state.renameInput} changeHandler={this.changeHandler} handleSubmit={this.onRenameDocument} />
         break
     }
     console.log(this.props.history)
@@ -308,7 +322,8 @@ const mapDispatchToProps = (dispatch: any) => {
     createFolder: () => dispatch(createFolder()),
     renameFolder: (value: any) => dispatch(renameFolder(value)),
     moveDocuments: () => dispatch(moveDocuments()),
-    shareDocuments: () => dispatch(shareDocuments())
+    shareDocuments: () => dispatch(shareDocuments()),
+    removeFolder: (value: any) => dispatch(removeFolder(value))
   }
 }
 

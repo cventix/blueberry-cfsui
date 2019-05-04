@@ -18,3 +18,17 @@ export function* login(action: any) {
     yield put(actions.setLoadingState(false))
   }
 }
+
+export function* register(action: any) {
+  console.log(action)
+  try {
+    yield put(actions.setLoadingState(true))
+    let result = yield auth.register(action.email, action.username, action.password)
+    yield put(actions.setLoadingState(false))
+    // yield put(actions.setToken({ token }))
+    // yield put(actions.setUserCredentials({ username: user.username }))
+    // yield storage.setItem('token', token)
+  } catch (err) {
+    yield put(actions.setLoadingState(false))
+  }
+}
