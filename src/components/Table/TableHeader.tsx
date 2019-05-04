@@ -20,8 +20,8 @@ export const TableHeader: React.SFC<Iprops> = ({ titles, dropdown, onSort, onChe
     <thead>
       {titles && (
         <tr>
-          {titles.map((label:any, i:number) => {
-            if (label !== 'type' && label !=='id' && label !=='fullPath') {
+          {titles.map((label: any, i: number) => {
+            if (label !== 'type' && label !== 'id' && label !== 'fullPath') {
               return (
                 <TableItem
                   key={i}

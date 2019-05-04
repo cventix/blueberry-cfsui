@@ -21,11 +21,10 @@ export function* getDocuments(action: any) {
   }
 }
 export function* removeFolder(action: any) {
-
   try {
     yield put(actions.setLoadingState(true))
     let data = yield documents.removeFolder(action)
-    console.log(data,action)
+    console.log(data, action)
     yield put(actions.setLoadingState(false))
   } catch (err) {
     yield put(actions.setLoadingState(false))

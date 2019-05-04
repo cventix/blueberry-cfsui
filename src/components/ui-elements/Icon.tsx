@@ -23,7 +23,6 @@ export const Icon = ({ src, alt, className = 'icon', style, mimetype }: Iprops) 
 
 const renderIconSrc = (mimetype: string) => {
   let src
-  console.log(mimetype)
   switch (mimetype) {
     case 'folder':
       src = folder

@@ -270,17 +270,16 @@ class Content extends React.Component<IProps, IState> {
         <React.Fragment>
           <Contentheader view={this.state.view} switchView={this.switchView} />
           {this.state.view === 'table' ? (
-            <div>
-              <GridHeader onCheckAll={this.onCheckAll} checkAll={this.state.checkAll} sortable={true} onSort={this.onSort} />
-              <Grid
-                dropDownData={dropDownData}
-                checkbox={true}
-                handleNavigate={this.handleNavigate}
-                onCheckAll={this.onCheckAll}
-                checkAll={this.state.checkAll}
-                table={this.state.table}
-              />
-            </div>
+            <Grid
+              sortable={true}
+              onSort={this.onSort}
+              dropDownData={dropDownData}
+              checkbox={true}
+              handleNavigate={this.handleNavigate}
+              onCheckAll={this.onCheckAll}
+              checkAll={this.state.checkAll}
+              table={this.state.table}
+            />
           ) : (
             <React.Fragment>
               <Table

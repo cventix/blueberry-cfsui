@@ -4,7 +4,7 @@ import App from './containers/Home/App'
 import Login from './components/Authentication/Login/Login'
 import { connect } from 'react-redux'
 import { PrivateRoute } from './components/PrivateRoute/PrivateRoute'
-import Register from './components/Authentication/Register/Register';
+import Register from './components/Authentication/Register/Register'
 
 class Routes extends React.Component<any> {
   state = {
@@ -13,7 +13,7 @@ class Routes extends React.Component<any> {
   render() {
     return (
       <Router>
-        <Switch >
+        <Switch>
           <Route path="/login" component={Login} />
           <Route path="/register" component={Register} />
           <PrivateRoute authed={localStorage.getItem('token') ? true : false} path="/" component={App} />

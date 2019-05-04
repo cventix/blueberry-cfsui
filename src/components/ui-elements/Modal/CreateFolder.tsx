@@ -37,7 +37,6 @@ class CFmodal extends React.Component<Iprops, any> {
   handleSubmit = async (e: any) => {
     if (e) e.preventDefault()
     try {
-      console.log(this.props.createFolder)
       let result = await this.props.createFolder({ name: this.state.name })
       this.props.handleCFClose()
       // this.setState({ table: result},()=>console.log(this.state.table))
