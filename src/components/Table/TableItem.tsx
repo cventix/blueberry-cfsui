@@ -1,4 +1,3 @@
-
 import React, { Component } from 'react'
 import { Icon } from '../ui-elements/Icon'
 
@@ -16,6 +15,10 @@ export default interface Iprops {
   hasType?: any
   onCheckAll?: any
   checkAll?: boolean
+  id?: number
+  onCheck?: (id: number) => void
+  handleNavigate?: any
+  itemName?: string
 }
 
 export const splitter = (className: any) => {
@@ -28,18 +31,27 @@ export const TableItem: React.FunctionComponent<Iprops> = ({
   name,
   sortable,
   onSort,
+  id,
   sortType,
   className,
   hasType,
+  handleNavigate,
   onCheckAll,
   checkAll,
+  itemName,
+  onCheck
 }) => {
   return (
-    <td data-label={name} className={className ? splitter(className) : ' '} {...sortable && { onClick: () => onSort(label, sortType) }}>
+    <td
+      data-label={name}
+      className={className ? splitter(className) : ' '}
+      {...sortable && { onClick: () => onSort(label, sortType) }}
+      {...handleNavigate && { onClick: () => handleNavigate(id, itemName) }}
+    >
       <div className={'rowItem'}>
         {checkbox && (
           <div className={' rowItem'}>
-            <Checkbox onChange={onCheckAll} checked={checkAll} />
+            <Checkbox onChange={() => onCheck && id && onCheck} checked={checkAll} />
           </div>
         )}
         {hasType && <Icon mimetype={hasType} />}

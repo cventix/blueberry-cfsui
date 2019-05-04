@@ -9,6 +9,7 @@
 	font-size: $font-size;
 	cursor: pointer;
 	border: 0;
+	position: relative;
 	@include border-radius($br-radius-sm);
 
 	/* btn tyes */

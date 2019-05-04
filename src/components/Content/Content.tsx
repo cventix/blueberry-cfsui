@@ -219,6 +219,11 @@ class Content extends React.Component<IProps, IState> {
       console.log('E: ', error)
     }
   }
+  onCheck = (e:any) => {
+    // e.stopPropagation()
+   
+  }
+
   // showToast() {
   //   this.setState(
   //     {
@@ -256,6 +261,7 @@ class Content extends React.Component<IProps, IState> {
             handleNavigate={this.handleNavigate}
             dropDownData={dropDownData}
             tabletView={true}
+            onCheck={this.onCheck}
             onCheckAll={this.onCheckAll}
             checkAll={this.state.checkAll}
             onSort={this.onSort}
@@ -288,6 +294,7 @@ class Content extends React.Component<IProps, IState> {
                 optionSelected={this.state.optionSelected}
                 onSelect={this.onSelect}
                 onCheckAll={this.onCheckAll}
+                onCheck={this.onCheck}
                 handleNavigate={this.handleNavigate}
                 checkAll={this.state.checkAll}
                 onSort={this.onSort}

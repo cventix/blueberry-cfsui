@@ -1,16 +1,16 @@
 import React from 'react'
 import styles from '../Authentication.module.scss'
 
-
 import signin from '../../../images/group.svg'
 import { connect } from 'react-redux'
 import { PayloadInterface } from '../../../services/internal/store/reducers/authReducer'
 import { setUserCredentials, setToken, login } from '../../../services/internal/store/actions'
 import { Authentication } from '../Authentication'
-import { TextInput } from '../../ui-elements/Input/Input';
-import { Link } from 'react-router-dom';
-import { Icon } from '../../ui-elements/Icon';
-import { Button } from '../../ui-elements/Button/Button';
+import { TextInput } from '../../ui-elements/Input/Input'
+import { Link } from 'react-router-dom'
+import { Icon } from '../../ui-elements/Icon'
+import { Button } from '../../ui-elements/Button/Button'
+import loading from '../../../images/loading/tail-spin.svg'
 
 class Login extends React.Component<any, any> {
   state = {
@@ -34,11 +34,13 @@ class Login extends React.Component<any, any> {
       console.log('E: ', error)
     }
   }
+
   render() {
+    console.log(this.props)
     return (
       <Authentication>
         <form className={styles.box} onSubmit={this.handleSubmit}>
-        <div className={styles.headertext}>ورود به حساب کاربری</div>
+          <div className={styles.headertext}>ورود به حساب کاربری</div>
           <div className={styles.header}>برای استفاده از خدمات ابتدا وارد شوید</div>
           <TextInput placeholder={'نام کاربر یا ایمیل'} style={{ width: 300 }} name={'email'} onChange={this.handleChange} />
           <TextInput placeholder={'رمز عبور'} style={{ width: 300 }} name={'password'} type={'password'} onChange={this.handleChange} />
@@ -49,7 +51,14 @@ class Login extends React.Component<any, any> {
                 <span className={styles.link}>ثبت‌نام</span>
               </Link>
             </div>
-            <Button className={['btnSuccess0', 'btnSm']}>ورود</Button>
+            <Button className={[this.props.isLoading ? 'btnSecondary' : 'btnSuccess0', 'btnSm']}>
+              {this.props.isLoading && (
+                <div className={styles.buttonLoading}>
+                  <Icon src={loading} />
+                </div>
+              )}
+              ورود
+            </Button>
           </div>
           <Link to={'/'}>
             <Icon src={signin} />
@@ -60,6 +69,7 @@ class Login extends React.Component<any, any> {
     )
   }
 }
+const mapStateToProps = (state: any) => ({ isLoading: state.loading.isLoading })
 
 const mapDispatchToProps = (dispatch: any) => {
   return {
@@ -70,6 +80,6 @@ const mapDispatchToProps = (dispatch: any) => {
 }
 
 export default connect(
-  null,
+  mapStateToProps,
   mapDispatchToProps
 )(Login)

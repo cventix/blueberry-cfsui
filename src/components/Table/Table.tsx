@@ -23,6 +23,7 @@ export default interface Iprops {
   optionSelected?: number
   position?: any
   dropDownData?: any
+  onCheck?: any
 }
 export const Table: React.FunctionComponent<Iprops> = ({
   table,
@@ -34,7 +35,8 @@ export const Table: React.FunctionComponent<Iprops> = ({
   onSelect,
   dropDownData,
   handleNavigate,
-  optionSelected
+  optionSelected,
+  onCheck
 }) => {
   const header = ['نام', 'مالک', 'تاریخ', 'حجم']
   console.log(table && table.length)
@@ -51,14 +53,18 @@ export const Table: React.FunctionComponent<Iprops> = ({
         {table &&
           table.map((item: any, i: number) => {
             return (
-              <tr key={i} onClick={() => handleNavigate(item.name, item.id)}>
+              <tr key={i}>
                 {Object.keys(item).map((k, i) => {
                   if (k !== 'type' && k !== 'id' && k !== 'fullPath' && k !== 'discriminator') {
                     return (
                       <TableItem
                         name={k}
-                        key={i}
+                        key={item}
+                        id={item.id}
+                        handleNavigate={k === 'name' && handleNavigate}
                         label={item[k]}
+                        itemName={item.name}
+                        onCheck={onCheck}
                         checkAll={checkAll}
                         className={k === 'name' ? ['show'] : [' ']}
                         checkbox={k === 'name' ? true : false}
