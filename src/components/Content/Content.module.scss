@@ -7,7 +7,13 @@ $arrow-width: 16px;
     margin-left:20px;
   }
 }
-
+.loading{
+  width:100%;
+  display: flex;
+  min-height:200px;
+  justify-content: center;
+  align-items: center;
+}
 .header {
   display: flex;
   justify-content: space-between;

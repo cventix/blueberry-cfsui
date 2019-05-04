@@ -1,4 +1,4 @@
-@import "../../styles/global.scss";
+@import '../../styles/global.scss';
 
 $border-table: #e5e5e5;
 $table-header-color: #9b9b9b;
@@ -33,7 +33,14 @@ $border-bottom: 1.5px solid $border-table;
     padding-top: 0;
     color: $table-header-color;
   }
-
+  .name {
+    max-width: 160px;
+    justify-content: center;
+    display: flex;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
   .sort {
     display: flex;
     flex-direction: column;
@@ -69,15 +76,11 @@ $border-bottom: 1.5px solid $border-table;
       padding: $padding-td * 2 3px;
 
       .icn {
-
-         img {
+        img {
           vertical-align: middle;
           margin-left: 6px;
         }
       }
     }
-
-  
-    
   }
 }

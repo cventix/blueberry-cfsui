@@ -8,6 +8,7 @@ export default interface Iprops {
   onClick?: () => void
   style?: object
   children?: any
+  disabled?: boolean
 }
 
 const classCreator = (className: any) => {
@@ -17,6 +18,7 @@ const classCreator = (className: any) => {
 export const Button: React.FunctionComponent<Iprops> = props => {
   return (
     <button
+      disabled={props.disabled}
       className={props.className ? `${styles.btn} ${classCreator(props.className)}` : `${styles.btn}`}
       onClick={() => props.onClick && props.onClick()}
       style={props.style}

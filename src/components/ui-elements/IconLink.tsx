@@ -13,7 +13,7 @@ export default interface Iprops {
 }
 
 export const IconLink = ({ className = 'iconLink', icon, iconAlt, label, onClick }: Iprops) => (
-  <div className={className} onClick={() => onClick()}>
+  <div className={className} >
     <Icon src={icon} alt={iconAlt} />
     <span>{label}</span>
   </div>

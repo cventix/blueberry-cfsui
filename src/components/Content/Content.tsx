@@ -21,6 +21,9 @@ import { Modal } from '../ui-elements/Modal/Modal'
 import { RenameFile } from '../ui-elements/Modal/ModalContent/RenameFile'
 import { UploadModal } from '../ui-elements/Uploadmodal/Uploadmodal'
 import { removeFolder } from '../../services/internal/store/sagas/documents'
+import { withRouter } from 'react-router'
+import { Icon } from '../ui-elements/Icon'
+import loading from '../../images/loading/tail-spin.1.svg'
 
 const history = [{ title: 'پوشه اصلی', link: '/' }, { title: 'پوشه فرعی', link: '/' }, { title: 'پوشه تست', link: '/', active: true }]
 
@@ -42,6 +45,9 @@ export interface IProps {
   data?: any
   history?: any
   location?: any
+  prevProps?: any
+  prevState?: any
+  loading?: boolean
 }
 
 export interface IState {
@@ -52,6 +58,8 @@ export interface IState {
   height: number
   optionSelected?: number
   ascending: string
+  showMore: boolean
+  selectedArray: number[]
   [key: string]: any
 }
 
@@ -62,9 +70,11 @@ class Content extends React.Component<IProps, IState> {
     this.state = {
       table: '',
       checkAll: false,
+      selectedArray: [],
       view: 'grid',
       width: 0,
       height: 0,
+      showMore: false,
       modalView: 'renameFile',
       ascending: 'ascending',
       name: '',
@@ -88,15 +98,20 @@ class Content extends React.Component<IProps, IState> {
   }
 
   async componentDidMount() {
+    console.log(this.props.location.pathname)
     this.updateWindowDimensions()
     window.addEventListener('resize', this.updateWindowDimensions)
-    try {
-      let result = await this.props.getDocuments()
-      this.setState({ table: this.props.data }, () => console.log(this.state.table))
+    if (this.props.location.pathname === '/')
+      try {
+        let result = await this.props.getDocuments()
+        this.setState({ table: this.props.data }, () => console.log(this.state.table))
 
-      // this.setState({ table: result},()=>console.log(this.state.table))
-    } catch (error) {
-      console.log('E: ', error)
+        // this.setState({ table: result},()=>console.log(this.state.table))
+      } catch (error) {
+        console.log('E: ', error)
+      }
+    else {
+      this.onGetDocument(true, this.props.location.pathname)
     }
   }
 
@@ -114,10 +129,15 @@ class Content extends React.Component<IProps, IState> {
         size: each.size ? formatBytes({ bytes: each.size, lang: 'fa' }) : '---'
       })
     })
-
+    let slicedTable = table.slice(0, 10)
     this.setState({
-      table
+      table: slicedTable,
+      showMore: true,
+      mainTable: table
     })
+  }
+  showMore = () => {
+    this.setState({ table: this.state.mainTable, showMore: false })
   }
 
   componentWillUnmount() {
@@ -198,33 +218,59 @@ class Content extends React.Component<IProps, IState> {
     this.setState({ showRename: false, renameFileId: '' })
   }
 
-  handleNavigate = (name: any, id: number) => {
-    console.log(name,id)
-    let discriminator = this.state.table.filter((obj: any) => {
-      console.log(obj.name == name)
-      return obj.name == name
-    })[0].discriminator
-    console.log(discriminator)
-    if (discriminator === 'D') {
-      this.props.history.push(name)
-      this.onGetDocument(name)
+  handleNavigate = (e: any, name: string, id: number) => {
+    if (e.target.tagName != 'INPUT') {
+      console.log(e.target.tagName)
+      console.log(name, id)
+      let discriminator = this.state.table.filter((obj: any) => {
+        console.log(obj.name == name)
+        return obj.name == name
+      })[0].discriminator
+      console.log(discriminator)
+      if (discriminator === 'D') {
+        this.props.history.push(name)
+        this.onGetDocument(true, name)
+      }
     }
   }
-  onGetDocument = async (path: any) => {
-    try {
-      let result = await this.props.getDocuments({ isChildren: true, path })
-      // this.setState({ table: this.props.data }, () => console.log(this.state.table))
 
-      // this.setState({ table: result},()=>console.log(this.state.table))
-    } catch (error) {
-      console.log('E: ', error)
+  stopPropagation = (e: any) => {
+    console.log(e)
+    e.stopPropagation()
+  }
+  onGetDocument = async (isChildren?: boolean, path?: any) => {
+    if (isChildren == true) {
+      try {
+        let result = await this.props.getDocuments({ isChildren: true, path })
+        // this.setState({ table: this.props.data }, () => console.log(this.state.table))
+
+        // this.setState({ table: result},()=>console.log(this.state.table))
+      } catch (error) {
+        console.log('E: ', error)
+      }
+    } else {
+      try {
+        let result = await this.props.getDocuments()
+      } catch (error) {
+        console.log('E: ', error)
+      }
     }
   }
-  onCheck = (e:any) => {
-    // e.stopPropagation()
-   
+  onCheck = (id: number) => {
+    let { selectedArray } = this.state
+    if (selectedArray.indexOf(id) === -1) selectedArray.push(id)
+    else
+      selectedArray = selectedArray.filter(function(obj) {
+        return obj !== id
+      })
+    this.setState({ selectedArray }, () => console.log(selectedArray))
   }
 
+  componentDidUpdate(prevProps: any, prevState: any) {
+    if (this.props.location.pathname !== prevProps.location.pathname) {
+      this.onGetDocument(false)
+    }
+  }
   // showToast() {
   //   this.setState(
   //     {
@@ -252,9 +298,9 @@ class Content extends React.Component<IProps, IState> {
         modal = <RenameFile value={this.state.renameInput} changeHandler={this.changeHandler} handleSubmit={this.onRenameDocument} />
         break
     }
-    console.log(this.props.history)
+
     if (this.state.width < 768) {
-      return (
+      return !this.props.loading ? (
         <React.Fragment>
           <Breadcrumb history={history} />
           <Table
@@ -265,15 +311,18 @@ class Content extends React.Component<IProps, IState> {
             onCheck={this.onCheck}
             onCheckAll={this.onCheckAll}
             checkAll={this.state.checkAll}
+            stopPropagation={this.stopPropagation}
             onSort={this.onSort}
             table={this.state.table}
             onRenameDocument={this.onRenameDocument}
           />
           <Modal show={true}>{modal}</Modal>
         </React.Fragment>
+      ) : (
+       <div className={styles.loading}> <Icon src={loading} /></div>
       )
     } else
-      return (
+      return !this.props.loading ? (
         <React.Fragment>
           <Contentheader view={this.state.view} switchView={this.switchView} />
           {this.state.view === 'table' ? (
@@ -287,7 +336,7 @@ class Content extends React.Component<IProps, IState> {
               checkAll={this.state.checkAll}
               table={this.state.table}
             />
-          ) : (
+          ) : !this.props.loading ? (
             <React.Fragment>
               <Table
                 dropdown={true}
@@ -295,6 +344,7 @@ class Content extends React.Component<IProps, IState> {
                 optionSelected={this.state.optionSelected}
                 onSelect={this.onSelect}
                 onCheckAll={this.onCheckAll}
+                stopPropagation={this.stopPropagation}
                 onCheck={this.onCheck}
                 handleNavigate={this.handleNavigate}
                 checkAll={this.state.checkAll}
@@ -303,11 +353,17 @@ class Content extends React.Component<IProps, IState> {
                 onRenameDocument={this.onRenameDocument}
               />
               <div className={styles.footer}>
-                <Button className={['btnDefault0', 'btnLg']} onClick={this.props.createFolder}>
+                <Button
+                  className={[this.state.showMore ? 'btnDefault0' : 'btnDefault100', 'btnLg']}
+                  disabled={!this.state.showMore}
+                  onClick={this.showMore}
+                >
                   <IconLink icon={arrowBottom} className={styles.arrow} iconAlt={`new-folder`} label="نمایش بیشتر" />
                 </Button>
               </div>
             </React.Fragment>
+          ) : (
+           <div className={styles.loading}> <Icon src={loading} /></div>
           )}
           <UploadModal
             show={this.state.showRename}
@@ -319,10 +375,12 @@ class Content extends React.Component<IProps, IState> {
             {modal}
           </UploadModal>
         </React.Fragment>
+      ) : (
+       <div className={styles.loading}> <Icon src={loading} /></div>
       )
   }
 }
-const mapStateToProps = (state: IState) => ({ document: state.document })
+const mapStateToProps = (state: IState) => ({ document: state.document, loading: state.loading.isLoading })
 
 const mapDispatchToProps = (dispatch: any) => {
   return {
@@ -335,7 +393,7 @@ const mapDispatchToProps = (dispatch: any) => {
   }
 }
 
-export default connect(
+export default withRouter(connect(
   mapStateToProps,
   mapDispatchToProps
-)(Content)
+)(Content) as any)
