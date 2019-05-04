@@ -24,6 +24,7 @@ export default interface Iprops {
   position?: any
   dropDownData?: any
   onCheck?: any
+  itemName?: string
 }
 export const Table: React.FunctionComponent<Iprops> = ({
   table,
@@ -33,6 +34,7 @@ export const Table: React.FunctionComponent<Iprops> = ({
   onSort,
   tabletView,
   onSelect,
+  itemName,
   dropDownData,
   handleNavigate,
   optionSelected,
@@ -53,7 +55,7 @@ export const Table: React.FunctionComponent<Iprops> = ({
         {table &&
           table.map((item: any, i: number) => {
             return (
-              <tr key={i}>
+              <tr key={i} >
                 {Object.keys(item).map((k, i) => {
                   if (k !== 'type' && k !== 'id' && k !== 'fullPath' && k !== 'discriminator') {
                     return (

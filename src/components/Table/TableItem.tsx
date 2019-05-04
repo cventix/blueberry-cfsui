@@ -46,7 +46,7 @@ export const TableItem: React.FunctionComponent<Iprops> = ({
       data-label={name}
       className={className ? splitter(className) : ' '}
       {...sortable && { onClick: () => onSort(label, sortType) }}
-      {...handleNavigate && { onClick: () => handleNavigate(id, itemName) }}
+      {...handleNavigate && { onClick: () => handleNavigate(itemName, id) }}
     >
       <div className={'rowItem'}>
         {checkbox && (

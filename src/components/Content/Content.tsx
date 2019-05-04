@@ -199,6 +199,7 @@ class Content extends React.Component<IProps, IState> {
   }
 
   handleNavigate = (name: any, id: number) => {
+    console.log(name,id)
     let discriminator = this.state.table.filter((obj: any) => {
       console.log(obj.name == name)
       return obj.name == name
