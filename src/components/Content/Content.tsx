@@ -23,9 +23,7 @@ import { UploadModal } from '../ui-elements/Uploadmodal/Uploadmodal'
 import { removeFolder } from '../../services/internal/store/sagas/documents'
 import { withRouter } from 'react-router'
 import { Icon } from '../ui-elements/Icon'
-import loading from '../../images/loading/tail-spin.1.svg'
-
-const history = [{ title: 'پوشه اصلی', link: '/' }, { title: 'پوشه فرعی', link: '/' }, { title: 'پوشه تست', link: '/', active: true }]
+import loading from '../../images/loading/tail-spin.2.svg'
 
 const sort = (data: object[]) => {
   var sortOrder = ['folder', 'image', 'music']
@@ -47,6 +45,7 @@ export interface IProps {
   location?: any
   prevProps?: any
   prevState?: any
+  document?: any
   loading?: boolean
 }
 
@@ -116,6 +115,7 @@ class Content extends React.Component<IProps, IState> {
   }
 
   componentWillReceiveProps(nextProps: any) {
+   
     let table: any[] = []
     nextProps.document.documents.map((each: any) => {
       table.push({
@@ -220,13 +220,10 @@ class Content extends React.Component<IProps, IState> {
 
   handleNavigate = (e: any, name: string, id: number) => {
     if (e.target.tagName != 'INPUT') {
-      console.log(e.target.tagName)
-      console.log(name, id)
       let discriminator = this.state.table.filter((obj: any) => {
         console.log(obj.name == name)
         return obj.name == name
       })[0].discriminator
-      console.log(discriminator)
       if (discriminator === 'D') {
         this.props.history.push(name)
         this.onGetDocument(true, name)
@@ -267,7 +264,7 @@ class Content extends React.Component<IProps, IState> {
   }
 
   componentDidUpdate(prevProps: any, prevState: any) {
-    if (this.props.location.pathname !== prevProps.location.pathname) {
+    if (this.props.location.pathname !== prevProps.location.pathname && this.props.location.pathname === '/') {
       this.onGetDocument(false)
     }
   }
@@ -298,11 +295,13 @@ class Content extends React.Component<IProps, IState> {
         modal = <RenameFile value={this.state.renameInput} changeHandler={this.changeHandler} handleSubmit={this.onRenameDocument} />
         break
     }
+    const history = [{ title: 'پوشه اصلی', link: '/', active: false }]
+    if (this.props.location.pathname !== '/')
+      history.push({ title: this.props.location.pathname.split('/'), link: this.props.location.pathname, active: true })
 
     if (this.state.width < 768) {
       return !this.props.loading ? (
         <React.Fragment>
-          <Breadcrumb history={history} />
           <Table
             dropdown={true}
             handleNavigate={this.handleNavigate}
@@ -316,26 +315,49 @@ class Content extends React.Component<IProps, IState> {
             table={this.state.table}
             onRenameDocument={this.onRenameDocument}
           />
-          <Modal show={true}>{modal}</Modal>
+          <div className={styles.footer}>
+            <Button
+              className={[this.state.showMore ? 'btnDefault0' : 'btnDefault100', 'btnLg']}
+              disabled={!this.state.showMore}
+              onClick={this.showMore}
+            >
+              <IconLink icon={arrowBottom} className={styles.arrow} iconAlt={`new-folder`} label="نمایش بیشتر" />
+            </Button>
+          </div>
+          <UploadModal
+            show={this.state.showRename}
+            width={240}
+            title={'تغییر نام'}
+            formDescription={' نام جدید را در فرم زیر وارد نمایید'}
+            handleClose={this.closeRenameModalclose}
+          >
+            {modal}
+          </UploadModal>
         </React.Fragment>
       ) : (
-       <div className={styles.loading}> <Icon src={loading} /></div>
+        <div className={styles.loading}>
+          <Icon src={loading} />
+        </div>
       )
     } else
       return !this.props.loading ? (
         <React.Fragment>
-          <Contentheader view={this.state.view} switchView={this.switchView} />
+          <Contentheader view={this.state.view} history={history} switchView={this.switchView} />
           {this.state.view === 'table' ? (
-            <Grid
-              sortable={true}
-              onSort={this.onSort}
-              dropDownData={dropDownData}
-              checkbox={true}
-              handleNavigate={this.handleNavigate}
-              onCheckAll={this.onCheckAll}
-              checkAll={this.state.checkAll}
-              table={this.state.table}
-            />
+            this.state.table.length > 0 ? (
+              <Grid
+                sortable={true}
+                onSort={this.onSort}
+                dropDownData={dropDownData}
+                checkbox={true}
+                handleNavigate={this.handleNavigate}
+                onCheckAll={this.onCheckAll}
+                checkAll={this.state.checkAll}
+                table={this.state.table}
+              />
+            ) : (
+              <div>داده ای وجود ندارد</div>
+            )
           ) : !this.props.loading ? (
             <React.Fragment>
               <Table
@@ -352,19 +374,13 @@ class Content extends React.Component<IProps, IState> {
                 table={this.state.table}
                 onRenameDocument={this.onRenameDocument}
               />
-              <div className={styles.footer}>
-                <Button
-                  className={[this.state.showMore ? 'btnDefault0' : 'btnDefault100', 'btnLg']}
-                  disabled={!this.state.showMore}
-                  onClick={this.showMore}
-                >
-                  <IconLink icon={arrowBottom} className={styles.arrow} iconAlt={`new-folder`} label="نمایش بیشتر" />
-                </Button>
-              </div>
             </React.Fragment>
           ) : (
-           <div className={styles.loading}> <Icon src={loading} /></div>
+            <div className={styles.loading}>
+              <Icon src={loading} />
+            </div>
           )}
+
           <UploadModal
             show={this.state.showRename}
             width={640}
@@ -374,9 +390,20 @@ class Content extends React.Component<IProps, IState> {
           >
             {modal}
           </UploadModal>
+          <div className={styles.footer}>
+            <Button
+              className={[this.state.showMore ? 'btnDefault0' : 'btnDefault100', 'btnLg']}
+              disabled={!this.state.showMore}
+              onClick={this.showMore}
+            >
+              <IconLink icon={arrowBottom} className={styles.arrow} iconAlt={`new-folder`} label="نمایش بیشتر" />
+            </Button>
+          </div>
         </React.Fragment>
       ) : (
-       <div className={styles.loading}> <Icon src={loading} /></div>
+        <div className={styles.loading}>
+          <Icon src={loading} />
+        </div>
       )
   }
 }

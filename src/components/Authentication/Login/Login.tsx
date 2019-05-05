@@ -15,7 +15,8 @@ import loading from '../../../images/loading/tail-spin.svg'
 class Login extends React.Component<any, any> {
   state = {
     email: '',
-    password: ''
+    password: '',
+    loading:false
   }
   handleChange = (e: any) => {
     console.log(e.target)
@@ -29,15 +30,16 @@ class Login extends React.Component<any, any> {
     if (e) e.preventDefault()
     try {
       await this.props.login({ email: this.state.email, password: this.state.password })
-      history.push('/')
+      setTimeout(() =>{
+        history.push('/')
+        this.setState({loading:true})
+      }, 3000)
     } catch (error) {
       console.log('E: ', error)
     }
   }
 
-  componentDidMount(){
-    
-  }
+  componentDidMount() {}
   render() {
     console.log(this.props)
     return (
@@ -54,8 +56,8 @@ class Login extends React.Component<any, any> {
                 <span className={styles.link}>ثبت‌نام</span>
               </Link>
             </div>
-            <Button className={[this.props.isLoading ? 'btnSecondary' : 'btnSuccess0', 'btnSm']}>
-              {this.props.isLoading && (
+            <Button className={[this.props.isLoading &&!this.state.loading ? 'btnSecondary' : 'btnSuccess0', 'btnSm']}>
+              {this.props.isLoading&&!this.state.loading && (
                 <div className={styles.buttonLoading}>
                   <Icon src={loading} />
                 </div>

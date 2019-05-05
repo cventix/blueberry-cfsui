@@ -21,7 +21,7 @@ export default interface Iprops {
 
 export const Card: React.FunctionComponent<Iprops> = ({ item, checkbox, handleNavigate, dropdown, checkAll, dropDownData }) => {
   return (
-    <div className={styles.item} onClick={() => handleNavigate(item['name'])}>
+    <div className={styles.item} onClick={(e) => handleNavigate(e,item['name'])}>
       <div className={styles.type}>{item && item['type'] && <Icon mimetype={item['type']} />}</div>
       <div className={styles.info}>
         <span className={styles.name}>{item['name']}</span>

@@ -42,7 +42,7 @@ export const Table: React.FunctionComponent<Iprops> = ({
   optionSelected,
   onCheck
 }) => {
-  const header = ['نام', 'مالک', 'تاریخ', 'حجم']
+  const header = ['نام', 'تاریخ', 'مالک', 'حجم']
   return table && table.length > 0 ? (
     <table className={styles.table}>
       <TableHeader

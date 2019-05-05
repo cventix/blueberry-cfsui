@@ -11,14 +11,14 @@ import { SwitchIcon } from './Switchicon'
 
 import styles from './Content.module.scss'
 
-const history = [{ title: 'پوشه اصلی', link: '/' }, { title: 'پوشه فرعی', link: '/' }, { title: 'پوشه تست', link: '/', active: true }]
 
 export default interface Iprops {
   switchView: (e: string) => void
   view: string
+  history?: any
 }
 
-export const Contentheader: React.FunctionComponent<Iprops> = ({ switchView, view }) => {
+export const Contentheader: React.FunctionComponent<Iprops> = ({ history,switchView, view }) => {
   return (
     <div className={styles.header}>
       <Breadcrumb history={history} />
