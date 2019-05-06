@@ -85,56 +85,65 @@ class Content extends React.Component<IProps, IState> {
     this._documents = bottle.container.Documents
     this.updateWindowDimensions = this.updateWindowDimensions.bind(this)
   }
-  getDocument = async () => {
-    try {
-      let result = await this.props.getDocuments()
-      this.setState({ table: this.props.data }, () => console.log(this.state.table))
-
-      // this.setState({ table: result},()=>console.log(this.state.table))
-    } catch (error) {
-      console.log('E: ', error)
-    }
-  }
 
   async componentDidMount() {
-    console.log(this.props.location.pathname)
+    console.log('2')
     this.updateWindowDimensions()
     window.addEventListener('resize', this.updateWindowDimensions)
-    if (this.props.location.pathname === '/')
-      try {
-        let result = await this.props.getDocuments()
-        this.setState({ table: this.props.data }, () => console.log(this.state.table))
-
-        // this.setState({ table: result},()=>console.log(this.state.table))
-      } catch (error) {
-        console.log('E: ', error)
-      }
-    else {
+    if (this.props.location.pathname === '/') {
+      this.onGetDocument(false)
+      this.setState({ table: this.props.data }, () => console.log(this.state.table))
+    } else {
       this.onGetDocument(true, this.props.location.pathname)
     }
   }
 
+  componentDidUpdate(prevProps: any, prevState: any) {
+    if (this.props.location.pathname !== prevProps.location.pathname && this.props.location.pathname === '/') {
+      this.onGetDocument(false)
+    }
+  }
+
+  onGetDocument = async (isChildren?: boolean, path?: any) => {
+    console.log('4')
+    if (isChildren == true) {
+      try {
+        await this.props.getDocuments({ isChildren: true, path })
+      } catch (error) {
+        console.log('E: ', error)
+      }
+    } else {
+      try {
+        console.log('&&&&', localStorage.getItem('token'))
+        await this.props.getDocuments()
+      } catch (error) {
+        console.log('E: ', error)
+      }
+    }
+  }
+
   componentWillReceiveProps(nextProps: any) {
-   
     let table: any[] = []
-    nextProps.document.documents.map((each: any) => {
-      table.push({
-        id: each.id,
-        type: each.genericType,
-        name: each.name,
-        discriminator: each.discriminator,
-        fullPath: each.fullPath,
-        created_at: formatDate(each.createdAt),
-        owner: each.owner.displayName,
-        size: each.size ? formatBytes({ bytes: each.size, lang: 'fa' }) : '---'
+   
+      nextProps.document.documents.map((each: any) => {
+        table.push({
+          id: each.id,
+          type: each.genericType,
+          name: each.name,
+          discriminator: each.discriminator,
+          fullPath: each.fullPath,
+          created_at: formatDate(each.createdAt),
+          owner: each.owner.displayName,
+          size: each.size ? formatBytes({ bytes: each.size, lang: 'fa' }) : '---'
+        })
       })
-    })
-    let slicedTable = table.slice(0, 10)
-    this.setState({
-      table: slicedTable,
-      showMore: true,
-      mainTable: table
-    })
+      let slicedTable = table.slice(0, 10)
+      this.setState({
+        table: slicedTable,
+        showMore: true,
+        mainTable: table
+      })
+    
   }
   showMore = () => {
     this.setState({ table: this.state.mainTable, showMore: false })
@@ -195,7 +204,6 @@ class Content extends React.Component<IProps, IState> {
     try {
       let result = await this.props.renameFolder({ folderId: this.state.renameFileId, name: this.state.renameInput })
       this.setState({ showRename: false })
-      console.log(result)
     } catch (error) {
       console.log('E: ', error)
     }
@@ -235,24 +243,7 @@ class Content extends React.Component<IProps, IState> {
     console.log(e)
     e.stopPropagation()
   }
-  onGetDocument = async (isChildren?: boolean, path?: any) => {
-    if (isChildren == true) {
-      try {
-        let result = await this.props.getDocuments({ isChildren: true, path })
-        // this.setState({ table: this.props.data }, () => console.log(this.state.table))
 
-        // this.setState({ table: result},()=>console.log(this.state.table))
-      } catch (error) {
-        console.log('E: ', error)
-      }
-    } else {
-      try {
-        let result = await this.props.getDocuments()
-      } catch (error) {
-        console.log('E: ', error)
-      }
-    }
-  }
   onCheck = (id: number) => {
     let { selectedArray } = this.state
     if (selectedArray.indexOf(id) === -1) selectedArray.push(id)
@@ -263,11 +254,6 @@ class Content extends React.Component<IProps, IState> {
     this.setState({ selectedArray }, () => console.log(selectedArray))
   }
 
-  componentDidUpdate(prevProps: any, prevState: any) {
-    if (this.props.location.pathname !== prevProps.location.pathname && this.props.location.pathname === '/') {
-      this.onGetDocument(false)
-    }
-  }
   // showToast() {
   //   this.setState(
   //     {

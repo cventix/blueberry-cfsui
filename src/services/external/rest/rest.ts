@@ -23,7 +23,7 @@ class Rest implements RestInterface {
   private _config: ConfigInterface
   private _http: any
   private _storage: StorageInterface
-  private _headers: object
+  private _headers: any
   constructor(config: ConfigInterface, storage: StorageInterface) {
     this._config = config
     this._storage = storage
@@ -31,7 +31,8 @@ class Rest implements RestInterface {
     this._headers = {
       'Content-Type': 'application/json',
       Accept: 'application/json',
-      token: this._storage.getItem('token')
+      // token: this._storage.getItem('token')
+      token: localStorage.getItem('token')
     }
     this._http = this._config.get('httpClient').create({
       headers: this._headers,
@@ -41,11 +42,15 @@ class Rest implements RestInterface {
 
   private async _base({ method = 'GET', url, headers = {}, body }: IBaseInput) {
     try {
-      if (headers) this._headers = { ...this._headers, headers }
+      if (headers) this._headers = { ...this._headers, ...headers }
+      console.log(`%c[HEADERS]:`, 'font-weight: bold; color: green;', this._headers)
       console.log(`%c[${method}]: ${url}`, 'font-weight: bold; color: #3e3e3e;')
+      if (this._headers.token == null) {
+        this._headers.token = localStorage.getItem('token')
+      }
       const httpInput = { method, url, headers: this._headers }
       if (body) {
-        (httpInput as any).data = body
+        ;(httpInput as any).data = body
       }
       console.log('httpInput', httpInput)
       const { data } = await this._http(httpInput)

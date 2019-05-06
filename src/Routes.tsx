@@ -1,10 +1,10 @@
 import React from 'react'
 import { Route, BrowserRouter as Router, Switch } from 'react-router-dom'
 import App from './containers/Home/App'
-import Login from './components/Authentication/Login/Login'
+import Login from './containers/Authentication/Login/Login'
 import { connect } from 'react-redux'
 import { PrivateRoute } from './components/PrivateRoute/PrivateRoute'
-import Register from './components/Authentication/Register/Register'
+import Register from './containers/Authentication/Register/Register'
 
 class Routes extends React.Component<any> {
   state = {

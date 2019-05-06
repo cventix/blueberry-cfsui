@@ -3,6 +3,7 @@ import { RestInterface } from '../../external/rest/rest'
 export interface IGetDocumentsInput {
   isChildren?: boolean
   path?: string
+  headers?: object
 }
 
 export interface ICreateFolderInput {
@@ -40,10 +41,10 @@ class Documents implements DocumentsInterface {
     this._rest = rest
   }
 
-  async getDocuments({ isChildren, path }: IGetDocumentsInput = { isChildren: false, path: '' }) {
+  async getDocuments({ isChildren, path, headers }: IGetDocumentsInput = { isChildren: false, path: '', headers: {} }) {
     const url = `/rest/documents${isChildren ? '/children' : ''}?sort=+discriminator,+name${isChildren ? `&path=${path}` : ''}`
     try {
-      return await this._rest.get({ url })
+      return await this._rest.get({ url, headers })
     } catch (error) {
       throw error
     }

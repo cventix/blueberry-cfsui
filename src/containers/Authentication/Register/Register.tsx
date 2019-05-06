@@ -8,9 +8,9 @@ import { setUserCredentials, setToken, login, register } from '../../../services
 import { Authentication } from '../Authentication'
 
 import { Link } from 'react-router-dom'
-import { Icon } from '../../ui-elements/Icon'
-import { Button } from '../../ui-elements/Button/Button'
-import { TextInput } from '../../ui-elements/Input/Input'
+import { Icon } from '../../../components/ui-elements/Icon'
+import { Button } from '../../../components/ui-elements/Button/Button'
+import { TextInput } from '../../../components/ui-elements/Input/Input'
 
 class Register extends React.Component<any, any> {
   state = {

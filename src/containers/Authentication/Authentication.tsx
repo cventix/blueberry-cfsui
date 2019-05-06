@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { Icon } from '../ui-elements/Icon'
+import { Icon } from '../../components/ui-elements/Icon'
 import styles from './Authentication.module.scss'
 import pg from '../../images/typeIcons/login/group-copy-2.svg'
 

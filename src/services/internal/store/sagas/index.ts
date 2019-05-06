@@ -7,7 +7,7 @@ import { getDocuments, createFolder, renameFolder, moveDocuments, shareDocuments
 // import { getUserInfo } from './user'
 
 function* watchAuth() {
-  yield takeEvery(actionTypes.LOGIN, login)
+  yield takeEvery(actionTypes.INIT_LOGIN, login)
   yield takeEvery(actionTypes.REGISTER, register)
   //   yield takeEvery(actionTypes.FORGET_PASSWORD, forgetPassword)
   //   yield takeEvery(actionTypes.CHANGE_PASSWORD, resetPassword)

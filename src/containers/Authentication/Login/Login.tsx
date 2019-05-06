@@ -6,17 +6,17 @@ import { connect } from 'react-redux'
 import { PayloadInterface } from '../../../services/internal/store/reducers/authReducer'
 import { setUserCredentials, setToken, login } from '../../../services/internal/store/actions'
 import { Authentication } from '../Authentication'
-import { TextInput } from '../../ui-elements/Input/Input'
+import { TextInput } from '../../../components/ui-elements/Input/Input'
 import { Link } from 'react-router-dom'
-import { Icon } from '../../ui-elements/Icon'
-import { Button } from '../../ui-elements/Button/Button'
+import { Icon } from '../../../components/ui-elements/Icon'
+import { Button } from '../../../components/ui-elements/Button/Button'
 import loading from '../../../images/loading/tail-spin.svg'
 
 class Login extends React.Component<any, any> {
   state = {
     email: '',
     password: '',
-    loading:false
+    loading: false
   }
   handleChange = (e: any) => {
     console.log(e.target)
@@ -30,10 +30,7 @@ class Login extends React.Component<any, any> {
     if (e) e.preventDefault()
     try {
       await this.props.login({ email: this.state.email, password: this.state.password })
-      setTimeout(() =>{
-        history.push('/')
-        this.setState({loading:true})
-      }, 3000)
+      setTimeout(() => history.push('/'), 3000)
     } catch (error) {
       console.log('E: ', error)
     }
@@ -41,7 +38,6 @@ class Login extends React.Component<any, any> {
 
   componentDidMount() {}
   render() {
-    console.log(this.props)
     return (
       <Authentication>
         <form className={styles.box} onSubmit={this.handleSubmit}>
@@ -56,8 +52,8 @@ class Login extends React.Component<any, any> {
                 <span className={styles.link}>ثبت‌نام</span>
               </Link>
             </div>
-            <Button className={[this.props.isLoading &&!this.state.loading ? 'btnSecondary' : 'btnSuccess0', 'btnSm']}>
-              {this.props.isLoading&&!this.state.loading && (
+            <Button className={[this.props.isLoading && !this.state.loading ? 'btnSecondary' : 'btnSuccess0', 'btnSm']}>
+              {this.props.isLoading && !this.state.loading && (
                 <div className={styles.buttonLoading}>
                   <Icon src={loading} />
                 </div>

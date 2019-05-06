@@ -10,10 +10,11 @@ export function* login(action: any) {
   try {
     yield put(actions.setLoadingState(true))
     const { token, user } = yield auth.login(action.payload.email, action.payload.password)
-    yield put(actions.setLoadingState(false))
     yield put(actions.setToken({ token }))
     yield put(actions.setUserCredentials({ username: user.username }))
-    yield storage.setItem('token', token)
+    // yield storage.setItem('token', token)
+    yield localStorage.setItem('token', token)
+    yield put(actions.setLoadingState(false))
   } catch (err) {
     yield put(actions.setLoadingState(false))
   }

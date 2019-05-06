@@ -3,7 +3,7 @@ import { actionBuilder } from './actionBuilder'
 
 export const setUserCredentials = actionBuilder(actionTypes.SET_USER_CREDENTIALS, 'payload')
 
-export const login = actionBuilder(actionTypes.LOGIN, 'payload')
+export const login = actionBuilder(actionTypes.INIT_LOGIN, 'payload')
 
 export const setToken = actionBuilder(actionTypes.SET_TOKEN, 'payload')
 
