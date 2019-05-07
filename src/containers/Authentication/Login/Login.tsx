@@ -18,12 +18,14 @@ class Login extends React.Component<any, any> {
     password: '',
     loading: false
   }
+  
   handleChange = (e: any) => {
     console.log(e.target)
     this.setState({
       [e.target.name]: e.target.value
     })
   }
+
   handleSubmit = async (e: any) => {
     const { history } = this.props
     console.log(this.state.email)

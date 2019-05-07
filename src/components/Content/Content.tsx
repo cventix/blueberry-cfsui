@@ -87,7 +87,7 @@ class Content extends React.Component<IProps, IState> {
     }
     this.updateWindowDimensions = this.updateWindowDimensions.bind(this)
   }
-  interval = any
+
   async componentDidMount() {
     this.updateWindowDimensions()
     window.addEventListener('resize', this.updateWindowDimensions)
