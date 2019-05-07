@@ -16,6 +16,24 @@
     transform: translateX(-50%) translateY(-50%);
   }
 
+  &.success {
+    background-color: $green;
+
+    &:after {
+      border-top: 6px solid $green;
+    }
+  }
+
+  &.error {
+    background-color: $red;
+
+    &:after {
+      border-top: 6px solid $red;
+    }
+  }
+}
+
+.caret {
   &:after {
     content: '';
     position: absolute;
@@ -32,18 +50,12 @@
       right: 20%;
     }
   }
-
   &.success {
-    background-color: $green;
-
     &:after {
       border-top: 6px solid $green;
     }
   }
-
   &.error {
-    background-color: $red;
-
     &:after {
       border-top: 6px solid $red;
     }

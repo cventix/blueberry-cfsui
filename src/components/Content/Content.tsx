@@ -14,16 +14,19 @@ import styles from './Content.module.scss'
 
 // Services
 import { bottle } from '../../services'
-import { getDocuments, createFolder, renameFolder, moveDocuments, shareDocuments } from '../../services/internal/store/actions'
+import { getDocuments, createFolder, renameFolder, removeFolder, moveDocuments, shareDocuments } from '../../services/internal/store/actions'
 import { formatDate } from '../../services/internal/utils/formatDates'
 import { formatBytes } from '../../services/internal/utils/formatBytes'
 import { Modal } from '../ui-elements/Modal/Modal'
 import { RenameFile } from '../ui-elements/Modal/ModalContent/RenameFile'
 import { UploadModal } from '../ui-elements/Uploadmodal/Uploadmodal'
-import { removeFolder } from '../../services/internal/store/sagas/documents'
+
 import { withRouter } from 'react-router'
 import { Icon } from '../ui-elements/Icon'
 import loading from '../../images/loading/tail-spin.2.svg'
+import { ConfirmModal } from '../ui-elements/Modal/ModalContent/ConfirmModal'
+import { any } from 'prop-types'
+import { Toast } from '../ui-elements/Toast/Toast'
 
 const sort = (data: object[]) => {
   var sortOrder = ['folder', 'image', 'music']
@@ -63,7 +66,7 @@ export interface IState {
 }
 
 class Content extends React.Component<IProps, IState> {
-  private _documents: DocumentsInterface
+  step = 10
   constructor(props: any) {
     super(props)
     this.state = {
@@ -82,30 +85,31 @@ class Content extends React.Component<IProps, IState> {
       showToast: false,
       message: ''
     }
-    this._documents = bottle.container.Documents
     this.updateWindowDimensions = this.updateWindowDimensions.bind(this)
   }
-
+  interval = any
   async componentDidMount() {
-    console.log('2')
     this.updateWindowDimensions()
     window.addEventListener('resize', this.updateWindowDimensions)
     if (this.props.location.pathname === '/') {
       this.onGetDocument(false)
-      this.setState({ table: this.props.data }, () => console.log(this.state.table))
+      this.setState({ table: this.props.data })
     } else {
       this.onGetDocument(true, this.props.location.pathname)
     }
   }
 
+  /**back button */
   componentDidUpdate(prevProps: any, prevState: any) {
     if (this.props.location.pathname !== prevProps.location.pathname && this.props.location.pathname === '/') {
       this.onGetDocument(false)
     }
   }
 
+  /**
+   * gets documnet if children goes inside folder
+   */
   onGetDocument = async (isChildren?: boolean, path?: any) => {
-    console.log('4')
     if (isChildren == true) {
       try {
         await this.props.getDocuments({ isChildren: true, path })
@@ -114,7 +118,6 @@ class Content extends React.Component<IProps, IState> {
       }
     } else {
       try {
-        console.log('&&&&', localStorage.getItem('token'))
         await this.props.getDocuments()
       } catch (error) {
         console.log('E: ', error)
@@ -122,71 +125,85 @@ class Content extends React.Component<IProps, IState> {
     }
   }
 
+  /**
+   * gets data and makes an obj
+   * @param nextProps
+   */
   componentWillReceiveProps(nextProps: any) {
     let table: any[] = []
-   
-      nextProps.document.documents.map((each: any) => {
-        table.push({
-          id: each.id,
-          type: each.genericType,
-          name: each.name,
-          discriminator: each.discriminator,
-          fullPath: each.fullPath,
-          created_at: formatDate(each.createdAt),
-          owner: each.owner.displayName,
-          size: each.size ? formatBytes({ bytes: each.size, lang: 'fa' }) : '---'
-        })
+    nextProps.document.documents.map((each: any) => {
+      table.push({
+        id: each.id,
+        type: each.genericType,
+        name: each.name,
+        discriminator: each.discriminator,
+        fullPath: each.fullPath,
+        created_at: formatDate(each.createdAt),
+        owner: each.owner.displayName,
+        size: each.size ? formatBytes({ bytes: each.size, lang: 'fa' }) : '---'
       })
-      let slicedTable = table.slice(0, 10)
-      this.setState({
-        table: slicedTable,
-        showMore: true,
-        mainTable: table
-      })
-    
+    })
+    this.setState({
+      table: this.sliceData({ array: table }),
+      showMore: true,
+      mainTable: table
+    })
   }
-  showMore = () => {
-    this.setState({ table: this.state.mainTable, showMore: false })
+  /**slice data for show more */
+  sliceData = ({ array, choppedArray = [], step = this.step }: { array: any; choppedArray?: any; step?: number }) => {
+    console.log(array)
+    let number = choppedArray.length / step + 1
+    return array.slice(0, number * step)
   }
 
+  //show more button function
+  showMore = () => {
+    this.setState({
+      table: this.sliceData({ array: this.state.mainTable, choppedArray: this.state.table }),
+      showMore: Math.ceil(this.state.mainTable.length / this.step) - 1 === Math.ceil(this.state.table.length / 10) ? false : true
+    })
+  }
+
+  /**
+   * set view according to viewport
+   */
   componentWillUnmount() {
     window.removeEventListener('resize', this.updateWindowDimensions)
   }
-
   updateWindowDimensions() {
     this.setState({ width: window.innerWidth, height: window.innerHeight })
   }
 
-  onSort = (sortBy: string, type?: string) => {
-    let table = this.state.table
-    switch (type) {
-      case 'alphabet':
-        table &&
-          table.sort((a: any, b: any) => {
-            if (a[sortBy] < b[sortBy]) {
-              return -1
-            }
-            if (a[sortBy] > b[sortBy]) {
-              return 1
-            }
-            return 0
-          })
-        break
-      default:
-        table &&
-          table.sort((a: any, b: any) => {
-            if (this.state[sortBy] !== 'ascending') {
-              this.setState({ [sortBy]: 'ascending' })
-              return a[sortBy] - b[sortBy]
-            } else {
-              this.setState({ [sortBy]: 'decending' })
-              return b[sortBy] - a[sortBy]
-            }
-          })
-    }
+  // onSort = (sortBy: string, type?: string) => {
+  //   let table = this.state.table
+  //   switch (type) {
+  //     case 'alphabet':
+  //       table &&
+  //         table.sort((a: any, b: any) => {
+  //           if (a[sortBy] < b[sortBy]) {
+  //             return -1
+  //           }
+  //           if (a[sortBy] > b[sortBy]) {
+  //             return 1
+  //           }
+  //           return 0
+  //         })
+  //       break
+  //     default:
+  //       table &&
+  //         table.sort((a: any, b: any) => {
+  //           if (this.state[sortBy] !== 'ascending') {
+  //             this.setState({ [sortBy]: 'ascending' })
+  //             return a[sortBy] - b[sortBy]
+  //           } else {
+  //             this.setState({ [sortBy]: 'decending' })
+  //             return b[sortBy] - a[sortBy]
+  //           }
+  //         })
+  //   }
 
-    this.setState({ table })
-  }
+  //   this.setState({ table })
+  // }
 
   onCheckAll = () => {
     this.setState({ checkAll: !this.state.checkAll })
@@ -195,6 +212,7 @@ class Content extends React.Component<IProps, IState> {
   switchView = (view: string) => {
     this.setState({ view })
   }
+
   onSelect = (optionSelected: number) => {
     this.setState({ optionSelected })
   }
@@ -204,6 +222,16 @@ class Content extends React.Component<IProps, IState> {
     try {
       let result = await this.props.renameFolder({ folderId: this.state.renameFileId, name: this.state.renameInput })
       this.setState({ showRename: false })
+    } catch (error) {
+      console.log('E: ', error)
+    }
+  }
+
+  onRemoveDocument = async (e: any) => {
+    if (e) e.preventDefault()
+    try {
+      let result = await this.props.removeFolder({ folderId: this.state.isSelected })
+      this.setState({ showRemove: false })
     } catch (error) {
       console.log('E: ', error)
     }
@@ -220,6 +248,11 @@ class Content extends React.Component<IProps, IState> {
       return obj.id === renameFileId
     })[0].name
     this.setState({ showRename: true, renameInput, renameFileId })
+  }
+
+  openRemoveModal = (isSelected: number) => {
+    console.log(isSelected)
+    this.setState({ showRemove: true, isSelected, modalView: 'removeFile' })
   }
 
   closeRenameModalclose = () => {
@@ -267,130 +300,85 @@ class Content extends React.Component<IProps, IState> {
   // }
 
   public render() {
+    console.log(this.state.timer)
     let dropDownData = [
       { label: ' دانلود فایل' },
       { label: 'تغییر نام', onClick: this.openRenameModal },
       { label: 'اشتراک گذاری' },
       { label: 'افزودن توضیح' },
       { label: 'دریافت لینک‌ها' },
-      { label: 'حذف فایل' }
+      { label: 'حذف فایل', onClick: this.openRemoveModal }
     ]
-    let modal
+    let modal, toaster
     switch (this.state.modalView) {
       case 'renameFile':
         modal = <RenameFile value={this.state.renameInput} changeHandler={this.changeHandler} handleSubmit={this.onRenameDocument} />
+        break
+      case 'removeFile':
+        toaster = (
+          <Toast level={'success'} caret={false}>
+            {this.state.timer}
+            پوشه حذف شد
+          </Toast>
+        )
         break
     }
     const history = [{ title: 'پوشه اصلی', link: '/', active: false }]
     if (this.props.location.pathname !== '/')
       history.push({ title: this.props.location.pathname.split('/'), link: this.props.location.pathname, active: true })
 
-    if (this.state.width < 768) {
-      return !this.props.loading ? (
-        <React.Fragment>
-          <Table
-            dropdown={true}
-            handleNavigate={this.handleNavigate}
+    return !this.props.loading && this.state.table.length > 0 ? (
+      <React.Fragment>
+        <Contentheader view={this.state.view} history={history} switchView={this.switchView} />
+        {this.state.view === 'table' && this.state.width < 768 ? (
+          <Grid
+            sortable={true}
             dropDownData={dropDownData}
-            tabletView={true}
-            onCheck={this.onCheck}
+            checkbox={true}
+            handleNavigate={this.handleNavigate}
             onCheckAll={this.onCheckAll}
             checkAll={this.state.checkAll}
-            stopPropagation={this.stopPropagation}
-            onSort={this.onSort}
             table={this.state.table}
-            onRenameDocument={this.onRenameDocument}
           />
-          <div className={styles.footer}>
-            <Button
-              className={[this.state.showMore ? 'btnDefault0' : 'btnDefault100', 'btnLg']}
-              disabled={!this.state.showMore}
-              onClick={this.showMore}
-            >
-              <IconLink icon={arrowBottom} className={styles.arrow} iconAlt={`new-folder`} label="نمایش بیشتر" />
-            </Button>
-          </div>
-          <UploadModal
-            show={this.state.showRename}
-            width={240}
-            title={'تغییر نام'}
-            formDescription={' نام جدید را در فرم زیر وارد نمایید'}
-            handleClose={this.closeRenameModalclose}
-          >
-            {modal}
-          </UploadModal>
-        </React.Fragment>
-      ) : (
-        <div className={styles.loading}>
-          <Icon src={loading} />
-        </div>
-      )
-    } else
-      return !this.props.loading ? (
-        <React.Fragment>
-          <Contentheader view={this.state.view} history={history} switchView={this.switchView} />
-          {this.state.view === 'table' ? (
-            this.state.table.length > 0 ? (
-              <Grid
-                sortable={true}
-                onSort={this.onSort}
-                dropDownData={dropDownData}
-                checkbox={true}
-                handleNavigate={this.handleNavigate}
-                onCheckAll={this.onCheckAll}
-                checkAll={this.state.checkAll}
-                table={this.state.table}
-              />
-            ) : (
-              <div>داده ای وجود ندارد</div>
-            )
-          ) : !this.props.loading ? (
-            <React.Fragment>
-              <Table
-                dropdown={true}
-                dropDownData={dropDownData}
-                optionSelected={this.state.optionSelected}
-                onSelect={this.onSelect}
-                onCheckAll={this.onCheckAll}
-                stopPropagation={this.stopPropagation}
-                onCheck={this.onCheck}
-                handleNavigate={this.handleNavigate}
-                checkAll={this.state.checkAll}
-                onSort={this.onSort}
-                table={this.state.table}
-                onRenameDocument={this.onRenameDocument}
-              />
-            </React.Fragment>
-          ) : (
-            <div className={styles.loading}>
-              <Icon src={loading} />
-            </div>
-          )}
+        ) : (
+          <Table
+            dropdown={true}
+            tabletView={this.state.width < 768 ? true : false}
+            dropDownData={dropDownData}
+            optionSelected={this.state.optionSelected}
+            onSelect={this.onSelect}
+            onCheckAll={this.onCheckAll}
+            stopPropagation={this.stopPropagation}
+            onCheck={this.onCheck}
+            handleNavigate={this.handleNavigate}
+            checkAll={this.state.checkAll}
+            table={this.state.table}
+          />
+        )}
 
-          <UploadModal
-            show={this.state.showRename}
-            width={640}
-            title={'تغییر نام'}
-            formDescription={' نام جدید را در فرم زیر وارد نمایید'}
-            handleClose={this.closeRenameModalclose}
+        {/* <UploadModal
+          show={this.state.showRename || this.state.showRemove}
+          width={640}
+          title={'تغییر نام'}
+          formDescription={' نام جدید را در فرم زیر وارد نمایید'}
+          handleClose={this.closeRenameModalclose}
+        >
+          {modal}
+        </UploadModal> */}
+        {toaster}
+        <div className={styles.footer}>
+          <Button
+            className={[this.state.showMore ? 'btnDefault0' : 'btnDefault100', 'btnLg']}
+            disabled={!this.state.showMore}
+            onClick={this.showMore}
           >
-            {modal}
-          </UploadModal>
-          <div className={styles.footer}>
-            <Button
-              className={[this.state.showMore ? 'btnDefault0' : 'btnDefault100', 'btnLg']}
-              disabled={!this.state.showMore}
-              onClick={this.showMore}
-            >
-              <IconLink icon={arrowBottom} className={styles.arrow} iconAlt={`new-folder`} label="نمایش بیشتر" />
-            </Button>
-          </div>
-        </React.Fragment>
-      ) : (
-        <div className={styles.loading}>
-          <Icon src={loading} />
+            <IconLink icon={arrowBottom} className={styles.arrow} iconAlt={`new-folder`} label="نمایش بیشتر" />
+          </Button>
         </div>
-      )
+      </React.Fragment>
+    ) : (
+      <div className={styles.loading}>{this.props.loading ? <Icon src={loading} /> : 'داده ای وجود ندارد'}</div>
+    )
   }
 }
 const mapStateToProps = (state: IState) => ({ document: state.document, loading: state.loading.isLoading })

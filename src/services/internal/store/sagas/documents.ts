@@ -21,16 +21,19 @@ export function* getDocuments(action: any) {
   }
 }
 export function* removeFolder(action: any) {
+  let folderInfo = {  folderId: action.payload.folderId }
   try {
     yield put(actions.setLoadingState(true))
-    let data = yield documents.removeFolder(action)
-    console.log(data, action)
+    let response = yield documents.removeFolder(folderInfo)
+    let data = yield documents.getDocuments()
+    yield put(actions.setDocuments(data))
     yield put(actions.setLoadingState(false))
   } catch (err) {
     yield put(actions.setLoadingState(false))
   }
 }
 export function* createFolder(action: any) {
+  console.log(action)
   let folderInfo = { name: action.payload.name, description: action.payload.description, parentId: action.payload.parentId }
   try {
     yield put(actions.setLoadingState(true))

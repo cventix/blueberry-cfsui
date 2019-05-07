@@ -43,7 +43,7 @@ export const Table: React.FunctionComponent<Iprops> = ({
   onCheck
 }) => {
   const header = ['نام', 'تاریخ', 'مالک', 'حجم']
-  return table && table.length > 0 ? (
+  return  (
     <table className={styles.table}>
       <TableHeader
         titles={header}
@@ -94,7 +94,5 @@ export const Table: React.FunctionComponent<Iprops> = ({
           })}
       </tbody>
     </table>
-  ) : (
-    <div>داده ای وجود ندارد</div>
-  )
+  ) 
 }

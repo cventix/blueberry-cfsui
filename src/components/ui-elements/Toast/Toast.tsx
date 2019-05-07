@@ -8,32 +8,18 @@ export default interface Iprops {
   width?: number
   visible?: boolean
   message?: string
+  caret?: boolean
 }
 
-export class Toast extends React.Component<Iprops, any> {
-  constructor(props: Iprops) {
-    super(props)
-    this.state = {
-      visible: false
-    }
-  }
+export const Toast: React.FunctionComponent<Iprops> = ({level,visible=false,caret,width,children})=>{
+ 
 
-  render() {
-    let classes = `${styles.toast} ${this.props.level && styles[this.props.level]} `
-    classes += this.state.visible ? `${styles.visible}` : ''
-    console.log()
-    return (this.props.message && (
-      <div className={classes} style={{ width: this.props.width }}>
-        <p>{this.props.message}</p>
+    let classes = `${styles.toast} ${level && styles[level]} `
+    classes += visible ? `${styles.visible}` : ''
+    classes += caret ? `${styles.caret}` : ''
+    return (
+      <div className={classes} style={{ width: width }}>
+        <p>{children}</p>
       </div>
-    ))
-  }
-
-  componentWillReceiveProps(nextProps: Iprops) {
-    if (this.props.visible !== nextProps.visible) {
-      this.setState({
-        visible: nextProps.visible
-      })
+    )
     }
-  }
-}

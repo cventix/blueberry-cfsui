@@ -7,13 +7,14 @@ import { UploadModal } from '../Uploadmodal/Uploadmodal'
 import { connect } from 'react-redux'
 
 import ICreateFolderInput from '../../../services/internal/repositories/documents'
-import { createFolder } from '../../../services/internal/store/actions'
+import { createFolder,getDocuments } from '../../../services/internal/store/actions'
 import { Toast } from '../Toast/Toast'
 
 export interface Iprops {
   showModal?: boolean
   handleCFClose: () => void
   createFolder?: any
+  getDocuments: () => void
 }
 //todo
 // validation
@@ -36,8 +37,9 @@ class CFmodal extends React.Component<Iprops, any> {
 
   handleSubmit = async (e: any) => {
     if (e) e.preventDefault()
+    await this.props.getDocuments()
     try {
-      let result = await this.props.createFolder({ name: this.state.name })
+      // let result = await this.props.createFolder({ name: this.state.name ,parentId:this.pr})
       this.props.handleCFClose()
       // this.setState({ table: result},()=>console.log(this.state.table))
     } catch (error) {
@@ -78,7 +80,7 @@ class CFmodal extends React.Component<Iprops, any> {
             </div>
           </form>
         </UploadModal>
-        <Toast level={'success'} message={this.state.message} visible={this.state.showToast} />
+      
       </React.Fragment>
     )
   }
@@ -88,7 +90,8 @@ const mapStateToProps = (state: any) => ({ document: state.document.response })
 
 const mapDispatchToProps = (dispatch: any) => {
   return {
-    createFolder: (value: any) => dispatch(createFolder(value))
+    createFolder: (value: any) => dispatch(createFolder(value)),
+    getDocuments:()=>dispatch(getDocuments())
   }
 }
 

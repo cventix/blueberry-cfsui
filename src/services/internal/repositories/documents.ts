@@ -79,10 +79,10 @@ class Documents implements DocumentsInterface {
       throw error
     }
   }
-  async removeFolder({ folderId, name }: IRenameFolderInput) {
-    const url = `/rest/documents/remove?id=${folderId}`
+  async removeFolder({ folderId, name }: any) {
+    const url = `/rest/documents/trash?sort=+discriminator,+name&ids=${folderId}`
     try {
-      return await this._rest.delete({ url })
+      return await this._rest.put({ url })
     } catch (error) {
       throw error
     }
