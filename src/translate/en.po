@@ -6,6 +6,51 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Transfer-Encoding: 8bit\n"
 
+msgid "ورود به حساب کاربری"
+msgstr "Login to account"
+
+msgid "برای استفاده از خدمات ابتدا وارد شوید"
+msgstr "Login to use the services first"
+
+msgid "نام کاربر یا ایمیل"
+msgstr "Username or email"
+
+msgid "رمز عبور"
+msgstr "Password"
+
+msgid "تکرار رمز عبور"
+msgstr "Confirm Password"
+
+msgid "تکرار رمز عبور مطابق نمی‌باشد"
+msgstr "Confirm password does not match"
+
+msgid "عضو نیستید؟"
+msgstr "Are you not member?"
+
+msgid "عضو هستید؟"
+msgstr "Are you a member?"
+
+msgid "ثبت‌نام"
+msgstr "Register"
+
+msgid "ورود"
+msgstr "Login"
+
+msgid "رمز عبور را فراموش کرده‌ام!"
+msgstr "I forgot my password!"
+
+msgid "ثبت‌نام کاربر جدید"
+msgstr "New user registration"
+
+msgid "برای استفاده از خدمات ابتدا ثبت‌نام شوید"
+msgstr "Sign up for service first"
+
+msgid "نام کاربری"
+msgstr "Username"
+
+msgid "ایمیل"
+msgstr "Email"
+
 msgid "میزبانی‌فایل"
 msgstr "File hosting"
 

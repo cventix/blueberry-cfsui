@@ -1,6 +1,7 @@
 @import '../../../styles//global.scss';
 $header-height: 45px;
 $best-number: 23px;
+
 @keyframes popout {
   from {
     @include transform(scale(0));
@@ -67,4 +68,7 @@ $best-number: 23px;
 
 .displayNone {
   visibility: hidden;
+  opacity: 0;
+  transform: scale(0.2);
+  transition: all 450ms;
 }

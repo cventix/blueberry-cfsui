@@ -1,7 +1,12 @@
 import * as React from 'react'
+
+// ui-elements
+import { LangSwitcher } from '../../components/ui-elements/LangSwitcher/LangSwitcher'
 import { Icon } from '../../components/ui-elements/Icon'
+
+// icons & styles
+import pg from '../../images/typeIcons/login/logo-with-text.svg'
 import styles from './Authentication.module.scss'
-import pg from '../../images/typeIcons/login/group-copy-2.svg'
 
 export default interface Iprops {
   children?: any
@@ -10,11 +15,10 @@ export default interface Iprops {
 
 export const Authentication: React.FunctionComponent<Iprops> = props => {
   return (
-    <div className={styles.fullpage} >
-      <div className={styles.icon}>
-        <Icon src={pg} />
-      </div>
-      <div className={styles.box} >{props.children}</div>
+    <div className={styles.wrapper}>
+      <Icon src={pg} className={styles.logo}/>
+      <div className={styles.mainBox}>{props.children}</div>
+      <LangSwitcher />
     </div>
   )
 }

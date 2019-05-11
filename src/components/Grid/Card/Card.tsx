@@ -7,7 +7,6 @@ import { EnhanceDropdown as enhancer } from '../../ui-elements/Dropdown/EnhanceD
 import { Icon } from '../../ui-elements/Icon'
 
 import { formatBytes } from '../../../services/internal/utils/formatBytes'
-import { Checkbox } from '../../ui-elements/Checkbox/Checkbox'
 
 import styles from './Card.module.scss'
 

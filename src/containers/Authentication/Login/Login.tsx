@@ -1,16 +1,23 @@
 import React from 'react'
-import styles from '../Authentication.module.scss'
-
-import signin from '../../../images/group.svg'
+import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
+import { t } from 'ttag'
+import { Authentication } from '../Authentication'
+
+// ui-elements
+import { TextInput } from '../../../components/ui-elements/Input/Input'
+import { Button } from '../../../components/ui-elements/Button/Button'
+import { Icon } from '../../../components/ui-elements/Icon'
+import { IconLink } from '../../../components/ui-elements/IconLink'
+
+// services
 import { PayloadInterface } from '../../../services/internal/store/reducers/authReducer'
 import { setUserCredentials, setToken, login } from '../../../services/internal/store/actions'
-import { Authentication } from '../Authentication'
-import { TextInput } from '../../../components/ui-elements/Input/Input'
-import { Link } from 'react-router-dom'
-import { Icon } from '../../../components/ui-elements/Icon'
-import { Button } from '../../../components/ui-elements/Button/Button'
+
+// icons & styles
 import loading from '../../../images/loading/tail-spin.svg'
+import lock from '../../../images/typeIcons/login/lock.svg'
+import styles from '../Authentication.module.scss'
 
 class Login extends React.Component<any, any> {
   state = {
@@ -39,19 +46,20 @@ class Login extends React.Component<any, any> {
   }
 
   componentDidMount() {}
+
   render() {
     return (
       <Authentication>
-        <form className={styles.box} onSubmit={this.handleSubmit}>
-          <div className={styles.headertext}>ورود به حساب کاربری</div>
-          <div className={styles.header}>برای استفاده از خدمات ابتدا وارد شوید</div>
-          <TextInput placeholder={'نام کاربر یا ایمیل'} style={{ width: 300 }} name={'email'} onChange={this.handleChange} />
-          <TextInput placeholder={'رمز عبور'} style={{ width: 300 }} name={'password'} type={'password'} onChange={this.handleChange} />
+        <form className={styles.login} onSubmit={this.handleSubmit}>
+          <span className={styles.title}>{t`ورود به حساب کاربری`}</span>
+          <p className={styles.description}>{t`برای استفاده از خدمات ابتدا وارد شوید`}</p>
+          <TextInput placeholder={t`نام کاربر یا ایمیل`} name={'email'} onChange={this.handleChange} />
+          <TextInput placeholder={t`رمز عبور`} name={'password'} type={'password'} onChange={this.handleChange} />
           <div className={styles.row}>
-            <div>
-              عضو نیستید؟
+            <div className={styles.switch}>
+              {t`عضو نیستید؟`}
               <Link to={'/register'}>
-                <span className={styles.link}>ثبت‌نام</span>
+                <span className={styles.link}>{t`ثبت‌نام`}</span>
               </Link>
             </div>
             <Button className={[this.props.isLoading && !this.state.loading ? 'btnSecondary' : 'btnSuccess0', 'btnSm']}>
@@ -60,18 +68,18 @@ class Login extends React.Component<any, any> {
                   <Icon src={loading} />
                 </div>
               )}
-              ورود
+              {t`ورود`}
             </Button>
           </div>
-          <Link to={'/'}>
-            <Icon src={signin} />
-            <span className={styles.ltgray}> رمز عبور را فراموش کرده‌ام!</span>
+          <Link to={'/'} className={styles.forgetPassword}>
+            <IconLink icon={lock} label={t`رمز عبور را فراموش کرده‌ام!`}/>
           </Link>
         </form>
       </Authentication>
     )
   }
 }
+
 const mapStateToProps = (state: any) => ({ isLoading: state.loading.isLoading })
 
 const mapDispatchToProps = (dispatch: any) => {

@@ -1,16 +1,22 @@
 import React from 'react'
-import styles from '../Authentication.module.scss'
-
-import signin from '../../../images/group.svg'
+import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
-import { PayloadInterface } from '../../../services/internal/store/reducers/authReducer'
-import { setUserCredentials, setToken, login, register } from '../../../services/internal/store/actions'
+import { t } from 'ttag'
 import { Authentication } from '../Authentication'
 
-import { Link } from 'react-router-dom'
-import { Icon } from '../../../components/ui-elements/Icon'
-import { Button } from '../../../components/ui-elements/Button/Button'
+// ui-elements
 import { TextInput } from '../../../components/ui-elements/Input/Input'
+import { Button } from '../../../components/ui-elements/Button/Button'
+import { Icon } from '../../../components/ui-elements/Icon'
+import { IconLink } from '../../../components/ui-elements/IconLink'
+
+// services
+import { PayloadInterface } from '../../../services/internal/store/reducers/authReducer'
+import { setUserCredentials, setToken, login, register } from '../../../services/internal/store/actions'
+
+// icons & styles
+import error from '../../../images/error.svg'
+import styles from '../Authentication.module.scss'
 
 class Register extends React.Component<any, any> {
   state = {
@@ -19,11 +25,13 @@ class Register extends React.Component<any, any> {
     password: '',
     passwordRepeat: ''
   }
+
   handleChange = (e: any) => {
     this.setState({
       [e.target.name]: e.target.value
     })
   }
+
   handleSubmit = async (e: any) => {
     const { history } = this.props
     if (e) e.preventDefault()
@@ -34,29 +42,29 @@ class Register extends React.Component<any, any> {
       console.log('E: ', error)
     }
   }
+
   render() {
     return (
       <Authentication>
-        <form className={styles.box} onSubmit={this.handleSubmit} style={{ height: 465 }}>
-          <div className={styles.headertext}>ثبت‌نام کاربر جدید</div>
-          <div className={styles.header}>برای استفاده از خدمات ابتدا ثبت‌نام شوید</div>
-          <TextInput placeholder={'نام کاربری'} style={{ width: 300 }} name={'username'} onChange={this.handleChange} />
-          <TextInput placeholder={'ایمیل'} style={{ width: 300 }} name={'email'} onChange={this.handleChange} />
-          <TextInput placeholder={'رمز عبور'} style={{ width: 300 }} name={'password'} type={'password'} onChange={this.handleChange} />
-          <TextInput placeholder={'تکرار رمز عبور'} style={{ width: 300 }} name={'passwordRepeat'} type={'password'} onChange={this.handleChange} />
+        <form onSubmit={this.handleSubmit}>
+          <span className={styles.title}>{t`ثبت‌نام کاربر جدید`}</span>
+          <p className={styles.description}>{t`برای استفاده از خدمات ابتدا ثبت‌نام شوید`}</p>
+          <TextInput placeholder={t`نام کاربری`} name={'username'} onChange={this.handleChange} />
+          <TextInput placeholder={t`ایمیل`} name={'email'} onChange={this.handleChange} />
+          <TextInput placeholder={t`رمز عبور`} name={'password'} type={'password'} onChange={this.handleChange} />
+          <TextInput placeholder={t`تکرار رمز عبور`} name={'passwordRepeat'} type={'password'} onChange={this.handleChange} />
           <div className={styles.row}>
-            <div>
-              عضو هستید؟
+            <div className={styles.switch}>
+              {t`عضو هستید؟`}
               <Link to={'/login'}>
-                <span className={styles.link}>ورود</span>
+                <span className={styles.link}>{t`ورود`}</span>
               </Link>
             </div>
-            <Button className={['btnPrimary0', 'btnSm']}>ثبت‌نام</Button>
+            <Button className={['btnPrimary0', 'btnSm']}>{t`ثبت‌نام`}</Button>
           </div>
-          <Link to={'/'}>
-            <Icon src={signin} />
-            <span className={styles.ltgray}> رمز عبور را فراموش کرده‌ام!</span>
-          </Link>
+          <div className={styles.wrongVerify}>
+            <IconLink icon={error} label={t`تکرار رمز عبور مطابق نمی‌باشد`}/>
+          </div>
         </form>
       </Authentication>
     )

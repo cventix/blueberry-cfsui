@@ -6,7 +6,6 @@ import { Sidebar } from '../../components/Sidebar/Sidebar'
 
 
 import { Main } from '../../components/Main/Main'
-import { LangSwitcher } from '../../components/ui-elements/LangSwitcher/LangSwitcher'
 import { Stepbar } from '../../components/Stepbar/Stepbar'
 import './App.css'
 
@@ -78,7 +77,6 @@ class App extends Component<{ login: any; setUserInfo: any; history?: any }, {}>
         <Sidebar createFolderModal={this.createFolderModal} showModal={this.state.showcFmodal} handleCFClose={this.handleCFClose} />
         <Main showModal={this.state.showModal}>
           <Content />
-          <LangSwitcher />
         </Main>
       </div>
     )
