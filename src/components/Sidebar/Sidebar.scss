@@ -75,7 +75,7 @@
 	}
 }
 
-.ltr {
+body:lang(en) {
 	.sidebar {
 		.menuWrapper {
 			right: auto;
@@ -91,6 +91,7 @@
 				.iconLink {
 					img {
 						margin-right: 12px;
+						margin-left: 0;
 					}
 				}
 

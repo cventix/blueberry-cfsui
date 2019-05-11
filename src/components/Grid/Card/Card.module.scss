@@ -23,19 +23,11 @@ $date-font-size: 10px;
 
   &:nth-child(6n + 6),
   &:nth-child(1) {
-    @if $body-dir == 'ltr' {
-      margin-left: 0;
-    } @else {
-      margin-right: 0;
-    }
+    margin-left: 0;
   }
 
   &:nth-child(5n + 5) {
-    @if $body-dir == 'ltr' {
       margin-right: 0;
-    } @else {
-      margin-left: 0;
-    }
   }
 
   .checkbox {
@@ -83,5 +75,14 @@ $date-font-size: 10px;
   @media (max-width: $tablet*1.5) {
     flex: 0 1 calc(30% - 8px);
     margin: $box-length / 10 - 3px !important;
+  }
+}
+
+body:lang(en) {
+  .item {
+    &:nth-child(1) {
+      margin-right: auto;
+      margin-left: 0;
+    }
   }
 }

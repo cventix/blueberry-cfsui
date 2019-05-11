@@ -50,11 +50,14 @@
 	}
 }
 
-.ltr {
+body:lang(en) {
 	.upgradeAccount {
 		.bottom {
+			padding: 8px 10px;
+
 			span {
 				float: left;
+				margin-top: 2px;
 				margin-right: 8px;
 			}
 

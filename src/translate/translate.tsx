@@ -13,7 +13,7 @@ if (locale !== 'fa') {
   const translationsObj = require(`./${locale}.po.json`)
   addLocale(locale, translationsObj)
   useLocale(locale)
-  document.body.setAttribute('class', 'ltr')
+  document.body.setAttribute('lang', `${locale}`)
 } else {
-  document.body.setAttribute('class', 'rtl')
+  document.body.setAttribute('lang', 'fa')
 }

@@ -41,13 +41,8 @@ $margin-top: -20px;
     @include flex(column, wrap);
     @include border-radius($br-radius-sm);
     @include box-shadow(0 1px 3px 0 rgba(0, 0, 0, 0.05));
+    text-align: right;
     position: absolute;
-    @if ($body-dir= 'ltr') {
-      text-align: right;
-    } @else {
-      text-align: left;
-    }
-
     z-index: 4;
     width: $dropdown-width;
     list-style: none;
@@ -86,7 +81,7 @@ $margin-top: -20px;
       position: relative;
     }
     .description {
-      font-family: 'vazir-light';
+      font-family: $light-font;
       font-size: 8px;
       line-height: 2.25;
     }
@@ -116,7 +111,17 @@ $margin-top: -20px;
     }
   }
 }
+<<<<<<< HEAD
 .relative {
   position: relative !important;
   left:0 !important;
+=======
+
+body:lang(en) {
+  .dropdownBox {
+    .dropdown {
+      text-align: left;
+    }
+  }
+>>>>>>> dfe40c81ffc77a1cd861ce4ec6b8790e851c7bbf
 }

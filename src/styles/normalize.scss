@@ -67,11 +67,9 @@ body {
   background: $body-bcgcolor;
   font-family: $regular-font;
   font-size: $font-size;
-  &.rtl {
-    direction: rtl;
-  }
-
-  &.ltr {
+  direction: rtl;
+  
+  &:lang(en) {
     direction: ltr;
   }
 }

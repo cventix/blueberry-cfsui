@@ -16,41 +16,31 @@ $stepbar-color: #e8eaeb;
 
 	.stepsWrapper {
 		position: absolute;
+		left: 50%;
+		margin-left: -550px;
 		list-style: none;
 		width: 1100px;
 
-		@include margin-with-direction(-550px);
-		@if $body-dir == 'rtl' {
-			left: 50%;
-		} @else {
-			right: 50%;
-		}
-
 		@media(min-width: $web-medium + 1) and (max-width: $web-medium-max + 100) {
 			width: 720px;
-			@include margin-with-direction(-360px);
+			margin-left: -360px;
 		}
 
 		@media(min-width: $tablet - 200) and (max-width: $web-medium) {
 			width: 504px;
-			@include margin-with-direction(-252px);
+			margin-left: -252px;
 		}
 
 		@media(max-width: $tablet - 199) {
 			width: 320px;
-			@include margin-with-direction(-160px);
+			margin-left: -160px;
 		}
 
 		.step {
 			position: relative;
+			float: right;
 			width: 235px;
 			height: 3px;
-
-			@if $body-dir == 'rtl' {
-				float: right;
-			} @else {
-				float: left;
-			}
 
 			@media(min-width: $web-medium + 1) and (max-width: $web-medium-max + 100) {
 				width: 145px;
@@ -109,12 +99,7 @@ $stepbar-color: #e8eaeb;
 
 			&:first-child {
 				.caption {
-
-					@if $body-dir == 'rtl' {
-						padding-right: 62px;
-					} @else {
-						padding-left: 62px;
-					}
+					padding-right: 62px;
 
 					@media(max-width: $web-medium-max) {
 						padding-right: 0;
@@ -128,12 +113,7 @@ $stepbar-color: #e8eaeb;
 				width: 0;
 
 				.caption {
-
-					@if $body-dir == 'rtl' {
-						margin-right: -100px;
-					} @else {
-						margin-left: -100px;
-					}
+					margin-right: -100px;
 
 					@media(max-width: $web-medium-max + 100) {
 						margin-right: 0;
@@ -150,44 +130,24 @@ $stepbar-color: #e8eaeb;
 				content: '';
 				position: absolute;
 				top: 3px;
+				right: 92px;
 				width: 210px;
 				height: 3px;
 				background: $stepbar-color;
 
-				@if $body-dir == 'rtl' {
-					right: 92px;
+				@media(min-width: $web-medium + 1) and (max-width: $web-medium-max + 100) {
+					width: 120px;
+					right: 83px;
+				}
 
-					@media(min-width: $web-medium + 1) and (max-width: $web-medium-max + 100) {
-						width: 120px;
-						right: 83px;
-					}
+				@media(min-width: $tablet - 200) and (max-width: $web-medium) {
+					right: 63px;
+					width: 76px;
+				}
 
-					@media(min-width: $tablet - 200) and (max-width: $web-medium) {
-						right: 63px;
-						width: 76px;
-					}
-
-					@media(max-width: $tablet - 199) {
-						right: 25px;
-						width: 48px;
-					}
-				} @else {
-					left: 93px;
-
-					@media(min-width: $web-medium + 1) and (max-width: $web-medium-max + 100) {
-						width: 120px;
-						left: 82px;
-					}
-
-					@media(min-width: $tablet - 200) and (max-width: $web-medium) {
-						left: 63px;
-						width: 76px;
-					}
-
-					@media(max-width: $tablet - 199) {
-						left: 25px;
-						width: 48px;
-					}
+				@media(max-width: $tablet - 199) {
+					right: 25px;
+					width: 48px;
 				}
 			}
 
@@ -240,6 +200,55 @@ $stepbar-color: #e8eaeb;
 
 					.caption {
 						font-family: $medium-font;
+					}
+				}
+			}
+		}
+	}
+}
+
+body:lang(en) {
+	.stepbar {
+		.stepsWrapper {
+
+			.step {
+				float: left;
+
+				&:first-child {
+					.caption {
+						padding-right: 0;
+						margin-right: -40px;
+					}
+				}
+
+				&:last-child {
+					.caption {
+						margin-right: 0;
+						margin-left: -89px;
+					}
+				}
+
+				.item {
+					.caption {
+						@media(max-width: $web-medium-max) {
+							margin: 0;
+							padding: 0;
+						}
+					}
+				}
+				&:after {
+					left: 93px;
+
+					@media(min-width: $web-medium + 1) and (max-width: $web-medium-max + 100) {
+						left: 82px;
+					}
+
+					@media(min-width: $tablet - 200) and (max-width: $web-medium) {
+						left: 63px;
+					}
+
+					@media(max-width: $tablet - 199) {
+						left: 25px;
 					}
 				}
 			}

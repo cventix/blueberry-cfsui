@@ -46,15 +46,8 @@
 			border: 1px solid $lt-blue;
 		}
 
-		@if $body-dir == 'rtl' {
+		&.hasIcon {
 			padding-right: 36px;
-		} @else {
-			padding-left: 36px;
-		}
-
-		&.reset {
-			padding-right: 10px;
-			padding-left: 10px
 		}
 	}
 
@@ -89,11 +82,22 @@
 	.withIcon {
 		position: absolute;
 		top: 10px;
+		right: 10px;
 		width: 16px;
+	}
+}
 
-		@if $body-dir == 'rtl' {
-			right: 10px;
-		} @else {
+body:lang(en) {
+	.inputWrapper {
+		.textInput {
+			&.hasIcon {
+				padding-right: 0;
+				padding-left: 36px;
+			}
+		}
+
+		.withIcon {
+			right: 0;
 			left: 10px;
 		}
 	}

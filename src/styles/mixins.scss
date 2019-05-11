@@ -48,16 +48,6 @@
   animation: $value;
 }
 
-/* changable margin with direction */
-@mixin margin-with-direction($value) {
-	.rtl {
-		margin-left: $value;
-	}
-	.ltr {
-		margin-right: $value;
-	}
-}
-
 /* button-theme */
 @mixin btn-theme($background, $btn-color, $border) {
   background: $background;

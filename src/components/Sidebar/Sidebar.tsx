@@ -11,6 +11,7 @@ import upFromUrlIcon from '../../images/sidebarIcons/upfromurl.svg'
 
 // internal components & styles
 import { ActionNav } from './components/ActionNav'
+import { FileFiltering } from './components/FileFiltering/FileFiltering'
 import { UpgradeAccount } from './components/UpgradeAccount/UpgradeAccount'
 import { Nav } from './components/Nav'
 import { IconLink } from '../ui-elements/IconLink'
@@ -33,6 +34,7 @@ export const Sidebar: React.FunctionComponent<Iprops> = ({ createFolderModal,han
           <IconLink icon={upFromUrlIcon} className="iconLink upFromUrl" iconAlt="upload icon" label={t`آپلود فایل از URL`} />
           <ActionNav createFolderModal={createFolderModal} handleCFClose={handleCFClose} showModal={showModal}/>
           <Hr />
+          <FileFiltering />
           <UpgradeAccount />
           <Hr />
           <Nav />

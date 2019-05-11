@@ -4,9 +4,10 @@ import { connect } from 'react-redux'
 import { Navbar } from '../../components/Navbar/Navbar'
 import { Sidebar } from '../../components/Sidebar/Sidebar'
 
-import { Stepbar } from '../../components/Stepbar/Stepbar'
+
 import { Main } from '../../components/Main/Main'
 import { LangSwitcher } from '../../components/ui-elements/LangSwitcher/LangSwitcher'
+import { Stepbar } from '../../components/Stepbar/Stepbar'
 import './App.css'
 
 import Content from '../../components/Content/Content'
@@ -85,11 +86,7 @@ class App extends Component<{ login: any; setUserInfo: any; history?: any }, {}>
 }
 
 const mapDispatchToProps = (dispatch: any) => {
-  return {
-    login: (payload: PayloadInterface) => dispatch(login(payload)),
-    setToken: (token: string) => dispatch(setToken(token)),
-    setUserInfo: (payload: PayloadInterface) => dispatch(setUserCredentials(payload))
-  }
+  return {}
 }
 
 export default connect(
