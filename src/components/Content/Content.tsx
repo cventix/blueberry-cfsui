@@ -91,10 +91,6 @@ class Content extends React.Component<IProps, IState> {
   async componentDidMount() {
     this.updateWindowDimensions()
     window.addEventListener('resize', this.updateWindowDimensions)
-    // this.interval = setInterval(() => {
-    //   const date = this.calculateCountdown(this.props.date);
-    //   date ? this.setState(date) : this.stop();
-    // }, 1000);
     if (this.props.location.pathname === '/') {
       this.onGetDocument(false)
       this.setState({ table: this.props.data })
@@ -102,7 +98,6 @@ class Content extends React.Component<IProps, IState> {
       this.onGetDocument(true, this.props.location.pathname)
     }
   }
-
 
   /**back button */
   componentDidUpdate(prevProps: any, prevState: any) {
@@ -304,8 +299,6 @@ class Content extends React.Component<IProps, IState> {
   //   )
   // }
 
-
-
   public render() {
     console.log(this.state.timer)
     let dropDownData = [
@@ -333,7 +326,7 @@ class Content extends React.Component<IProps, IState> {
     const history = [{ title: 'پوشه اصلی', link: '/', active: false }]
     if (this.props.location.pathname !== '/')
       history.push({ title: this.props.location.pathname.split('/'), link: this.props.location.pathname, active: true })
-
+    console.log(this.state.view)
     return !this.props.loading && this.state.table.length > 0 ? (
       <React.Fragment>
         <Contentheader view={this.state.view} history={history} switchView={this.switchView} />
@@ -348,19 +341,29 @@ class Content extends React.Component<IProps, IState> {
             table={this.state.table}
           />
         ) : (
-          <Table
-            dropdown={true}
-            tabletView={this.state.width < 768 ? true : false}
-            dropDownData={dropDownData}
-            optionSelected={this.state.optionSelected}
-            onSelect={this.onSelect}
-            onCheckAll={this.onCheckAll}
-            stopPropagation={this.stopPropagation}
-            onCheck={this.onCheck}
-            handleNavigate={this.handleNavigate}
-            checkAll={this.state.checkAll}
-            table={this.state.table}
-          />
+          this.state.view === 'table'?  <Grid
+          sortable={true}
+          dropDownData={dropDownData}
+          checkbox={true}
+          handleNavigate={this.handleNavigate}
+          onCheckAll={this.onCheckAll}
+          checkAll={this.state.checkAll}
+          table={this.state.table}
+        />:(
+            <Table
+              dropdown={true}
+              tabletView={this.state.width < 768 ? true : false}
+              dropDownData={dropDownData}
+              optionSelected={this.state.optionSelected}
+              onSelect={this.onSelect}
+              onCheckAll={this.onCheckAll}
+              stopPropagation={this.stopPropagation}
+              onCheck={this.onCheck}
+              handleNavigate={this.handleNavigate}
+              checkAll={this.state.checkAll}
+              table={this.state.table}
+            />
+          )
         )}
 
         {/* <UploadModal
