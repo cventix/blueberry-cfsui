@@ -3,6 +3,7 @@ import { Card } from './Card/Card'
 
 import styles from './Grid.module.scss'
 import { GridHeader } from './GridHeader'
+import { navigateObject } from '../Content/Content'
 
 export default interface Iprops {
   checkbox?: boolean
@@ -13,7 +14,7 @@ export default interface Iprops {
   checkAll?: boolean
   dropDownData?: any
   sortable?: boolean
-  handleNavigate?: any
+  handleNavigate?: (e: navigateObject) => void
 }
 
 export const Grid: React.FunctionComponent<Iprops> = ({ table, onCheckAll, onSort, handleNavigate, checkbox, checkAll, dropDownData }) => {

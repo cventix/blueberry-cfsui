@@ -10,6 +10,7 @@ export default interface Iprops {
   position?: string
   height?: number
 }
+
 //todo position handling
 export const Tooltip: React.FunctionComponent<Iprops> = props => {
   return (

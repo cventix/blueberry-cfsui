@@ -1,7 +1,7 @@
 import * as React from 'react'
 
 interface IProps {
-  data: object
+  data: any
   width?: number
   onSelect?: (option: number) => void
   optionSelected?: number

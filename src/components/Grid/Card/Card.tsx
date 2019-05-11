@@ -1,14 +1,13 @@
 import React, { Component } from 'react'
 
 import Dropdown from '../../ui-elements/Dropdown/Dropdown'
+import { Icon } from '../../ui-elements/Icon'
+import { Checkbox } from '../../ui-elements/Checkbox/Checkbox'
 import { EnhanceDropdown as enhancer } from '../../ui-elements/Dropdown/EnhanceDropdown'
 
-import { Icon } from '../../ui-elements/Icon'
-
-import { formatBytes } from '../../../services/internal/utils/formatBytes'
-import { Checkbox } from '../../ui-elements/Checkbox/Checkbox'
-
+//styles
 import styles from './Card.module.scss'
+import { navigateObject } from '../../Content/Content'
 
 const EnhancedDropdown = enhancer(Dropdown)
 
@@ -18,12 +17,12 @@ export default interface Iprops {
   checkAll?: boolean
   dropdown?: boolean
   dropDownData?: any
-  handleNavigate?: any
+  handleNavigate?: (e: navigateObject) => void
 }
 
 export const Card: React.FunctionComponent<Iprops> = ({ item, checkbox, handleNavigate, dropdown, checkAll, dropDownData }) => {
   return (
-    <div className={styles.item} onClick={(e) => handleNavigate(e,item['name'])}>
+    <div className={styles.item}  {...handleNavigate && { onClick: (e) => handleNavigate({ e: e, name: item['name'] }) }}>
       <div className={styles.type}>{item && item['type'] && <Icon mimetype={item['type']} />}</div>
       <div className={styles.info}>
         <span className={styles.name}>{item['name']}</span>

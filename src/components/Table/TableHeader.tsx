@@ -21,6 +21,7 @@ export const TableHeader: React.SFC<Iprops> = ({ titles, dropdown, onSort, onChe
       {titles && (
         <tr>
           {titles.map((label: any, i: number) => {
+            console.log(label)
             if (label !== 'type' && label !== 'id' && label !== 'fullPath') {
               return (
                 <TableItem
@@ -28,7 +29,7 @@ export const TableHeader: React.SFC<Iprops> = ({ titles, dropdown, onSort, onChe
                   label={label}
                   checkbox={label === 'name' ? true : false}
                   onCheckAll={onCheckAll}
-                  sortable={true}
+                  sortable={label !== 'مالک' ? true : false}
                   sortType={label === 'تاریخ' ? 'alphabet' : ' '}
                   onSort={onSort}
                   className={label === 'نام' ? ['header', 'show'] : ['header']}

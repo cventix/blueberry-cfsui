@@ -2,19 +2,17 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { Table } from '../Table/Table'
 import { Grid } from '../Grid/Grid'
-import { Contentheader } from './Contentheader'
 import { Button } from '../ui-elements/Button/Button'
 import { IconLink } from '../ui-elements/IconLink'
 import arrowBottom from '../../images/buttonIcons/icon-btn-arrow-bottom.svg'
 import { UploadModal } from '../ui-elements/Uploadmodal/Uploadmodal'
-import { Modal } from '../ui-elements/Modal/Modal'
 import { RenameFile } from '../ui-elements/Modal/ModalContent/RenameFile'
 import { withRouter } from 'react-router'
 import { Icon } from '../ui-elements/Icon'
 import loading from '../../images/loading/tail-spin.2.svg'
 import { CountdownTimer } from '../ui-elements/CountdownTimer/CountdownTimer'
 import Toast from '../ui-elements/Toast/Toast'
-
+import { ContentHeader } from './ContentHeader'
 //styles
 import styles from './Content.module.scss'
 
@@ -48,7 +46,14 @@ export interface IProps {
   prevState?: any
   document?: any
   loading?: boolean
+  auth?: any
   setSelections?: any
+}
+
+export interface navigateObject {
+  e: any
+  name?: string
+  id?: number
 }
 
 export interface IState {
@@ -133,6 +138,7 @@ class Content extends React.Component<IProps, IState> {
    * @param nextProps
    */
   componentWillReceiveProps(nextProps: any) {
+    console.log( this.props.auth.username)
     let table: any[] = []
     nextProps.document.documents.map((each: any) => {
       table.push({
@@ -142,7 +148,7 @@ class Content extends React.Component<IProps, IState> {
         discriminator: each.discriminator,
         fullPath: each.fullPath,
         created_at: formatDate(each.createdAt),
-        owner: each.owner.displayName,
+        owner: this.props.auth.username == each.owner.displayName? 'خودم' : each.owner.displayName,
         size: each.size ? formatBytes({ bytes: each.size, lang: 'fa' }) : '---'
       })
     })
@@ -215,7 +221,7 @@ class Content extends React.Component<IProps, IState> {
     this.setState({ optionSelected })
   }
 
-  handleNavigate = (e: any, name: string, id: number) => {
+  handleNavigate = ({ e, name, id }: navigateObject) => {
     if (e.target.tagName != 'INPUT') {
       let discriminator = this.state.table.filter((obj: any) => {
         console.log(obj.name == name)
@@ -288,7 +294,7 @@ class Content extends React.Component<IProps, IState> {
       selectedArray = selectedArray.filter(function(obj) {
         return obj !== id
       })
-      console.log(selectedArray)
+    console.log(selectedArray)
     this.props.setSelections(selectedArray)
     this.setState({ selectedArray }, () => console.log(selectedArray))
   }
@@ -340,10 +346,10 @@ class Content extends React.Component<IProps, IState> {
     const history = [{ title: 'پوشه اصلی', link: '/', active: false }]
     if (this.props.location.pathname !== '/')
       history.push({ title: this.props.location.pathname.split('/'), link: this.props.location.pathname, active: true })
-    console.log(this.state.view)
+
     return !this.props.loading && this.state.table.length > 0 ? (
       <React.Fragment>
-        <Contentheader view={this.state.view} history={history} switchView={this.switchView} />
+        <ContentHeader view={this.state.view} history={history} switchView={this.switchView} />
         {this.state.view === 'table' && this.state.width < 768 ? (
           <Grid
             sortable={true}
@@ -395,7 +401,7 @@ class Content extends React.Component<IProps, IState> {
     )
   }
 }
-const mapStateToProps = (state: IState) => ({ document: state.document, loading: state.loading.isLoading })
+const mapStateToProps = (state: IState) => ({ document: state.document, loading: state.loading.isLoading ,auth:state.auth})
 
 const mapDispatchToProps = (dispatch: any) => {
   return {
