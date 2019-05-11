@@ -2,7 +2,7 @@
 
 .toast {
   position: fixed;
-  bottom: 100px;
+  bottom: 200px;
   left: 100px;
   padding: 5px 13px;
   z-index: 2000;
@@ -32,7 +32,9 @@
     }
   }
 }
-
+.row{
+  @include flex(row,wrap)
+}
 .caret {
   &:after {
     content: '';

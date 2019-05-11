@@ -1,9 +1,9 @@
 import * as React from 'react'
-
+import Timeout from '../../SetTimeout/TimeOut'
 // styles
 import styles from './Toast.module.scss'
 
-export default interface Iprops {
+export interface Iprops {
   level?: string
   width?: number
   visible?: boolean
@@ -11,15 +11,33 @@ export default interface Iprops {
   caret?: boolean
 }
 
-export const Toast: React.FunctionComponent<Iprops> = ({level,visible=false,caret,width,children})=>{
- 
-
-    let classes = `${styles.toast} ${level && styles[level]} `
-    classes += visible ? `${styles.visible}` : ''
-    classes += caret ? `${styles.caret}` : ''
-    return (
-      <div className={classes} style={{ width: width }}>
-        <p>{children}</p>
-      </div>
-    )
+class Toast extends React.Component<Iprops, any> {
+  constructor(props: Iprops) {
+    super(props)
+    this.state = {
+      visible: false
     }
+  }
+  componentWillReceiveProps(nextProps: Iprops) {
+    if (this.props.visible !== nextProps.visible) {
+      this.setState({
+        visible: nextProps.visible
+      })
+    }
+  }
+
+  render() {
+    let classes = `${styles.toast} ${this.props.level && styles[this.props.level]} `
+    classes += this.state.visible ? `${styles.visible}` : ''
+    console.log()
+    return (
+      this.props.children && (
+        <div className={classes} style={{ width: this.props.width }}>
+          <div className={styles.row}>{this.props.children}</div>
+        </div>
+      )
+    )
+  }
+}
+
+export default Toast

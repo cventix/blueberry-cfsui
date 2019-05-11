@@ -25,7 +25,7 @@ export default interface Iprops {
   dropDownData?: any
   onCheck?: any
   itemName?: string
-  stopPropagation?:any
+
 }
 export const Table: React.FunctionComponent<Iprops> = ({
   table,
@@ -35,7 +35,6 @@ export const Table: React.FunctionComponent<Iprops> = ({
   onSort,
   tabletView,
   onSelect,
-  stopPropagation,
   itemName,
   dropDownData,
   handleNavigate,
@@ -67,7 +66,6 @@ export const Table: React.FunctionComponent<Iprops> = ({
                         handleNavigate={k === 'name' && handleNavigate}
                         label={item[k]}
                         itemName={item.name}
-                        stopPropagation={stopPropagation}
                         onCheck={onCheck}
                         checkAll={checkAll}
                         className={k === 'name' ? ['show'] : [' ']}

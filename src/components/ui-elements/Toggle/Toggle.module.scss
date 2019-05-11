@@ -28,8 +28,7 @@ $width: 40px;
     width: $width;
     height: $height;
     .knob:before {
-      left: -$height * 0.48;
-      top: $height * 0.2;
+      top: $height * 0.18;
       width: ($height * 0.6);
       height: ($height * 0.6);
     }
@@ -96,7 +95,7 @@ $width: 40px;
     transform: translateX(0px);
   }
   to {
-    transform: translateX($width - ($height * 0.99));
+    transform: translateX(5px);
     box-shadow: -10px 0px 44px 0px #434343;
   }
 }

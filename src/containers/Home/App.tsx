@@ -4,62 +4,47 @@ import { connect } from 'react-redux'
 import { Navbar } from '../../components/Navbar/Navbar'
 import { Sidebar } from '../../components/Sidebar/Sidebar'
 
-
 import { Main } from '../../components/Main/Main'
 import { LangSwitcher } from '../../components/ui-elements/LangSwitcher/LangSwitcher'
 import { Stepbar } from '../../components/Stepbar/Stepbar'
 import './App.css'
+import styles from '../../components/Content/Content.module.scss'
 
 import Content from '../../components/Content/Content'
 import { Table } from '../../components/Table/Table'
 import { Modal } from '../../components/ui-elements/Modal/Modal'
 import { Preview } from '../../components/ui-elements/Preview/Preview'
 import icon from '../../images/buttonIcons/icon-btn-arrow-bottom.svg'
-
+import CFModal from '../../components/ui-elements/Modal/CreateFolder'
 // Services
 import { bottle } from '../../services'
 import { PayloadInterface } from '../../services/internal/store/reducers/authReducer'
-import { setUserCredentials, setToken, login } from '../../services/internal/store/actions'
+import { setUserCredentials, setToken, login, removeFolder } from '../../services/internal/store/actions'
 import { DocumentsInterface } from '../../services/internal/repositories/documents'
+
+import Toast from '../../components/ui-elements/Toast/Toast'
+import { CountdownTimer } from '../../components/ui-elements/CountdownTimer/CountdownTimer'
 
 const steps = ['انتخاب سیستم عامل', 'انتخاب مدت سرویس', 'انتخاب طرح', 'اطلاعات کارت شبکه', 'انتخاب نام سرور و ثبت نهایی']
 const options = [{ value: 'chocolate', label: 'Chocolate' }, { value: 'strawberry', label: 'Strawberry' }, { value: 'vanilla', label: 'Vanilla' }]
 
-class App extends Component<{ login: any; setUserInfo: any; history?: any }, {}> {
+class App extends Component<{ login: any; setUserInfo: any; history?: any; selection?: any[]; removeFolder?: any }, {}> {
   private _documents: DocumentsInterface
   constructor(props: any) {
     super(props)
     this._documents = bottle.container.Documents
-    
   }
   state = {
     showcFmodal: false,
     showModal: false,
     prevProps: '',
-    prevState: ''
+    prevState: '',
+    modal: '',
+    countDown: 10
   }
-  async componentDidMount() {
-    console.log('#', this.props)
+  timer: any = ''
+  countDownTime = 100000
 
-    try {
-      // await this.props.login({ email: 'mirmahna.s@gmail.com', password: '13731377' })
-      // const result = await this._documents.getDocuments()
-      // console.log('#', result)
-      // const result2 = await this._documents.createFolder({ name: 'new_folder', description: 'just for test' })
-      // console.log('@', result2)
-      // const result3 = await this._documents.renameFolder({ folderId: 19851, name: 'new_shaghz' })
-      // console.log('*', result3)
-      // const result4 = await this._documents.moveDocuments({ documentIds: [19803, 19807], targetId: 19853 })
-      // console.log('$', result4)
-      // const result5 = await this._documents.shareDocuments({
-      //   documentIds: [19804],
-      //   userEmails: ['mirmahna.asdasdasd@gmail.com']
-      // })
-      // console.log('%', result5)
-    } catch (error) {
-      console.log('E: ', error)
-    }
-  }
   createFolderModal = () => {
     console.log('hi')
     this.setState({ showcFmodal: true, showModal: true })
@@ -69,27 +54,86 @@ class App extends Component<{ login: any; setUserInfo: any; history?: any }, {}>
     this.setState({ showcFmodal: false, showModal: false })
   }
 
+  onItemClick = (e: any) => {
+    switch (e.target.textContent) {
+      case 'پوشه جدید':
+        this.setState({ modal: 'createFolder', showModal: true })
+        break
+      case 'انتقال':
+        this.setState({ modal: 'move', showModal: true })
+        break
+      case 'حذف':
+        this.setState({ modal: 'remove', showModal: true })
+        this.timer = setTimeout(() => {
+          this.onRemoveDocument();
+          this.timer = 0;
+        }, this.countDownTime)
 
+        break
+      default:
+        break
+    }
+  }
+  onCancle = () => {
+     this.setState({ modal: '', countDownTime: 10000 })
+    if (this.timer) {
+      clearTimeout(this.timer)
+    }
+  }
+
+  onRemoveDocument = async () => {
+    try {
+      let result = await this.props.removeFolder({ folderId: this.props.selection })
+      this.setState({ showRemove: false })
+    } catch (error) {
+      console.log('E: ', error)
+    }
+  }
 
   render() {
+    let modal
+    switch (this.state.modal) {
+      case 'createFolder':
+        modal = <CFModal handleCFClose={this.handleCFClose} showModal={this.state.showModal} />
+        break
+      case 'remove':
+        modal = (
+          <Toast level={'success'} caret={false}>
+            <CountdownTimer startTimeInSeconds={this.state.countDown} />
+            پوشه حذف شد
+            <div className={styles.undo} onClick={this.onCancle}>
+              انصراف
+            </div>
+          </Toast>
+        )
+        break
+      default:
+        break
+    }
+
     return (
       <div>
         <Navbar />
-        <Sidebar createFolderModal={this.createFolderModal} showModal={this.state.showcFmodal} handleCFClose={this.handleCFClose} />
+        <Sidebar onItemClick={this.onItemClick} />
         <Main showModal={this.state.showModal}>
           <Content />
           <LangSwitcher />
         </Main>
+        {modal}
       </div>
     )
   }
 }
 
+const mapStateToProps = (state: any) => ({ document: state.document, selection: state.selection.selection })
+
 const mapDispatchToProps = (dispatch: any) => {
-  return {}
+  return {
+    removeFolder: (value: any) => dispatch(removeFolder(value))
+  }
 }
 
 export default connect(
-  null,
+  mapStateToProps,
   mapDispatchToProps
 )(App)

@@ -19,7 +19,6 @@ export default interface Iprops {
   onCheck?: (id: number) => void
   handleNavigate?: any
   itemName?: string
-  stopPropagation?: any
 }
 
 export const splitter = (className: any) => {
