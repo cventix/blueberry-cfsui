@@ -91,6 +91,10 @@ class Content extends React.Component<IProps, IState> {
   async componentDidMount() {
     this.updateWindowDimensions()
     window.addEventListener('resize', this.updateWindowDimensions)
+    // this.interval = setInterval(() => {
+    //   const date = this.calculateCountdown(this.props.date);
+    //   date ? this.setState(date) : this.stop();
+    // }, 1000);
     if (this.props.location.pathname === '/') {
       this.onGetDocument(false)
       this.setState({ table: this.props.data })
@@ -98,6 +102,7 @@ class Content extends React.Component<IProps, IState> {
       this.onGetDocument(true, this.props.location.pathname)
     }
   }
+
 
   /**back button */
   componentDidUpdate(prevProps: any, prevState: any) {
@@ -298,6 +303,8 @@ class Content extends React.Component<IProps, IState> {
   //     }
   //   )
   // }
+
+
 
   public render() {
     console.log(this.state.timer)

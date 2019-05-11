@@ -29,6 +29,7 @@ class App extends Component<{ login: any; setUserInfo: any; history?: any }, {}>
   constructor(props: any) {
     super(props)
     this._documents = bottle.container.Documents
+    
   }
   state = {
     showcFmodal: false,
