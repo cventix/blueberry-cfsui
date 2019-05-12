@@ -15,7 +15,7 @@ export default interface Iprops {
 
 export const SwitchIcon: React.FunctionComponent<Iprops> = ({ switchView, view, icon, activeicon, nextView }) => {
   return (
-    <div className={styles.flex} onClick={() => switchView(nextView)}>
+    <div className={styles.viewMode} onClick={() => switchView(nextView)}>
       <Tooltip text={' نمایش لیستی'} width={90} height={27} position={'top'}>
         <Icon src={view !== nextView ? icon : activeicon} />
       </Tooltip>

@@ -8,7 +8,6 @@
 	margin-right: $sidebar-width;
 	padding-right: $default-padding;
 	padding-left: $default-padding;
-	z-index: -10;
 
 	@media(max-width: $tablet) {
 		margin-top: $navbar-height + 10;

@@ -6,6 +6,9 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Transfer-Encoding: 8bit\n"
 
+msgid "جستجو"
+msgstr "Search"
+
 msgid "ورود به حساب کاربری"
 msgstr "Login to account"
 
@@ -98,3 +101,18 @@ msgstr "Create"
 
 msgid "جدید"
 msgstr "new"
+
+msgid "پوشه اصلی"
+msgstr "Main Folder"
+
+msgid "نام"
+msgstr "Name"
+
+msgid "تاریخ"
+msgstr "Date"
+
+msgid "حجم"
+msgstr "Content"
+
+msgid "مالک"
+msgstr "Owner"

@@ -97,7 +97,6 @@
 		&:checked ~ .checkmark {
 			background-color: $dk-blue;
 			border: 1px solid $dk-blue;
-			@include transition(all 500ms);
 
 			&:after {
 				display: block;
@@ -122,6 +121,7 @@
 			display: none;
 			position: absolute;
 			@include transform(rotate(45deg));
+			@include transition(all ease-in-out 1s);
 
 			@if $type == checkbox {
 				right: 4.5px;

@@ -2,36 +2,50 @@
 
 $border-table: #e5e5e5;
 $table-header-color: #9b9b9b;
-$padding-td: 3%;
 $border-bottom: 1.5px solid $border-table;
 
 .table {
   border-collapse: collapse;
-  margin: auto;
   padding: 0;
   width: 100%;
   z-index: -100;
-  // table-layout: fixed;
 
   th,
   td {
-    padding: $padding-td 0;
     text-align: left;
     border-bottom: $border-bottom;
     color: $dk-gray;
   }
   tr {
+    cursor: pointer;
+
     td:last-child {
       text-align: left;
+
+      > div {
+        @media(max-width: $mobile) {
+          margin-right: -44px;
+          width: 87px;
+        }
+      }
+    }
+  }
+
+  tbody {
+    td {
+      padding: 19px 0;
+
+      @media(max-width: $tablet) {
+        padding: 16px 0;
+      }
     }
   }
   td {
     text-align: right;
     height: 23px;
-    min-width: 150px;
+    padding: 20px 3px;
   }
   .header {
-    padding-top: 0;
     color: $table-header-color;
   }
   .name {
@@ -41,6 +55,7 @@ $border-bottom: 1.5px solid $border-table;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+    font-family: $medium-font;
   }
   .sort {
     display: flex;
@@ -59,14 +74,24 @@ $border-bottom: 1.5px solid $border-table;
     td {
       display: none;
     }
+
     thead {
       border-bottom: $border-bottom;
+
+      td {
+        padding-top: 37px;
+        padding-bottom: 20px;
+
+        &:first-child {
+          font-family: $medium-font
+        }
+      }
     }
     .more {
       float: right;
     }
     .left {
-      padding: 0 !important;
+      padding: 0 $important;
       text-align: left;
     }
     .header {
@@ -74,13 +99,36 @@ $border-bottom: 1.5px solid $border-table;
     }
     .show {
       display: table-cell;
-      padding: $padding-td * 2 3px;
 
       .icn {
         img {
           vertical-align: middle;
           margin-left: 6px;
         }
+
+        span {
+          font-family: $medium-font;
+        }
+      }
+    }
+  }
+}
+
+body:lang(en){
+  .table {
+    tr {
+      td {
+        @media screen and (max-width: $tablet) {
+          &:last-child {
+              text-align: right;
+          } 
+        }
+      }
+    }
+
+    .icn {
+      img {
+        margin-right: 6px;
       }
     }
   }

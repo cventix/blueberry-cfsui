@@ -3,13 +3,12 @@ import { t } from 'ttag'
 
 // ui-elements
 import { IconLink } from '../../ui-elements/IconLink'
+import CFModal from '../../ui-elements/Modal/CreateFolder'
 
 // icons
 import newFolderIcon from '../../../images/sidebarIcons/newfolder.svg'
 import moveIcon from '../../../images/sidebarIcons/move.svg'
 import deleteIcon from '../../../images/sidebarIcons/delete.svg'
-
-import CFModal from '../../ui-elements/Modal/CreateFolder'
 
 export default interface Iprops {
   createFolderModal?: any

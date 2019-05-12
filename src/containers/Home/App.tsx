@@ -68,8 +68,6 @@ class App extends Component<{ login: any; setUserInfo: any; history?: any }, {}>
     this.setState({ showcFmodal: false, showModal: false })
   }
 
-
-
   render() {
     return (
       <div>

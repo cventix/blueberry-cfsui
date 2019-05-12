@@ -1,5 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
+import { t } from 'ttag'
 import { Table } from '../Table/Table'
 import { Grid } from '../Grid/Grid'
 import { GridHeader } from '../Grid/GridHeader'
@@ -323,7 +324,7 @@ class Content extends React.Component<IProps, IState> {
         )
         break
     }
-    const history = [{ title: 'پوشه اصلی', link: '/', active: false }]
+    const history = [{ title: t`پوشه اصلی`, link: '/', active: false }]
     if (this.props.location.pathname !== '/')
       history.push({ title: this.props.location.pathname.split('/'), link: this.props.location.pathname, active: true })
     console.log(this.state.view)

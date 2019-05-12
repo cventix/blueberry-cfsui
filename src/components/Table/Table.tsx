@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { t } from 'ttag'
 
 import { TableHeader } from './TableHeader'
 import { TableItem } from './TableItem'
@@ -42,7 +43,7 @@ export const Table: React.FunctionComponent<Iprops> = ({
   optionSelected,
   onCheck
 }) => {
-  const header = ['نام', 'تاریخ', 'مالک', 'حجم']
+  const header = [t`نام`, t`تاریخ`, t`مالک`, t`حجم`]
   return  (
     <table className={styles.table}>
       <TableHeader

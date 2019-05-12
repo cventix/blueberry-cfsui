@@ -3,31 +3,28 @@
 $box-length: 160px;
 $icon-length: 60px;
 $margin: 13px;
-$background-white: #fff;
 $side-length: 10px;
-$date-font-size: 10px;
 
 .item {
-  @include box-shadow(0 1px 2px 0 rgba(0, 0, 0, 0.1));
-  @include border-radius(2.6px);
-  @include flex(column, wrap);
-
-  min-width: $box-length;
-  height: $box-length;
-  position: relative;
-  background-color: $background-white;
-  margin: calc((11% + 9px) / 5);
-  flex: 0 1 calc(18% -16px);
+  @include flex(column, nowrap);
   justify-content: center;
   align-items: center;
+  flex-basis: calc(25% - 32px);
+  position: relative;
+  min-width: 160px;
+  height: $box-length;
+  margin: 32px 16px 0 16px;
+  background-color: #fff;
+  @include box-shadow(0 1px 2px 0 rgba(0, 0, 0, 0.1));
+  @include border-radius(2.6px);
 
-  &:nth-child(6n + 6),
-  &:nth-child(1) {
-    margin-left: 0;
-  }
+  @media(max-width: $tablet + 1) {
+    margin: 6px 3px 0 3px;
+  } 
 
-  &:nth-child(5n + 5) {
-      margin-right: 0;
+  @media (min-width: $tablet + 1) and (max-width: $web-medium + 1) {
+    margin: 6px 3px 0 3px;
+    flex-basis: calc(33.3% - 6px);
   }
 
   .checkbox {
@@ -48,10 +45,9 @@ $date-font-size: 10px;
     align-items: center;
     margin-top: $margin;
     .date {
-      font-family: 'vazir-light';
-      font-size: $date-font-size;
+      font-family: $light-font;
+      font-size: $font-size - 4;
       color: $lt-gray;
-      margin-top: $margin/2;
       margin-bottom: $margin/4;
     }
   }
@@ -63,18 +59,12 @@ $date-font-size: 10px;
     overflow: hidden;
     direction: ltr;
     text-overflow: ellipsis;
+    color: $dk-gray;
   }
   .type,
   img {
     width: $icon-length;
     height: $icon-length;
-  }
-  @media (max-width: $web-medium-max + 75px) {
-    margin: $box-length / 10 - 3px !important;
-  }
-  @media (max-width: $tablet*1.5) {
-    flex: 0 1 calc(30% - 8px);
-    margin: $box-length / 10 - 3px !important;
   }
 }
 

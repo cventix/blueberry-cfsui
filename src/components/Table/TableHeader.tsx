@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { t } from 'ttag'
 import { TableItem } from './TableItem'
 import { IconLink } from '../ui-elements/IconLink'
 import newFolderIcon from '../../images/sidebarIcons/newfolder.svg'
@@ -29,9 +30,9 @@ export const TableHeader: React.SFC<Iprops> = ({ titles, dropdown, onSort, onChe
                   checkbox={label === 'name' ? true : false}
                   onCheckAll={onCheckAll}
                   sortable={true}
-                  sortType={label === 'تاریخ' ? 'alphabet' : ' '}
+                  sortType={label === t`تاریخ` ? 'alphabet' : ' '}
                   onSort={onSort}
-                  className={label === 'نام' ? ['header', 'show'] : ['header']}
+                  className={label === t`نام` ? ['header', 'show'] : ['header']}
                 />
               )
             }
@@ -39,7 +40,7 @@ export const TableHeader: React.SFC<Iprops> = ({ titles, dropdown, onSort, onChe
 
           {dropdown && tabletView ? (
             <td className={styles.show}>
-              <IconLink className={styles.icn} icon={newFolderIcon} iconAlt={`new-folder ${altIcon}`} label="پوشه جدید" />
+              <IconLink className={styles.icn} icon={newFolderIcon} iconAlt={`new-folder ${altIcon}`} label={t`پوشه جدید`} />
             </td>
           ) : (
             <td />

@@ -23,7 +23,7 @@ export default interface Iprops {
   showModal?: boolean
 }
 
-export const Sidebar: React.FunctionComponent<Iprops> = ({ createFolderModal,handleCFClose, showModal }: Iprops) => {
+export const Sidebar: React.FunctionComponent<Iprops> = ({ createFolderModal, handleCFClose, showModal }: Iprops) => {
   return (
     <aside className="sidebar" >
       <div className="menuWrapper">

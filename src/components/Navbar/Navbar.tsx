@@ -8,8 +8,9 @@ import { t } from 'ttag'
 import { Icon } from '../ui-elements/Icon'
 import { IconLink } from '../ui-elements/IconLink'
 import { Avatar } from '../ui-elements/Avatar'
+import { Signout } from '../ui-elements/Signout/Signout'
 
-// icons
+// icons & styles
 import logo from '../../images/pg-logo.svg'
 import fileCloudIcon from '../../images/navbarIcons/file-cloud.svg'
 import vpsIcon from '../../images/navbarIcons/vps.svg'
@@ -17,8 +18,6 @@ import internetIcon from '../../images/navbarIcons/internet.svg'
 import statusIcon from '../../images/navbarIcons/status.svg'
 import financeIcon from '../../images/navbarIcons/finance.svg'
 import notifIcon from '../../images/navbarIcons/notif.svg'
-
-// styles
 import './Navbar.scss'
 
 export default interface Iprops {}
@@ -44,6 +43,7 @@ export const Navbar: React.FunctionComponent<Iprops> = ({  }: Iprops) => {
           <IconLink icon={statusIcon} className="iconLink status" iconAlt={`Status ${altIcon}`} />
 
           <Avatar />
+
         </div>
       </div>
     </div>
