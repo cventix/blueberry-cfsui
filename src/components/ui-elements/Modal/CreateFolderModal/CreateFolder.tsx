@@ -1,13 +1,11 @@
 import React from 'react'
+import { connect } from 'react-redux'
+import { UploadModal } from '../../Uploadmodal/Uploadmodal';
+import { TextInput } from '../../Input/Input';
+import { Button } from '../../Button/Button';
+import { createFolder, getDocuments } from '../../../../services/internal/store/actions/documents';
 
 import styles from './CreateFolder.module.scss'
-import { TextInput } from '../Input/Input'
-import { Button } from '../Button/Button'
-import { UploadModal } from '../Uploadmodal/Uploadmodal'
-import { connect } from 'react-redux'
-
-import ICreateFolderInput from '../../../services/internal/repositories/documents'
-import { createFolder, getDocuments } from '../../../services/internal/store/actions'
 
 export interface Iprops {
   showModal?: boolean
@@ -65,28 +63,26 @@ class CFmodal extends React.Component<Iprops, any> {
   render() {
     const { showModal, handleCFClose } = this.props
     return (
-      <React.Fragment>
-        <UploadModal
-          show={showModal}
-          handleClose={handleCFClose}
-          width={640}
-          title={'ایجاد پوشه جدید'}
-          formDescription={'برای ایجاد پوشه اطلاعات خود را در فرم زیر وارد نمایید'}
-        >
-          <form onSubmit={this.handleSubmit}>
-            <TextInput placeholder={'نام پوشه'} style={{ width: 300 }} onChange={this.changeHandler} name={'name'} />
-            <TextInput placeholder={'توضیحات پوشه'} style={{ width: 300 }} onChange={this.changeHandler} name={'description'} />
-            <div className={styles.submitButton}>
-              <Button className={['btnPrimary100', 'btnSm']}>ایجاد پوشه</Button>
-            </div>
-          </form>
-        </UploadModal>
-      </React.Fragment>
+      <UploadModal
+        show={showModal}
+        handleClose={handleCFClose}
+        width={640}
+        title={'ایجاد پوشه جدید'}
+        formDescription={'برای ایجاد پوشه اطلاعات خود را در فرم زیر وارد نمایید'}
+      >
+        <form onSubmit={this.handleSubmit}>
+          <TextInput placeholder={'نام پوشه'} style={{ width: 300 }} onChange={this.changeHandler} name={'name'} />
+          <TextInput placeholder={'توضیحات پوشه'} style={{ width: 300 }} onChange={this.changeHandler} name={'description'} />
+          <div className={styles.submitButton}>
+            <Button className={['btnPrimary100', 'btnSm']}>ایجاد پوشه</Button>
+          </div>
+        </form>
+      </UploadModal>
     )
   }
 }
 
-const mapStateToProps = (state: any) => ({ document: state.document.documents})
+const mapStateToProps = (state: any) => ({ document: state.document.documents })
 
 const mapDispatchToProps = (dispatch: any) => {
   return {

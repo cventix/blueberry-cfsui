@@ -23,6 +23,7 @@ import { formatDate } from '../../services/internal/utils/formatDates'
 import { formatBytes } from '../../services/internal/utils/formatBytes'
 import { sliceData } from '../../services/internal/utils/sliceData'
 import { setSelections } from '../../services/internal/store/actions/selections'
+import { ContentBody } from './ContentBody'
 
 const sort = (data: object[]) => {
   var sortOrder = ['folder', 'image', 'music']
@@ -138,29 +139,16 @@ class Content extends React.Component<IProps, IState> {
    * @param nextProps
    */
   componentWillReceiveProps(nextProps: any) {
-    console.log( this.props.auth.username)
-    let table: any[] = []
-    nextProps.document.documents.map((each: any) => {
-      table.push({
-        id: each.id,
-        type: each.genericType,
-        name: each.name,
-        discriminator: each.discriminator,
-        fullPath: each.fullPath,
-        created_at: formatDate(each.createdAt),
-        owner: this.props.auth.username == each.owner.displayName? 'خودم' : each.owner.displayName,
-        size: each.size ? formatBytes({ bytes: each.size, lang: 'fa' }) : '---'
-      })
-    })
     this.setState({
-      table: sliceData({ array: table }),
+      table: sliceData({ array: nextProps.document.documents }),
       showMore: true,
-      mainTable: table
+      mainTable: nextProps.document.documents
     })
   }
 
   //show more button function
   showMore = () => {
+    console.log(this.state.mainTable)
     this.setState({
       table: sliceData({ array: this.state.mainTable, choppedArray: this.state.table }),
       showMore: Math.ceil(this.state.mainTable.length / this.step) - 1 === Math.ceil(this.state.table.length / 10) ? false : true
@@ -300,7 +288,6 @@ class Content extends React.Component<IProps, IState> {
   }
 
   public render() {
-    console.log(this.state)
     let dropDownData = [
       { label: ' دانلود فایل' },
       { label: 'تغییر نام', onClick: this.openRenameModal },
@@ -320,7 +307,7 @@ class Content extends React.Component<IProps, IState> {
             formDescription={' نام جدید را در فرم زیر وارد نمایید'}
             handleClose={this.closeRenameModalclose}
           >
-            <RenameFile value={this.state.renameInput} changeHandler={this.changeHandler} handleSubmit={this.onRenameDocument} />{' '}
+            <RenameFile value={this.state.renameInput} changeHandler={this.changeHandler} handleSubmit={this.onRenameDocument} />
           </UploadModal>
         )
         break
@@ -346,44 +333,22 @@ class Content extends React.Component<IProps, IState> {
     const history = [{ title: 'پوشه اصلی', link: '/', active: false }]
     if (this.props.location.pathname !== '/')
       history.push({ title: this.props.location.pathname.split('/'), link: this.props.location.pathname, active: true })
-
+    console.log(this.state.table)
     return !this.props.loading && this.state.table.length > 0 ? (
       <React.Fragment>
         <ContentHeader view={this.state.view} history={history} switchView={this.switchView} />
-        {this.state.view === 'table' && this.state.width < 768 ? (
-          <Grid
-            sortable={true}
-            dropDownData={dropDownData}
-            checkbox={true}
-            handleNavigate={this.handleNavigate}
-            onCheckAll={this.onCheckAll}
-            checkAll={this.state.checkAll}
-            table={this.state.table}
-          />
-        ) : this.state.view === 'table' ? (
-          <Grid
-            sortable={true}
-            dropDownData={dropDownData}
-            checkbox={true}
-            handleNavigate={this.handleNavigate}
-            onCheckAll={this.onCheckAll}
-            checkAll={this.state.checkAll}
-            table={this.state.table}
-          />
-        ) : (
-          <Table
-            dropdown={true}
-            tabletView={this.state.width < 768 ? true : false}
-            dropDownData={dropDownData}
-            optionSelected={this.state.optionSelected}
-            onSelect={this.onSelect}
-            onCheckAll={this.onCheckAll}
-            onCheck={this.onCheck}
-            handleNavigate={this.handleNavigate}
-            checkAll={this.state.checkAll}
-            table={this.state.table}
-          />
-        )}
+        <ContentBody
+          view={this.state.view}
+          width={this.state.width}
+          table={this.state.table}
+          dropDownData={dropDownData}
+          optionSelected={this.state.optionSelected}
+          onSelect={this.onSelect}
+          onCheckAll={this.onCheckAll}
+          onCheck={this.onCheck}
+          handleNavigate={this.handleNavigate}
+          checkAll={this.state.checkAll}
+        />
         {modal}
         {toaster}
         <div className={styles.footer}>
@@ -401,7 +366,7 @@ class Content extends React.Component<IProps, IState> {
     )
   }
 }
-const mapStateToProps = (state: IState) => ({ document: state.document, loading: state.loading.isLoading ,auth:state.auth})
+const mapStateToProps = (state: IState) => ({ document: state.document, loading: state.loading.isLoading, auth: state.auth })
 
 const mapDispatchToProps = (dispatch: any) => {
   return {

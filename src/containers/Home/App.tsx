@@ -15,7 +15,7 @@ import { Table } from '../../components/Table/Table'
 import { Modal } from '../../components/ui-elements/Modal/Modal'
 import { Preview } from '../../components/ui-elements/Preview/Preview'
 import icon from '../../images/buttonIcons/icon-btn-arrow-bottom.svg'
-import CFModal from '../../components/ui-elements/Modal/CreateFolder'
+import CFModal from '../../components/ui-elements/Modal/CreateFolderModal/CreateFolder'
 // Services
 import { bottle } from '../../services'
 import { PayloadInterface } from '../../services/internal/store/reducers/authReducer'
@@ -24,6 +24,8 @@ import { DocumentsInterface } from '../../services/internal/repositories/documen
 
 import Toast from '../../components/ui-elements/Toast/Toast'
 import { CountdownTimer } from '../../components/ui-elements/CountdownTimer/CountdownTimer'
+import { UploadModal } from '../../components/ui-elements/Uploadmodal/Uploadmodal'
+import  MoveFile  from '../../components/ui-elements/Modal/MoveFileModal.tsx/MoveFile'
 
 const steps = ['انتخاب سیستم عامل', 'انتخاب مدت سرویس', 'انتخاب طرح', 'اطلاعات کارت شبکه', 'انتخاب نام سرور و ثبت نهایی']
 const options = [{ value: 'chocolate', label: 'Chocolate' }, { value: 'strawberry', label: 'Strawberry' }, { value: 'vanilla', label: 'Vanilla' }]
@@ -45,13 +47,11 @@ class App extends Component<{ login: any; setUserInfo: any; history?: any; selec
   timer: any = ''
   countDownTime = 100000
 
-  createFolderModal = () => {
-    console.log('hi')
-    this.setState({ showcFmodal: true, showModal: true })
-  }
-
   handleCFClose = () => {
     this.setState({ showcFmodal: false, showModal: false })
+  }
+  handleMoveclose = () => {
+    this.setState({ showmVmodal: false, showModal: false })
   }
 
   onItemClick = (e: any) => {
@@ -60,13 +60,13 @@ class App extends Component<{ login: any; setUserInfo: any; history?: any; selec
         this.setState({ modal: 'createFolder', showModal: true })
         break
       case 'انتقال':
-        this.setState({ modal: 'move', showModal: true })
+        this.setState({ modal: 'moveFile', showModal: true })
         break
       case 'حذف':
         this.setState({ modal: 'remove', showModal: true })
         this.timer = setTimeout(() => {
-          this.onRemoveDocument();
-          this.timer = 0;
+          this.onRemoveDocument()
+          this.timer = 0
         }, this.countDownTime)
 
         break
@@ -75,7 +75,7 @@ class App extends Component<{ login: any; setUserInfo: any; history?: any; selec
     }
   }
   onCancle = () => {
-     this.setState({ modal: '', countDownTime: 10000 })
+    this.setState({ modal: '', countDownTime: 10000 })
     if (this.timer) {
       clearTimeout(this.timer)
     }
@@ -106,6 +106,9 @@ class App extends Component<{ login: any; setUserInfo: any; history?: any; selec
             </div>
           </Toast>
         )
+        break
+      case 'moveFile':
+        modal = <MoveFile handleClose={this.handleMoveclose} showModal={this.state.showModal} />
         break
       default:
         break

@@ -21,7 +21,7 @@ export const TableHeader: React.SFC<Iprops> = ({ titles, dropdown, onSort, onChe
       {titles && (
         <tr>
           {titles.map((label: any, i: number) => {
-            console.log(label)
+
             if (label !== 'type' && label !== 'id' && label !== 'fullPath') {
               return (
                 <TableItem
@@ -50,3 +50,4 @@ export const TableHeader: React.SFC<Iprops> = ({ titles, dropdown, onSort, onChe
     </thead>
   )
 }
+

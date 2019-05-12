@@ -9,7 +9,7 @@ import newFolderIcon from '../../../images/sidebarIcons/newfolder.svg'
 import moveIcon from '../../../images/sidebarIcons/move.svg'
 import deleteIcon from '../../../images/sidebarIcons/delete.svg'
 
-import CFModal from '../../ui-elements/Modal/CreateFolder'
+import CFModal from '../../ui-elements/Modal/CreateFolderModal/CreateFolder'
 
 export default interface Iprops {
   onItemClick?: any

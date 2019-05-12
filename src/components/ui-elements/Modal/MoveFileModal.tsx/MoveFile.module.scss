@@ -1,0 +1,14 @@
+@import '../../../../styles/global.scss';
+
+.move {
+  width: 440px;
+  height: 240px;
+  overflow: scroll;
+}
+.submitButton {
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 23px;
+  margin-left: 35px;
+}
