@@ -45,6 +45,7 @@ $best-number: 23px;
     top: 50%;
     left: 50%;
   }
+
   .header {
     @include flex(row, wrap);
     @include box-shadow(0 1px 0 0 #e5e5e5);
@@ -53,13 +54,15 @@ $best-number: 23px;
     height: $header-height;
     background: $modal-header;
     margin-bottom: $best-number;
+
     .title {
       @include flex(row, wrap);
       margin-right: 23px;
       align-items: center;
-      font-family: 'vazir-medium';
+      font-family: $medium-font;
       color: $lt-gray;
     }
+
     .close {
       cursor: pointer;
       border: 0;
@@ -81,4 +84,14 @@ $best-number: 23px;
 
 .displayNone {
   visibility: hidden;
+}
+
+body:lang(en) {
+  .modal {
+    .header {
+      .title {
+        margin-left: 10px;
+      }
+    }
+  }
 }

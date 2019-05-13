@@ -18,9 +18,9 @@
     color: $dk-gray;
   }
   .subText {
-    font-family: 'vazir-light';
+    font-family: $light-font;
     font-size: 10px;
-    color: $text-gray;
+    color: $input-color;
   }
 }
 .clipBoard {

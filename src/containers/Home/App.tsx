@@ -32,6 +32,7 @@ class App extends Component<{ login: any; setUserInfo: any; history?: any }, {}>
     
   }
   state = {
+    isOpenMenu: false,
     showcFmodal: false,
     showModal: false,
     prevProps: '',
@@ -68,11 +69,23 @@ class App extends Component<{ login: any; setUserInfo: any; history?: any }, {}>
     this.setState({ showcFmodal: false, showModal: false })
   }
 
+  toggleHamburgerMenu() {
+    this.setState({
+      isOpenMenu: !this.state.isOpenMenu
+    })
+  }
+
   render() {
     return (
       <div>
-        <Navbar />
-        <Sidebar createFolderModal={this.createFolderModal} showModal={this.state.showcFmodal} handleCFClose={this.handleCFClose} />
+        <Navbar toggleHamburgerMenu={() => {this.toggleHamburgerMenu()}}/>
+        <Sidebar 
+          createFolderModal={this.createFolderModal} 
+          showModal={this.state.showcFmodal} 
+          handleCFClose={this.handleCFClose} 
+          open={this.state.isOpenMenu} 
+          onClickOverlay={() => {this.toggleHamburgerMenu()}}
+        />
         <Main showModal={this.state.showModal}>
           <Content />
         </Main>

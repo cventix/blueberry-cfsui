@@ -2,9 +2,30 @@
 
 .sidebar {
 	position: relative;
+	@include transition(all .4s);
 
-	@media(max-width: $tablet) {
+	&.open {
+		.overlay {
+			display: block;
+		}
+
+		.menuWrapper {
+			top: $navbar-height + 10;
+			right: 0;
+		}
+	}
+
+	.overlay {
 		display: none;
+		position: fixed;
+		top: 0;
+		left: 0;
+		right: 0;
+		bottom: 0;
+		background: #000;
+		opacity: 0.5;
+		cursor: pointer;
+		z-index: 1949;
 	}
 
 	.menuWrapper {
@@ -16,6 +37,12 @@
 		opacity: 0.99;
 		right: 0;
 		left: auto;
+		z-index: 1950;
+		@include transition(right .35s ease-out);
+
+		@media(max-width: $tablet) {
+			right: -($sidebar-width);
+		}
 
 		.menu {
 			position: absolute;
@@ -77,9 +104,20 @@
 
 body:lang(en) {
 	.sidebar {
+		&.open {
+			.menuWrapper {
+				left: 0;
+			}
+		}
+
 		.menuWrapper {
 			right: auto;
 			left: 0;
+			@include transition(left .35s ease-out);
+
+			@media(max-width: $tablet) {
+				left: -($sidebar-width);
+			}
 
 			.menu {
 				.upFromUrl {

@@ -383,7 +383,7 @@ class Content extends React.Component<IProps, IState> {
             disabled={!this.state.showMore}
             onClick={this.showMore}
           >
-            <IconLink icon={arrowBottom} className={styles.arrow} iconAlt={`new-folder`} label="نمایش بیشتر" />
+            <IconLink icon={arrowBottom} className={styles.arrow} iconAlt={`new-folder`} label={t`نمایش بیشتر`} />
           </Button>
         </div>
       </React.Fragment>

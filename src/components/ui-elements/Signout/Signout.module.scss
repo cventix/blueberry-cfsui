@@ -1,25 +1,85 @@
 @import '../../../styles/global';
 
 .signout {
+	position: absolute;
+	top: 55px;
+	left: 27px;
 	width: 210px;
 	list-style: none;
 	background: #fff;
 	@include box-shadow(0px 8px 16px 0px rgba(0,0,0,0.2));
 	@include border-radius($br-radius-sm);
 
+	@media(max-width: $tablet) {
+		top: 63px;
+	}
+
+	&:before {
+		position: absolute;
+		top: -3px;
+		left: 14px;
+		content: '';
+		width: 8px;
+		height: 8px;
+		background: $modal-header;
+		@include border-radius(1px);
+		@include transform(rotate(134deg));
+
+		@media(max-width: $tablet) {
+			top: -4px;
+		}
+	}
+
 	li {
-		padding: 7px 12px;
+		padding: 8px 15px;
 		
-		&:hover {
-			pointer-events: none;
+		&.item {
+			> div {
+				img {
+					width: 16px $important;
+					height: 16px $important;
+					margin-top: 0 $important;
+					margin-left: 6px;
+				}
+
+				span {
+					font-size: $font-size - 2;
+				}
+			}
+
+			&:hover {
+				background: $hover-gray;
+			}
 		}
 
 		&:first-child {
+			margin-bottom: 1px;
 			background: $modal-header;
 			@include box-shadow(0 1px 0 0 #e5e5e5);
+		}
+	}
+}
 
-			&:hover {
-				background: transparent;
+body:lang(en) {
+	.signout {
+		right: 14px;
+		left: auto;
+
+		&:before {
+			right: 14px;
+			left: auto;
+		}
+
+		li {
+			&.item {
+				> div {
+					margin-right: 0 $important;
+
+					img {
+						margin-right: 6px;
+						margin-left: 0;
+					}
+				}
 			}
 		}
 	}

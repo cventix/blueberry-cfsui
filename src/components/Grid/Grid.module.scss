@@ -5,6 +5,9 @@ $title-margin-bottom: 20px;
 .container {
   @include flex(row, wrap);
   position: relative;
+  @media(max-width: $mobile - 20) {
+    justify-content: center;
+  }
 }
 
 .header {
@@ -12,7 +15,7 @@ $title-margin-bottom: 20px;
 
   .title {
     @include flex(row, wrap);
-    color: $text-gray;
+    color: $input-color;
     align-items: center;
     margin-bottom: $title-margin-bottom;
 

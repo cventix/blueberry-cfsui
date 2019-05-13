@@ -2,6 +2,7 @@ import * as React from 'react'
 
 // ui-elements
 import { Icon } from './Icon'
+import { Signout } from './Signout/Signout'
 
 // icon
 import avatarIcon from '../../images/navbarIcons/avatar.svg'
@@ -11,4 +12,12 @@ export default interface Iprops {
   alt?: string
 }
 
-export const Avatar = ({ profileImg, alt }: Iprops) => <Icon src={profileImg ? profileImg : avatarIcon} alt="Avatar Image" className="avatar" />
+export const Avatar = ({ profileImg, alt }: Iprops) => {
+	return (
+		<div style={{ position: 'relative' }}>
+			<Icon src={profileImg ? profileImg : avatarIcon} alt="Avatar Image" className="avatar" />
+			<Signout username="آرزو علی پناه" />
+		</div>
+	)
+}
+

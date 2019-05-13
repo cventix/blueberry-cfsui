@@ -19,13 +19,16 @@ import './Sidebar.scss'
 
 export default interface Iprops {
   createFolderModal?: () => void
+  onClickOverlay: () => void
   handleCFClose?: any
   showModal?: boolean
+  open: boolean
 }
 
-export const Sidebar: React.FunctionComponent<Iprops> = ({ createFolderModal, handleCFClose, showModal }: Iprops) => {
+export const Sidebar: React.FunctionComponent<Iprops> = ({ createFolderModal, handleCFClose, showModal, onClickOverlay, open }: Iprops) => {
   return (
-    <aside className="sidebar" >
+    <aside className={open ? "sidebar open" : "sidebar"}>
+      <div className="overlay" onClick={e => {e.preventDefault(); onClickOverlay()}}></div>
       <div className="menuWrapper">
         <div className="menu">
           <Button className={['btnPrimary0', 'btnLg']} style={{ marginBottom: '15px' }}>

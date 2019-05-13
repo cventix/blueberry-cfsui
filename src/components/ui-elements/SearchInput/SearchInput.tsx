@@ -22,10 +22,12 @@ export default interface Iprops {
 export const SearchInput = ({ withSetting = false, placeHolder }: Iprops) => {
   return (
     <div className={styles.searchInput}>
-      <TextInput placeholder={placeHolder} style={{ display: 'inline-block' }} />
-      <Button>
-        <Icon src={searchIcon} />
-      </Button>
+      <TextInput placeholder={placeHolder}/>
+      <div className={styles.btnWrapper}>
+        <Button>
+          <Icon src={searchIcon} />
+        </Button>
+      </div>
       <IconLink icon={settingIcon} className={withSetting ? `${styles.setting}` : `${styles.hide}`} />
     </div>
   )

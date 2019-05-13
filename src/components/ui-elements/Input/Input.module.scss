@@ -30,6 +30,7 @@
 
 	.textInput {
 		@include input-theme;
+		@include input-placeholder(false);
 		width:100%;
 		border: 1px solid $input-border;
 		padding-top: 8px;
@@ -37,6 +38,7 @@
 		padding-left: 10px;
 		padding-bottom: 8px;
 		margin-bottom: 6px;
+	    font-size: $font-size - 2;
 
 		&:hover {
 			border: 1px solid $disabled-lt-gray;

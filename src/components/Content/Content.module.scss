@@ -17,7 +17,6 @@ $arrow-width: 16px;
 .header {
   @include flex(row, wrap);
   margin-bottom: 35px;
-  margin-left: 35px;
 
   @media(max-width: $tablet) {
     margin-bottom: 0;
@@ -58,7 +57,7 @@ $arrow-width: 16px;
   justify-content: center;
 
   .arrow {
-    color: $text-gray;
+    color: $input-color;
     img {
       margin-left: 15px;
       vertical-align: middle;
@@ -68,9 +67,6 @@ $arrow-width: 16px;
 
 body:lang(en) {
   .header {
-    margin-right: 35px;
-    margin-left: 0;
-
     .left {
       > div {
         &:first-child {
@@ -80,6 +76,14 @@ body:lang(en) {
           margin-right: 0;
           margin-left: 30px;
         }
+      }
+    }
+  }
+
+  .footer {
+    .arrow {
+      img {
+        margin-right: 15px;
       }
     }
   }

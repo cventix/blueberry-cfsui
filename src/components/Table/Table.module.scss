@@ -16,6 +16,7 @@ $border-bottom: 1.5px solid $border-table;
     border-bottom: $border-bottom;
     color: $dk-gray;
   }
+
   tr {
     cursor: pointer;
 
@@ -121,6 +122,14 @@ body:lang(en){
         @media screen and (max-width: $tablet) {
           &:last-child {
               text-align: right;
+
+              > div {
+                @media(max-width: $mobile) {
+                  width: 108px;
+                  margin-right: 0;
+                  margin-left: -58px;
+                }
+              }
           } 
         }
       }

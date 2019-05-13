@@ -64,22 +64,30 @@
 	color: $lt-gray;
 	font-family: $regular-font;
 	@include border-radius($br-radius-sm);
-	@include placeholder($input-color)
 }
 
-/* placeholder */
-@mixin placeholder($color) {
-  ::placeholder {
-    color: $color;
-  }
+/* input-placeholder */
+@mixin input-placeholder($search) {
+	&::-webkit-input-placeholder {
+		color: $input-color;
+		@if $search {
+			font-size: $font-size;
+		}
+	}
 
-  :-ms-input-placeholder {
-    color: $color;
-  }
+	&:-moz-placeholder {
+		color: $input-color;
+		@if $search {
+			font-size: $font-size;
+		}
+	}
 
-  ::-ms-input-placeholder {
-    color: $color;
-  }
+	&:-ms-input-placeholder {
+		color: $input-color;
+		@if $search {
+			font-size: $font-size;
+		}
+	}
 }
 
 /* checkbox-radio-theme */

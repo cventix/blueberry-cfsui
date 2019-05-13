@@ -9,6 +9,12 @@ msgstr ""
 msgid "جستجو"
 msgstr "Search"
 
+msgid "خروج"
+msgstr "Exit"
+
+msgid "حساب کاربری"
+msgstr "Account"
+
 msgid "ورود به حساب کاربری"
 msgstr "Login to account"
 
@@ -116,3 +122,6 @@ msgstr "Content"
 
 msgid "مالک"
 msgstr "Owner"
+
+msgid "نمایش بیشتر"
+msgstr "Show More"

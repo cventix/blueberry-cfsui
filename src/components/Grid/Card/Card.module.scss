@@ -9,22 +9,42 @@ $side-length: 10px;
   @include flex(column, nowrap);
   justify-content: center;
   align-items: center;
-  flex-basis: calc(25% - 32px);
   position: relative;
   min-width: 160px;
   height: $box-length;
-  margin: 32px 16px 0 16px;
+  margin: 32px 0 0 32px;
   background-color: #fff;
+  cursor: pointer;
   @include box-shadow(0 1px 2px 0 rgba(0, 0, 0, 0.1));
   @include border-radius(2.6px);
 
-  @media(max-width: $tablet + 1) {
+  @media(max-width: $mobile - 20) {
+    min-width: 139px;
+    height: 150px;
+  }
+
+  @media(max-width: $mobile + 220) {
+    flex-basis: calc(50% - 6px);
     margin: 6px 3px 0 3px;
+  }   
+
+  @media (min-width: $mobile + 221) and (max-width: $tablet) {
+    flex-basis: calc(33.33% - 20px);
+    margin: 20px 0 0 20px;
   } 
 
-  @media (min-width: $tablet + 1) and (max-width: $web-medium + 1) {
-    margin: 6px 3px 0 3px;
-    flex-basis: calc(33.3% - 6px);
+  @media (min-width: $tablet + 1) and (max-width: $web-medium - 100) {
+    flex-basis: calc(50% - 10px);
+    margin: 10px 0 0 10px;
+  }    
+
+  @media (min-width: $web-medium - 101) and (max-width: $web-medium-max) {
+    flex-basis: calc(28%);
+    margin: 30px 0 0 30px;
+  }  
+
+  @media (min-width: $web-medium-max + 1) and (max-width: $web-medium-max + 300) {
+    margin: 24px 0 0 24px;
   }
 
   .checkbox {
@@ -44,6 +64,7 @@ $side-length: 10px;
     justify-content: center;
     align-items: center;
     margin-top: $margin;
+
     .date {
       font-family: $light-font;
       font-size: $font-size - 4;
@@ -51,28 +72,49 @@ $side-length: 10px;
       margin-bottom: $margin/4;
     }
   }
-  .name{
-    width: 100px;
+
+  .name {
+    @include flex(row, nowrap);
     justify-content: center;
-    display: flex;
-    white-space: nowrap;
-    overflow: hidden;
+    width: 100px;
     direction: ltr;
     text-overflow: ellipsis;
+    overflow: hidden;
     color: $dk-gray;
   }
+
   .type,
   img {
     width: $icon-length;
     height: $icon-length;
+
+    @media(max-width: $mobile - 20) {
+      width: $icon-length - 10;
+      height: $icon-length - 10;
+    }
   }
 }
 
 body:lang(en) {
   .item {
-    &:nth-child(1) {
-      margin-right: auto;
-      margin-left: 0;
+    @media(max-width: $mobile + 220) {
+      margin: 6px 6px 0 0;
+    }  
+
+    @media (min-width: $mobile + 221) and (max-width: $tablet) {
+      margin: 20px 20px 0 0;
+    } 
+
+    @media (min-width: $tablet + 1) and (max-width: $web-medium - 100) {
+      margin: 10px 10px 0 0;
+    }    
+
+    @media (min-width: $web-medium - 101) and (max-width: $web-medium-max) {
+      margin: 30px 30px 0 0;
+    }  
+
+    @media (min-width: $web-medium-max + 1) and (max-width: $web-medium-max + 300) {
+      margin: 24px 24px 0 0;
     }
   }
 }

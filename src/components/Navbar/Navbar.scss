@@ -10,7 +10,7 @@ $img-size: 30px;
 	left: 0;
 	height: $navbar-height;
 	background-color: #fff;
-	z-index: 100;
+	z-index: 1952;
 
 	@include box-shadow(0 2px 0 0 rgba(0, 0, 0, 0.05));
 	@media(max-width: $tablet) {
@@ -31,9 +31,25 @@ $img-size: 30px;
 	.right {
 		@include flex(row, wrap);
 
+		.menuWrapper {
+			display: none;
+			align-items: center;
+			cursor: pointer;
+
+			@media(max-width: $tablet) {
+				display: flex;
+			}
+
+			.menu {
+				margin-left: 6px;
+			}
+		}
+
 		.logoWrapper {
+			display: flex;
+			align-items: center;
+			justify-content: center;
 			width: $sidebar-width;
-			text-align: center;
 
 			@media(max-width: $tablet) {
 				width: auto;
@@ -45,11 +61,6 @@ $img-size: 30px;
 			.logo {
 				width: 62px;
 				height: 31px;
-				margin-top: 19.5px;
-
-				@media(max-width: $tablet) {
-					margin-top: 26px;
-				}
 			}
 		}
 
@@ -84,6 +95,8 @@ $img-size: 30px;
 	}
 
 	.left {
+		display: flex;
+		align-items: center;
 		margin-left: $default-margin;
 
 		@media(max-width: $tablet) {
@@ -94,11 +107,6 @@ $img-size: 30px;
 			@include flex(row, wrap);
 			overflow: hidden;
 			clear: both;
-			margin-top: 20px;
-
-			@media(max-width: $tablet) {
-				margin-top: 25px;
-			}
 
 			.avatar {
 				width: $img-size;
@@ -174,6 +182,12 @@ $img-size: 30px;
 body:lang(en) {
 	.navbar {
 		.right {
+			.menuWrapper {
+				.menu {
+					margin-right: 6px;
+				}
+			}
+
 			.nav {
 				.iconLink {
 					margin-right: $default-margin;

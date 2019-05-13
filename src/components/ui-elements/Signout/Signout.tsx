@@ -13,17 +13,17 @@ export default interface Iprops {
 	username: string;
 }
 
-export const Signout : React.FunctionComponent<Iprops> = ({username})=>{
+export const Signout : React.FunctionComponent<Iprops> = ({ username })=>{
 	return (
 		<ul className={styles.signout}>
 			<li>
 				<span>{username}</span>
 			</li>
-			<li>
-				<IconLink icon={profile}  iconAlt="profile" label={t`حساب کاربری`}/>
+			<li className={styles.item}>
+				<IconLink icon={profile} iconAlt="profile" label={t`حساب کاربری`}/>
 			</li>
-			<li>
-				<IconLink icon={signout}  iconAlt="logout"  label={t`خروج`}/>
+			<li className={styles.item}>
+				<IconLink icon={signout} iconAlt="logout"  label={t`خروج`}/>
 			</li>
 		</ul>
 	)
