@@ -1,21 +1,20 @@
 import React from 'react'
+import { withRouter } from 'react-router'
 import { connect } from 'react-redux'
 import { t } from 'ttag'
+
+// components
 import { Table } from '../Table/Table'
 import { Grid } from '../Grid/Grid'
 import { Button } from '../ui-elements/Button/Button'
 import { IconLink } from '../ui-elements/IconLink'
-import arrowBottom from '../../images/buttonIcons/icon-btn-arrow-bottom.svg'
 import { UploadModal } from '../ui-elements/Uploadmodal/Uploadmodal'
 import { RenameFile } from '../ui-elements/Modal/ModalContent/RenameFile'
-import { withRouter } from 'react-router'
 import { Icon } from '../ui-elements/Icon'
-import loading from '../../images/loading/tail-spin.2.svg'
 import { CountdownTimer } from '../ui-elements/CountdownTimer/CountdownTimer'
 import Toast from '../ui-elements/Toast/Toast'
 import { ContentHeader } from './ContentHeader'
-//styles
-import styles from './Content.module.scss'
+import { ContentBody } from './ContentBody'
 
 // Services
 import { bottle } from '../../services'
@@ -24,7 +23,11 @@ import { formatDate } from '../../services/internal/utils/formatDates'
 import { formatBytes } from '../../services/internal/utils/formatBytes'
 import { sliceData } from '../../services/internal/utils/sliceData'
 import { setSelections } from '../../services/internal/store/actions/selections'
-import { ContentBody } from './ContentBody'
+
+// styles & icons
+import loading from '../../images/loading/tail-spin.2.svg'
+import arrowBottom from '../../images/buttonIcons/icon-btn-arrow-bottom.svg'
+import styles from './Content.module.scss'
 
 const sort = (data: object[]) => {
   var sortOrder = ['folder', 'image', 'music']
@@ -79,6 +82,7 @@ class Content extends React.Component<IProps, IState> {
     super(props)
     this.state = {
       table: '',
+      filteredTable: [],
       checkAll: false,
       selectedArray: [],
       view: 'grid',
@@ -143,11 +147,12 @@ class Content extends React.Component<IProps, IState> {
     this.setState({
       table: sliceData({ array: nextProps.document.documents }),
       showMore: true,
-      mainTable: nextProps.document.documents
+      mainTable: nextProps.document.documents,
+      filteredTable: this.state.table
     })
   }
 
-  //show more button function
+  // show more button function
   showMore = () => {
     console.log(this.state.mainTable)
     this.setState({
@@ -163,6 +168,7 @@ class Content extends React.Component<IProps, IState> {
     window.removeEventListener('resize', this.updateWindowDimensions)
     console.log('unmount')
   }
+
   updateWindowDimensions() {
     this.setState({ width: window.innerWidth, height: window.innerHeight })
   }
@@ -223,6 +229,7 @@ class Content extends React.Component<IProps, IState> {
       }
     }
   }
+
   onRenameDocument = async (e: any) => {
     if (e) e.preventDefault()
     try {
@@ -248,17 +255,19 @@ class Content extends React.Component<IProps, IState> {
     })
   }
 
-  ///rename modal
+  // rename modal
   openRenameModal = (renameFileId: number) => {
     let renameInput = this.state.table.filter((obj: any) => {
       return obj.id === renameFileId
     })[0].name
     this.setState({ modalView: 'renameFile', showRename: true, renameInput, renameFileId })
   }
+
   closeRenameModalclose = () => {
     this.setState({ showRename: false, renameFileId: '' })
   }
-  //remove modal
+
+  // remove modal
   openRemoveModal = (isSelected: number) => {
     this.setState({ showRemove: true, isSelected, modalView: 'removeFile', countDown: this.countDownTime / 1000 })
     this.timer = setTimeout(() => {
@@ -275,7 +284,18 @@ class Content extends React.Component<IProps, IState> {
     }
   }
 
-  //on item check
+  // handle search
+  onChangeSearchInput = (e: string) => {
+    let filteredTable = this.state.table.filter((obj: any) => {
+      return obj.cfsFullPath.includes(e);
+    });
+
+    this.setState({
+      filteredTable
+    });
+  }
+
+  // on item check
   onCheck = (id: number) => {
     let { selectedArray } = this.state
 
@@ -338,12 +358,12 @@ class Content extends React.Component<IProps, IState> {
     console.log(this.props.auth.username)
     return !this.props.loading && this.state.table.length > 0 ? (
       <React.Fragment>
-        <ContentHeader view={this.state.view} history={history} switchView={this.switchView} />
+        <ContentHeader view={this.state.view} history={history} switchView={this.switchView} handleSearchInput={(e: any) => this.onChangeSearchInput(e)}/>
         <ContentBody
           view={this.state.view}
           username={this.props.auth.username}
           width={this.state.width}
-          table={this.state.table}
+          table={this.state.filteredTable}
           dropDownData={dropDownData}
           optionSelected={this.state.optionSelected}
           onSelect={this.onSelect}
@@ -370,6 +390,7 @@ class Content extends React.Component<IProps, IState> {
     )
   }
 }
+
 const mapStateToProps = (state: IState) => ({ document: state.document, loading: state.loading.isLoading, auth: state.auth })
 
 const mapDispatchToProps = (dispatch: any) => {

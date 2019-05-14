@@ -1,6 +1,10 @@
 import React, { Component } from 'react'
+
+// components
 import { Grid } from '../Grid/Grid'
 import { Table } from '../Table/Table'
+
+// services
 import { formatDate } from '../../services/internal/utils/formatDates'
 import { formatBytes } from '../../services/internal/utils/formatBytes'
 import { sliceData } from '../../services/internal/utils/sliceData'
@@ -23,6 +27,7 @@ export default interface Iprops {
   hasHeader?: boolean
   username?: string
 }
+
 const makeArray = (array: any, username?: string) => {
   let table: any[] = []
   array.map((each: any) => {

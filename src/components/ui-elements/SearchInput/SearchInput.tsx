@@ -17,12 +17,13 @@ import styles from './SearchInput.module.scss'
 export default interface Iprops {
   withSetting?: boolean
   placeHolder: string
+  handleInputChange: (e: any) => void
 }
 
-export const SearchInput = ({ withSetting = false, placeHolder }: Iprops) => {
+export const SearchInput = ({ withSetting = false, placeHolder, handleInputChange }: Iprops) => {
   return (
     <div className={styles.searchInput}>
-      <TextInput placeholder={placeHolder}/>
+      <TextInput placeholder={placeHolder} onChange={(e: any) => handleInputChange(e.target.value)}/>
       <div className={styles.btnWrapper}>
         <Button>
           <Icon src={searchIcon} />

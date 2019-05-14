@@ -25,7 +25,7 @@ export default interface Iprops {
   value?: string
 }
 
-export const TextInput = ({ placeholder, onChange,name, label,value,type="text", disabled = false, message, error = false, success, withIcon, icon, style }: Iprops) => {
+export const TextInput = ({ placeholder, onChange, name, label, value, type="text", disabled = false, message, error = false, success, withIcon, icon, style }: Iprops) => {
   return (
     <div
       className={
