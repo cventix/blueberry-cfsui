@@ -9,19 +9,21 @@ const documents = bottle.container.Documents
 export function* getDocuments(action: any) {
   let folderInfo
   if (action.payload) folderInfo = { isChildren: action.payload.isChildren, path: action.payload.path, headers: action.payload.headers }
-  console.log(action)
+  console.log()
   try {
     yield put(actions.setLoadingState(true))
     let data = yield documents.getDocuments(folderInfo)
     if (folderInfo && folderInfo.isChildren === true) data = data.children
-    yield put(actions.setDocuments(data))
+  
+   yield put(actions.setDocuments(data))
+  
     yield put(actions.setLoadingState(false))
   } catch (err) {
     yield put(actions.setLoadingState(false))
   }
 }
 export function* removeFolder(action: any) {
-  let folderInfo = {  folderId: action.payload.folderId }
+  let folderInfo = { folderId: action.payload.folderId }
   try {
     yield put(actions.setLoadingState(true))
     let response = yield documents.removeFolder(folderInfo)

@@ -1,33 +1,33 @@
 import React, { FunctionComponent } from 'react'
-import { t } from 'ttag'
-
-// ui-elements
+import { Breadcrumb, BreadcrumbItem } from '../ui-elements/Breadcrumb/Breadcrumb'
 import { SearchInput } from '../ui-elements/SearchInput/SearchInput'
-import { Breadcrumb } from '../ui-elements/Breadcrumb/Breadcrumb'
-import { Icon } from '../ui-elements/Icon'
+import { SwitchIcon } from './SwitchIcon'
 
-// icons & styles
+//styles
+import styles from './Content.module.scss'
+
+//icons
 import list from '../../images/switchViewIcons/list-view.svg'
 import grid from '../../images/switchViewIcons/grid-view.svg'
 import listViewActive from '../../images/switchViewIcons/list-view-active.svg'
 import gridViewActive from '../../images/switchViewIcons/grid-view-active.svg'
-import { SwitchIcon } from './Switchicon'
-import styles from './Content.module.scss'
 
 export default interface Iprops {
   switchView: (e: string) => void
   view: string
-  history?: any
+  history: BreadcrumbItem[]
 }
 
-export const Contentheader: React.FunctionComponent<Iprops> = ({ history, switchView, view }) => {
+export const ContentHeader: React.FunctionComponent<Iprops> = ({ history, switchView, view }) => {
   return (
     <div className={styles.header}>
       <Breadcrumb history={history} />
       <div className={styles.left}>
-        <SwitchIcon switchView={switchView} nextView={'table'} icon={grid} activeicon={gridViewActive} view={view} />
-        <SwitchIcon switchView={switchView} nextView={'grid'} icon={list} activeicon={listViewActive} view={view} />
-        <SearchInput placeHolder={t`جستجو`} withSetting={true} />
+        <SwitchIcon switchView={switchView} nextView={'table'} icon={grid} activeIcon={gridViewActive} view={view} />
+        <SwitchIcon switchView={switchView} nextView={'grid'} icon={list} activeIcon={listViewActive} view={view} />
+        <div>
+          <SearchInput placeHolder={'جستجو'} withSetting={true} />
+        </div>
       </div>
     </div>
   )

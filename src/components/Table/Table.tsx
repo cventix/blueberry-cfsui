@@ -7,7 +7,6 @@ import Dropdown from '../ui-elements/Dropdown/Dropdown'
 import { EnhanceDropdown as enhancer } from '../ui-elements/Dropdown/EnhanceDropdown'
 
 import styles from './Table.module.scss'
-import { Link } from 'react-router-dom'
 
 const EnhancedDropdown = enhancer(Dropdown)
 
@@ -24,9 +23,11 @@ export default interface Iprops {
   optionSelected?: number
   position?: any
   dropDownData?: any
+  checkbox?: boolean
   onCheck?: any
   itemName?: string
-  stopPropagation?:any
+  data?: any
+  hasHeader?: boolean
 }
 export const Table: React.FunctionComponent<Iprops> = ({
   table,
@@ -36,28 +37,29 @@ export const Table: React.FunctionComponent<Iprops> = ({
   onSort,
   tabletView,
   onSelect,
-  stopPropagation,
   itemName,
   dropDownData,
   handleNavigate,
   optionSelected,
-  onCheck
+  checkbox,
+  onCheck,
+  hasHeader = true
 }) => {
   const header = [t`نام`, t`تاریخ`, t`مالک`, t`حجم`]
   return  (
     <table className={styles.table}>
-      <TableHeader
+     {hasHeader && <TableHeader
         titles={header}
         dropdown={dropdown}
         {...onCheckAll && { checkAll: checkAll, onCheckAll: onCheckAll }}
         onSort={onSort}
         tabletView={tabletView}
-      />
+      />}
       <tbody>
         {table &&
           table.map((item: any, i: number) => {
             return (
-              <tr key={item.id} >
+              <tr key={item.id}>
                 {Object.keys(item).map((k, i) => {
                   if (k !== 'type' && k !== 'id' && k !== 'fullPath' && k !== 'discriminator') {
                     return (
@@ -68,11 +70,10 @@ export const Table: React.FunctionComponent<Iprops> = ({
                         handleNavigate={k === 'name' && handleNavigate}
                         label={item[k]}
                         itemName={item.name}
-                        stopPropagation={stopPropagation}
                         onCheck={onCheck}
                         checkAll={checkAll}
                         className={k === 'name' ? ['show'] : [' ']}
-                        checkbox={k === 'name' ? true : false}
+                        checkbox={checkbox === false ? checkbox : k === 'name' ? true : false}
                         hasType={k === 'name' && item['type']}
                       />
                     )
@@ -95,5 +96,5 @@ export const Table: React.FunctionComponent<Iprops> = ({
           })}
       </tbody>
     </table>
-  ) 
+  )
 }

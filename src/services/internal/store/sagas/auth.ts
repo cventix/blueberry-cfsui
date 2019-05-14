@@ -33,3 +33,15 @@ export function* register(action: any) {
     yield put(actions.setLoadingState(false))
   }
 }
+
+export function* signout() {
+  
+  try {
+    yield auth.signout()
+    yield put(actions.setUserCredentials({ username: '' }))
+    yield storage.removeItem('token')
+   
+  } catch (err) {
+    yield put(actions.setLoadingState(false))
+  }
+}

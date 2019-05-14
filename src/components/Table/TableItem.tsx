@@ -19,7 +19,6 @@ export default interface Iprops {
   onCheck?: (id: number) => void
   handleNavigate?: any
   itemName?: string
-  stopPropagation?: any
 }
 
 export const splitter = (className: any) => {
@@ -37,21 +36,20 @@ export const TableItem: React.FunctionComponent<Iprops> = ({
   className,
   hasType,
   handleNavigate,
-  onCheckAll,
   checkAll,
   itemName,
-  onCheck,
-  
+  onCheck
 }) => {
+  console.log(onSort)
   return (
     <td data-label={name} className={className ? splitter(className) : ' '} {...sortable && { onClick: () => onSort(label, sortType) }}>
       <div className={'rowItem'}>
         {checkbox && (
           <div className={' rowItem'}>
-            <Checkbox onChange={() => onCheck && id && onCheck(id)} checked={checkAll}/>
+            <Checkbox onChange={() => onCheck && id && onCheck(id)} checked={checkAll} />
           </div>
         )}
-        <div className={'rowItem'} {...handleNavigate && { onClick: e => handleNavigate(e, itemName, id) }}>
+        <div className={'rowItem'} {...handleNavigate && { onClick: e => handleNavigate({ e: e, name: itemName, id: id }) }}>
           {hasType && <Icon mimetype={hasType} />}
           <div className={styles.name}>{label}</div>
         </div>

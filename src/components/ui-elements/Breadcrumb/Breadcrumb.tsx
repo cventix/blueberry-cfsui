@@ -4,7 +4,7 @@ import bigger from '../../../images/bigger.svg'
 
 import styles from './Breadcrumb.module.scss'
 
-interface BreadcrumbItem {
+export interface BreadcrumbItem {
   title: string
   link: string
   active?: boolean

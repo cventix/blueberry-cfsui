@@ -2,7 +2,7 @@ import * as React from 'react'
 import { TextInput } from '../../Input/Input'
 import { Button } from '../../Button/Button'
 
-import styles from '../CreateFolder.module.scss'
+import styles from '../CreateFolderModal/CreateFolder.module.scss'
 
 interface Iprops {
   value?: string

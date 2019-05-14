@@ -55,11 +55,17 @@ $height: 12px;
       transform: translateX($height * 0.6);
     }
   }
+<<<<<<< HEAD
 
   &.disabled {
     .knob {
       cursor: not-allowed;
       background: $disabled-dk-gray;
     }
+=======
+  to {
+    transform: translateX(5px);
+    box-shadow: -10px 0px 44px 0px #434343;
+>>>>>>> 2da39a3d94a81b52d12d9e6967e005d4bdb1b914
   }
 }

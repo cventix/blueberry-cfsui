@@ -16,8 +16,8 @@ class Routes extends React.Component<any> {
         <Switch>
           <Route path="/login" component={Login} />
           <Route path="/register" component={Register} />
-          <PrivateRoute authed={localStorage.getItem('token') ? true : false} path="/" component={App} />
-          <PrivateRoute authed={localStorage.getItem('token') ? true : false} path="/:foldername" component={App} />
+          <PrivateRoute isAuthenticated={this.props.isAuth ? true : false} path="/" component={App} />
+          <PrivateRoute isAuthenticated={this.props.isAuth ? true : false} path="/:foldername" component={App} />
         </Switch>
       </Router>
     )

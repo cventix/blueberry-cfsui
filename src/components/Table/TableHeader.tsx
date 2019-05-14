@@ -15,13 +15,14 @@ export default interface Iprops {
   tabletView?: boolean
 }
 
-export const TableHeader: React.SFC<Iprops> = ({ titles, dropdown, onSort, onCheckAll, tabletView }) => {
+export const TableHeader: React.FunctionComponent<Iprops> = ({ titles, dropdown, onSort, onCheckAll, tabletView }) => {
   const altIcon = 'Icon'
   return (
     <thead>
       {titles && (
         <tr>
           {titles.map((label: any, i: number) => {
+
             if (label !== 'type' && label !== 'id' && label !== 'fullPath') {
               return (
                 <TableItem
@@ -50,3 +51,4 @@ export const TableHeader: React.SFC<Iprops> = ({ titles, dropdown, onSort, onChe
     </thead>
   )
 }
+

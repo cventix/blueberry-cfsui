@@ -22,10 +22,11 @@ export default interface Iprops {
   onClickOverlay: () => void
   handleCFClose?: any
   showModal?: boolean
-  open: boolean
+  open: boolean,
+  onItemClick?: (e: any) => void
 }
 
-export const Sidebar: React.FunctionComponent<Iprops> = ({ createFolderModal, handleCFClose, showModal, onClickOverlay, open }: Iprops) => {
+export const Sidebar: React.FunctionComponent<Iprops> = ({ createFolderModal, handleCFClose, showModal, onClickOverlay, open, onItemClick }: Iprops) => {
   return (
     <aside className={open ? "sidebar open" : "sidebar"}>
       <div className="overlay" onClick={e => {e.preventDefault(); onClickOverlay()}}></div>
@@ -35,7 +36,7 @@ export const Sidebar: React.FunctionComponent<Iprops> = ({ createFolderModal, ha
             <IconLink icon={uploadIcon} iconAlt="upload icon" label={t`آپلود فایل`} />
           </Button>
           <IconLink icon={upFromUrlIcon} className="iconLink upFromUrl" iconAlt="upload icon" label={t`آپلود فایل از URL`} />
-          <ActionNav createFolderModal={createFolderModal} handleCFClose={handleCFClose} showModal={showModal}/>
+          <ActionNav onItemClick={onItemClick} />
           <Hr />
           <FileFiltering />
           <UpgradeAccount />
