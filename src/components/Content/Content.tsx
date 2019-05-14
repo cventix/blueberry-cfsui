@@ -166,36 +166,37 @@ class Content extends React.Component<IProps, IState> {
     this.setState({ width: window.innerWidth, height: window.innerHeight })
   }
 
-  // onSort = (sortBy: string, type?: string) => {
-  //   let table = this.state.table
-  //   switch (type) {
-  //     case 'alphabet':
-  //       table &&
-  //         table.sort((a: any, b: any) => {
-  //           if (a[sortBy] < b[sortBy]) {
-  //             return -1
-  //           }
-  //           if (a[sortBy] > b[sortBy]) {
-  //             return 1
-  //           }
-  //           return 0
-  //         })
-  //       break
-  //     default:
-  //       table &&
-  //         table.sort((a: any, b: any) => {
-  //           if (this.state[sortBy] !== 'ascending') {
-  //             this.setState({ [sortBy]: 'ascending' })
-  //             return a[sortBy] - b[sortBy]
-  //           } else {
-  //             this.setState({ [sortBy]: 'decending' })
-  //             return b[sortBy] - a[sortBy]
-  //           }
-  //         })
-  //   }
+  onSort = (sortBy: string, type?: string) => {
+    console.log('hi')
+    let table = this.state.table
+    switch (type) {
+      case 'alphabet':
+        table &&
+          table.sort((a: any, b: any) => {
+            if (a[sortBy] < b[sortBy]) {
+              return -1
+            }
+            if (a[sortBy] > b[sortBy]) {
+              return 1
+            }
+            return 0
+          })
+        break
+      default:
+        table &&
+          table.sort((a: any, b: any) => {
+            if (this.state[sortBy] !== 'ascending') {
+              this.setState({ [sortBy]: 'ascending' })
+              return a[sortBy] - b[sortBy]
+            } else {
+              this.setState({ [sortBy]: 'decending' })
+              return b[sortBy] - a[sortBy]
+            }
+          })
+    }
 
-  //   this.setState({ table })
-  // }
+    this.setState({ table })
+  }
 
   onCheckAll = () => {
     this.setState({ checkAll: !this.state.checkAll })
@@ -333,12 +334,13 @@ class Content extends React.Component<IProps, IState> {
     const history = [{ title: 'پوشه اصلی', link: '/', active: false }]
     if (this.props.location.pathname !== '/')
       history.push({ title: this.props.location.pathname.split('/'), link: this.props.location.pathname, active: true })
-    console.log(this.state.table)
+    console.log(this.props.auth.username)
     return !this.props.loading && this.state.table.length > 0 ? (
       <React.Fragment>
         <ContentHeader view={this.state.view} history={history} switchView={this.switchView} />
         <ContentBody
           view={this.state.view}
+          username={this.props.auth.username}
           width={this.state.width}
           table={this.state.table}
           dropDownData={dropDownData}
@@ -346,6 +348,7 @@ class Content extends React.Component<IProps, IState> {
           onSelect={this.onSelect}
           onCheckAll={this.onCheckAll}
           onCheck={this.onCheck}
+          onSort={this.onSort}
           handleNavigate={this.handleNavigate}
           checkAll={this.state.checkAll}
         />

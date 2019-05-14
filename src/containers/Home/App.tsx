@@ -19,18 +19,18 @@ import CFModal from '../../components/ui-elements/Modal/CreateFolderModal/Create
 // Services
 import { bottle } from '../../services'
 import { PayloadInterface } from '../../services/internal/store/reducers/authReducer'
-import { setUserCredentials, setToken, login, removeFolder } from '../../services/internal/store/actions'
+import { setUserCredentials, setToken, login, removeFolder, signout } from '../../services/internal/store/actions'
 import { DocumentsInterface } from '../../services/internal/repositories/documents'
 
 import Toast from '../../components/ui-elements/Toast/Toast'
 import { CountdownTimer } from '../../components/ui-elements/CountdownTimer/CountdownTimer'
 import { UploadModal } from '../../components/ui-elements/Uploadmodal/Uploadmodal'
-import  MoveFile  from '../../components/ui-elements/Modal/MoveFileModal.tsx/MoveFile'
+import MoveFile from '../../components/ui-elements/Modal/MoveFileModal.tsx/MoveFile'
 
 const steps = ['انتخاب سیستم عامل', 'انتخاب مدت سرویس', 'انتخاب طرح', 'اطلاعات کارت شبکه', 'انتخاب نام سرور و ثبت نهایی']
 const options = [{ value: 'chocolate', label: 'Chocolate' }, { value: 'strawberry', label: 'Strawberry' }, { value: 'vanilla', label: 'Vanilla' }]
 
-class App extends Component<{ login: any; setUserInfo: any; history?: any; selection?: any[]; removeFolder?: any }, {}> {
+class App extends Component<{ login: any; setUserInfo: any; history?: any; selection?: any[]; removeFolder?: any; signout?: any }, {}> {
   private _documents: DocumentsInterface
   constructor(props: any) {
     super(props)
@@ -89,8 +89,12 @@ class App extends Component<{ login: any; setUserInfo: any; history?: any; selec
       console.log('E: ', error)
     }
   }
+  handleSignOut = (e:any) => {
 
+    // this.props.signout()
+  }
   render() {
+  
     let modal
     switch (this.state.modal) {
       case 'createFolder':
@@ -116,6 +120,7 @@ class App extends Component<{ login: any; setUserInfo: any; history?: any; selec
 
     return (
       <div>
+        
         <Navbar />
         <Sidebar onItemClick={this.onItemClick} />
         <Main showModal={this.state.showModal}>
@@ -123,6 +128,7 @@ class App extends Component<{ login: any; setUserInfo: any; history?: any; selec
           <LangSwitcher />
         </Main>
         {modal}
+        
       </div>
     )
   }
@@ -132,7 +138,8 @@ const mapStateToProps = (state: any) => ({ document: state.document, selection: 
 
 const mapDispatchToProps = (dispatch: any) => {
   return {
-    removeFolder: (value: any) => dispatch(removeFolder(value))
+    removeFolder: (value: any) => dispatch(removeFolder(value)),
+    signout: () => dispatch(signout())
   }
 }
 

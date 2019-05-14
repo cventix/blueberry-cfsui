@@ -14,7 +14,7 @@ export default interface Iprops {
   tabletView?: boolean
 }
 
-export const TableHeader: React.SFC<Iprops> = ({ titles, dropdown, onSort, onCheckAll, tabletView }) => {
+export const TableHeader: React.FunctionComponent<Iprops> = ({ titles, dropdown, onSort, onCheckAll, tabletView }) => {
   const altIcon = 'Icon'
   return (
     <thead>

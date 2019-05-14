@@ -9,6 +9,9 @@ export const setToken = actionBuilder(actionTypes.SET_TOKEN, 'payload')
 
 export const register = actionBuilder(actionTypes.REGISTER, 'email', 'username', 'password')
 
+export const signout = actionBuilder(actionTypes.SIGNOUT)
+
+
 // export const forgetPassword = actionBuilder(actionTypes.FORGET_PASSWORD, 'mobile')
 
 // export const changePassword = actionBuilder(actionTypes.CHANGE_PASSWORD, 'mobile', 'resetCode', 'password', 'callback')
@@ -23,4 +26,3 @@ export const register = actionBuilder(actionTypes.REGISTER, 'email', 'username',
 
 // export const logout = actionBuilder(actionTypes.LOGOUT)
 
-// export const signout = actionBuilder(actionTypes.SIGNOUT)

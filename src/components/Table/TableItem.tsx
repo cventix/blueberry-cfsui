@@ -40,6 +40,7 @@ export const TableItem: React.FunctionComponent<Iprops> = ({
   itemName,
   onCheck
 }) => {
+  console.log(onSort)
   return (
     <td data-label={name} className={className ? splitter(className) : ' '} {...sortable && { onClick: () => onSort(label, sortType) }}>
       <div className={'rowItem'}>

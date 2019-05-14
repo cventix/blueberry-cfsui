@@ -15,13 +15,15 @@ export default interface Iprops {
   optionSelected?: number
   onSelect?: any
   onCheckAll?: any
+  onSort?: any
   onCheck?: any
   checkAll?: any
   checkbox?: boolean
   isMoveModal?: boolean
-  hasHeader?:boolean
+  hasHeader?: boolean
+  username?: string
 }
-const makeArray = (array: any) => {
+const makeArray = (array: any, username?: string) => {
   let table: any[] = []
   array.map((each: any) => {
     table.push({
@@ -31,7 +33,7 @@ const makeArray = (array: any) => {
       discriminator: each.discriminator,
       fullPath: each.fullPath,
       created_at: formatDate(each.createdAt),
-      owner: each.owner.displayName,
+      owner: username && each.owner.displayName === username ? 'خودم' : each.owner.displayName,
       size: each.size ? formatBytes({ bytes: each.size, lang: 'fa' }) : '---'
     })
   })
@@ -47,25 +49,36 @@ const makeSimpleArray = (array: any) => {
         type: each.genericType,
         name: each.name,
         discriminator: each.discriminator,
-        fullPath: each.fullPath,
+        fullPath: each.fullPath
       })
     }
   })
   return table
 }
 
-export const ContentBody: React.FunctionComponent<Iprops> = ({ view, width, dropDownData, handleNavigate, table, isMoveModal, ...rest }) => {
-  table = isMoveModal ? makeSimpleArray(table) : makeArray(table)
+export const ContentBody: React.FunctionComponent<Iprops> = ({
+  view,
+  width,
+  dropDownData,
+  handleNavigate,
+  username,
+  table,
+  isMoveModal,
+  onSort,
+  ...rest
+}) => {
+  table = isMoveModal ? makeSimpleArray(table) : makeArray(table, username)
   console.log(table)
   return view === 'table' && width && width < 768 ? (
-    <Grid sortable={true} dropDownData={dropDownData} checkbox={true} table={table} handleNavigate={handleNavigate} {...rest} />
+    <Grid sortable={true} dropDownData={dropDownData} onSort={onSort} checkbox={true} table={table} handleNavigate={handleNavigate} {...rest} />
   ) : view === 'table' ? (
-    <Grid sortable={true} dropDownData={dropDownData} checkbox={true} table={table} handleNavigate={handleNavigate} {...rest} />
+    <Grid sortable={true} dropDownData={dropDownData} onSort ={onSort} checkbox={true} table={table} handleNavigate={handleNavigate} {...rest} />
   ) : (
     <Table
       dropdown={true}
       tabletView={width && width < 768 ? true : false}
       dropDownData={dropDownData}
+      onSort={onSort}
       handleNavigate={handleNavigate}
       table={table}
       {...rest}
