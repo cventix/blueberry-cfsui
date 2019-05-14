@@ -119,8 +119,12 @@ $margin-top: -20px;
 
 body:lang(en) {
   .dropdownBox {
+    text-align: right;
+
     .dropdown {
       text-align: left;
+      right: 0;
+      left: auto;
     }
   }
 }
