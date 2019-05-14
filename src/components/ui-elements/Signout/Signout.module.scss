@@ -1,22 +1,40 @@
 @import '../../../styles/global';
 
+@keyframes up-opacity {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
 .signout {
+	display: none;
 	position: absolute;
 	top: 55px;
 	left: 27px;
 	width: 210px;
 	list-style: none;
 	background: #fff;
+	opacity: 0;
 	@include box-shadow(0px 8px 16px 0px rgba(0,0,0,0.2));
 	@include border-radius($br-radius-sm);
 
+	&.open {
+		display: block;
+		opacity: 1;
+		animation: up-opacity 400ms;
+	}
+
 	@media(max-width: $tablet) {
 		top: 63px;
+		left: 14px;
 	}
 
 	&:before {
 		position: absolute;
-		top: -3px;
+		top: -4px;
 		left: 14px;
 		content: '';
 		width: 8px;
@@ -24,10 +42,6 @@
 		background: $modal-header;
 		@include border-radius(1px);
 		@include transform(rotate(134deg));
-
-		@media(max-width: $tablet) {
-			top: -4px;
-		}
 	}
 
 	li {
@@ -66,8 +80,12 @@ body:lang(en) {
 		left: auto;
 
 		&:before {
-			right: 14px;
+			right: 26px;
 			left: auto;
+
+			@media(max-width: $tablet) {
+				right: 14px;
+			}
 		}
 
 		li {

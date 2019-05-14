@@ -33,6 +33,7 @@ class App extends Component<{ login: any; setUserInfo: any; history?: any }, {}>
   }
   state = {
     isOpenMenu: false,
+    isOpenSignout: false,
     showcFmodal: false,
     showModal: false,
     prevProps: '',
@@ -73,12 +74,22 @@ class App extends Component<{ login: any; setUserInfo: any; history?: any }, {}>
     this.setState({
       isOpenMenu: !this.state.isOpenMenu
     })
+  }  
+
+  toggleSignout() {
+    this.setState({
+      isOpenSignout: !this.state.isOpenSignout
+    })
   }
 
   render() {
     return (
       <div>
-        <Navbar toggleHamburgerMenu={() => {this.toggleHamburgerMenu()}}/>
+        <Navbar 
+          toggleHamburgerMenu={() => {this.toggleHamburgerMenu()}} 
+          toggleSignout={() => {this.toggleSignout()}}
+          open={this.state.isOpenSignout}
+        />
         <Sidebar 
           createFolderModal={this.createFolderModal} 
           showModal={this.state.showcFmodal} 

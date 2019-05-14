@@ -10,7 +10,6 @@
 		}
 
 		.menuWrapper {
-			top: $navbar-height + 10;
 			right: 0;
 		}
 	}
@@ -42,6 +41,7 @@
 
 		@media(max-width: $tablet) {
 			right: -($sidebar-width);
+			top: $navbar-height + 10;
 		}
 
 		.menu {

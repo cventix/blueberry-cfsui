@@ -1,6 +1,5 @@
 @import '../../../styles//global.scss';
 $header-height: 45px;
-$best-number: 23px;
 
 @keyframes popout {
   from {
@@ -34,16 +33,23 @@ $best-number: 23px;
   opacity: 0;
 
   .modalMain {
-    @include box-shadow(0 5px 15px 0 rgba(0, 0, 0, 0.1));
-    @include transform(translate(-50%, -50%));
     position: fixed;
-    background: white;
-    z-index: 1000;
-    min-width: $best-number * 10;
-    height: auto;
-    border-radius: 3px;
     top: 50%;
     left: 50%;
+    background: #fff;
+    height: auto;
+    z-index: 1000;
+    @include border-radius($br-radius-sm);
+    @include box-shadow(0 5px 15px 0 rgba(0, 0, 0, 0.1));
+    @include transform(translate(-50%, -50%));
+
+    @media(min-width: $mobile + 1) and (max-width: $tablet - 128) {
+      width: 375px $important;
+    }    
+
+    @media(max-width: $mobile) {
+      width: 320px $important;
+    }
   }
 
   .header {
@@ -53,7 +59,7 @@ $best-number: 23px;
     justify-content: space-between;
     height: $header-height;
     background: $modal-header;
-    margin-bottom: $best-number;
+    margin-bottom: 23px;
 
     .title {
       @include flex(row, wrap);
@@ -73,6 +79,10 @@ $best-number: 23px;
     .closeIcon {
       width: 10px;
     }
+  }
+
+  .body {
+    padding: 0 14px;
   }
 }
 .displayBlock {

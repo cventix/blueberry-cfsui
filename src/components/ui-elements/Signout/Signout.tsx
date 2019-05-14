@@ -11,11 +11,12 @@ import styles from './Signout.module.scss'
 
 export default interface Iprops {
 	username: string;
+	open: boolean
 }
 
-export const Signout : React.FunctionComponent<Iprops> = ({ username })=>{
+export const Signout : React.FunctionComponent<Iprops> = ({ username, open })=>{
 	return (
-		<ul className={styles.signout}>
+		<ul className={open ? `${styles.signout} ${styles.open}` : `${styles.signout}`}>
 			<li>
 				<span>{username}</span>
 			</li>

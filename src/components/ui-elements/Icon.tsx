@@ -18,7 +18,7 @@ export default interface Iprops {
 }
 
 export const Icon = ({ src, alt, className = 'icon', style, mimetype }: Iprops) => (
-  <img src={mimetype ? renderIconSrc(mimetype) : src} alt={alt} className={className} style={style} />
+  <img src={mimetype ? renderIconSrc(mimetype) : src} alt={alt} className={className} style={style}/>
 )
 
 const renderIconSrc = (mimetype: string) => {

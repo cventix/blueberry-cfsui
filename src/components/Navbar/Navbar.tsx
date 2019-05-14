@@ -22,12 +22,14 @@ import './Navbar.scss'
 
 export default interface Iprops {
   toggleHamburgerMenu: () => void
+  toggleSignout: () => void
+  open: boolean
 }
 
-export const Navbar: React.FunctionComponent<Iprops> = ({ toggleHamburgerMenu }: Iprops) => {
+export const Navbar: React.FunctionComponent<Iprops> = ({ toggleHamburgerMenu, toggleSignout, open }: Iprops) => {
   const altIcon = 'Icon'
   return (
-    <div className="navbar">
+    <nav className="navbar">
       <div className="right">
         <a onClick={e => {e.preventDefault(); toggleHamburgerMenu()}} className="menuWrapper">
           <Icon src={menu} className="menu" alt={`menu ${altIcon}`} />
@@ -47,9 +49,9 @@ export const Navbar: React.FunctionComponent<Iprops> = ({ toggleHamburgerMenu }:
           <IconLink icon={financeIcon} className="iconLink webIcon" iconAlt={`Finance ${altIcon}`} />
           <IconLink icon={statusIcon} className="iconLink status" iconAlt={`Status ${altIcon}`} />
 
-          <Avatar />
+          <Avatar toggleSignout={() => {toggleSignout()}} open={open}/>
         </div>
       </div>
-    </div>
+    </nav>
   )
 }

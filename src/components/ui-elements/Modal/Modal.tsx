@@ -27,8 +27,9 @@ export const Modal: React.FunctionComponent<Iprops> = props => {
             {/* <span className={styles.closeIcon}>+</span> */}
           </button>
         </div>
-
-        {props.children}
+        <div className={styles.body}>
+          {props.children}
+        </div>
       </section>
     </div>
   )

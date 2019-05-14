@@ -13,11 +13,11 @@ export const FileFiltering = ({}: Iprops) => {
 	return (
 		<div className={styles.fileFiltering}>
 			<div className={styles.option}>
-				<Toggle className="toggle-sm" checked={false} />
+				<Toggle checked={false} />
 				<span className={styles.text}>{t`به اشتراک گذاشته‌ شده‌ها`}</span>
 			</div>
 			<div className={styles.option}>
-				<Toggle className="toggle-sm"  checked={true} />
+				<Toggle checked={true}/>
 				<span className={styles.text}>{t`نمایش حذف شده‌ها`}</span>
 			</div>
 		</div>

@@ -1,102 +1,65 @@
 @import "../../../styles/global.scss";
 
-$height: 24px;
-$width: 40px;
+$width: 20px;
+$height: 12px;
 
 .switch {
   position: relative;
   display: inline-block;
-  cursor: pointer;
   width: $width;
   height: $height;
   vertical-align: middle;
+
   input[type="checkbox"] {
     display: none;
   }
-  input:checked + .knob {
-    animation: colorChange 0.4s linear forwards;
-  }
-  input:checked + .knob:before {
-    animation: turnON 0.4s linear forwards;
-  }
-}
 
-.toggle-sm {
-  .switch {
-    $width: $width / 2;
-    $height: $height / 2;
-    width: $width;
-    height: $height;
-    .knob:before {
-      left: -$height * 0.48;
+  .knob {
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    background-color: $disabled-lt-gray;
+    cursor: pointer;
+    @include transition(all 0.4s);
+    @include border-radius($height);
+
+    &:before {
+      content: "";
+      position: absolute;
       top: $height * 0.2;
+      left: $height * 0.18;
       width: ($height * 0.6);
       height: ($height * 0.6);
+      background-color: #fff;
+      @include transition(all 0.4s);
+      @include border-radius(50%);
     }
   }
-}
-.knob {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: #ccc;
-  border-radius: $height;
-  :before {
-    position: absolute;
-    background-color: white;
-    content: "";
-    left: $height * 0.18;
-    top: $height * 0.2;
-    width: ($height * 0.6);
-    height: ($height * 0.6);
-    border-radius: 50%;
-  }
-}
 
-.knob:before {
-  position: absolute;
-  background-color: white;
-  content: "";
-  left: $height * 0.18;
-  top: $height * 0.2;
-  width: ($height * 0.6);
-  height: ($height * 0.6);
-  border-radius: 50%;
-}
-
-.gray {
-  position: relative;
-  display: inline-block;
-  opacity: 0.3;
-  width: $width;
-  height: $height;
-  input[type="checkbox"] {
-    display: none;
-  }
-  input:checked + .knob:before {
-    animation: turnON 0.4s linear forwards;
-  }
-}
-
-@keyframes colorChange {
-  from {
-    background-color: #ccc;
-  }
-  50% {
-    background-color: $lt-blue;
-  }
-  to {
+  input:checked + .knob {
     background-color: $dk-blue;
   }
-}
-@keyframes turnON {
-  from {
-    transform: translateX(0px);
+
+  input:checked + .knob:before {
+    transform: translateX($height * 0.6);
   }
-  to {
-    transform: translateX($width - ($height * 0.99));
-    box-shadow: -10px 0px 44px 0px #434343;
+
+  &.onDisabled {
+    .knob {
+      background-color: $disabled-lt-gray $important;
+    }
+
+    input:checked + .knob:before {
+      transform: translateX($height * 0.6);
+    }
+  }
+
+  &.disabled {
+    .knob {
+      cursor: not-allowed;
+      background: $disabled-dk-gray;
+    }
   }
 }

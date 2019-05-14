@@ -1,7 +1,8 @@
 @import "../../styles/global";
-@import "./Card//Card.module.scss";
+@import "./Card/Card.module.scss";
 
 $title-margin-bottom: 20px;
+
 .container {
   @include flex(row, wrap);
   position: relative;

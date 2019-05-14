@@ -8,15 +8,20 @@ import { Signout } from './Signout/Signout'
 import avatarIcon from '../../images/navbarIcons/avatar.svg'
 
 export default interface Iprops {
+  toggleSignout: () => void
   profileImg?: string
   alt?: string
+  open: boolean
 }
 
-export const Avatar = ({ profileImg, alt }: Iprops) => {
+export const Avatar = ({ profileImg, alt, toggleSignout, open }: Iprops) => {
 	return (
-		<div style={{ position: 'relative' }}>
-			<Icon src={profileImg ? profileImg : avatarIcon} alt="Avatar Image" className="avatar" />
-			<Signout username="آرزو علی پناه" />
+		<div onClick={e => {e.preventDefault(); toggleSignout()}}>
+			<Icon src={profileImg ? profileImg : avatarIcon} 
+				alt="Avatar Image" 
+				className="avatar" 
+			/>
+			<Signout username="آرزو علی پناه" open={open}/>
 		</div>
 	)
 }
