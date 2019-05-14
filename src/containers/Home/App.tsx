@@ -143,6 +143,7 @@ class App extends Component<{ login: any; setUserInfo: any; history?: any; selec
         />
         <Sidebar
           showModal={this.state.showcFmodal}
+          onItemClick={this.onItemClick}
           handleCFClose={this.handleCFClose}
           open={this.state.isOpenMenu}
           onClickOverlay={() => {

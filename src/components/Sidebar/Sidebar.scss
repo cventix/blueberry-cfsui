@@ -24,7 +24,7 @@
 		background: #000;
 		opacity: 0.5;
 		cursor: pointer;
-		z-index: 1949;
+		z-index: 949;
 	}
 
 	.menuWrapper {
@@ -36,7 +36,7 @@
 		opacity: 0.99;
 		right: 0;
 		left: auto;
-		z-index: 1950;
+		z-index: 950;
 		@include transition(right .35s ease-out);
 
 		@media(max-width: $tablet) {

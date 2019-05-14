@@ -1,4 +1,5 @@
 import React, { FunctionComponent } from 'react'
+import { t } from 'ttag'
 import { Breadcrumb, BreadcrumbItem } from '../ui-elements/Breadcrumb/Breadcrumb'
 import { SearchInput } from '../ui-elements/SearchInput/SearchInput'
 import { SwitchIcon } from './SwitchIcon'
@@ -26,7 +27,7 @@ export const ContentHeader: React.FunctionComponent<Iprops> = ({ history, switch
         <SwitchIcon switchView={switchView} nextView={'table'} icon={grid} activeIcon={gridViewActive} view={view} />
         <SwitchIcon switchView={switchView} nextView={'grid'} icon={list} activeIcon={listViewActive} view={view} />
         <div>
-          <SearchInput placeHolder={'جستجو'} withSetting={true} />
+          <SearchInput placeHolder={t`جستجو`} withSetting={true} />
         </div>
       </div>
     </div>
