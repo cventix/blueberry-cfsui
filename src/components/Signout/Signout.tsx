@@ -2,11 +2,11 @@ import * as React from 'react'
 import { t } from 'ttag'
 
 // ui-elements
-import { IconLink } from '../IconLink'
+import { IconLink } from '../ui-elements/IconLink'
 
 // styles & icons
-import profile from '../../../images/profileIcons/profile.svg'
-import signout from '../../../images/signout.svg'
+import profile from '../../images/profileIcons/profile.svg'
+import signout from '../../images/signout.svg'
 import styles from './Signout.module.scss'
 
 export default interface Iprops {

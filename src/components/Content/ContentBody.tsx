@@ -44,6 +44,7 @@ const makeArray = (array: any, username?: string) => {
   })
   return table
 }
+
 const makeSimpleArray = (array: any) => {
   let table: any[] = []
 

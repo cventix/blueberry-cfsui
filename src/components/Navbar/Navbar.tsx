@@ -2,6 +2,7 @@
 // TODO: current page has current classname
 
 import * as React from 'react'
+import { NavLink } from 'react-router-dom';
 import { t } from 'ttag'
 
 // ui-elements
@@ -38,9 +39,15 @@ export const Navbar: React.FunctionComponent<Iprops> = ({ toggleHamburgerMenu, t
           <Icon src={logo} className="logo" alt="pg-logo" />
         </a>
         <div className="nav">
-          <IconLink icon={fileCloudIcon} className="iconLink current" iconAlt={`File-cloud ${altIcon}`} label={t`میزبانی‌فایل`} />
-          <IconLink icon={vpsIcon} iconAlt={`vps ${altIcon}`} label={t`سرور و هاست`} />
-          <IconLink icon={internetIcon} iconAlt={`Internet ${altIcon}`} label={t`اینترنت`} />
+          <NavLink to={`/`} className="item" activeClassName="current">
+            <IconLink icon={fileCloudIcon} iconAlt={`File-cloud ${altIcon}`} label={t`میزبانی‌فایل`} />
+          </NavLink>
+          <NavLink to={`/vm`} className="item" activeClassName="current">
+            <IconLink icon={vpsIcon} iconAlt={`vps ${altIcon}`} label={t`سرور و هاست`} /> 
+          </NavLink>
+          <NavLink to={`/`} className="item" activeClassName="current">
+            <IconLink icon={internetIcon} iconAlt={`Internet ${altIcon}`} label={t`اینترنت`} />
+          </NavLink>
         </div>
       </div>
       <div className="left">
@@ -48,7 +55,6 @@ export const Navbar: React.FunctionComponent<Iprops> = ({ toggleHamburgerMenu, t
           <IconLink icon={notifIcon} className="iconLink webIcon hasNotif" iconAlt={`Notif ${altIcon}`} />
           <IconLink icon={financeIcon} className="iconLink webIcon" iconAlt={`Finance ${altIcon}`} />
           <IconLink icon={statusIcon} className="iconLink status" iconAlt={`Status ${altIcon}`} />
-
           <Avatar toggleSignout={() => {toggleSignout()}} open={open}/>
         </div>
       </div>

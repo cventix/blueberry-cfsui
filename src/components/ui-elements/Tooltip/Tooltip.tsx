@@ -11,15 +11,16 @@ export default interface Iprops {
   height?: number
 }
 
-//todo position handling
 export const Tooltip: React.FunctionComponent<Iprops> = props => {
   return (
-    <div className={[styles.tooltip, props.position === 'bottom' && styles.columnReverse].join(' ')}>
-      <div className={styles.flex}>{props.children}</div>
-      <div className={styles.text}>
-        <span style={{ width: props.width, height: props.height }} className={[styles.text, props.position && styles[props.position]].join(' ')}>
-          {props.text}
-        </span>
+    <div className={[styles.tooltip, props.position === 'top' 
+    && styles.top, props.position === 'left' 
+    && styles.left, props.position === 'right' 
+    && styles.right ].join(' ')}>
+      <div className={styles.hasTooltip}>{props.children}</div>
+      <div style={{ width: props.width, height: props.height }} 
+        className={[styles.text, props.position && styles[props.position]].join(' ')}>
+        {props.text}
       </div>
     </div>
   )

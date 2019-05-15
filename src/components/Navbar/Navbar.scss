@@ -73,22 +73,24 @@ $img-size: 30px;
 				display: none;
 			}
 
-			.iconLink {
+			.item {
 				margin-left: $default-margin;
 
-				span {
-					color: $dk-gray;
-					margin-right: 5px;
+				.iconLink {
+					span {
+						color: $dk-gray;
+						margin-right: 5px;
+					}
+				}
+
+				&:first-child {
+					margin-right: $default-margin - 5;
 				}
 
 				&.current {
 					span {
 						font-family: $medium-font;
 					}
-				}
-
-				&:first-child {
-					margin-right: $default-margin - 5;
 				}
 			}
 		}

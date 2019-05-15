@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
+import { Route, Switch } from 'react-router-dom';
 
 import { Navbar } from '../../components/Navbar/Navbar'
 import { Sidebar } from '../../components/Sidebar/Sidebar'
@@ -10,6 +11,7 @@ import './App.css'
 import styles from '../../components/Content/Content.module.scss'
 
 import Content from '../../components/Content/Content'
+import { FmContent } from '../../components/FmContent/FmContent'
 import { Table } from '../../components/Table/Table'
 import { Modal } from '../../components/ui-elements/Modal/Modal'
 import { Preview } from '../../components/ui-elements/Preview/Preview'
@@ -151,7 +153,18 @@ class App extends Component<{ login: any; setUserInfo: any; history?: any; selec
           }}
         />
         <Main showModal={this.state.showModal}>
-          <Content />
+          <Switch>
+            <Route
+              exact
+              path={`/`}
+              component={Content}  
+            />
+            <Route
+              exact
+              path={`/vm`}
+              component={FmContent} 
+            />
+          </Switch>
         </Main>
         {modal}
       </div>

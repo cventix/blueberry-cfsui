@@ -285,9 +285,9 @@ class Content extends React.Component<IProps, IState> {
   }
 
   // handle search
-  onChangeSearchInput = (e: string) => {
+  onChangeSearchInput = (val: string) => {
     let filteredTable = this.state.table.filter((obj: any) => {
-      return obj.cfsFullPath.includes(e);
+      return obj.cfsFullPath.includes(val);
     });
 
     this.setState({

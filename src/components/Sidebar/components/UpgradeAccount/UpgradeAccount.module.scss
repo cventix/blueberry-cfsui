@@ -11,6 +11,17 @@
 	cursor: pointer;
 	@include border-radius($br-radius-sm);
 
+	&.forVM {
+		height: 87px;
+		padding: 9px 15px 0 15px;
+		margin-top: 94px;
+		border: 0.5px solid #ddd;
+
+		.deleteQus {
+			color: $lt-blue;
+		}
+	}
+
 	.percent, .deleteQus {
 		font-family: $light-font;
 	}

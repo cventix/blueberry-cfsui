@@ -1,9 +1,9 @@
 import React from 'react'
 import { Route, BrowserRouter as Router, Switch } from 'react-router-dom'
-import App from './containers/Home/App'
-import Login from './containers/Authentication/Login/Login'
 import { connect } from 'react-redux'
 import { PrivateRoute } from './components/PrivateRoute/PrivateRoute'
+import App from './containers/Home/App'
+import Login from './containers/Authentication/Login/Login'
 import Register from './containers/Authentication/Register/Register'
 
 class Routes extends React.Component<any> {
@@ -17,6 +17,7 @@ class Routes extends React.Component<any> {
           <Route path="/login" component={Login} />
           <Route path="/register" component={Register} />
           <PrivateRoute isAuthenticated={this.props.isAuth ? true : false} path="/" component={App} />
+          <PrivateRoute isAuthenticated={this.props.isAuth ? true : false} path="/vm" component={App} />
           <PrivateRoute isAuthenticated={this.props.isAuth ? true : false} path="/:foldername" component={App} />
         </Switch>
       </Router>

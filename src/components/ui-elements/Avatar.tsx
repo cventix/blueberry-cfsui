@@ -2,7 +2,7 @@ import * as React from 'react'
 
 // ui-elements
 import { Icon } from './Icon'
-import { Signout } from './Signout/Signout'
+import { Signout } from '../Signout/Signout'
 
 // icon
 import avatarIcon from '../../images/navbarIcons/avatar.svg'
