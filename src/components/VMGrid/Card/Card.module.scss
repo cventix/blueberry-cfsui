@@ -1,0 +1,10 @@
+@import '../../../styles/global.scss';
+
+.item {
+	min-width: 220px;
+	height: 180px;
+	background-color: #fff;
+	@include border-radius($br-radius-sm);
+	@include box-shadow(0 1px 3px 0 rgba(0, 0, 0, 0.05));
+	border: solid 1px #e5e5e5;
+}
