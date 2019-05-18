@@ -2,7 +2,8 @@ import { takeEvery, all, takeLatest } from 'redux-saga/effects'
 
 import { actionTypes } from '../actions/types'
 import { login, register, signout } from './auth'
-import { getDocuments, createFolder, renameFolder, moveDocuments, shareDocuments, removeFolder } from './documents'
+import { getDocuments, createFolder, renameFolder, moveDocuments, shareDocuments, removeFolder, getTrashDocuments } from './documents'
+import { getSharedDocuments } from '../actions/documents';
 
 // import { getUserInfo } from './user'
 
@@ -23,6 +24,8 @@ function* watchDocuments() {
   yield takeEvery(actionTypes.REMOVE_FOLDER, removeFolder)
   yield takeEvery(actionTypes.SHARE_DOCUMENTS, shareDocuments)
   yield takeEvery(actionTypes.MOVE_DOCUMENTS, moveDocuments)
+  yield takeEvery(actionTypes.GET_TRASH_DOCUMENTS, getTrashDocuments)
+  yield takeEvery(actionTypes.GET_SHARED_DOCUMENTS, getSharedDocuments)
 }
 
 export function* rootSaga() {
