@@ -7,7 +7,7 @@ import { Button } from '../../ui-elements/Button/Button'
 import { IconLink } from '../../ui-elements/IconLink'
 
 // icons
-import uploadIcon from '../../../images/upload.svg'
+import upgradeIcon from '../../../images/vmIcons/upgrade.svg'
 import upFromUrlIcon from '../../../images/sidebarIcons/upfromurl.svg'
 
 // internal components & styles
@@ -25,7 +25,7 @@ export const VM: React.FunctionComponent<Iprops> = ({ onItemClick }) => {
   return (
     <div className="menu">
       <Button className={['btnSuccess0', 'btnLg']} style={{ marginBottom: '15px' }}>
-        <IconLink icon={uploadIcon} iconAlt="upload icon" label={t`خرید سرور جدید`}/>
+        <IconLink icon={upgradeIcon} iconAlt="upload icon" label={t`خرید سرور جدید`}/>
       </Button>
       <IconLink icon={upFromUrlIcon} className="iconLink upFromUrl" iconAlt="upload icon" label={t`آپلود فایل از URL`}/>
       <ActionNav onItemClick={onItemClick}/>

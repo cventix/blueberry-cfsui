@@ -11,7 +11,7 @@ import './App.css'
 import styles from '../../components/Content/Content.module.scss'
 
 import Content from '../../components/Content/Content'
-import { FmContent } from '../../components/FmContent/FmContent'
+import VMContent from '../../components/VMContent/VMContent'
 import { Table } from '../../components/Table/Table'
 import { Modal } from '../../components/ui-elements/Modal/Modal'
 import { Preview } from '../../components/ui-elements/Preview/Preview'
@@ -133,7 +133,7 @@ class App extends Component<{ login: any; setUserInfo: any; history?: any; selec
     }
 
     return (
-      <div>
+      <>
         <Navbar
           toggleHamburgerMenu={() => {
             this.toggleHamburgerMenu()
@@ -162,12 +162,12 @@ class App extends Component<{ login: any; setUserInfo: any; history?: any; selec
             <Route
               exact
               path={`/vm`}
-              component={FmContent} 
+              component={VMContent} 
             />
           </Switch>
         </Main>
         {modal}
-      </div>
+      </>
     )
   }
 }

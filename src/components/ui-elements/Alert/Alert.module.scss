@@ -1,0 +1,48 @@
+@import '../../../styles/global.scss';
+
+.alert {
+	position: relative;
+	@include flex(row, wrap);
+	justify-content: space-between;
+	align-items: center;
+	padding: 0 12px;
+
+	img {
+		width: 16px;
+		height: 16px;
+		cursor: pointer;
+	}
+
+	&.red {
+		color: $red;
+		border: 1px solid $red;
+		background-color: #fedfdf;
+	}
+
+	&.blue {
+		color: $dk-blue;
+		border: 1px solid $lt-blue;
+		background-color: rgba(75, 156, 253, 0.03);
+	}
+
+	&.green {
+		color: #19b444;
+		border: 1px solid $green;
+		background-color: rgba(33, 211, 82, 0.1);
+	}
+
+	&.sm {
+		height: $default-height;
+		line-height: $default-height;
+		@include border-radius(20px);
+		text-align: center;
+	}
+
+	&.lg {
+		width: 100%;
+		height: 50px;
+		line-height: 50px;
+		font-size: $font-size - 2;
+		@include border-radius($br-radius-sm)
+	}
+}
