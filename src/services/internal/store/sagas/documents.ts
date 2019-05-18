@@ -14,9 +14,19 @@ export function* getDocuments(action: any) {
     yield put(actions.setLoadingState(true))
     let data = yield documents.getDocuments(folderInfo)
     if (folderInfo && folderInfo.isChildren === true) data = data.children
-  
-   yield put(actions.setDocuments(data))
-  
+
+    yield put(actions.setDocuments(data))
+
+    yield put(actions.setLoadingState(false))
+  } catch (err) {
+    yield put(actions.setLoadingState(false))
+  }
+}
+export function* getTrashDocuments(action: any) {
+  try {
+    yield put(actions.setLoadingState(true))
+    let data = yield documents.getTrashDocuments()
+    yield put(actions.setDocuments(data))
     yield put(actions.setLoadingState(false))
   } catch (err) {
     yield put(actions.setLoadingState(false))

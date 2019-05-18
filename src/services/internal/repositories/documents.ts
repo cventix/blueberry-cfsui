@@ -26,6 +26,10 @@ export interface IShareDocumentsInput {
   documentIds: Array<number>
   userEmails: Array<string>
 }
+export interface IUrlUploadInput {
+  parentId?: number
+  path?: string
+}
 
 export interface DocumentsInterface {
   getDocuments(input?: IGetDocumentsInput): Promise<object>
@@ -45,6 +49,33 @@ class Documents implements DocumentsInterface {
     const url = `/rest/documents${isChildren ? '/children' : ''}?sort=+discriminator,+name${isChildren ? `&path=${path}` : ''}`
     try {
       return await this._rest.get({ url, headers })
+    } catch (error) {
+      throw error
+    }
+  }
+
+  async getTrashDocuments({ headers }: IGetDocumentsInput = {}) {
+    const url = `/rest/documents/trash?sort=+discriminator,+name`
+    try {
+      return await this._rest.get({ url, headers })
+    } catch (error) {
+      throw error
+    }
+  }
+  async getSharedDocuments({ headers }: IGetDocumentsInput = {}) {
+    const url = `/rest/sharedwithme?sort=+discriminator,+name`
+    try {
+      return await this._rest.get({ url, headers })
+    } catch (error) {
+      throw error
+    }
+  }
+
+  async urlUpload({ path, parentId = 0 }: IUrlUploadInput) {
+    const url = `/rest/upload/url`
+    let body = { body: `url=${path}&path-id=${parentId}&token=${localStorage.getItem('token')}&dlc=false&` }
+    try {
+      return await this._rest.post({ url, body })
     } catch (error) {
       throw error
     }
