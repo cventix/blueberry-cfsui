@@ -1,0 +1,19 @@
+@import '../../../../../styles/global.scss';
+
+.control {
+	button {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		width: $default-height;
+		height: $default-height;
+		@include border-radius(3px);
+		background-image: linear-gradient(to top, #f7f7f7, #ffffff);
+		border: solid 1px #e6e6e6;
+	}
+}
+
+.MultipleControl {
+	@include flex(row, wrap);
+	justify-content: space-between;
+}
