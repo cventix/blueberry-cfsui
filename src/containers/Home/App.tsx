@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { Route, Switch } from 'react-router-dom';
+import { Route, Switch } from 'react-router-dom'
 
 import { Navbar } from '../../components/Navbar/Navbar'
 import { Sidebar } from '../../components/Sidebar/Sidebar'
@@ -20,7 +20,15 @@ import CFModal from '../../components/ui-elements/Modal/CreateFolderModal/Create
 // Services
 import { bottle } from '../../services'
 import { PayloadInterface } from '../../services/internal/store/reducers/authReducer'
-import { setUserCredentials, setToken, login, removeFolder, signout, getTrashDocuments } from '../../services/internal/store/actions'
+import {
+  setUserCredentials,
+  setToken,
+  login,
+  removeFolder,
+  signout,
+  getTrashDocuments,
+  getSharedDocuments
+} from '../../services/internal/store/actions'
 import { DocumentsInterface } from '../../services/internal/repositories/documents'
 
 import Toast from '../../components/ui-elements/Toast/Toast'
@@ -31,13 +39,13 @@ import MoveFile from '../../components/ui-elements/Modal/MoveFileModal.tsx/MoveF
 const steps = ['انتخاب سیستم عامل', 'انتخاب مدت سرویس', 'انتخاب طرح', 'اطلاعات کارت شبکه', 'انتخاب نام سرور و ثبت نهایی']
 const options = [{ value: 'chocolate', label: 'Chocolate' }, { value: 'strawberry', label: 'Strawberry' }, { value: 'vanilla', label: 'Vanilla' }]
 
-class App extends Component<{ login: any; setUserInfo: any; history?: any; selection?: any[]; removeFolder?: any; getTrashDocuments?: any }, {}> {
+class App extends Component<{ login: any; setUserInfo: any; history?: any; selection?: any[]; removeFolder?: any; getTrashDocuments?: any ,getSharedDocuments?: any}, {}> {
   private _documents: DocumentsInterface
   constructor(props: any) {
     super(props)
     this._documents = bottle.container.Documents
   }
- 
+
   state = {
     isOpenMenu: false,
     isOpenSignout: false,
@@ -59,23 +67,35 @@ class App extends Component<{ login: any; setUserInfo: any; history?: any; selec
   }
 
   onItemClick = (e: any) => {
-    switch (e.target.textContent) {
-      case 'پوشه جدید':
-        this.setState({ modal: 'createFolder', showModal: true })
-        break
-      case 'انتقال':
-        this.setState({ modal: 'moveFile', showModal: true })
-        break
-      case 'حذف':
-        this.setState({ modal: 'remove', showModal: true })
-        this.timer = setTimeout(() => {
-          this.onRemoveDocument()
-          this.timer = 0
-        }, this.countDownTime)
+    console.log(e.target.value)
+    if (e.target.textContent) {
+      switch (e.target.textContent) {
+        case 'پوشه جدید':
+          this.setState({ modal: 'createFolder', showModal: true })
+          break
+        case 'انتقال':
+          this.setState({ modal: 'moveFile', showModal: true })
+          break
+        case 'حذف':
+          this.setState({ modal: 'remove', showModal: true })
+          this.timer = setTimeout(() => {
+            this.onRemoveDocument()
+            this.timer = 0
+          }, this.countDownTime)
 
-        break
-      default:
-        break
+          break
+        default:
+          break
+      }
+    } else {
+      switch (e.target.value) {
+        case 'نمایش حذف شده‌ها':
+          this.props.getTrashDocuments()
+          break
+        case `به اشتراک گذاشته‌ شده‌ها`:
+          this.props.getSharedDocuments()
+          break
+      }
     }
   }
   onCancle = () => {
@@ -155,16 +175,8 @@ class App extends Component<{ login: any; setUserInfo: any; history?: any; selec
         />
         <Main showModal={this.state.showModal}>
           <Switch>
-            <Route
-              exact
-              path={`/`}
-              component={Content}  
-            />
-            <Route
-              exact
-              path={`/vm`}
-              component={VMContent} 
-            />
+            <Route path={`/fm`} component={Content} />
+            <Route exact path={`/vm`} component={VMContent} />
           </Switch>
         </Main>
         {modal}
@@ -179,7 +191,8 @@ const mapDispatchToProps = (dispatch: any) => {
   return {
     removeFolder: (value: any) => dispatch(removeFolder(value)),
     signout: () => dispatch(signout()),
-    getTrashDocuments: ()=>dispatch(getTrashDocuments())
+    getTrashDocuments: () => dispatch(getTrashDocuments()),
+    getSharedDocuments: () => dispatch(getSharedDocuments())
   }
 }
 

@@ -105,17 +105,19 @@ class Content extends React.Component<IProps, IState> {
   async componentDidMount() {
     this.updateWindowDimensions()
     window.addEventListener('resize', this.updateWindowDimensions)
-    if (this.props.location.pathname === '/') {
+    console.log(this.props.location.pathname)
+    if (this.props.location.pathname === '/fm') {
       this.onGetDocument(false)
       this.setState({ table: this.props.data })
     } else {
-      this.onGetDocument(true, this.props.location.pathname)
+      console.log('jo')
+      this.onGetDocument(true, this.props.location.pathname.split('/fm/')[1])
     }
   }
 
   /**back button */
   componentDidUpdate(prevProps: any, prevState: any) {
-    if (this.props.location.pathname !== prevProps.location.pathname && this.props.location.pathname === '/') {
+    if (this.props.location.pathname !== prevProps.location.pathname && this.props.location.pathname === '/fm') {
       this.onGetDocument(false)
     }
   }
@@ -150,13 +152,14 @@ class Content extends React.Component<IProps, IState> {
       mainTable: nextProps.document.documents,
       filteredTable: this.state.table
     })
+    if (nextProps.document.document < 10) this.setState({ showMore: false })
   }
 
   // show more button function
   showMore = () => {
-    console.log(this.state.mainTable)
+    console.log(sliceData({ array: this.state.mainTable, choppedArray: this.state.table }))
     this.setState({
-      table: sliceData({ array: this.state.mainTable, choppedArray: this.state.table }),
+      filteredTable: sliceData({ array: this.state.mainTable, choppedArray: this.state.table }),
       showMore: Math.ceil(this.state.mainTable.length / this.step) - 1 === Math.ceil(this.state.table.length / 10) ? false : true
     })
   }
@@ -224,7 +227,7 @@ class Content extends React.Component<IProps, IState> {
         return obj.name == name
       })[0].discriminator
       if (discriminator === 'D') {
-        this.props.history.push(name)
+        this.props.history.push(`/fm/${name}`)
         this.onGetDocument(true, name)
       }
     }
@@ -287,12 +290,12 @@ class Content extends React.Component<IProps, IState> {
   // handle search
   onChangeSearchInput = (val: string) => {
     let filteredTable = this.state.table.filter((obj: any) => {
-      return obj.cfsFullPath.includes(val);
-    });
+      return obj.cfsFullPath.includes(val)
+    })
 
     this.setState({
       filteredTable
-    });
+    })
   }
 
   // on item check
@@ -353,12 +356,17 @@ class Content extends React.Component<IProps, IState> {
         break
     }
     const history = [{ title: t`پوشه اصلی`, link: '/', active: false }]
-    if (this.props.location.pathname !== '/')
-      history.push({ title: this.props.location.pathname.split('/'), link: this.props.location.pathname, active: true })
-    console.log(this.props.auth.username)
+    if (this.props.location.pathname !== '/fm')
+      history.push({ title: this.props.location.pathname.split('/fm'), link: this.props.location.pathname, active: true })
+    console.log(this.state.table)
     return !this.props.loading && this.state.table.length > 0 ? (
       <React.Fragment>
-        <ContentHeader view={this.state.view} history={history} switchView={this.switchView} handleSearchInput={(e: any) => this.onChangeSearchInput(e)}/>
+        <ContentHeader
+          view={this.state.view}
+          history={history}
+          switchView={this.switchView}
+          handleSearchInput={(e: any) => this.onChangeSearchInput(e)}
+        />
         <ContentBody
           view={this.state.view}
           username={this.props.auth.username}

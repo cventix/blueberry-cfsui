@@ -22,6 +22,20 @@ export function* getDocuments(action: any) {
     yield put(actions.setLoadingState(false))
   }
 }
+export function* getModalDocuments(action: any) {
+  console.log('jo')
+  let folderInfo
+  if (action.payload) folderInfo = { isChildren: action.payload.isChildren, path: action.payload.path, headers: action.payload.headers }
+  try {
+    yield put(actions.setLoadingState(true))
+    let data = yield documents.getDocuments(folderInfo)
+    if (folderInfo && folderInfo.isChildren === true) data = data.children
+    yield put(actions.setModalDocuments(data))
+    yield put(actions.setLoadingState(false))
+  } catch (err) {
+    yield put(actions.setLoadingState(false))
+  }
+}
 export function* getTrashDocuments(action: any) {
   try {
     yield put(actions.setLoadingState(true))

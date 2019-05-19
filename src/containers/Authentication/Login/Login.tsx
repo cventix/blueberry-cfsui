@@ -39,7 +39,7 @@ class Login extends React.Component<any, any> {
     if (e) e.preventDefault()
     try {
       await this.props.login({ email: this.state.email, password: this.state.password })
-      setTimeout(() => history.push('/'), 3000)
+      setTimeout(() => history.push('/fm'), 3000)
     } catch (error) {
       console.log('E: ', error)
     }

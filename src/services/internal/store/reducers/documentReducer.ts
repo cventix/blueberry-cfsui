@@ -5,7 +5,8 @@ export interface PayloadInterface {
 }
 
 export const initialState: any = {
-  documents: []
+  documents: [],
+  modal_documents:[]
 }
 
 const documentReducer = (state: any = initialState, action: any) => {
@@ -25,6 +26,11 @@ const documentReducer = (state: any = initialState, action: any) => {
       return {
         ...state,
         documents: action.payload
+      }
+    case actionTypes.SET_MODAL_DOCUMENTS:
+      return {
+        ...state,
+        modal_documents: action.payload
       }
     case actionTypes.SET_RESPONSE:
       return {

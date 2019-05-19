@@ -39,6 +39,7 @@ export function* signout() {
   try {
     yield auth.signout()
     yield put(actions.setUserCredentials({ username: '' }))
+    location.reload()
     yield storage.removeItem('token')
    
   } catch (err) {

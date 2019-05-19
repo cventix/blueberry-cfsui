@@ -1,4 +1,4 @@
-@import "../../../styles/global.scss";
+@import '../../../styles/global.scss';
 
 $width: 20px;
 $height: 12px;
@@ -10,7 +10,7 @@ $height: 12px;
   height: $height;
   vertical-align: middle;
 
-  input[type="checkbox"] {
+  input[type='checkbox'] {
     display: none;
   }
 
@@ -26,9 +26,9 @@ $height: 12px;
     @include border-radius($height);
 
     &:before {
-      content: "";
+      content: '';
       position: absolute;
-      top: $height * 0.2;
+      top: 1.4px;
       left: $height * 0.18;
       width: ($height - 4);
       height: ($height - 4);
@@ -37,7 +37,7 @@ $height: 12px;
       @include border-radius(50%);
     }
   }
-  
+
   input:checked + .knob {
     background-color: $dk-blue;
   }

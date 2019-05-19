@@ -23,9 +23,8 @@ export const Sidebar: React.FunctionComponent<Iprops> = ({ createFolderModal, ha
       <div className="menuWrapper">
         <Switch>
           <Route
-            exact
-            path={`/`}
-            component={FM}  
+            path={`/fm`}
+            render={() => <FM onItemClick={onItemClick}  />}
           />
           <Route
             exact
