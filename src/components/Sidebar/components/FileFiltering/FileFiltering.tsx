@@ -6,22 +6,29 @@ import Toggle from '../../../ui-elements/Toggle/Toggle'
 
 // styles
 import styles from './FileFiltering.module.scss'
+import { connect } from 'react-redux'
 
-export default interface Iprops {
+export interface Iprops {
   forFM?: boolean
   onItemClick?: any
   forVM?: boolean
+  router?: any
 }
 
-export const FileFiltering = ({ forFM, forVM, onItemClick }: Iprops) => {
+const FileFiltering = ({ forFM, forVM, onItemClick, router }: Iprops) => {
+	console.log(router.router.lenght>0 )
+
+console.log(router.router.lenght>0 && router.router.location.pathname =='/fm/shared')
+
+
   return (
     <div className={styles.fileFiltering}>
-      <div className={forFM ? styles.option : `hide`}>
-        <Toggle checked={false} name={t`به اشتراک گذاشته‌ شده‌ها`}/>
+      <div className={forFM ? styles.option : `hide`} onClick={onItemClick}>
+        <Toggle checked={router.router.lenght>0 && router.router.location.pathname =='/fm/shared'} name={t`به اشتراک گذاشته‌ شده‌ها`} />
         <span className={styles.text}>{t`به اشتراک گذاشته‌ شده‌ها`}</span>
       </div>
       <div className={forFM ? styles.option : `hide`} onClick={onItemClick}>
-        <Toggle checked={true} name={t`نمایش حذف شده‌ها`}/>
+        <Toggle checked={router =='/fm/trash'} name={t`نمایش حذف شده‌ها`} />
         <span className={styles.text}>{t`نمایش حذف شده‌ها`}</span>
       </div>
       <div className={forVM ? styles.option : `hide`}>
@@ -31,3 +38,6 @@ export const FileFiltering = ({ forFM, forVM, onItemClick }: Iprops) => {
     </div>
   )
 }
+const mapStateToProps = (state: any) => ({ router: state.router })
+
+export default connect(mapStateToProps)(FileFiltering)

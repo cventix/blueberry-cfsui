@@ -33,13 +33,14 @@ const makeArray = (array: any, username?: string) => {
   array.map((each: any) => {
     table.push({
       id: each.id,
-      type: each.genericType,
+      type: each.genericType ? each.genericType : each.discriminator == 'D' ? 'folder' : 'file',
       name: each.name,
       discriminator: each.discriminator,
       fullPath: each.fullPath,
       created_at: formatDate(each.createdAt),
       owner: username && each.owner.displayName === username ? 'خودم' : each.owner.displayName,
-      size: each.size ? formatBytes({ bytes: each.size, lang: 'fa' }) : '---'
+      size: each.size ? formatBytes({ bytes: each.size, lang: 'fa' }) : '---',
+      uuid: each.uuid
     })
   })
   return table
@@ -52,7 +53,7 @@ const makeSimpleArray = (array: any) => {
     if (each.discriminator === 'D') {
       table.push({
         id: each.id,
-        type: each.genericType,
+        type: each.genericType ? each.genericType : each.discriminator == 'D' ? 'folder' : 'file',
         name: each.name,
         discriminator: each.discriminator,
         fullPath: each.fullPath
@@ -78,7 +79,7 @@ export const ContentBody: React.FunctionComponent<Iprops> = ({
   return view === 'table' && width && width < 768 ? (
     <Grid sortable={true} dropDownData={dropDownData} onSort={onSort} checkbox={true} table={table} handleNavigate={handleNavigate} {...rest} />
   ) : view === 'table' ? (
-    <Grid sortable={true} dropDownData={dropDownData} onSort ={onSort} checkbox={true} table={table} handleNavigate={handleNavigate} {...rest} />
+    <Grid sortable={true} dropDownData={dropDownData} onSort={onSort} checkbox={true} table={table} handleNavigate={handleNavigate} {...rest} />
   ) : (
     <Table
       dropdown={true}

@@ -20,6 +20,8 @@ import CFModal from '../../components/ui-elements/Modal/CreateFolderModal/Create
 // Services
 import { bottle } from '../../services'
 import { PayloadInterface } from '../../services/internal/store/reducers/authReducer'
+import { setRouter } from '../../services/internal/store/actions/router'
+
 import {
   setUserCredentials,
   setToken,
@@ -35,11 +37,25 @@ import Toast from '../../components/ui-elements/Toast/Toast'
 import { CountdownTimer } from '../../components/ui-elements/CountdownTimer/CountdownTimer'
 import { UploadModal } from '../../components/ui-elements/Uploadmodal/Uploadmodal'
 import MoveFile from '../../components/ui-elements/Modal/MoveFileModal.tsx/MoveFile'
+import { TextInput } from '../../components/ui-elements/Input/Input'
+import { Button } from '../../components/ui-elements/Button/Button'
 
 const steps = ['انتخاب سیستم عامل', 'انتخاب مدت سرویس', 'انتخاب طرح', 'اطلاعات کارت شبکه', 'انتخاب نام سرور و ثبت نهایی']
 const options = [{ value: 'chocolate', label: 'Chocolate' }, { value: 'strawberry', label: 'Strawberry' }, { value: 'vanilla', label: 'Vanilla' }]
 
-class App extends Component<{ login: any; setUserInfo: any; history?: any; selection?: any[]; removeFolder?: any; getTrashDocuments?: any ,getSharedDocuments?: any}, {}> {
+class App extends Component<
+  {
+    login: any
+    setUserInfo: any
+    history?: any
+    selection?: any[]
+    setRouter?: any
+    removeFolder?: any
+    getTrashDocuments?: any
+    getSharedDocuments?: any
+  },
+  {}
+> {
   private _documents: DocumentsInterface
   constructor(props: any) {
     super(props)
@@ -67,35 +83,47 @@ class App extends Component<{ login: any; setUserInfo: any; history?: any; selec
   }
 
   onItemClick = (e: any) => {
-    console.log(e.target.value)
-    if (e.target.textContent) {
-      switch (e.target.textContent) {
-        case 'پوشه جدید':
-          this.setState({ modal: 'createFolder', showModal: true })
-          break
-        case 'انتقال':
-          this.setState({ modal: 'moveFile', showModal: true })
-          break
-        case 'حذف':
-          this.setState({ modal: 'remove', showModal: true })
-          this.timer = setTimeout(() => {
-            this.onRemoveDocument()
-            this.timer = 0
-          }, this.countDownTime)
+    console.log(e)
+    if (e.target) {
+      if (e.target.textContent) {
+        switch (e.target.textContent) {
+          case 'پوشه جدید':
+            this.setState({ modal: 'createFolder', showModal: true })
+            break
+          case 'انتقال':
+            this.setState({ modal: 'moveFile', showModal: true })
+            break
+          case 'حذف':
+            this.setState({ modal: 'remove', showModal: true })
+            this.timer = setTimeout(() => {
+              this.onRemoveDocument()
+              this.timer = 0
+            }, this.countDownTime)
 
-          break
-        default:
-          break
+            break
+          default:
+            break
+        }
+      } else if (e.target.value) {
+        switch (e.target.value) {
+          case 'نمایش حذف شده‌ها':
+            if (this.props.history.location.pathname !== '/fm/trash') {
+              this.props.history.push(`/fm/trash`)
+              this.props.getTrashDocuments()
+            } else this.props.history.push(`/fm`)
+
+            break
+          case `به اشتراک گذاشته‌ شده‌ها`:
+            if (this.props.history.location.pathname !== '/fm/shared') {
+              this.props.history.push(`/fm/shared`)
+              this.props.getSharedDocuments()
+            } else this.props.history.push(`/fm`)
+
+            break
+        }
       }
-    } else {
-      switch (e.target.value) {
-        case 'نمایش حذف شده‌ها':
-          this.props.getTrashDocuments()
-          break
-        case `به اشتراک گذاشته‌ شده‌ها`:
-          this.props.getSharedDocuments()
-          break
-      }
+    } else if (e == 'urlUpload') {
+      this.setState({ modal: 'urlUpload', showModal: true })
     }
   }
   onCancle = () => {
@@ -128,6 +156,9 @@ class App extends Component<{ login: any; setUserInfo: any; history?: any; selec
       isOpenSignout: !this.state.isOpenSignout
     })
   }
+  componentDidMount() {
+    this.props.setRouter(this.props.history)
+  }
 
   render() {
     let modal
@@ -148,6 +179,21 @@ class App extends Component<{ login: any; setUserInfo: any; history?: any; selec
         break
       case 'moveFile':
         modal = <MoveFile handleClose={this.handleMoveclose} showModal={this.state.showModal} />
+        break
+      case 'urlUpload':
+        modal = (
+          <UploadModal
+            show={this.state.showModal}
+            width={640}
+            title={'آپلود از آدرس اینترنتی'}
+            formDescription={' برای آپلود آدرس اینترنتی خود را در فرم زیر وارد نمایید'}
+          >
+            <div className={styles.row}>
+              <TextInput style={{ width: 300 }} name={'urlInput'} />
+              <Button className={['btnPrimary100', 'btnSm']}>آپلود</Button>
+            </div>
+          </UploadModal>
+        )
         break
       default:
         break
@@ -192,7 +238,8 @@ const mapDispatchToProps = (dispatch: any) => {
     removeFolder: (value: any) => dispatch(removeFolder(value)),
     signout: () => dispatch(signout()),
     getTrashDocuments: () => dispatch(getTrashDocuments()),
-    getSharedDocuments: () => dispatch(getSharedDocuments())
+    getSharedDocuments: () => dispatch(getSharedDocuments()),
+    setRouter: (value: any) => dispatch(setRouter(value))
   }
 }
 

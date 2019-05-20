@@ -19,20 +19,29 @@ export interface Iprops {
   getModalDocuments?: any
   modalDocs?: any
 }
-class MoveFile extends React.Component<Iprops, any> {
+export interface Istate {
+  name: string
+  description: string
+  showToast: boolean
+  message: string
+  fileId: number
+  table: any
+  history: any
+}
+class MoveFile extends React.Component<Iprops, Istate> {
   constructor(props: Iprops) {
     super(props)
-    this
+    this.state = {
+      name: '',
+      description: '',
+      showToast: false,
+      message: '',
+      fileId: 0,
+      table: [],
+      history: []
+    }
   }
-  state = {
-    name: '',
-    description: '',
-    showToast: false,
-    message: '',
-    fileId: '',
-    table: [],
-    history: []
-  }
+
   componentDidMount() {
     this.setState({ table: this.props.document.documents, history: [{ title: `پوشه اصلی`, link: '/', active: false, onClick: this.onGetDocument }] })
   }
@@ -60,14 +69,16 @@ class MoveFile extends React.Component<Iprops, any> {
   }
 
   handleNavigate = ({ e, name, id }: navigateObject) => {
-    let { history } = this.state
+    let history = this.state.history
     if (e.target.tagName != 'INPUT') {
       let discriminator = this.props.document.documents.filter((obj: any) => {
-          let historyObj = { title: obj.name , link: '/', active: true, onClick: this.onGetDocument }
         return obj.name == name
       })[0].discriminator
       if (discriminator === 'D') {
         this.onGetDocument(true, name)
+        
+        console.log(history)
+        this.setState({ history })
       }
     }
   }

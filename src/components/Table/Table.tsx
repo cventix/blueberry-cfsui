@@ -67,6 +67,7 @@ export const Table: React.FunctionComponent<Iprops> = ({
                         name={k}
                         key={i}
                         id={item.id}
+                        uuid={item.uuid}
                         handleNavigate={k === 'name' && handleNavigate}
                         label={item[k]}
                         itemName={item.name}

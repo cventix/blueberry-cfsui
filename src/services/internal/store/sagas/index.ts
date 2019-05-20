@@ -2,8 +2,7 @@ import { takeEvery, all, takeLatest } from 'redux-saga/effects'
 
 import { actionTypes } from '../actions/types'
 import { login, register, signout } from './auth'
-import { getDocuments, createFolder, renameFolder, moveDocuments, shareDocuments, removeFolder, getTrashDocuments , getModalDocuments} from './documents'
-import { getSharedDocuments } from '../actions/documents';
+import { getDocuments,getSharedDocuments, createFolder, renameFolder, moveDocuments, shareDocuments, removeFolder, getTrashDocuments , getModalDocuments} from './documents'
 
 // import { getUserInfo } from './user'
 

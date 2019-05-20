@@ -12,7 +12,7 @@ import upFromUrlIcon from '../../../images/sidebarIcons/upfromurl.svg'
 
 // internal components & styles
 import { ActionNav } from './ActionNav'
-import { FileFiltering } from './FileFiltering/FileFiltering'
+import FileFiltering  from './FileFiltering/FileFiltering'
 import { UpgradeAccount } from './UpgradeAccount/UpgradeAccount'
 import { Nav } from './Nav'
 import '../Sidebar.scss'

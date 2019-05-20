@@ -12,7 +12,7 @@ import upFromUrlIcon from '../../../images/sidebarIcons/upfromurl.svg'
 
 // internal components & styles
 import { ActionNav } from './ActionNav'
-import { FileFiltering } from './FileFiltering/FileFiltering'
+import  FileFiltering  from './FileFiltering/FileFiltering'
 import { UpgradeAccount } from './UpgradeAccount/UpgradeAccount'
 import { Nav } from './Nav'
 import '../Sidebar.scss'
@@ -27,7 +27,7 @@ export const FM: React.FunctionComponent<Iprops> = ({ onItemClick }) => {
       <Button className={['btnPrimary0', 'btnLg']} style={{ marginBottom: '15px' }}>
         <IconLink icon={uploadIcon} iconAlt="upload icon" label={t`آپلود فایل`}/>
       </Button>
-      <IconLink icon={upFromUrlIcon} className="iconLink upFromUrl" iconAlt="upload icon" label={t`آپلود فایل از URL`}/>
+      <IconLink icon={upFromUrlIcon} onClick={onItemClick} className="iconLink upFromUrl" iconAlt="upload icon" label={t`آپلود فایل از URL`}/>
       <ActionNav onItemClick={onItemClick}/>
       <Hr />
       <FileFiltering forFM={true} onItemClick={onItemClick}/>

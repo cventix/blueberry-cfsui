@@ -46,6 +46,16 @@ export function* getTrashDocuments(action: any) {
     yield put(actions.setLoadingState(false))
   }
 }
+export function* getSharedDocuments(action: any) {
+  try {
+    yield put(actions.setLoadingState(true))
+    let data = yield documents.getSharedDocuments()
+    yield put(actions.setDocuments(data))
+    yield put(actions.setLoadingState(false))
+  } catch (err) {
+    yield put(actions.setLoadingState(false))
+  }
+}
 export function* removeFolder(action: any) {
   let folderInfo = { folderId: action.payload.folderId }
   try {

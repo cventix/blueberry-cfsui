@@ -28,6 +28,7 @@ import { setSelections } from '../../services/internal/store/actions/selections'
 import loading from '../../images/loading/tail-spin.2.svg'
 import arrowBottom from '../../images/buttonIcons/icon-btn-arrow-bottom.svg'
 import styles from './Content.module.scss'
+import { Preview } from '../ui-elements/Preview/Preview'
 
 const sort = (data: object[]) => {
   var sortOrder = ['folder', 'image', 'music']
@@ -59,6 +60,7 @@ export interface navigateObject {
   e: any
   name?: string
   id?: number
+  uuid?: string
 }
 
 export interface IState {
@@ -220,7 +222,7 @@ class Content extends React.Component<IProps, IState> {
     this.setState({ optionSelected })
   }
 
-  handleNavigate = ({ e, name, id }: navigateObject) => {
+  handleNavigate = ({ e, name, id, uuid }: navigateObject) => {
     if (e.target.tagName != 'INPUT') {
       let discriminator = this.state.table.filter((obj: any) => {
         console.log(obj.name == name)
@@ -229,7 +231,7 @@ class Content extends React.Component<IProps, IState> {
       if (discriminator === 'D') {
         this.props.history.push(`/fm/${name}`)
         this.onGetDocument(true, name)
-      }
+      } else this.setState({ modalView: 'previewModal' })
     }
   }
 
@@ -321,7 +323,7 @@ class Content extends React.Component<IProps, IState> {
       { label: 'دریافت لینک‌ها' },
       { label: 'حذف فایل', onClick: this.openRemoveModal }
     ]
-    let modal, toaster
+    let modal, toaster , preview
     switch (this.state.modalView) {
       case 'renameFile':
         modal = (
@@ -354,6 +356,20 @@ class Content extends React.Component<IProps, IState> {
           </Toast>
         )
         break
+      case 'previewModal':
+          preview = <Preview show={true} type={'image'}/>
+        break
+        case 'urlUploadModal':
+          modal =   <UploadModal
+          show={this.state.showRename || this.state.showRemove}
+          width={640}
+          title={'تغییر نام'}
+          formDescription={' نام جدید را در فرم زیر وارد نمایید'}
+          handleClose={this.closeRenameModalclose}
+        >
+          
+        </UploadModal>
+        break
     }
     const history = [{ title: t`پوشه اصلی`, link: '/', active: false }]
     if (this.props.location.pathname !== '/fm')
@@ -382,6 +398,7 @@ class Content extends React.Component<IProps, IState> {
           checkAll={this.state.checkAll}
         />
         {modal}
+        {preview}
         {toaster}
         <div className={styles.footer}>
           <Button

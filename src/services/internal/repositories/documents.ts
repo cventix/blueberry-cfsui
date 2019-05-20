@@ -63,6 +63,7 @@ class Documents implements DocumentsInterface {
     }
   }
   async getSharedDocuments({ headers }: IGetDocumentsInput = {}) {
+ 
     const url = `/rest/sharedwithme?sort=+discriminator,+name`
     try {
       return await this._rest.get({ url, headers })
