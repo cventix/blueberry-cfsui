@@ -4,20 +4,29 @@
 	position: relative;
 	min-width: 220px;
 	height: 180px;
-	padding-top: 12px;
-	padding-right: 10px;
-	padding-left: 10px;
+	padding: 13px 10px 10px;
 	background-color: #fff;
 	@include border-radius($br-radius-sm);
 	@include box-shadow(0 1px 3px 0 rgba(0, 0, 0, 0.05));
 	border: solid 1px #e5e5e5;
+	margin-top: 53px;
 
 	.top {
 		@include flex(row, wrap);
 		justify-content: space-between;
 
+		.iconWrapper {
+			margin: 16px auto 0px auto;
+			img {
+				width: 50px;
+			}
+		}
+
 		.title {
 			font-family: $medium-font;
+			width: 90px;
+			text-overflow: ellipsis;
+			overflow: hidden;
 		}		
 
 		.subTitle {
@@ -68,7 +77,13 @@
 		direction: ltr;
 		@include flex(row, wrap);
 		justify-content: space-between;
-		margin: 20px 0 16px 0;
+		margin: 17px 0 14px 0;
+
+		.description {
+		    margin: 0 auto;
+			color: $lt-gray;
+			font-size: $font-size - 2;
+		}
 
 		.right, .left {
 			> div {
@@ -85,7 +100,7 @@
 		}
 
 		.right {
-			flex-basis: 30%;
+			flex-basis: 35%;
 		}
 
 		.left {
@@ -95,13 +110,29 @@
 	}
 
 	.footer {
-		position: absolute;
-		bottom: 10px;
+		@include flex(row, wrap);
+		justify-content: space-between;
 
-		.iconLink {
-			img {
-				margin-left: 9px;
+		button {
+			font-size: $font-size - 2;
+			> div {
+				> img {
+					margin-left: 8px;
+				}
 			}
 		}
+
+		.cloneSteps {
+			margin: 6px auto -6px auto;
+			font-size: $font-size - 2;
+			color: $lt-gray;
+			direction: ltr;
+		}
+
+		.progressbar {
+			width: 100%;
+		}
+
+		
 	}
 }

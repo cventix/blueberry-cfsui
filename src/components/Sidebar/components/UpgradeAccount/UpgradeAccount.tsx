@@ -2,14 +2,12 @@ import * as React from 'react'
 import { t } from 'ttag'
 
 // ui-elements
+import { Progressbar } from '../../../ui-elements/Progressbar/Progressbar'
 import { IconLink } from '../../../ui-elements/IconLink'
 
-// icons
+// icons & styles
 import arrowLeftIcon from '../../../../images/arrow-left.svg'
-
-// styles
 import styles from './UpgradeAccount.module.scss'
-import { Progressbar } from '../../../ui-elements/Progressbar/Progressbar'
 
 export default interface Iprops {
   percent?: number

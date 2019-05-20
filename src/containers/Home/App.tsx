@@ -12,6 +12,7 @@ import styles from '../../components/Content/Content.module.scss'
 
 import Content from '../../components/Content/Content'
 import VMContent from '../../components/VMContent/VMContent'
+import { SelectOs } from '../../components/VMContent/components/steps/SelectOs'
 import { Table } from '../../components/Table/Table'
 import { Modal } from '../../components/ui-elements/Modal/Modal'
 import { Preview } from '../../components/ui-elements/Preview/Preview'
@@ -164,6 +165,11 @@ class App extends Component<{ login: any; setUserInfo: any; history?: any; selec
               exact
               path={`/vm`}
               component={VMContent} 
+            />
+            <Route
+              exact
+              path={`/vm/order`}
+              component={SelectOs} 
             />
           </Switch>
         </Main>

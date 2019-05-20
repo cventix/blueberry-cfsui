@@ -1,12 +1,17 @@
 import React from 'react'
+import { t } from 'ttag'
 
 // components
-import { VMContentHeader } from './VMContentHeader'
+import { VMContentHeader } from './components/VMContentHeader'
+import { VMContentBody } from './components/VMContentBody'
+import { SelectOs } from './components/steps/SelectOs'
 
 // styles
 import styles from './VMContent.module.scss'
 
 export interface Iprops {
+	history?: any
+	location?: any
 }
 
 class VMContent extends React.Component<Iprops> {
@@ -17,10 +22,14 @@ class VMContent extends React.Component<Iprops> {
 	}
 
  	public render() {
+		const history = [{ title: t`لیست سرورها`, link: '/vm', active: false }]
+		if (this.props.location.pathname !== '/vm')
+			history.push({ title: this.props.location.pathname.split('/'), link: this.props.location.pathname, active: true })
 		return (
-			<>
-				<VMContentHeader handleSearchInput={(e: any) => this.onChangeSearchInput(e)}/>
-			</>
+			<React.Fragment>
+				<VMContentHeader history={history} handleSearchInput={(e: any) => this.onChangeSearchInput(e)}/>
+				<VMContentBody/>
+			</React.Fragment>
 		)
  	}
 }

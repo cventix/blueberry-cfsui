@@ -11,9 +11,12 @@
 		background-image: linear-gradient(to top, #f7f7f7, #ffffff);
 		border: solid 1px #e6e6e6;
 	}
-}
 
-.MultipleControl {
-	@include flex(row, wrap);
-	justify-content: space-between;
+	&.off {
+		button {
+			border: 1px solid $red;
+			background: linear-gradient(to top, #f94926, #fd6b4b);
+		}
+		
+	}
 }
