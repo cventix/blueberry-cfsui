@@ -40,7 +40,7 @@ export const Preview: React.FunctionComponent<Iprops> = props => {
   }
 
   return (
-    <div className={props.show ? [modalStyles.modal, modalStyles.displayBlock].join(' ') : [modalStyles.modal, modalStyles.displayNone].join(' ')}>
+    <div className={props.show ? [styles.modal, styles.displayBlock].join(' ') : [styles.modal, styles.displayNone].join(' ')}>
       <div className={styles.previewBox}>
         <div className={styles.header}>
           <span className={styles.fileName}>{props.fileName}</span>
@@ -53,12 +53,13 @@ export const Preview: React.FunctionComponent<Iprops> = props => {
             <Icon src={arrowLeft} className={[styles.icon, styles.iconRight].join(' ')} />
           </Button>
           <section className={[modalStyles.modalMain, styles.previewMain].join(' ')}>
-            <div>{props.children}</div>
+            <div className={styles.image}>{props.children}</div>
           </section>
           <Button className={['btnControl', 'btnCircle']}>
             <Icon src={arrowLeft} className={styles.icon} />
           </Button>
         </div>
+       
         {content === 'image' && (
           <div className={styles.bottomBar}>
             <Button className={['btnControl', 'btnLg', 'btnCircle']} style={{ height: 50 }}>

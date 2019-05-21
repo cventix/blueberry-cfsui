@@ -1,4 +1,5 @@
 import * as React from 'react'
+import ReactDOM from 'react-dom';
 
 interface IProps {
   data: any
@@ -25,11 +26,19 @@ export const EnhanceDropdown = (ComposedComponent: any) =>
 
     componentDidMount() {
       window.addEventListener('click', this.handleDocumentClick)
+      document.addEventListener('click', this.handleClickOutside, true);
     }
     componentWillUnmount() {
       window.removeEventListener('click', this.handleDocumentClick)
+      document.removeEventListener('click', this.handleClickOutside, true);
     }
-
+    handleClickOutside = (event:any) => {
+      const domNode = ReactDOM.findDOMNode(this);
+  
+      if (!domNode || !domNode.contains(event.target)) {
+        this.setState({ isOpen: false })
+      }
+  }
     handleDocumentClick() {
       if (this.state.isOpen) {
         this.onToggle()

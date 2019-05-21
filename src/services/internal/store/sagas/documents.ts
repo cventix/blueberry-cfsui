@@ -14,9 +14,7 @@ export function* getDocuments(action: any) {
     yield put(actions.setLoadingState(true))
     let data = yield documents.getDocuments(folderInfo)
     if (folderInfo && folderInfo.isChildren === true) data = data.children
-
     yield put(actions.setDocuments(data))
-
     yield put(actions.setLoadingState(false))
   } catch (err) {
     yield put(actions.setLoadingState(false))
@@ -61,20 +59,21 @@ export function* removeFolder(action: any) {
   try {
     yield put(actions.setLoadingState(true))
     let response = yield documents.removeFolder(folderInfo)
-    let data = yield documents.getDocuments()
-    yield put(actions.setDocuments(data))
+
     yield put(actions.setLoadingState(false))
   } catch (err) {
     yield put(actions.setLoadingState(false))
   }
 }
 export function* createFolder(action: any) {
-  console.log(action)
+  let getFolderInfo
   let folderInfo = { name: action.payload.name, description: action.payload.description, parentId: action.payload.parentId }
+  if (action.payload.parentId) getFolderInfo = { isChildren: true, path: action.payload.parentName }
   try {
     yield put(actions.setLoadingState(true))
     let response = yield documents.createFolder(folderInfo)
-    let data = yield documents.getDocuments()
+    let data = yield documents.getDocuments(getFolderInfo)
+    if (getFolderInfo  && getFolderInfo.isChildren == true) data = data.children
     yield put(actions.setDocuments(data))
     yield put(actions.setResponse(response))
     yield put(actions.setLoadingState(false))
@@ -90,9 +89,6 @@ export function* renameFolder(action: any) {
     yield put(actions.setLoadingState(true))
     yield documents.renameFolder(renameInfo)
     let response = yield documents.renameFolder(renameInfo)
-    let data = yield documents.getDocuments()
-    yield put(actions.setDocuments(data))
-    yield put(actions.setResponse(response))
     yield put(actions.setLoadingState(false))
   } catch (err) {
     yield put(actions.setLoadingState(false))

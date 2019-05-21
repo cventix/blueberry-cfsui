@@ -17,6 +17,7 @@ export default interface Iprops {
   checkAll?: boolean
   onSort?: any
   tabletView?: boolean
+  onOpenCFModal?: any
   onSelect?: (option: number) => void
   onRenameDocument?: (e: any) => void
   handleNavigate?: any
@@ -43,6 +44,7 @@ export const Table: React.FunctionComponent<Iprops> = ({
   optionSelected,
   checkbox,
   onCheck,
+  onOpenCFModal,
   hasHeader = true
 }) => {
   const header = [t`نام`, t`تاریخ`, t`مالک`, t`حجم`]
@@ -54,6 +56,7 @@ export const Table: React.FunctionComponent<Iprops> = ({
         {...onCheckAll && { checkAll: checkAll, onCheckAll: onCheckAll }}
         onSort={onSort}
         tabletView={tabletView}
+        onOpenCFModal={onOpenCFModal}
       />}
       <tbody>
         {table &&
@@ -61,7 +64,7 @@ export const Table: React.FunctionComponent<Iprops> = ({
             return (
               <tr key={item.id}>
                 {Object.keys(item).map((k, i) => {
-                  if (k !== 'type' && k !== 'id' && k !== 'fullPath' && k !== 'discriminator') {
+                  if (k !== 'type' && k !== 'id' && k !== 'fullPath' && k !== 'discriminator' && k !== 'uuid') {
                     return (
                       <TableItem
                         name={k}

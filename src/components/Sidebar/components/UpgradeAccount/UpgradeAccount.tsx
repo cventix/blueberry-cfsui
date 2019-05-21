@@ -14,17 +14,20 @@ import { Progressbar } from '../../../ui-elements/Progressbar/Progressbar'
 export default interface Iprops {
   percent?: number
   forVM?: boolean
+  hide?: boolean
 }
 
-export const UpgradeAccount = ({ percent = 70, forVM }: Iprops) => {
+export const UpgradeAccount = ({ percent = 70, forVM,hide }: Iprops) => {
   return (
     <div className={forVM ? [styles.upgradeAccount, styles.forVM].join(' ') : styles.upgradeAccount}>
-      <div className={styles.percent}>٪{`${percent}`} {t`از حجم شما استفاده شده`}</div>
+      <div className={styles.percent}>
+        ٪{`${percent}`} {t`از حجم شما استفاده شده`}
+      </div>
       <div className={styles.progressbar}>
         <Progressbar value={percent} height={8} color={'green'} />
       </div>
-      <span className={styles.deleteQus}>{t`می‌خواهید فایل‌هایتان حذف نشود`}؟</span>
-      <IconLink icon={arrowLeftIcon} className={forVM ? `hide` : styles.bottom} iconAlt="arrow-left" label={t`ارتقاء حساب میزبانی`} />
+      <span className={styles.deleteQus}>{t`می‌خواهید فایل‌هایتان حذف نشود؟`}</span>
+      {hide ? '' : <IconLink icon={arrowLeftIcon} className={forVM ? `hide` : styles.bottom} iconAlt="arrow-left" label={t`ارتقاء حساب میزبانی`} />}
     </div>
   )
 }

@@ -15,7 +15,7 @@ import { CountdownTimer } from '../ui-elements/CountdownTimer/CountdownTimer'
 import Toast from '../ui-elements/Toast/Toast'
 import { ContentHeader } from './ContentHeader'
 import { ContentBody } from './ContentBody'
-
+import CFModal from '../ui-elements/Modal/CreateFolderModal/CreateFolder'
 // Services
 import { bottle } from '../../services'
 import { getDocuments, createFolder, renameFolder, removeFolder, moveDocuments, shareDocuments } from '../../services/internal/store/actions'
@@ -29,7 +29,7 @@ import loading from '../../images/loading/tail-spin.2.svg'
 import arrowBottom from '../../images/buttonIcons/icon-btn-arrow-bottom.svg'
 import styles from './Content.module.scss'
 import { Preview } from '../ui-elements/Preview/Preview'
-
+import image from '../../images/image.jpg'
 const sort = (data: object[]) => {
   var sortOrder = ['folder', 'image', 'music']
   data.sort(function(a: any, b: any) {
@@ -79,7 +79,7 @@ export interface IState {
 class Content extends React.Component<IProps, IState> {
   step = 10
   timer: any = 0
-  countDownTime = 100000
+  countDownTime = 3000
   constructor(props: any) {
     super(props)
     this.state = {
@@ -115,6 +115,8 @@ class Content extends React.Component<IProps, IState> {
       console.log('jo')
       this.onGetDocument(true, this.props.location.pathname.split('/fm/')[1])
     }
+    console.log(this.state.table)
+    this.setState({ showMore: this.state.table.length > 10 ? true : false })
   }
 
   /**back button */
@@ -142,7 +144,9 @@ class Content extends React.Component<IProps, IState> {
       }
     }
   }
-
+  turnOffbutton = () => {
+    if (this.state.showMore !== false) this.setState({ showMore: false })
+  }
   /**
    * gets data and makes an obj
    * @param nextProps
@@ -179,7 +183,8 @@ class Content extends React.Component<IProps, IState> {
   }
 
   onSort = (sortBy: string, type?: string) => {
-    console.log('hi')
+    console.log(type)
+    console.log(this.state.table)
     let table = this.state.table
     switch (type) {
       case 'alphabet':
@@ -195,18 +200,12 @@ class Content extends React.Component<IProps, IState> {
           })
         break
       default:
-        table &&
-          table.sort((a: any, b: any) => {
-            if (this.state[sortBy] !== 'ascending') {
-              this.setState({ [sortBy]: 'ascending' })
-              return a[sortBy] - b[sortBy]
-            } else {
-              this.setState({ [sortBy]: 'decending' })
-              return b[sortBy] - a[sortBy]
-            }
-          })
+        table.sort((a: any, b: any) => {
+          if (a.size) return b.size - a.size
+        })
     }
-
+    console.log('table2')
+    console.log(table)
     this.setState({ table })
   }
 
@@ -214,6 +213,7 @@ class Content extends React.Component<IProps, IState> {
     this.setState({ checkAll: !this.state.checkAll })
   }
 
+  //switch between grid and list
   switchView = (view: string) => {
     this.setState({ view })
   }
@@ -222,33 +222,44 @@ class Content extends React.Component<IProps, IState> {
     this.setState({ optionSelected })
   }
 
+  // navigate to directories
   handleNavigate = ({ e, name, id, uuid }: navigateObject) => {
     if (e.target.tagName != 'INPUT') {
       let discriminator = this.state.table.filter((obj: any) => {
-        console.log(obj.name == name)
         return obj.name == name
       })[0].discriminator
       if (discriminator === 'D') {
-        this.props.history.push(`/fm/${name}`)
+        this.props.history.push(`${this.props.history.location.pathname}/${name}`)
         this.onGetDocument(true, name)
-      } else this.setState({ modalView: 'previewModal' })
+      } else {
+        this.props.history.push(`fm/preview/image/${name}`)
+        this.setState({ modalView: 'previewModal' })}
     }
+  }
+  onOpenCFModal = () => {
+    this.setState({ modalView: 'createFolder', showModal: true })
   }
 
   onRenameDocument = async (e: any) => {
     if (e) e.preventDefault()
+    let table = this.state.table
     try {
       let result = await this.props.renameFolder({ folderId: this.state.renameFileId, name: this.state.renameInput })
-      this.setState({ showModal: false, modalView: 'doneRename' })
+      table.map((each: any) => {
+        if (each.id === this.state.renameFileId) each.name = result.payload.name
+      })
+      this.setState({ showModal: false, modalView: 'modalView', table, showToaster: true })
     } catch (error) {
       console.log('E: ', error)
     }
   }
 
   onRemoveDocument = async () => {
+    let table = this.state.table
     try {
       let result = await this.props.removeFolder({ folderId: this.state.isSelected })
-      this.setState({ showToaster: false })
+      table = table.filter((x: any) => x.id !== result.payload.folderId)
+      this.setState({ showToaster: false, table })
     } catch (error) {
       console.log('E: ', error)
     }
@@ -276,7 +287,7 @@ class Content extends React.Component<IProps, IState> {
   openRemoveModal = (isSelected: number) => {
     this.setState({ showToaster: true, isSelected, modalView: 'removeFile', countDown: this.countDownTime / 1000 })
     this.timer = setTimeout(() => {
-      // this.onRemoveDocument()
+      this.onRemoveDocument()
       this.setState({ showToaster: false, modalView: '' })
       this.timer = 0
     }, this.countDownTime)
@@ -316,12 +327,12 @@ class Content extends React.Component<IProps, IState> {
 
   public render() {
     let dropDownData = [
-      { label: ' دانلود فایل' },
-      { label: 'تغییر نام', onClick: this.openRenameModal },
-      { label: 'اشتراک گذاری' },
-      { label: 'افزودن توضیح' },
-      { label: 'دریافت لینک‌ها' },
-      { label: 'حذف فایل', onClick: this.openRemoveModal }
+      { label: t`دانلود فایل` },
+      { label: t`تغییر نام`, onClick: this.openRenameModal },
+      { label: t`اشتراک گذاری` },
+      { label: t`افزودن توضیح` },
+      { label: t`دریافت لینک‌ها` },
+      { label: t`حذف فایل`, onClick: this.openRemoveModal }
     ]
     let modal, toaster, preview
     switch (this.state.modalView) {
@@ -357,12 +368,15 @@ class Content extends React.Component<IProps, IState> {
         )
         break
       case 'previewModal':
-        preview = <Preview show={true} type={'image'} />
+        preview = <Preview show={true} type={'image'} ><img src={image}/></Preview>
+        break
+      case 'createFolder':
+        modal = <CFModal handleCFClose={this.handleClose} showModal={this.state.showModal} />
         break
     }
-    const history = [{ title: t`پوشه اصلی`, link: '/', active: false }]
+    const history = [{ title: t`پوشه اصلی`, link: '/fm', active: false }]
     if (this.props.location.pathname !== '/fm')
-      history.push({ title: this.props.location.pathname.split('/fm'), link: this.props.location.pathname, active: true })
+      history.push({ title: this.props.location.pathname.split('/fm/'), link: this.props.location.pathname.split['/'], active: true })
     console.log(this.state.table)
     return !this.props.loading && this.state.table.length > 0 ? (
       <React.Fragment>
@@ -373,7 +387,9 @@ class Content extends React.Component<IProps, IState> {
           handleSearchInput={(e: any) => this.onChangeSearchInput(e)}
         />
         <ContentBody
+          turnOffbutton={this.turnOffbutton}
           view={this.state.view}
+          onOpenCFModal={this.onOpenCFModal}
           username={this.props.auth.username}
           width={this.state.width}
           table={this.state.filteredTable}

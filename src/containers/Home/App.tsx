@@ -39,7 +39,7 @@ import { UploadModal } from '../../components/ui-elements/Uploadmodal/Uploadmoda
 import MoveFile from '../../components/ui-elements/Modal/MoveFileModal.tsx/MoveFile'
 import { TextInput } from '../../components/ui-elements/Input/Input'
 import { Button } from '../../components/ui-elements/Button/Button'
-
+import { t } from 'ttag'
 const steps = ['انتخاب سیستم عامل', 'انتخاب مدت سرویس', 'انتخاب طرح', 'اطلاعات کارت شبکه', 'انتخاب نام سرور و ثبت نهایی']
 const options = [{ value: 'chocolate', label: 'Chocolate' }, { value: 'strawberry', label: 'Strawberry' }, { value: 'vanilla', label: 'Vanilla' }]
 
@@ -75,7 +75,6 @@ class App extends Component<
   timer: any = ''
   countDownTime = 100000
 
-
   handleClose = () => {
     this.setState({ showModal: false, modalView: '' })
   }
@@ -83,35 +82,42 @@ class App extends Component<
   onItemClick = (e: any) => {
     if (!e.target) {
       switch (e) {
-        case 'پوشه جدید':
+        case t`پوشه جدید`:
           this.setState({ modal: 'createFolder', showModal: true })
           break
-        case 'انتقال':
-          this.setState({ modal: 'moveFile', showModal: true })
+        case t`انتقال`:
+          if (this.props.selection && this.props.selection.length > 0) {
+            this.setState({ modal: 'moveFile', showModal: true })
+          } else {
+            this.setState({ modal: 'noSelection', showModal: true })
+          }
           break
-        case 'حذف':
-          this.setState({ modal: 'remove', showModal: true })
-          this.timer = setTimeout(() => {
-            this.onRemoveDocument()
-            this.timer = 0
-          }, this.countDownTime)
-
+        case t`حذف`:
+          if (this.props.selection && this.props.selection.length > 0) {
+            this.setState({ modal: 'remove', showModal: true })
+            this.timer = setTimeout(() => {
+              this.onRemoveDocument()
+              this.timer = 0
+            }, this.countDownTime)
+          } else {
+            this.setState({ modal: 'noSelection', showModal: true })
+          }
           break
-        case 'آپلود فایل از URL':
+        case t`آپلود فایل از URL`:
           this.setState({ modal: 'urlUpload', showModal: true })
         default:
           break
       }
     } else if (e.target.value) {
       switch (e.target.value) {
-        case 'نمایش حذف شده‌ها':
+        case t`نمایش حذف شده‌ها`:
           if (this.props.history.location.pathname !== '/fm/trash') {
             this.props.history.push(`/fm/trash`)
             this.props.getTrashDocuments()
           } else this.props.history.push(`/fm`)
 
           break
-        case `به اشتراک گذاشته‌ شده‌ها`:
+        case t`به اشتراک گذاشته‌ شده‌ها`:
           if (this.props.history.location.pathname !== '/fm/shared') {
             this.props.history.push(`/fm/shared`)
             this.props.getSharedDocuments()
@@ -136,7 +142,6 @@ class App extends Component<
       console.log('E: ', error)
     }
   }
- 
 
   toggleHamburgerMenu() {
     this.setState({
@@ -163,9 +168,9 @@ class App extends Component<
         modal = (
           <Toast level={'success'} caret={false}>
             <CountdownTimer startTimeInSeconds={this.state.countDown} />
-            پوشه حذف شد
+            {t`پوشه حذف شد`}
             <div className={styles.undo} onClick={this.onCancle}>
-              انصراف
+              {t`انصراف`}
             </div>
           </Toast>
         )
@@ -179,14 +184,21 @@ class App extends Component<
             show={this.state.showModal}
             width={640}
             handleClose={this.handleClose}
-            title={'آپلود از آدرس اینترنتی'}
-            formDescription={' برای آپلود آدرس اینترنتی خود را در فرم زیر وارد نمایید'}
+            title={t`آپلود از آدرس اینترنتی`}
+            formDescription={t`برای آپلود آدرس اینترنتی خود را در فرم زیر وارد نمایید`}
           >
             <div className={styles.row}>
               <TextInput style={{ width: 300 }} name={'urlInput'} />
-              <Button className={['btnPrimary100', 'btnSm']}>آپلود</Button>
+              <Button className={['btnPrimary100', 'btnSm']}>{t`آپلود`}</Button>
             </div>
           </UploadModal>
+        )
+        break
+      case 'noSelection':
+        modal = (
+          <Modal show={this.state.showModal} handleClose={this.handleClose}>
+            You havent selected anything
+          </Modal>
         )
         break
       default:

@@ -13,9 +13,10 @@ export default interface Iprops {
   onCheckAll?: any
   checkAll?: boolean
   tabletView?: boolean
+  onOpenCFModal?: any
 }
 
-export const TableHeader: React.FunctionComponent<Iprops> = ({ titles, dropdown, onSort, onCheckAll, tabletView }) => {
+export const TableHeader: React.FunctionComponent<Iprops> = ({ titles,onOpenCFModal, dropdown, onSort, onCheckAll, tabletView }) => {
   const altIcon = 'Icon'
   return (
     <thead>
@@ -41,7 +42,7 @@ export const TableHeader: React.FunctionComponent<Iprops> = ({ titles, dropdown,
 
           {dropdown && tabletView ? (
             <td className={styles.show}>
-              <IconLink className={styles.icn} icon={newFolderIcon} iconAlt={`new-folder ${altIcon}`} label={t`پوشه جدید`} />
+              <IconLink className={styles.icn} icon={newFolderIcon} iconAlt={`new-folder ${altIcon}`} label={t`پوشه جدید`} onClick={onOpenCFModal}/>
             </td>
           ) : (
             <td />

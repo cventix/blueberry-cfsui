@@ -3,6 +3,7 @@ import { Icon } from '../Icon'
 import bigger from '../../../images/bigger.svg'
 
 import styles from './Breadcrumb.module.scss'
+import { Link } from 'react-router-dom';
 
 export interface BreadcrumbItem {
   title: string
@@ -22,9 +23,9 @@ export const Breadcrumb: React.FunctionComponent<Iprops> = ({ history , modal}) 
     {history.map((item: BreadcrumbItem, index: number) => {
       return !item.onClick ? (
         <React.Fragment key={index}>
-          <a href={item.link} className={item.active ? [styles.active, styles.item].join(' ') : styles.item}>
+          <Link to={item.link} className={item.active ? [styles.active, styles.item].join(' ') : styles.item}>
             {item.title}
-          </a>
+          </Link>
           {!item.active && <Icon src={bigger} />}
         </React.Fragment>
       ) : (

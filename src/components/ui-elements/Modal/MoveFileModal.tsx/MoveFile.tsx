@@ -9,7 +9,7 @@ import styles from './MoveFile.module.scss'
 import { Button } from '../../Button/Button'
 import { navigateObject } from '../../../Content/Content'
 import { Breadcrumb } from '../../Breadcrumb/Breadcrumb'
-import { t } from 'ttag/types'
+import { t } from 'ttag'
 
 export interface Iprops {
   showModal?: boolean
@@ -84,7 +84,7 @@ class MoveFile extends React.Component<Iprops, Istate> {
   }
 
   render() {
-    const history = [{ title: `پوشه اصلی`, link: '/', active: false, onClick: this.onGetDocument }]
+    const history = [{ title: t`پوشه اصلی`, link: '/', active: false, onClick: this.onGetDocument }]
 
     console.log(this.props.modalDocs)
     const { showModal, handleClose } = this.props
@@ -94,8 +94,8 @@ class MoveFile extends React.Component<Iprops, Istate> {
         handleClose={handleClose}
         flexDirection={'column'}
         width={640}
-        title={'انتقال'}
-        formDescription={'پوشه مقصد را انتخاب کنید'}
+        title={t`انتقال`}
+        formDescription={t`پوشه مقصد را انتخاب کنید`}
       >
         <Breadcrumb history={this.state.history} modal={true} />
         <div className={styles.move}>
@@ -111,10 +111,10 @@ class MoveFile extends React.Component<Iprops, Istate> {
         </div>
         <div className={styles.submitButton}>
           <Button className={[this.state.fileId ? 'btnPrimary100' : 'btnPrimaryOutline', 'btnSm']} style={{ marginLeft: 5 }} disabled={true}>
-            انتقال
+           {t`انتقال`}
           </Button>
           <Button className={['btnDefault100', 'btnSm']} onClick={handleClose}>
-            انصراف
+            {t`انصراف`}
           </Button>
         </div>
       </UploadModal>
