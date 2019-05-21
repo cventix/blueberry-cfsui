@@ -3,24 +3,26 @@ import { Link } from 'react-router-dom';
 import { t } from 'ttag'
 
 // ui-elements
-import { Button } from "../../ui-elements/Button/Button";
 import { Progressbar } from '../../ui-elements/Progressbar/Progressbar'
+import { Button } from "../../ui-elements/Button/Button";
 import { IconLink } from "../../ui-elements/IconLink";
-import { Icon } from '../../ui-elements/Icon'
 import { Caption } from "../../ui-elements/Caption";
+import { Icon } from '../../ui-elements/Icon'
+
 
 // icons
 import createServerIcon from '../../../images/vmIcons/create-server.svg'
 import purchaseIcon from '../../../images/vmIcons/purchase.svg'
 import upgradeIcon from '../../../images/vmIcons/upgrade.svg'
 import centosIcon from '../../../images/vmIcons/centos.svg'
+import diskIcon from '../../../images/vmIcons/disk.svg'
 import cpuIcon from '../../../images/vmIcons/cpu.svg'
 import ramIcon from '../../../images/vmIcons/ram.svg'
-import diskIcon from '../../../images/vmIcons/disk.svg'
+
 
 // styles & internal-component
-import { Footer } from './components/Footer'
 import { MultipleControl } from './components/Control/Control'
+import { Footer } from './components/Footer'
 import styles from './Card.module.scss'
 
 export default interface Iprops {
@@ -74,9 +76,11 @@ export const Card: React.FunctionComponent<Iprops> = ({ on, off, purchase, invoi
 			</div>
 			<Footer className={styles.footer}>
 				{
-					purchase ? <Link to="/vm/order"><Button className={['btnSuccess0', 'btnLg']}>
-						<IconLink icon={purchaseIcon} iconAlt="purchase icon" label={t`خرید سرور جدید`}/>
-					</Button></Link>
+					purchase ? <Link to="/vm/order">
+						<Button className={['btnSuccess0', 'btnLg']}>
+							<IconLink icon={purchaseIcon} iconAlt="purchase icon" label={t`خرید سرور جدید`}/>
+						</Button>
+					</Link>
 					: invoice ? <>
 						<Button className={['btnSecondary', 'btnSm']} style={{width: '115px'}}>{t`مشاهده صورتحساب`}</Button>
 						<Button className={['btnDanger0', 'btnSm']} style={{width: '75px'}}>{t`حذف سرور`}</Button>

@@ -136,3 +136,23 @@
 		
 	}
 }
+
+body:lang(en) {
+	.item {
+		.top {
+			.state {
+				flex-direction: row-reverse;
+			}
+		}
+
+		.footer {
+			button {
+				> div {
+					> img {
+						margin-right: 8px;
+					}
+				}
+			}
+		}
+	}
+}

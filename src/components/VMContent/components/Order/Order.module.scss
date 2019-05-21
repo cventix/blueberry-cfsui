@@ -1,0 +1,53 @@
+@import '../../../../styles/global.scss';
+
+.oredrHeader {
+	margin-bottom: 66px;
+}
+
+.stepDescription {
+	@include flex(row, wrap);
+	margin-top: 162px;
+	margin-bottom: 65px;
+	
+	.number {
+		display: flex;
+		justify-content: space-around;
+		align-items: center;
+		margin-left: 10px;
+		width: 41px;
+		height: 41px;
+		border: solid 1px $dk-gray;
+		font-size: $font-size + 11;
+		@include border-radius(50%);
+	}
+
+	.text {
+		.title {
+			font-size: $font-size + 2;
+			color: $dk-gray;
+		}
+
+		.subTitle {
+			font-size: $font-size - 2;
+			color: $lt-gray;
+		}
+	}
+	
+}
+
+.cardWrapper {
+	@include flex(row, wrap);
+	justify-content: space-between;
+}
+
+.selectOs{
+	.msgWrapper {
+		margin-bottom: 61px;
+	}
+}
+
+body:lang(en) {
+	.number {
+		margin-right: 10px;
+	}
+}

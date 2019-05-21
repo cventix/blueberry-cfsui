@@ -1,6 +1,6 @@
 @import '../../../styles/global.scss';
 
-.alert {
+.colorfulBox {
 	position: relative;
 	@include flex(row, wrap);
 	padding: 0 12px 0 10px;
@@ -44,7 +44,7 @@
 	}
 
 	&.sm {
-		height: $default-height;
+		min-height: $default-height;
 		line-height: $default-height;
 		@include border-radius(20px);
 		justify-content: center;
@@ -52,7 +52,7 @@
 
 	&.lg {
 		width: 100%;
-		height: 50px;
+		min-height: 50px;
 		line-height: 50px;
 		font-size: $font-size - 2;
 		justify-content: space-between;

@@ -6,13 +6,12 @@ import { Navbar } from '../../components/Navbar/Navbar'
 import { Sidebar } from '../../components/Sidebar/Sidebar'
 
 import { Main } from '../../components/Main/Main'
-import { Stepbar } from '../../components/Stepbar/Stepbar'
 import './App.css'
 import styles from '../../components/Content/Content.module.scss'
 
 import Content from '../../components/Content/Content'
 import VMContent from '../../components/VMContent/VMContent'
-import { SelectOs } from '../../components/VMContent/components/steps/SelectOs'
+import Order from '../../components/VMContent/components/Order/Order'
 import { Table } from '../../components/Table/Table'
 import { Modal } from '../../components/ui-elements/Modal/Modal'
 import { Preview } from '../../components/ui-elements/Preview/Preview'
@@ -29,7 +28,6 @@ import { CountdownTimer } from '../../components/ui-elements/CountdownTimer/Coun
 import { UploadModal } from '../../components/ui-elements/Uploadmodal/Uploadmodal'
 import MoveFile from '../../components/ui-elements/Modal/MoveFileModal.tsx/MoveFile'
 
-const steps = ['انتخاب سیستم عامل', 'انتخاب مدت سرویس', 'انتخاب طرح', 'اطلاعات کارت شبکه', 'انتخاب نام سرور و ثبت نهایی']
 const options = [{ value: 'chocolate', label: 'Chocolate' }, { value: 'strawberry', label: 'Strawberry' }, { value: 'vanilla', label: 'Vanilla' }]
 
 class App extends Component<{ login: any; setUserInfo: any; history?: any; selection?: any[]; removeFolder?: any; getTrashDocuments?: any }, {}> {
@@ -169,7 +167,7 @@ class App extends Component<{ login: any; setUserInfo: any; history?: any; selec
             <Route
               exact
               path={`/vm/order`}
-              component={SelectOs} 
+              component={Order} 
             />
           </Switch>
         </Main>

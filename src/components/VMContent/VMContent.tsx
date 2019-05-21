@@ -4,7 +4,6 @@ import { t } from 'ttag'
 // components
 import { VMContentHeader } from './components/VMContentHeader'
 import { VMContentBody } from './components/VMContentBody'
-import { SelectOs } from './components/steps/SelectOs'
 
 // styles
 import styles from './VMContent.module.scss'

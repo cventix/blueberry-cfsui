@@ -1,0 +1,53 @@
+@import '../../../../../../styles/global.scss';
+
+.footer {
+	margin-bottom: 20px;
+
+	.btnWrapper {
+		@include flex(row, wrap);
+		justify-content: space-between;
+		align-items: center;
+		margin: 51px 0;
+
+		.right {
+			> button {
+				margin-left: 20px;
+				color: $lt-gray;
+
+				img {
+					margin-left: 9px;
+					@include transform(rotate(180deg));
+				}
+			}
+		}
+		.left {
+			> button {
+				direction: ltr;
+
+				img {
+					margin-right: 6px;
+				}
+			}
+		}
+	}
+
+	.info {
+		@include flex(row, wrap);
+		flex-grow: 1;
+		justify-content: space-between;
+		color: $lt-gray;
+	}
+}
+
+body:lang(en) {
+	.footer {
+		.btnWrapper {
+			.right {
+				> button {
+					margin-right: 20px;
+					margin-left: 0;
+				}
+			}
+		}
+	}
+}

@@ -7,7 +7,7 @@ import { Button } from "../Button/Button";
 
 //styles & icon
 import cancelIcon from '../../../images/vmIcons/cancel.svg'
-import styles from './Alert.module.scss'
+import styles from './ColorfulBox.module.scss'
 
 export default interface Iprops {
 	className?: string[]
@@ -16,18 +16,20 @@ export default interface Iprops {
 	handleClose?: () => void
 	hide?: boolean
 	withClose?: boolean
+	children?: any
 }
 
 const classCreator = (className: any) => {
   return className.map((name: any) => styles[name]).join(' ')
 }
 
-export const Alert = ({ className, width, message, handleClose, hide, withClose }: Iprops) => (
-	<div className={hide ? `${styles.alert} ${styles.hide}` : `${styles.alert} ${classCreator(className)}`} style={{width: width}}>
+export const ColorfulBox = ({ className, width, message, handleClose, hide, withClose, children }: Iprops) => (
+	<div className={hide ? `${styles.colorfulBox} ${styles.hide}` : `${styles.colorfulBox} ${classCreator(className)}`} style={{width: width}}>
 		<span>{message}</span>
 		{withClose ? 
 			<Button onClick={handleClose}>
 				<Icon className={styles.closeIcon} src={cancelIcon} />
 			</Button> : ''}
+		{children}
 	</div>
 )
