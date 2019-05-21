@@ -75,55 +75,50 @@ class App extends Component<
   timer: any = ''
   countDownTime = 100000
 
-  handleCFClose = () => {
-    this.setState({ showcFmodal: false, showModal: false })
-  }
-  handleMoveclose = () => {
-    this.setState({ showmVmodal: false, showModal: false })
+
+  handleClose = () => {
+    this.setState({ showModal: false, modalView: '' })
   }
 
   onItemClick = (e: any) => {
-    console.log(e)
-    if (e.target) {
-      if (e.target.textContent) {
-        switch (e.target.textContent) {
-          case 'پوشه جدید':
-            this.setState({ modal: 'createFolder', showModal: true })
-            break
-          case 'انتقال':
-            this.setState({ modal: 'moveFile', showModal: true })
-            break
-          case 'حذف':
-            this.setState({ modal: 'remove', showModal: true })
-            this.timer = setTimeout(() => {
-              this.onRemoveDocument()
-              this.timer = 0
-            }, this.countDownTime)
+    if (!e.target) {
+      switch (e) {
+        case 'پوشه جدید':
+          this.setState({ modal: 'createFolder', showModal: true })
+          break
+        case 'انتقال':
+          this.setState({ modal: 'moveFile', showModal: true })
+          break
+        case 'حذف':
+          this.setState({ modal: 'remove', showModal: true })
+          this.timer = setTimeout(() => {
+            this.onRemoveDocument()
+            this.timer = 0
+          }, this.countDownTime)
 
-            break
-          default:
-            break
-        }
-      } else if (e.target.value) {
-        switch (e.target.value) {
-          case 'نمایش حذف شده‌ها':
-            if (this.props.history.location.pathname !== '/fm/trash') {
-              this.props.history.push(`/fm/trash`)
-              this.props.getTrashDocuments()
-            } else this.props.history.push(`/fm`)
-
-            break
-          case `به اشتراک گذاشته‌ شده‌ها`:
-            if (this.props.history.location.pathname !== '/fm/shared') {
-              this.props.history.push(`/fm/shared`)
-              this.props.getSharedDocuments()
-            } else this.props.history.push(`/fm`)
-
-            break
-        }
+          break
+        case 'آپلود فایل از URL':
+          this.setState({ modal: 'urlUpload', showModal: true })
+        default:
+          break
       }
-    } else if (e == 'urlUpload') {
-      this.setState({ modal: 'urlUpload', showModal: true })
+    } else if (e.target.value) {
+      switch (e.target.value) {
+        case 'نمایش حذف شده‌ها':
+          if (this.props.history.location.pathname !== '/fm/trash') {
+            this.props.history.push(`/fm/trash`)
+            this.props.getTrashDocuments()
+          } else this.props.history.push(`/fm`)
+
+          break
+        case `به اشتراک گذاشته‌ شده‌ها`:
+          if (this.props.history.location.pathname !== '/fm/shared') {
+            this.props.history.push(`/fm/shared`)
+            this.props.getSharedDocuments()
+          } else this.props.history.push(`/fm`)
+
+          break
+      }
     }
   }
   onCancle = () => {
@@ -141,9 +136,7 @@ class App extends Component<
       console.log('E: ', error)
     }
   }
-  handleSignOut = (e: any) => {
-    // this.props.signout()
-  }
+ 
 
   toggleHamburgerMenu() {
     this.setState({
@@ -164,7 +157,7 @@ class App extends Component<
     let modal
     switch (this.state.modal) {
       case 'createFolder':
-        modal = <CFModal handleCFClose={this.handleCFClose} showModal={this.state.showModal} />
+        modal = <CFModal handleCFClose={this.handleClose} showModal={this.state.showModal} />
         break
       case 'remove':
         modal = (
@@ -178,13 +171,14 @@ class App extends Component<
         )
         break
       case 'moveFile':
-        modal = <MoveFile handleClose={this.handleMoveclose} showModal={this.state.showModal} />
+        modal = <MoveFile handleClose={this.handleClose} showModal={this.state.showModal} />
         break
       case 'urlUpload':
         modal = (
           <UploadModal
             show={this.state.showModal}
             width={640}
+            handleClose={this.handleClose}
             title={'آپلود از آدرس اینترنتی'}
             formDescription={' برای آپلود آدرس اینترنتی خود را در فرم زیر وارد نمایید'}
           >
@@ -213,7 +207,7 @@ class App extends Component<
         <Sidebar
           showModal={this.state.showcFmodal}
           onItemClick={this.onItemClick}
-          handleCFClose={this.handleCFClose}
+          handleCFClose={this.handleClose}
           open={this.state.isOpenMenu}
           onClickOverlay={() => {
             this.toggleHamburgerMenu()

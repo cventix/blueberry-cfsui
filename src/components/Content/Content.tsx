@@ -94,8 +94,8 @@ class Content extends React.Component<IProps, IState> {
       modalView: '',
       ascending: 'ascending',
       name: '',
-      showRename: false,
-      showRemove: false,
+      showModal: false,
+      showToaster: false,
       description: '',
       showToast: false,
       message: ''
@@ -239,7 +239,7 @@ class Content extends React.Component<IProps, IState> {
     if (e) e.preventDefault()
     try {
       let result = await this.props.renameFolder({ folderId: this.state.renameFileId, name: this.state.renameInput })
-      this.setState({ showRename: false, modalView: 'doneRename' })
+      this.setState({ showModal: false, modalView: 'doneRename' })
     } catch (error) {
       console.log('E: ', error)
     }
@@ -248,7 +248,7 @@ class Content extends React.Component<IProps, IState> {
   onRemoveDocument = async () => {
     try {
       let result = await this.props.removeFolder({ folderId: this.state.isSelected })
-      this.setState({ showRemove: false })
+      this.setState({ showToaster: false })
     } catch (error) {
       console.log('E: ', error)
     }
@@ -265,25 +265,25 @@ class Content extends React.Component<IProps, IState> {
     let renameInput = this.state.table.filter((obj: any) => {
       return obj.id === renameFileId
     })[0].name
-    this.setState({ modalView: 'renameFile', showRename: true, renameInput, renameFileId })
+    this.setState({ modalView: 'renameFile', showModal: true, renameInput, renameFileId })
   }
 
-  closeRenameModalclose = () => {
-    this.setState({ showRename: false, renameFileId: '' })
+  handleClose = () => {
+    this.setState({ showModal: false, renameFileId: '' })
   }
 
   // remove modal
   openRemoveModal = (isSelected: number) => {
-    this.setState({ showRemove: true, isSelected, modalView: 'removeFile', countDown: this.countDownTime / 1000 })
+    this.setState({ showToaster: true, isSelected, modalView: 'removeFile', countDown: this.countDownTime / 1000 })
     this.timer = setTimeout(() => {
       // this.onRemoveDocument()
-      this.setState({ showRemove: false, modalView: '' })
+      this.setState({ showToaster: false, modalView: '' })
       this.timer = 0
     }, this.countDownTime)
   }
 
   onCancle = () => {
-    this.setState({ showRemove: false, modalView: '' })
+    this.setState({ showToaster: false, modalView: '' })
     if (this.timer) {
       clearTimeout(this.timer)
     }
@@ -323,16 +323,16 @@ class Content extends React.Component<IProps, IState> {
       { label: 'دریافت لینک‌ها' },
       { label: 'حذف فایل', onClick: this.openRemoveModal }
     ]
-    let modal, toaster , preview
+    let modal, toaster, preview
     switch (this.state.modalView) {
       case 'renameFile':
         modal = (
           <UploadModal
-            show={this.state.showRename || this.state.showRemove}
+            show={this.state.showModal}
             width={640}
             title={'تغییر نام'}
             formDescription={' نام جدید را در فرم زیر وارد نمایید'}
-            handleClose={this.closeRenameModalclose}
+            handleClose={this.handleClose}
           >
             <RenameFile value={this.state.renameInput} changeHandler={this.changeHandler} handleSubmit={this.onRenameDocument} />
           </UploadModal>
@@ -357,18 +357,7 @@ class Content extends React.Component<IProps, IState> {
         )
         break
       case 'previewModal':
-          preview = <Preview show={true} type={'image'}/>
-        break
-        case 'urlUploadModal':
-          modal =   <UploadModal
-          show={this.state.showRename || this.state.showRemove}
-          width={640}
-          title={'تغییر نام'}
-          formDescription={' نام جدید را در فرم زیر وارد نمایید'}
-          handleClose={this.closeRenameModalclose}
-        >
-          
-        </UploadModal>
+        preview = <Preview show={true} type={'image'} />
         break
     }
     const history = [{ title: t`پوشه اصلی`, link: '/', active: false }]
