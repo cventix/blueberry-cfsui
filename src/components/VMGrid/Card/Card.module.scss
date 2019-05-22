@@ -11,6 +11,36 @@
 	border: solid 1px #e5e5e5;
 	margin-top: 53px;
 
+	.show {
+		display: block;
+	}
+
+	.showDetails {
+		@include flex(row, wrap);
+		justify-content: space-between;
+
+		@media(max-width: $mobile + 20) {
+			@include flex(column, wrap);
+		}
+
+		.multipleCtrWrapper {
+			margin-top: 18px;
+		}
+
+		.center {
+			flex-basis: calc(100% - 240px);
+			margin-top: 5px;
+		    
+			.right {
+				flex-basis: 75%;
+			}
+
+			.left {
+				flex-basis: 25%;
+			}
+		}
+	}
+
 	.top {
 		@include flex(row, wrap);
 		justify-content: space-between;

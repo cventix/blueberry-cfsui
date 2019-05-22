@@ -8,8 +8,22 @@
 	height: 180px;
 	background-color: #fff;
 	border: solid 1px #e5e5e5;
+	cursor: pointer;
 	@include border-radius($br-radius-sm);
 	@include box-shadow(0 1px 3px 0 rgba(0, 0, 0, 0.05));
+
+	&:hover, &.selected {
+
+		.top {
+			border: 1px solid $lt-blue;	
+		}
+
+		.footer {
+			background-color: $lt-blue;
+			color: #fff;
+			@include transition(background-color 1s);
+		}
+	}
 
 	.top {
 		@include flex(column, wrap);
@@ -17,6 +31,11 @@
 		justify-content: center;
 		width: 100%;
 		height: 135px;
+		border: 1px solid transparent;
+
+		img {
+			width: 109px;
+		}
 	}
 
 	.footer {

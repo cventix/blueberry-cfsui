@@ -12,12 +12,14 @@ import { VmInfo } from './VmInfo'
 // styles & icons
 import arrowLeftGrayIcon from '../../../../../../images/arrow-left-darkGray.svg'
 import arrowLeftIcon from '../../../../../../images/arrow-left-white.svg'
+import invoiceIcon from '../../../../../../images/invoice.svg'
 import styles from './Footer.module.scss'
 
 export default interface Iprops {
 	handleNextStep?: () => void
 	handleCancelBtn?: () => void
 	handlePreviousStep?: () => void
+	finalStep?: boolean
 }
 
 export const Footer: React.FunctionComponent<Iprops> = (props) => { 
@@ -35,8 +37,8 @@ export const Footer: React.FunctionComponent<Iprops> = (props) => {
 					<Button className={['btnDefault0', 'btnSm']} onClick={props.handleCancelBtn}>{t`انصراف`}</Button>
 				</div>
 				<div className={styles.left}>
-					<Button className={['btnPrimary0', 'btnSm']} onClick={props.handleNextStep}>
-						<IconLink icon={arrowLeftIcon} label={t`بعدی`}/>
+					<Button className={['btnPrimary0', 'btnSm']} onClick={props.handleNextStep} style={props.finalStep ? {width: '150px', direction: 'rtl'} : {}}>
+						{props.finalStep ? <IconLink icon={invoiceIcon} label={t`صدور صورتحساب`}/> : <IconLink icon={arrowLeftIcon} label={t`بعدی`}/>}
 					</Button>
 				</div>
 			</div>

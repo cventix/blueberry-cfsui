@@ -25,7 +25,7 @@ export const SearchInput = ({ withSetting = false, placeHolder, handleInputChang
     <div className={styles.searchInput}>
       <TextInput placeholder={placeHolder} onChange={(e: any) => handleInputChange(e.target.value)}/>
       <div className={styles.btnWrapper}>
-        <Button>
+        <Button style={{ backgroundColor: '#fff'}}>
           <Icon src={searchIcon} />
         </Button>
       </div>

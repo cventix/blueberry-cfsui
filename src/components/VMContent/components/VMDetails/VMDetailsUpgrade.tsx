@@ -1,0 +1,71 @@
+import React, { FunctionComponent } from 'react'
+import { t } from 'ttag'
+
+// ui-elements
+import { ColorfulBox } from '../../../../components/ui-elements/ColorfulBox/ColorfulBox'
+import { Button } from '../../../../components/ui-elements/Button/Button'
+import { IconLink } from '../../../../components/ui-elements/IconLink'
+
+// internal-component
+import { Card } from '../../../VMGrid/Card/Card'
+import { MultiplePlan } from '../../../VMGrid/Card/components/Control/Control'
+import  OrderCard from '../Order/Steps/Card/Card'
+
+// styles & icon
+import upgradeIcon from '../../../../images/vmIcons/upgrade-white.svg'
+import styles from './VMDetails.module.scss'
+
+export default interface Iprops {}
+
+export const VMDetailsUpgrade: React.FunctionComponent<Iprops> = () => { 
+	return (
+		<div className={styles.VMDetails}>
+			<Card 
+				fullScreen={true}
+				Extended={true}
+				showDetails={true}
+				os="CentOs6.7"
+				cpu="8GHz (4core)"
+				disk="8GB"
+				ram="10GB"
+				on={true} status={"198.143.181.40"}
+			/>
+			<div className={styles.cardWrapper}>
+				<OrderCard footerData={<MultiplePlan />} className={styles.choosePlanCard}>
+					<div className={styles.planInfo}>
+						<span className={styles.name}>VPS1</span>
+						<p className={styles.trafic}>ترافیک نامحدود</p>
+						<ul className={styles.softwareInfo}>
+							<li className={styles.row}>
+								<span>{t`پردازنده:`}</span>
+								<span>2 GHz  (1 Cores)</span>
+							</li>
+							<li className={styles.row}>
+								<span>{t`حافظه:`}</span>
+								<span>512 MB</span>
+							</li>
+							<li className={styles.row}>
+								<span>{t`فضای دیسک:`}</span>
+								<span>10 GB</span>
+							</li>
+						</ul>
+					</div>
+				</OrderCard>
+			</div>
+			<div className={styles.upgradeFooter}>
+				<ColorfulBox className={['blue', 'lg']}>
+					<div className={styles.vmInfo}>
+						<div>{'VPS1'}</div>
+						<div>{'۳ ماهه'}</div>
+						<div>{'هزینه استرداد: ۲۷۰,۰۰۰ ریال'}</div>
+						<div>{'هزینه سرویس: ۲۷۰,۰۰۰ ریال'}</div>
+						<div>{'کل هزینه: ۲۷۰,۰۰۰ ریال'}</div>
+					</div>
+					<Button className={['btnPrimary0', 'btnSm']} style={{width: '150px'}}>
+						<IconLink icon={upgradeIcon} label={t`اعمال ارتقاء`} className={`${styles.iconLink} ${styles.inBtn}`}/>
+					</Button>
+				</ColorfulBox>
+			</div>
+		</div>
+	)
+}

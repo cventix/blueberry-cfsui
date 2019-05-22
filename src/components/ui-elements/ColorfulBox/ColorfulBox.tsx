@@ -12,6 +12,7 @@ import styles from './ColorfulBox.module.scss'
 export default interface Iprops {
 	className?: string[]
 	width?: number
+	margin?: string
 	message?: string
 	handleClose?: () => void
 	hide?: boolean
@@ -23,9 +24,9 @@ const classCreator = (className: any) => {
   return className.map((name: any) => styles[name]).join(' ')
 }
 
-export const ColorfulBox = ({ className, width, message, handleClose, hide, withClose, children }: Iprops) => (
-	<div className={hide ? `${styles.colorfulBox} ${styles.hide}` : `${styles.colorfulBox} ${classCreator(className)}`} style={{width: width}}>
-		<span>{message}</span>
+export const ColorfulBox = ({ className, width, margin, message, handleClose, hide, withClose, children }: Iprops) => (
+	<div className={hide ? `${styles.colorfulBox} ${styles.hide}` : `${styles.colorfulBox} ${classCreator(className)}`} style={{width: width, margin: margin}}>
+		{message}
 		{withClose ? 
 			<Button onClick={handleClose}>
 				<Icon className={styles.closeIcon} src={cancelIcon} />

@@ -4,6 +4,7 @@
 	position: relative;
 	@include flex(row, wrap);
 	padding: 0 12px 0 10px;
+	font-family: $medium-font;
 	opacity: 1;
 
 	&.hide {
@@ -15,6 +16,7 @@
 	> button {
 		display: flex;
 		align-items: center;
+		justify-content: center;
 		background-color: transparent;
 		padding: 0;
 
@@ -23,6 +25,11 @@
 			height: 16px;
 			cursor: pointer;
 		}
+	}
+
+	&.white {
+		@include box-shadow(0 1px 3px 0 rgba(0, 0, 0, 0.15));
+		background-color: #fff;
 	}
 
 	&.red {

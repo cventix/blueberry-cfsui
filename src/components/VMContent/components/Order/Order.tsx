@@ -3,13 +3,19 @@ import { Route, Switch } from 'react-router-dom';
 import { t } from 'ttag'
 
 // internal components
-import { VMContentHeader } from '../VMContentHeader'
 import { SelectOs } from './Steps/SelectOs'
 import { ServiceDuration } from './Steps/ServiceDuration'
+import { ChoosePlan } from './Steps/ChoosePlan'
+import { ChooseNetworkCard } from './Steps/ChooseNetworkCard'
+import { FinalStep } from './Steps/FinalStep'
+import { DailySetting } from './Steps/DailySetting'
+import { VMDetailsShh } from '../VMDetails/VMDetailsShh'
+import { VMDetailsSetting } from '../VMDetails/VMDetailsSetting'
+import { VMDetailsUpgrade } from '../VMDetails/VMDetailsUpgrade'
+import { VMContentHeader } from '../VMContentHeader'
 
 // styles
 import styles from './Order.module.scss'
-
 
 export default class Order extends React.Component<any, any> {
 
@@ -30,7 +36,7 @@ export default class Order extends React.Component<any, any> {
                         <Route 
                             exact
                             path={`${match.path}`}
-                            component={SelectOs}
+                            component={VMDetailsUpgrade}
                         />
                         <Route 
                             exact

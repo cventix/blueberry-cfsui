@@ -7,8 +7,8 @@ import { Stepbar } from '../../../../../components/Stepbar/Stepbar'
 
 // internal-component
 import { StepDescription } from './StepDescription'
-import { Card } from './Card/Card'
 import { Footer } from './Footer/Footer'
+import Card from './Card/Card'
 
 // styles
 import styles from '../Order.module.scss'
@@ -20,10 +20,10 @@ const steps = [t`انتخاب سیستم عامل`, t`انتخاب مدت سرو
 export const SelectOs: React.FunctionComponent<Iprops> = () => { 
 	return (
 		<div className={styles.selectOs}>
-			<div className={styles.msgWrapper}>
-				<ColorfulBox className={['green', 'lg']} withClose={true} message={t`با خرید پلن روزانه، سرور شما هر روز به صورت خودکار تمدید می شود. هر گاه از تمدید منصرف شدید، می توانید سرور را حذف نمایید.`}/>
+			<ColorfulBox className={['green', 'lg']} withClose={true} message={t`با خرید پلن روزانه، سرور شما هر روز به صورت خودکار تمدید می شود. هر گاه از تمدید منصرف شدید، می توانید سرور را حذف نمایید.`}/>
+			<div className={styles.stepbarWrapper}>
+				<Stepbar steps={steps} currentStep={0} />
 			</div>
-			<Stepbar steps={steps} currentStep={0} />
 			<StepDescription stepNumber={1} title={[t`مرحله اول: `, steps[0]].join(' ')} subTitle={t`سیستم عاملی که قصد دارید روی سرور مجازی شما نصب شود انتخاب کنید.`}/>
 			<div className={styles.cardWrapper}>
 				<Card footerData={"Debian 8 (64bit)"}>ewew</Card>

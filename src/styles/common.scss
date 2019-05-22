@@ -11,7 +11,7 @@
   display: -webkit-flex;
   display: flex;
   align-items: center;
-  
+
   .icon {
     margin-right: 21px;
     margin-left: 15px;
@@ -29,4 +29,69 @@
 
 .tooltipIcon {
   margin: 6px 0 0;
+}
+
+/* networkInfo */
+.networkInfo {
+  width: 100%;
+  padding: 5px;
+
+  .header {
+    color: $input-color;
+    font-family: $medium-font;
+  }
+
+  .header, .body {
+    @include flex(row, wrap);
+
+    > div {
+      width: 50%;
+      line-height: 50px
+    }
+  }
+
+  .body {
+    color: $dk-gray;
+  }
+
+}
+
+/* m choosePlanCard */
+@mixin choosePlanCard {
+  > div {
+    display: block;
+    text-align: center;
+  }
+  
+  footer {
+    direction: rtl
+  }
+
+  .planInfo {
+    padding: 12px 15px;
+
+    .name {
+      color: $dk-gray;
+      font-family: $medium-font;
+      font-size: $font-size + 2;
+    }
+
+    .trafic {
+      margin-top: -3px;
+      font-size: $font-size - 4;
+      color: $lt-gray;
+    }
+
+    .softwareInfo {
+      margin-top: 14px;
+      text-align: right;
+
+      .row {
+        @include flex(row, wrap);
+        justify-content: space-between;
+        font-size: $font-size - 2;
+        color: $dk-gray;
+      }
+    }
+  }
 }

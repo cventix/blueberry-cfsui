@@ -1,5 +1,7 @@
 import React, { FunctionComponent } from 'react'
 import { t } from 'ttag'
+
+// internal-component
 import { Card } from './Card/Card'
 
 import styles from './VMGrid.module.scss'

@@ -1,0 +1,88 @@
+@import '../../../../styles/global.scss';
+
+.VMDetails {
+	.choosePlanCard {
+		@include choosePlanCard;
+	}
+
+	.cardWrapper {
+		@include flex(row, wrap);
+		justify-content: space-between;
+		margin-top: 65px;
+		margin-bottom: 50px;
+	}
+
+	.upgradeFooter {
+		@include flex(row, wrap);
+
+		.vmInfo {
+			@include flex(row, wrap);
+			justify-content: space-between;
+			color: $dk-gray;
+		}
+
+		.inBtn {
+			img {
+				margin-left: 9px;
+			}
+		}
+	}
+
+	.wrapper {
+		margin-top: 25px;
+		padding: 15px;
+		background-color: #fbfbfb;
+		border: solid 1px $input-border;
+		@include border-radius($br-radius-sm);
+
+		&.deleteVM {
+			@include flex(row, wrap);
+			justify-content: space-between;
+
+			.left {
+				display: flex;
+				
+				> button {
+					margin-right: 32px;
+				}
+			}
+		}
+
+		.title {
+			color: $dk-gray;
+			font-family: $medium-font;
+		}
+
+		.networkInfo {
+			.header, .body {
+				> div {
+					
+				}
+			}
+		}
+
+		.codeWrapper {
+			display: inline-block;
+			width: 100%;
+			height: 50px;
+			line-height: 22px;
+			@include border-radius($br-radius-sm)
+			background-color: $dk-gray;
+			color: #6fff00;
+			direction: ltr;
+			margin-top: 15px;
+			margin-bottom: 12px;
+			padding: 15px;
+
+			@media(max-width: $mobile - 55) {
+				font-size: $font-size - 3;
+			}
+		}
+
+		.hint {
+			margin-top: 3px;
+			color: $lt-gray;
+			font-size: $font-size - 2;
+		}
+	}
+}

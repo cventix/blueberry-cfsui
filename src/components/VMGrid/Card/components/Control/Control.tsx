@@ -23,6 +23,14 @@ export default interface Iprops {
 
 export interface MCprops {
 	turningOff?: boolean
+	width?: number
+	Extended?: boolean
+}
+
+export interface MPprops {
+	turningOff?: boolean
+	width?: number
+	Extended?: boolean
 }
 
 export const Control: React.FunctionComponent<Iprops> = ({ text, icon, className}) => (
@@ -35,13 +43,31 @@ export const Control: React.FunctionComponent<Iprops> = ({ text, icon, className
 	</div>
 )
 
-export const MultipleControl: React.FunctionComponent<MCprops> = ({ turningOff }) => (
-	<React.Fragment>
+export const MultipleControl: React.FunctionComponent<MCprops> = ({ turningOff , width, Extended }) => (
+	<div className={styles.multipleControl} style={{ width: Extended ? '240px' : '200px'}}>
 		<Control icon={remoteIcon} text={t`اتصال از دور`}/>
 		<Control icon={settingIcon} text={t`تنظیمات`}/>
 		<Control icon={upgradeIcon} text={t`تنظیمات ارتقا`}/>
 		<Control icon={plugIcon} text={t`از برق بکش`}/>
 		{turningOff ? <Control className="off" icon={powerWhiteIcon} text={t`خاموش کن`}/> : <Control icon={powerRedIcon} text={t`روشن کن`}/>}
-	</React.Fragment>
+		{Extended ? <Control icon={plugIcon} text={t`تمدید سرور`}/> : null}
+	</div>
+)
+
+export const MultiplePlan: React.FunctionComponent<MPprops> = ({ }) => (
+	<div className={`${styles.multiplePlan} ${styles.control}`}>
+		<Button>
+			۱ ماهه
+		</Button>
+		<Button>
+			۳ ماهه
+		</Button>
+		<Button>
+			۶ ماهه
+		</Button>
+		<Button>
+			یکساله
+		</Button>
+	</div>
 )
 

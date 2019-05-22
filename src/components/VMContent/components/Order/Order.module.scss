@@ -6,7 +6,6 @@
 
 .stepDescription {
 	@include flex(row, wrap);
-	margin-top: 162px;
 	margin-bottom: 65px;
 	
 	.number {
@@ -17,7 +16,7 @@
 		width: 41px;
 		height: 41px;
 		border: solid 1px $dk-gray;
-		font-size: $font-size + 11;
+		font-size: $font-size + 8;
 		@include border-radius(50%);
 	}
 
@@ -30,9 +29,16 @@
 		.subTitle {
 			font-size: $font-size - 2;
 			color: $lt-gray;
+		    margin-top: 1px;
 		}
 	}
 	
+}
+
+.stepbarWrapper {
+    height: 45px;
+	margin-top: 66px;
+	margin-bottom: 52px;
 }
 
 .cardWrapper {
@@ -40,9 +46,114 @@
 	justify-content: space-between;
 }
 
-.selectOs{
-	.msgWrapper {
-		margin-bottom: 61px;
+.serviceDuration {
+	.cardWrapper {
+		img {
+			width: 68px;
+			height: 60px;
+		}
+	}
+}
+
+.choosePlan {
+	.choosePlanCard {
+		@include choosePlanCard;
+	}
+  }
+
+.FinalStep {
+	.title {
+		color: $dk-gray;
+	}	
+
+	.description {
+		color: $lt-gray;
+		font-size: $font-size - 2;
+		line-height: 0px;
+		margin-top: -4px;
+	}
+
+	.serverName {
+		padding: 6px;
+		width: 100%;
+
+		.description {
+			margin-bottom: 25px;
+		}
+
+		input {
+			width: 372px;
+
+			@media(max-width: $mobile) {
+				width: 320px;
+			}
+		}
+	}
+
+	.discount {
+	    padding: 6px;
+		width: 100%;
+
+		.description {
+			margin-bottom: 18px;
+		}
+
+		input {
+			width: 174px;
+			height: 35px;
+		}
+
+		button {
+			margin-right: 10px;
+		}
+
+	}
+}
+
+.settingBox {
+	@include flex(row, wrap);
+	justify-content: space-between;
+	align-items: center;
+	width: 650px;
+	height: $navbar-height;
+	margin: 0 auto 30px auto;
+	padding: 13px 20px;
+	background-color: #fff;
+	border: solid 1px #dbdbdb;
+	@include border-radius($br-radius-sm);
+
+	@media (min-width: $mobile + 20) and (max-width: 651px) {
+		width: 400px;
+	}	
+
+	@media (min-width: $mobile) and (max-width: $mobile + 20) {
+		width: $mobile;
+	}	
+
+	@media (max-width: $mobile + 1) {
+		width: 320px;
+	}
+
+	.right {
+		.name {
+			color: $dk-gray;
+			font-size: $font-size + 2;
+			font-family: $medium-font;
+		}
+
+		.info {
+			color: $dk-blue
+		}
+	}	
+
+	.center {
+		margin: -8px 34px;
+		flex-grow: 1;
+	}	
+
+	.left {
+		font-size: $font-size - 2;
+		color: $lt-gray;
 	}
 }
 
@@ -50,4 +161,12 @@ body:lang(en) {
 	.number {
 		margin-right: 10px;
 	}
+
+	.FinalStep {
+		.discount {
+			button {
+				margin-left: 10px;
+			}
+		}
+ 	}
 }

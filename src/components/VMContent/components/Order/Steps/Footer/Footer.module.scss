@@ -26,6 +26,7 @@
 
 				img {
 					margin-right: 6px;
+					margin-left: 6px;
 				}
 			}
 		}
@@ -33,9 +34,16 @@
 
 	.info {
 		@include flex(row, wrap);
-		flex-grow: 1;
-		justify-content: space-between;
 		color: $lt-gray;
+		width: 100%;
+
+		.item {
+			width: 20%;
+
+			.value {
+				color: $dk-gray
+			}
+		}
 	}
 }
 
@@ -46,6 +54,7 @@ body:lang(en) {
 				> button {
 					margin-right: 20px;
 					margin-left: 0;
+					direction: rtl;
 				}
 			}
 		}

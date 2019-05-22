@@ -6,15 +6,18 @@ import { Icon } from '../../../../../../components/ui-elements/Icon'
 // styles
 import styles from './Card.module.scss'
 
-export default interface Iprops {
+export interface Iprops {
 	icon?: string
-	footerData: string
+	footerData: any
 	children: any
+	className?: string
+	selected?: boolean
+	onClickCard?: () => void
 }
 
-export const Card: React.FunctionComponent<Iprops> = (props) => { 
+const Card: React.FunctionComponent<Iprops> = (props) => { 
 	return (
-		<div className={styles.item}>
+		<div className={props.selected ? [`${styles.item}`, `${styles.selected}`, props.className].join(' ') : [`${styles.item}`, props.className].join(' ')} onClick={props.onClickCard}>
 			<div className={styles.top} >
 				{props.children}
 			</div>
@@ -24,3 +27,5 @@ export const Card: React.FunctionComponent<Iprops> = (props) => {
 		</div>
 	)
 }
+
+export default Card
