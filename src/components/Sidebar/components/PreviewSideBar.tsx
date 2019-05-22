@@ -31,7 +31,7 @@ export const PreviewSideBar: React.FunctionComponent<Iprops> = ({ onItemClick })
       <ActionNav onItemClick={onItemClick} hide={true} />
       <Hr />
       <FileFiltering forFM={true} onItemClick={onItemClick} />
-      <UpgradeAccount hide={true}/>
+      <UpgradeAccount forPreview={true}/>
     </div>
   )
 }

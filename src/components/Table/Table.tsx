@@ -48,23 +48,25 @@ export const Table: React.FunctionComponent<Iprops> = ({
   hasHeader = true
 }) => {
   const header = [t`نام`, t`تاریخ`, t`مالک`, t`حجم`]
-  return  (
+  return (
     <table className={styles.table}>
-     {hasHeader && <TableHeader
-        titles={header}
-        dropdown={dropdown}
-        {...onCheckAll && { checkAll: checkAll, onCheckAll: onCheckAll }}
-        onSort={onSort}
-        tabletView={tabletView}
-        onOpenCFModal={onOpenCFModal}
-      />}
+      {hasHeader && (
+        <TableHeader
+          titles={header}
+          dropdown={dropdown}
+          {...onCheckAll && { checkAll: checkAll, onCheckAll: onCheckAll }}
+          onSort={onSort}
+          tabletView={tabletView}
+          onOpenCFModal={onOpenCFModal}
+        />
+      )}
       <tbody>
         {table &&
           table.map((item: any, i: number) => {
             return (
               <tr key={item.id}>
                 {Object.keys(item).map((k, i) => {
-                  if (k !== 'type' && k !== 'id' && k !== 'fullPath' && k !== 'discriminator' && k !== 'uuid') {
+                  if (k !== 'type' && k !== 'id' && k !== 'fullPath' && k !== 'discriminator' && k !== 'uuid' && k !== 'item') {
                     return (
                       <TableItem
                         name={k}
@@ -74,6 +76,7 @@ export const Table: React.FunctionComponent<Iprops> = ({
                         handleNavigate={k === 'name' && handleNavigate}
                         label={item[k]}
                         itemName={item.name}
+                        item={item}
                         onCheck={onCheck}
                         checkAll={checkAll}
                         className={k === 'name' ? ['show'] : [' ']}

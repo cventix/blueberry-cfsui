@@ -6,7 +6,9 @@ import { t } from 'ttag'
 import { FM } from './components/FM'
 import { VM } from './components/VM'
 import './Sidebar.scss'
-import { PreviewSideBar } from './components/PreviewSideBar';
+import  {PreviewSideBar}  from './components/PreviewSideBar';
+import PreviewSideBarImage from './components/PreviewSideBarImage';
+
 
 export default interface Iprops {
   createFolderModal?: () => void
@@ -25,11 +27,15 @@ export const Sidebar: React.FunctionComponent<Iprops> = ({ createFolderModal, ha
         <Switch>
           <Route
            exact path={`/fm`}
-            render={() => <FM onItemClick={onItemClick}  />}
+           render={() => <FM onItemClick={onItemClick}  />}
           />
             <Route
-            exact path={`/fm/preview/image/:imagename`}
-            render={() => <PreviewSideBar onItemClick={onItemClick}  />}
+            exact path={`/fm/preview/image/:size/:name`}
+            render={() => <PreviewSideBarImage onItemClick={onItemClick}  />}
+          />
+           <Route
+            exact path={`/fm/preview/music/:name`}
+            render={() => <PreviewSideBarImage onItemClick={onItemClick}  />}
           />
           <Route
             exact

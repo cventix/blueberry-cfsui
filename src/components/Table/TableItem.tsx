@@ -20,6 +20,7 @@ export default interface Iprops {
   handleNavigate?: any
   itemName?: string
   uuid?: string
+  item?: any
 }
 
 export const splitter = (className: any) => {
@@ -39,6 +40,7 @@ export const TableItem: React.FunctionComponent<Iprops> = ({
   handleNavigate,
   checkAll,
   itemName,
+  item,
   onCheck,uuid
 }) => {
 
@@ -50,7 +52,7 @@ export const TableItem: React.FunctionComponent<Iprops> = ({
             <Checkbox onChange={() => onCheck && id && onCheck(id)} checked={checkAll} />
           </div>
         )}
-        <div className={'rowItem'} {...handleNavigate && { onClick: e => handleNavigate({ e: e, name: itemName, id: id ,uuid:uuid}) }}>
+        <div className={'rowItem'} {...handleNavigate && { onClick: e => handleNavigate({ e: e, name: itemName, id: id ,uuid:uuid,item:item.item}) }}>
           {hasType && <Icon mimetype={hasType} />}
           <div className={styles.name}>{label}</div>
         </div>

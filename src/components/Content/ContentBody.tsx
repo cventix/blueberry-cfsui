@@ -45,7 +45,8 @@ const makeArray = (array: any, username?: string) => {
       created_at: formatDate(each.createdAt),
       owner: username && each.owner.displayName === username ? t`خودم` : each.owner.displayName,
       size: each.size ? formatBytes({ bytes: each.size, lang }) : '---',
-      uuid: each.uuid
+      uuid: each.uuid,
+      item:each
     })
   })
   return table

@@ -4,11 +4,13 @@ import authReducer from './authReducer'
 import documentReducer from './documentReducer'
 import selectReducer from './selectReducer'
 import routerReducer from './routerReducer';
+import sidebarReducer from './sidebarReducer';
 
 export default combineReducers({
   auth: authReducer,
   loading: loadingReducer,
   document: documentReducer,
   selection: selectReducer,
-  router: routerReducer
+  router: routerReducer,
+  sidebar: sidebarReducer
 })

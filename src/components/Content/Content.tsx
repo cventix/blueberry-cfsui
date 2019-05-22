@@ -16,9 +16,19 @@ import Toast from '../ui-elements/Toast/Toast'
 import { ContentHeader } from './ContentHeader'
 import { ContentBody } from './ContentBody'
 import CFModal from '../ui-elements/Modal/CreateFolderModal/CreateFolder'
+import Config from '../../services/internal/config/config'
+
 // Services
 import { bottle } from '../../services'
-import { getDocuments, createFolder, renameFolder, removeFolder, moveDocuments, shareDocuments } from '../../services/internal/store/actions'
+import {
+  getDocuments,
+  createFolder,
+  renameFolder,
+  removeFolder,
+  moveDocuments,
+  shareDocuments,
+  setSidebarItems
+} from '../../services/internal/store/actions'
 import { formatDate } from '../../services/internal/utils/formatDates'
 import { formatBytes } from '../../services/internal/utils/formatBytes'
 import { sliceData } from '../../services/internal/utils/sliceData'
@@ -49,17 +59,20 @@ export interface IProps {
   history?: any
   location?: any
   prevProps?: any
+  item?: any
   prevState?: any
   document?: any
   loading?: boolean
   auth?: any
   setSelections?: any
+  setItem?: any
 }
 
 export interface navigateObject {
   e: any
   name?: string
   id?: number
+  item?: any
   uuid?: string
 }
 
@@ -152,6 +165,12 @@ class Content extends React.Component<IProps, IState> {
    * @param nextProps
    */
   componentWillReceiveProps(nextProps: any) {
+    if (nextProps.item) {
+      console.log('ee')
+      this.setState({
+        item: nextProps.item
+      })
+    }
     this.setState({
       table: sliceData({ array: nextProps.document.documents }),
       showMore: true,
@@ -223,7 +242,7 @@ class Content extends React.Component<IProps, IState> {
   }
 
   // navigate to directories
-  handleNavigate = ({ e, name, id, uuid }: navigateObject) => {
+  handleNavigate = ({ e, name, id, uuid, item }: navigateObject) => {
     if (e.target.tagName != 'INPUT') {
       let discriminator = this.state.table.filter((obj: any) => {
         return obj.name == name
@@ -232,8 +251,11 @@ class Content extends React.Component<IProps, IState> {
         this.props.history.push(`${this.props.history.location.pathname}/${name}`)
         this.onGetDocument(true, name)
       } else {
-        this.props.history.push(`fm/preview/image/${name}`)
-        this.setState({ modalView: 'previewModal' })}
+      console.log(item)
+        this.props.history.push(`fm/preview/${item.genericType}/medium/${name}`)
+        this.props.setItem(item)
+        this.setState({ modalView: 'previewModal', previewId: id, fileName: name, [`item${id}`]: item })
+      }
     }
   }
   onOpenCFModal = () => {
@@ -280,7 +302,7 @@ class Content extends React.Component<IProps, IState> {
   }
 
   handleClose = () => {
-    this.setState({ showModal: false, renameFileId: '' })
+    this.setState({ showModal: false, renameFileId: '', modalView: '' })
   }
 
   // remove modal
@@ -368,7 +390,12 @@ class Content extends React.Component<IProps, IState> {
         )
         break
       case 'previewModal':
-        preview = <Preview show={true} type={'image'} ><img src={image}/></Preview>
+        console.log(Config)
+        preview = (
+          <Preview show={true} type={'music'} item={this.state[`item${this.state.previewId}`]} handleClose={this.handleClose}>
+            <img src={`http://cdn.persiangig.com/preview/${this.props.item.uuid}/medium/${this.props.item.name}`} />
+          </Preview>
+        )
         break
       case 'createFolder':
         modal = <CFModal handleCFClose={this.handleClose} showModal={this.state.showModal} />
@@ -421,7 +448,12 @@ class Content extends React.Component<IProps, IState> {
   }
 }
 
-const mapStateToProps = (state: IState) => ({ document: state.document, loading: state.loading.isLoading, auth: state.auth })
+const mapStateToProps = (state: IState) => ({
+  document: state.document,
+  loading: state.loading.isLoading,
+  auth: state.auth,
+  item: state.sidebar.item
+})
 
 const mapDispatchToProps = (dispatch: any) => {
   return {
@@ -431,7 +463,8 @@ const mapDispatchToProps = (dispatch: any) => {
     moveDocuments: () => dispatch(moveDocuments()),
     shareDocuments: () => dispatch(shareDocuments()),
     removeFolder: (value: any) => dispatch(removeFolder(value)),
-    setSelections: (value: any) => dispatch(setSelections(value))
+    setSelections: (value: any) => dispatch(setSelections(value)),
+    setItem: (value: any) => dispatch(setSidebarItems(value))
   }
 }
 

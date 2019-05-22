@@ -13,7 +13,7 @@ import { signout } from '../../services/internal/store/actions'
 
 export interface Iprops {
   username: string
-  open: boolean
+  open?: boolean
   signout?: any
 }
 

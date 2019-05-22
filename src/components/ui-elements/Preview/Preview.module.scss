@@ -9,6 +9,16 @@ $padding: 30px;
     height: 48vh;
   }
 }
+.marginLeft{
+  margin-left: 23px;
+}
+.marginRight{
+  margin-right: 23px;
+}
+.row{
+  @include flex(row,wrap);
+  padding: 0 4px;
+}
 .modal {
   position: fixed;
   top: 0;

@@ -80,6 +80,7 @@ class App extends Component<
   }
 
   onItemClick = (e: any) => {
+    console.log(e.target.innerText)
     if (!e.target) {
       switch (e) {
         case t`پوشه جدید`:
@@ -124,6 +125,14 @@ class App extends Component<
           } else this.props.history.push(`/fm`)
 
           break
+      }
+    }else if(e.target.innerText){
+      switch (e.target.value) {
+        case t`کپی کن`:
+     
+
+          break
+    
       }
     }
   }

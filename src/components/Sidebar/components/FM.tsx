@@ -28,10 +28,10 @@ export const FM: React.FunctionComponent<Iprops> = ({ onItemClick }) => {
         <IconLink icon={uploadIcon} iconAlt="upload icon" label={t`آپلود فایل`}/>
       </Button>
       <IconLink icon={upFromUrlIcon} onClick={onItemClick} className="iconLink upFromUrl" iconAlt="upload icon" label={t`آپلود فایل از URL`}/>
-      <ActionNav onItemClick={onItemClick}/>
+      <ActionNav onItemClick={onItemClick} />
       <Hr />
       <FileFiltering forFM={true} onItemClick={onItemClick}/>
-      <UpgradeAccount />
+      <UpgradeAccount  />
       <Hr />
       <Nav />
     </div>

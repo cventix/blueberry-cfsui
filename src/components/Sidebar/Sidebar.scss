@@ -1,145 +1,161 @@
-@import "../../styles/global";
+@import '../../styles/global';
 
 .sidebar {
-	position: relative;
-	@include transition(all .4s);
+  position: relative;
+  @include transition(all 0.4s);
 
-	&.open {
-		.overlay {
-			display: block;
-		}
+  &.open {
+    .overlay {
+      display: block;
+    }
 
-		.menuWrapper {
-			right: 0;
-		}
-	}
+    .menuWrapper {
+      right: 0;
+    }
+  }
 
-	.overlay {
-		display: none;
-		position: fixed;
-		top: 0;
-		left: 0;
-		right: 0;
-		bottom: 0;
-		background: #000;
-		opacity: 0.5;
-		cursor: pointer;
-		z-index: 949;
-	}
+  .overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: #000;
+    opacity: 0.5;
+    cursor: pointer;
+    z-index: 949;
+  }
 
-	.menuWrapper {
-		position: fixed;
-		top: $navbar-height;
-		bottom: 0;
-		width: $sidebar-width;
-		background: #fff;
-		opacity: 0.99;
-		right: 0;
-		left: auto;
-		z-index: 950;
-		@include transition(right .35s ease-out);
+  .menuWrapper {
+    position: fixed;
+    top: $navbar-height;
+    bottom: 0;
+    width: $sidebar-width;
+    background: #fff;
+    opacity: 0.99;
+    right: 0;
+    left: auto;
+    z-index: 950;
+    @include transition(right 0.35s ease-out);
 
-		@media(max-width: $tablet) {
-			right: -($sidebar-width);
-			top: $navbar-height + 10;
-		}
+    @media (max-width: $tablet) {
+      right: -($sidebar-width);
+      top: $navbar-height + 10;
+    }
 
-		.menu {
-			position: absolute;
-			top: 40px;
-			right: 0;
-			bottom: 0;
-			left: 0;
-			padding: 0 $default-padding;
-			overflow: auto;
+    .menu {
+      position: absolute;
+      top: 40px;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      padding: 0 $default-padding;
+      overflow: auto;
 
-			.upFromUrl {
-				margin-bottom: 14px;
-				width: 200px;
-				height: 35px;
-				line-height: 35px;
-				background: #f7f7f7;
-				font-family: $medium-font;
-				cursor: pointer;
-				border: 0;
-				padding-right: 11px;
-				text-align: right;
-				@include border-radius($br-radius-sm);
-			}
+      .upFromUrl {
+        margin-bottom: 14px;
+        width: 200px;
+        height: 35px;
+        line-height: 35px;
+        background: #f7f7f7;
+        font-family: $medium-font;
+        cursor: pointer;
+        border: 0;
+        padding-right: 11px;
+        text-align: right;
+        @include border-radius($br-radius-sm);
+      }
 
-			.iconLink {
-				
-				img {
-					width: 18px;
-					height: 18px;
-					margin-left: 12px;
-				}
-			}
+      .iconLink {
+        img {
+          width: 18px;
+          height: 18px;
+          margin-left: 12px;
+        }
+      }
 
-			.actionNav {
+      .actionNav {
+        .iconLink {
+          margin-bottom: 18px;
+          margin-right: 11px;
 
-				.iconLink {
-					margin-bottom: 18px;
-					margin-right: 11px;
-					
-					span {
-						font-family: $medium-font;
-					}
-				}
-			}
+          span {
+            font-family: $medium-font;
+          }
+        }
+      }
 
-			.nav {
-				margin-top: 16px;
-				margin-bottom: 100%;
-				
-				.iconLink {
-					margin-bottom: 13px;
-					color: #737373;
-				}
-			}
+      .nav {
+        margin-top: 16px;
+        margin-bottom: 100%;
 
-		}
-	}
+        .iconLink {
+          margin-bottom: 13px;
+          color: #737373;
+        }
+      }
+      .downloadBox {
+        @include flex(row, wrap);
+        justify-content: center;
+        font-size: 12px;
+        padding: 8px;
+        border-radius: 3px;
+        border: solid 0.5px #dddddd;
+        margin-top: 19px;
+	  }
+	  .row{
+		@include flex(row, unset);
+	  }
+      .copyBox {
+        margin-top: 37px;
+		margin-bottom: 20px;
+	  }
+	  .buttonGroup{
+		  margin-bottom: 46px;
+	  }
+    }
+  }
 }
 
 body:lang(en) {
-	.sidebar {
-		&.open {
-			.menuWrapper {
-				left: 0;
-			}
-		}
+  .sidebar {
+    &.open {
+      .menuWrapper {
+        left: 0;
+      }
+    }
 
-		.menuWrapper {
-			right: auto;
-			left: 0;
-			@include transition(left .35s ease-out);
+    .menuWrapper {
+      right: auto;
+      left: 0;
+      @include transition(left 0.35s ease-out);
 
-			@media(max-width: $tablet) {
-				left: -($sidebar-width);
-			}
+      @media (max-width: $tablet) {
+        left: -($sidebar-width);
+      }
 
-			.menu {
-				.upFromUrl {
-					padding-right: 0;
-					padding-left: 11px;
-					text-align: left;
-				}
+      .menu {
+        .upFromUrl {
+          padding-right: 0;
+          padding-left: 11px;
+          text-align: left;
+        }
 
-				.iconLink {
-					img {
-						margin-right: 12px;
-						margin-left: 0;
-					}
-				}
+        .iconLink {
+          img {
+            margin-right: 12px;
+            margin-left: 0;
+          }
+        }
 
-				.actionNav {
-					.iconLink {
-						margin-right: 0;
-						margin-left: 11px;
-					}
-				}
-			}
-		}
-	}
+        .actionNav {
+          .iconLink {
+            margin-right: 0;
+            margin-left: 11px;
+          }
+        }
+      }
+    }
+  }
 }
