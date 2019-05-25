@@ -19,6 +19,17 @@
 			@include flex(row, wrap);
 			justify-content: space-between;
 			color: $dk-gray;
+			flex-basis: calc(100% - 263px);
+
+			.value {
+				color: $dk-gray;
+				font-family: $medium-font;
+			}
+
+			.label {
+				color: $lt-gray;
+				font-family: $light-font;
+			}
 		}
 
 		.inBtn {

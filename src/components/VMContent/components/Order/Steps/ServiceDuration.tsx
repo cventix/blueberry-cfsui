@@ -19,11 +19,14 @@ import longIcon from '../../../../../images/vmIcons/plansIcon/long.svg'
 import hpcIcon from '../../../../../images/vmIcons/plansIcon/hpc.svg'
 import styles from '../Order.module.scss'
 
-export default interface Iprops {}
+export default interface Iprops {
+	history?: object
+}
 
 const steps = [t`انتخاب سیستم عامل`, t`انتخاب مدت سرویس`, t`انتخاب طرح`, t`اطلاعات کارت شبکه`, t`انتخاب نام سرور و ثبت نهایی`];
 
-export const ServiceDuration: React.FunctionComponent<Iprops> = () => { 
+export const ServiceDuration: React.FunctionComponent<Iprops> = (props) => { 
+	console.log(props.history)
 	return (
 		<div className={styles.serviceDuration}>
 			<ColorfulBox className={['green', 'lg']} withClose={true} message={t`با خرید پلن روزانه، سرور شما هر روز به صورت خودکار تمدید می شود. هر گاه از تمدید منصرف شدید، می توانید سرور را حذف نمایید.`}/>

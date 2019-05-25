@@ -19,8 +19,8 @@ export default interface Iprops {
 export const VMContentHeader: React.FunctionComponent<Iprops> = ({ history, handleSearchInput, className }) => {
   return (
     <div className={`${styles.header} ${className}`}>
-      <Breadcrumb history={history} />
-      <ColorfulBox className={['red', 'sm']} width={326} message="برای اعمال ارتقاء ، باید سرور را خاموش کنید" hide={true}/>
+      <Breadcrumb history={history} className={styles.cstBread}/>
+      <ColorfulBox className={['red', 'sm']} width={326} message="برای اعمال ارتقاء ، باید سرور را خاموش کنید" hide={false}/>
       <SearchInput placeHolder={t`جستجو`} withSetting={true} handleInputChange={(e: string) => handleSearchInput(e)}/>
     </div>
   )

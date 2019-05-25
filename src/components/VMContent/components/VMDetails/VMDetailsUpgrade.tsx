@@ -31,7 +31,10 @@ export const VMDetailsUpgrade: React.FunctionComponent<Iprops> = () => {
 				on={true} status={"198.143.181.40"}
 			/>
 			<div className={styles.cardWrapper}>
-				<OrderCard footerData={<MultiplePlan />} className={styles.choosePlanCard}>
+				<OrderCard footerData={<MultiplePlan activePlanNum={1}/>} 
+				className={styles.choosePlanCard} 
+				withoutHover={true}
+				active={true}>
 					<div className={styles.planInfo}>
 						<span className={styles.name}>VPS1</span>
 						<p className={styles.trafic}>ترافیک نامحدود</p>
@@ -53,13 +56,13 @@ export const VMDetailsUpgrade: React.FunctionComponent<Iprops> = () => {
 				</OrderCard>
 			</div>
 			<div className={styles.upgradeFooter}>
-				<ColorfulBox className={['blue', 'lg']}>
+				<ColorfulBox className={['blue', 'lg']} height={80}>
 					<div className={styles.vmInfo}>
-						<div>{'VPS1'}</div>
-						<div>{'۳ ماهه'}</div>
-						<div>{'هزینه استرداد: ۲۷۰,۰۰۰ ریال'}</div>
-						<div>{'هزینه سرویس: ۲۷۰,۰۰۰ ریال'}</div>
-						<div>{'کل هزینه: ۲۷۰,۰۰۰ ریال'}</div>
+						<div className={styles.value}>{'VPS1'}</div>
+						<div className={styles.value}>{'۳ ماهه'}</div>
+						<div><span className={styles.label}>{t`هزینه استرداد`}:  </span><span className={styles.value}>۲۷۰,۰۰۰ ریال</span></div>
+						<div><span className={styles.label}>{t`هزینه سرویس`}:  </span><span className={styles.value}>۲۷۰,۰۰۰ ریال</span></div>
+						<div><span className={styles.value}>{t`کل هزینه`}:  </span><span className={styles.value}>۲۷۰,۰۰۰ ریال</span></div>
 					</div>
 					<Button className={['btnPrimary0', 'btnSm']} style={{width: '150px'}}>
 						<IconLink icon={upgradeIcon} label={t`اعمال ارتقاء`} className={`${styles.iconLink} ${styles.inBtn}`}/>

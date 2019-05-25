@@ -28,9 +28,7 @@ export interface MCprops {
 }
 
 export interface MPprops {
-	turningOff?: boolean
-	width?: number
-	Extended?: boolean
+	activePlanNum: number
 }
 
 export const Control: React.FunctionComponent<Iprops> = ({ text, icon, className}) => (
@@ -54,20 +52,13 @@ export const MultipleControl: React.FunctionComponent<MCprops> = ({ turningOff ,
 	</div>
 )
 
-export const MultiplePlan: React.FunctionComponent<MPprops> = ({ }) => (
+// TODO implement plan logic
+const plans = [t`۱ ماهه`, t`۳ ماهه`, t`۶ ماهه`, t`یکساله`];
+export const MultiplePlan: React.FunctionComponent<MPprops> = ({ activePlanNum }) => (
 	<div className={`${styles.multiplePlan} ${styles.control}`}>
-		<Button>
-			۱ ماهه
-		</Button>
-		<Button>
-			۳ ماهه
-		</Button>
-		<Button>
-			۶ ماهه
-		</Button>
-		<Button>
-			یکساله
-		</Button>
+		{
+			plans.map((item, i) => <Button className={activePlanNum == i ? ['btnSuccess0'] : activePlanNum > i  ? ['btnSecondary'] :[]}>{item}</Button>)
+		}
 	</div>
 )
 

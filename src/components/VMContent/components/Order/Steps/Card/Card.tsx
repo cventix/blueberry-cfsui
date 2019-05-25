@@ -12,12 +12,15 @@ export interface Iprops {
 	children: any
 	className?: string
 	selected?: boolean
+	withoutHover?: boolean
+	active?: boolean
 	onClickCard?: () => void
 }
 
 const Card: React.FunctionComponent<Iprops> = (props) => { 
 	return (
-		<div className={props.selected ? [`${styles.item}`, `${styles.selected}`, props.className].join(' ') : [`${styles.item}`, props.className].join(' ')} onClick={props.onClickCard}>
+		<div className={props.selected ? [`${styles.item}`, `${styles.selected}`, props.className].join(' ') :
+		props.withoutHover || props.active ? [`${styles.item}`, `${styles.withoutHover}`,`${styles.active}`, props.className].join(' ') : [`${styles.item}`, props.className].join(' ')} onClick={props.onClickCard}>
 			<div className={styles.top} >
 				{props.children}
 			</div>

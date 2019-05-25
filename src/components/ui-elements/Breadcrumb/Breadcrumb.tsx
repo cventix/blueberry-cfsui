@@ -12,10 +12,11 @@ export interface BreadcrumbItem {
 
 export default interface Iprops {
   history: BreadcrumbItem[]
+  className?: string
 }
 
-export const Breadcrumb: React.FunctionComponent<Iprops> = ({ history }) => (
-  <div className={styles.breadcrumb}>
+export const Breadcrumb: React.FunctionComponent<Iprops> = ({ history, className }) => (
+  <div className={[styles.breadcrumb, className].join(' ')}>
     {history.map((item: BreadcrumbItem, index: number) => {
       return (
         <React.Fragment key={index}>
