@@ -46,7 +46,7 @@ const makeArray = (array: any, username?: string) => {
       owner: username && each.owner.displayName === username ? t`خودم` : each.owner.displayName,
       size: each.size ? formatBytes({ bytes: each.size, lang }) : '---',
       uuid: each.uuid,
-      item:each
+      item: each
     })
   })
   return table
@@ -83,7 +83,7 @@ export const ContentBody: React.FunctionComponent<Iprops> = ({
   ...rest
 }) => {
   table = isMoveModal ? makeSimpleArray(table) : makeArray(table, username)
-  table.length < 10 && turnOffbutton()
+  table.length < 10 && turnOffbutton && turnOffbutton()
   console.log(table)
   return view === 'table' && width && width < 768 ? (
     <Grid sortable={true} dropDownData={dropDownData} onSort={onSort} checkbox={true} table={table} handleNavigate={handleNavigate} {...rest} />

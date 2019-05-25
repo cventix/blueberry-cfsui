@@ -173,19 +173,26 @@
     cursor: pointer;
   }
   .btnGroup {
-	background: 0;
-	font-family: 'vazir-medium';
-	border:0;
-	border-left: solid 0.5px #dfdfdf;
-	color: #737373;
+    background: 0;
+    font-family: 'vazir-medium';
+    border: 0;
+    border-left: solid 0.5px #dfdfdf;
+    color: #737373;
   }
-  .active{
-	background-color: $lt-blue;
+  .active {
+    background-color: $lt-blue;
     color: white;
     border-left: $lt-blue;
     border-radius: 0 2px 2px 0;
   }
-  .btnGroup:last-child{
-	  border-left:0;
+  .btnGroup:last-child {
+    border-left: 0;
+  }
+}
+
+@media (max-width: $tablet) {
+  .btnCircle {
+    width: 30px !important;
+    height: 30px !important;
   }
 }

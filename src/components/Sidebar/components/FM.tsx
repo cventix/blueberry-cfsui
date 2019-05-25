@@ -12,28 +12,37 @@ import upFromUrlIcon from '../../../images/sidebarIcons/upfromurl.svg'
 
 // internal components & styles
 import { ActionNav } from './ActionNav'
-import  FileFiltering  from './FileFiltering/FileFiltering'
+import FileFiltering from './FileFiltering/FileFiltering'
 import { UpgradeAccount } from './UpgradeAccount/UpgradeAccount'
 import { Nav } from './Nav'
 import '../Sidebar.scss'
+import { connect } from 'react-redux'
 
-export default interface Iprops {
+export interface Iprops {
   onItemClick?: (e: any) => void
+  selection?: number[]
 }
 
-export const FM: React.FunctionComponent<Iprops> = ({ onItemClick }) => {
+ const FM: React.FunctionComponent<Iprops> = ({ onItemClick, selection }) => {
+  console.log(selection)
   return (
     <div className="menu">
       <Button className={['btnPrimary0', 'btnLg']} style={{ marginBottom: '15px' }}>
-        <IconLink icon={uploadIcon} iconAlt="upload icon" label={t`آپلود فایل`}/>
+        <IconLink icon={uploadIcon} iconAlt="upload icon" label={t`آپلود فایل`} />
       </Button>
-      <IconLink icon={upFromUrlIcon} onClick={onItemClick} className="iconLink upFromUrl" iconAlt="upload icon" label={t`آپلود فایل از URL`}/>
+      <Button className={[selection && selection.length > 0 ? 'btnSuccess0' : 'btnSuccessOutline', 'btnLg']} style={{ marginBottom: '15px' }}>
+        <IconLink icon={uploadIcon} iconAlt="download icon" label={t` دانلود با فرمت`} />
+      </Button>
+      <IconLink icon={upFromUrlIcon} onClick={onItemClick} className="iconLink upFromUrl" iconAlt="upload icon" label={t`آپلود فایل از URL`} />
       <ActionNav onItemClick={onItemClick} />
       <Hr />
-      <FileFiltering forFM={true} onItemClick={onItemClick}/>
-      <UpgradeAccount  />
+      <FileFiltering forFM={true} onItemClick={onItemClick} />
+      <UpgradeAccount />
       <Hr />
       <Nav />
     </div>
   )
 }
+const mapStateToProps = (state: any) => ({ selection: state.selection.selection })
+
+export default connect(mapStateToProps)(FM)

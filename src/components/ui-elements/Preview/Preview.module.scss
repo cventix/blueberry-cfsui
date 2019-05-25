@@ -3,22 +3,23 @@ $header-height: 83px;
 $margin-top: 70px;
 $preview-header-color: #8b8e9b;
 $padding: 30px;
-.image{
+.image {
   img {
     object-fit: cover;
-    height: 48vh;
   }
 }
-.marginLeft{
+.marginLeft {
   margin-left: 23px;
 }
-.marginRight{
+.marginRight {
   margin-right: 23px;
 }
-.row{
-  @include flex(row,wrap);
+
+.row {
+  @include flex(row, unset);
   padding: 0 4px;
 }
+
 .modal {
   position: fixed;
   top: 0;
@@ -40,7 +41,6 @@ $padding: 30px;
     @include box-shadow(0 5px 15px 0 rgba(0, 0, 0, 0.1));
     @include transform(translate(-50%, -50%));
 
-   
     @media (min-width: $mobile + 1) and (max-width: $tablet - 128) {
       width: 375px $important;
     }
@@ -95,8 +95,8 @@ $padding: 30px;
     }
   }
   .arrows {
-    @include flex(row, wrap);
-    padding: 0 30px;
+    @include flex(row, unset);
+    margin: 0 30px;
     height: 60%;
     justify-content: space-between;
     align-items: center;
@@ -109,6 +109,38 @@ $padding: 30px;
     }
     .iconRight {
       @include transform(rotate(180deg));
+    }
+  }
+}
+@media (max-width: $tablet) {
+  .modal {
+    .previewBox {
+      margin-right: 0 !important;
+    }
+    .icon {
+      margin-bottom: -2px !important;
+    }
+    .arrows {
+      height: auto;
+    }
+  }
+}
+@media (max-width: $tablet +200) {
+  .modal {
+    .arrows {
+     
+      justify-content: center;
+      position: relative;
+      button {
+        position: absolute;
+      }
+      button:first-child {
+        right: 0;
+      }
+      button:last-child {
+        left: 0;
+      }
+     
     }
   }
 }

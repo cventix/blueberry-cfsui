@@ -8,6 +8,7 @@ interface IProps {
   optionSelected?: number
   position?: any
   id?: number
+  fileType?: string
 }
 
 interface IState {
@@ -59,6 +60,7 @@ export const EnhanceDropdown = (ComposedComponent: any) =>
           <ComposedComponent
             {...this.props}
             onToggle={this.onToggle}
+            fileType={this.props.fileType}
             isOpen={this.state.isOpen}
             id={this.props.id}
             selectable={false}

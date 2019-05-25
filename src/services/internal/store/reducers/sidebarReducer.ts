@@ -5,7 +5,8 @@ export interface PayloadInterface {
 }
 
 export const initialState: any = {
-  item: []
+  item: [],
+  image:'medium'
 }
 
 const selectReducer = (state: any = initialState, action: any) => {
@@ -16,6 +17,11 @@ const selectReducer = (state: any = initialState, action: any) => {
         ...state,
         item: action.payload
       }
+      case actionTypes.SET_PREVIEW_IMAGE:
+        return {
+          ...state,
+          image: action.payload
+        }
     default:
       return state
   }

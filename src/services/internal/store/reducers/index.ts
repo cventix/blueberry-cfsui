@@ -5,6 +5,7 @@ import documentReducer from './documentReducer'
 import selectReducer from './selectReducer'
 import routerReducer from './routerReducer';
 import sidebarReducer from './sidebarReducer';
+import historyReducer from './historyReducer';
 
 export default combineReducers({
   auth: authReducer,
@@ -12,5 +13,6 @@ export default combineReducers({
   document: documentReducer,
   selection: selectReducer,
   router: routerReducer,
-  sidebar: sidebarReducer
+  sidebar: sidebarReducer,
+  history: historyReducer
 })

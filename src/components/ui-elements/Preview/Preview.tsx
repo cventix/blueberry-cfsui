@@ -23,6 +23,7 @@ export default interface Iprops {
   type?: string
 }
 import Config from '../../../services/internal/config/config'
+import DownlaodBarImage from './DownloadBar/DownlaodBarImage'
 
 export const Preview: React.FunctionComponent<Iprops> = props => {
   let content
@@ -77,6 +78,7 @@ export const Preview: React.FunctionComponent<Iprops> = props => {
             </Button>
           </div>
         )}
+        <DownlaodBarImage />
       </div>
     </div>
   )

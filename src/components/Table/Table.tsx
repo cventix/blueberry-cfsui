@@ -12,6 +12,7 @@ const EnhancedDropdown = enhancer(Dropdown)
 
 export default interface Iprops {
   table?: object[]
+
   dropdown?: boolean
   onCheckAll?: () => void
   checkAll?: boolean
@@ -86,12 +87,14 @@ export const Table: React.FunctionComponent<Iprops> = ({
                     )
                   }
                 })}
+
                 {dropdown && (
                   <td className={[styles.show, styles.left].join(' ')}>
                     <EnhancedDropdown
                       width={138}
                       optionSelected={optionSelected}
                       onSelect={onSelect}
+                      fileType={item.discriminator}
                       position={'absoulte'}
                       data={dropDownData && dropDownData}
                       id={item.id}

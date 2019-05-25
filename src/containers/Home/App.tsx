@@ -29,7 +29,9 @@ import {
   removeFolder,
   signout,
   getTrashDocuments,
-  getSharedDocuments
+  getSharedDocuments,
+  setPreviewImage,
+  generateDownloadLink
 } from '../../services/internal/store/actions'
 import { DocumentsInterface } from '../../services/internal/repositories/documents'
 
@@ -53,6 +55,9 @@ class App extends Component<
     removeFolder?: any
     getTrashDocuments?: any
     getSharedDocuments?: any
+    setPreviewImage?: any
+    generateDownloadLink?: any
+    item?: any
   },
   {}
 > {
@@ -80,9 +85,12 @@ class App extends Component<
   }
 
   onItemClick = (e: any) => {
-    console.log(e.target.innerText)
+    console.log(e)
     if (!e.target) {
       switch (e) {
+        case t`پوشه جدید`:
+          this.setState({ modal: 'createFolder', showModal: true })
+          break
         case t`پوشه جدید`:
           this.setState({ modal: 'createFolder', showModal: true })
           break
@@ -106,6 +114,21 @@ class App extends Component<
           break
         case t`آپلود فایل از URL`:
           this.setState({ modal: 'urlUpload', showModal: true })
+        case t`بزرگ`:
+        case t`سایز اصلی`:
+          this.props.setPreviewImage('large')
+          break
+        case t`متوسط`:
+          this.props.setPreviewImage('medium')
+          break
+        case t`کوچک`:
+          this.props.setPreviewImage('small')
+          break
+        case t`دانلود فایل`:
+          let uuid = this.props.item.uuid
+
+          this.props.generateDownloadLink(uuid)
+          break
         default:
           break
       }
@@ -126,13 +149,10 @@ class App extends Component<
 
           break
       }
-    }else if(e.target.innerText){
+    } else if (e.target.innerText) {
       switch (e.target.value) {
         case t`کپی کن`:
-     
-
           break
-    
       }
     }
   }
@@ -246,7 +266,7 @@ class App extends Component<
   }
 }
 
-const mapStateToProps = (state: any) => ({ document: state.document, selection: state.selection.selection })
+const mapStateToProps = (state: any) => ({ document: state.document, selection: state.selection.selection, item: state.sidebar.item })
 
 const mapDispatchToProps = (dispatch: any) => {
   return {
@@ -254,7 +274,9 @@ const mapDispatchToProps = (dispatch: any) => {
     signout: () => dispatch(signout()),
     getTrashDocuments: () => dispatch(getTrashDocuments()),
     getSharedDocuments: () => dispatch(getSharedDocuments()),
-    setRouter: (value: any) => dispatch(setRouter(value))
+    setRouter: (value: any) => dispatch(setRouter(value)),
+    setPreviewImage: (value: any) => dispatch(setPreviewImage(value)),
+    generateDownloadLink: (value: any) => dispatch(generateDownloadLink(value))
   }
 }
 

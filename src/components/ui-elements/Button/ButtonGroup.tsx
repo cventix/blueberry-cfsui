@@ -7,7 +7,7 @@ export const ButtonGroup: React.FunctionComponent<any> = props => {
   return (
     <div className={styles.row}>
       {props.list.map((each: any) => (
-        <button className={[styles.btnGroup, each.active && styles.active].join(' ')}> {each.label} </button>
+        <button className={[styles.btnGroup, each.active && styles.active].join(' ')} onClick={()=>each.onClick(each.label)}> {each.label} </button>
       ))}
     </div>
   )

@@ -66,12 +66,13 @@ export interface IProps {
   auth?: any
   setSelections?: any
   setItem?: any
+  image?: any
 }
 
 export interface navigateObject {
   e: any
   name?: string
-  id?: number
+  id?: any
   item?: any
   uuid?: string
 }
@@ -96,7 +97,7 @@ class Content extends React.Component<IProps, IState> {
   constructor(props: any) {
     super(props)
     this.state = {
-      table: '',
+      table: [],
       filteredTable: [],
       checkAll: false,
       selectedArray: [],
@@ -165,18 +166,25 @@ class Content extends React.Component<IProps, IState> {
    * @param nextProps
    */
   componentWillReceiveProps(nextProps: any) {
+    console.log('hi')
     if (nextProps.item) {
       console.log('ee')
       this.setState({
         item: nextProps.item
       })
     }
-    this.setState({
-      table: sliceData({ array: nextProps.document.documents }),
-      showMore: true,
-      mainTable: nextProps.document.documents,
-      filteredTable: this.state.table
-    })
+    console.log(nextProps.selection.length > 0)
+    console.log(this.state.mainTable)
+    console.log('hi 2')
+    if (nextProps.selection.length == 0 || (nextProps.selection.length > 0 && nextProps.document.documents !== this.state.mainTable)) {
+      console.log('inside props')
+      this.setState({
+        table: sliceData({ array: nextProps.document.documents }),
+        showMore: true,
+        mainTable: nextProps.document.documents,
+        filteredTable: this.state.table
+      })
+    }
     if (nextProps.document.document < 10) this.setState({ showMore: false })
   }
 
@@ -251,8 +259,8 @@ class Content extends React.Component<IProps, IState> {
         this.props.history.push(`${this.props.history.location.pathname}/${name}`)
         this.onGetDocument(true, name)
       } else {
-      console.log(item)
-        this.props.history.push(`fm/preview/${item.genericType}/medium/${name}`)
+        console.log(item)
+        this.props.history.push(`fm/preview/${item.genericType}${item.genericType === 'image' ? '/' + this.props.image : ''}/${name}`)
         this.props.setItem(item)
         this.setState({ modalView: 'previewModal', previewId: id, fileName: name, [`item${id}`]: item })
       }
@@ -302,6 +310,7 @@ class Content extends React.Component<IProps, IState> {
   }
 
   handleClose = () => {
+    if (this.props.history.location.pathname.includes('preview')) this.props.history.goBack()
     this.setState({ showModal: false, renameFileId: '', modalView: '' })
   }
 
@@ -334,10 +343,10 @@ class Content extends React.Component<IProps, IState> {
   }
 
   // on item check
-  onCheck = (id: number) => {
+  onCheck = (id: any) => {
     let { selectedArray } = this.state
 
-    if (selectedArray.indexOf(id) === -1) selectedArray.push(id)
+    if (selectedArray.indexOf(id) === -1) selectedArray.push({'id':id})
     else
       selectedArray = selectedArray.filter(function(obj) {
         return obj !== id
@@ -357,6 +366,8 @@ class Content extends React.Component<IProps, IState> {
       { label: t`حذف فایل`, onClick: this.openRemoveModal }
     ]
     let modal, toaster, preview
+
+    console.log(this.state.table)
     switch (this.state.modalView) {
       case 'renameFile':
         modal = (
@@ -393,7 +404,11 @@ class Content extends React.Component<IProps, IState> {
         console.log(Config)
         preview = (
           <Preview show={true} type={'music'} item={this.state[`item${this.state.previewId}`]} handleClose={this.handleClose}>
-            <img src={`http://cdn.persiangig.com/preview/${this.props.item.uuid}/medium/${this.props.item.name}`} />
+            {this.props.item.genericType === 'image' ? (
+              <img src={`http://cdn.persiangig.com/preview/${this.props.item.uuid}/${this.props.image}/${this.props.item.name}`} />
+            ) : (
+              this.props.item.genericType && <Icon mimetype={this.props.item.genericType} style={{ width: 300 }} />
+            )}
           </Preview>
         )
         break
@@ -404,8 +419,8 @@ class Content extends React.Component<IProps, IState> {
     const history = [{ title: t`پوشه اصلی`, link: '/fm', active: false }]
     if (this.props.location.pathname !== '/fm')
       history.push({ title: this.props.location.pathname.split('/fm/'), link: this.props.location.pathname.split['/'], active: true })
-    console.log(this.state.table)
-    return !this.props.loading && this.state.table.length > 0 ? (
+
+    return !this.props.loading && this.state.table && this.state.table.length > 0 ? (
       <React.Fragment>
         <ContentHeader
           view={this.state.view}
@@ -452,7 +467,9 @@ const mapStateToProps = (state: IState) => ({
   document: state.document,
   loading: state.loading.isLoading,
   auth: state.auth,
-  item: state.sidebar.item
+  item: state.sidebar.item,
+  image: state.sidebar.image,
+  selection: state.selection.selection
 })
 
 const mapDispatchToProps = (dispatch: any) => {

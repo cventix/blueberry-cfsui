@@ -5,6 +5,10 @@ export interface IGetDocumentsInput {
   path?: string
   headers?: object
 }
+export interface IGenerateLinkInput {
+  uuid?: string
+  headers?: object
+}
 
 export interface ICreateFolderInput {
   name: string
@@ -63,7 +67,6 @@ class Documents implements DocumentsInterface {
     }
   }
   async getSharedDocuments({ headers }: IGetDocumentsInput = {}) {
- 
     const url = `/rest/sharedwithme?sort=+discriminator,+name`
     try {
       return await this._rest.get({ url, headers })
@@ -133,6 +136,16 @@ class Documents implements DocumentsInterface {
     const body = { userEmails }
     try {
       return await this._rest.post({ url, body })
+    } catch (error) {
+      throw error
+    }
+  }
+  async generateDownloadLink({ uuid, headers }: IGenerateLinkInput = {}) {
+    console.log(uuid)
+    const url = `/rest/publicAccess/${uuid}/generateDownloadLink`
+    try {
+      let result = await this._rest.get({ url, headers })
+      console.log(result)
     } catch (error) {
       throw error
     }

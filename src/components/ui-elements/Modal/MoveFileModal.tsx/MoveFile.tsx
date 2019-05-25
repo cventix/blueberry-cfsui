@@ -10,6 +10,7 @@ import { Button } from '../../Button/Button'
 import { navigateObject } from '../../../Content/Content'
 import { Breadcrumb } from '../../Breadcrumb/Breadcrumb'
 import { t } from 'ttag'
+import { setHistory } from '../../../../services/internal/store/actions/history';
 
 export interface Iprops {
   showModal?: boolean
@@ -17,6 +18,7 @@ export interface Iprops {
   createFolder?: any
   document?: any
   getModalDocuments?: any
+  setHistory?:any
   modalDocs?: any
 }
 export interface Istate {
@@ -27,6 +29,7 @@ export interface Istate {
   fileId: number
   table: any
   history: any
+
 }
 class MoveFile extends React.Component<Iprops, Istate> {
   constructor(props: Iprops) {
@@ -76,7 +79,7 @@ class MoveFile extends React.Component<Iprops, Istate> {
       })[0].discriminator
       if (discriminator === 'D') {
         this.onGetDocument(true, name)
-        
+        this.props.setHistory([{ title: `پوشه اصلی`, link: '/', active: false, onClick: this.onGetDocument }])
         console.log(history)
         this.setState({ history })
       }
@@ -127,7 +130,8 @@ const mapStateToProps = (state: any) => ({ document: state.document, loading: st
 const mapDispatchToProps = (dispatch: any) => {
   return {
     getModalDocuments: (value: any) => dispatch(getModalDocuments(value)),
-    moveDocuments: () => dispatch(moveDocuments())
+    moveDocuments: () => dispatch(moveDocuments()),
+    setHistory: (value:any)=>dispatch(setHistory())
   }
 }
 

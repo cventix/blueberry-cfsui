@@ -15,6 +15,7 @@ interface Iprops {
   position?: any
   id?: number
   selectable?: boolean
+  fileType?: string
 }
 
 export const Dropdown: React.FunctionComponent<Iprops> = ({
@@ -25,11 +26,14 @@ export const Dropdown: React.FunctionComponent<Iprops> = ({
   onSelect,
   width,
   noButton,
+  fileType,
   selectable,
   id,
   children,
   position = 'absolute'
 }) => {
+  // data && fileType === 'D' ? data.shift() : data
+  console.log(fileType)
   return (
     <div className={styles.dropdownBox}>
       {children
@@ -44,20 +48,21 @@ export const Dropdown: React.FunctionComponent<Iprops> = ({
         <ul className={position ? [styles[position], styles.dropdown].join(' ') : styles.dropdown} style={{ width: width }}>
           {data &&
             data.map((item: any, i: number) => {
-              return (
-                <DropdownItem
-                  label={item.label}
-                  index={i}
-                  selectable={selectable}
-                  key={i}
-                  id={id}
-                  bordered={false}
-                  isSelected={isSelected}
-                  onSelect={onSelect}
-                  {...item.onClick && { onClick: ()=>item.onClick(id) }}
-                  {...item.description && { description: item.description }}
-                />
-              )
+              if ((fileType === 'D' && item.label !== 'دانلود فایل') || fileType === 'F')
+                return (
+                  <DropdownItem
+                    label={item.label}
+                    index={i}
+                    selectable={selectable}
+                    key={i}
+                    id={id}
+                    bordered={false}
+                    isSelected={isSelected}
+                    onSelect={onSelect}
+                    {...item.onClick && { onClick: () => item.onClick(id) }}
+                    {...item.description && { description: item.description }}
+                  />
+                )
             })}
         </ul>
       )}

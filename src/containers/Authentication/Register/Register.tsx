@@ -23,10 +23,12 @@ class Register extends React.Component<any, any> {
     username: '',
     email: '',
     password: '',
-    passwordRepeat: ''
+    passwordRepeat: '',
+    error: ''
   }
 
   handleChange = (e: any) => {
+    this.setState({ error: '' })
     this.setState({
       [e.target.name]: e.target.value
     })
@@ -35,12 +37,16 @@ class Register extends React.Component<any, any> {
   handleSubmit = async (e: any) => {
     const { history } = this.props
     if (e) e.preventDefault()
-    try {
-      await this.props.register(this.state.email, this.state.username,  this.state.password )
-      
-    } catch (error) {
-      console.log('E: ', error)
+    if (this.state.password !== this.state.passwordRepeat) {
+      this.setState({ error: 'تکرار رمز عبور مطابق نمی‌باشد' })
     }
+    
+    if (!this.state.error)
+      try {
+        await this.props.register(this.state.email, this.state.username, this.state.password)
+      } catch (error) {
+        console.log('E: ', error)
+      }
   }
 
   render() {
@@ -62,9 +68,11 @@ class Register extends React.Component<any, any> {
             </div>
             <Button className={['btnPrimary0', 'btnSm']}>{t`ثبت‌نام`}</Button>
           </div>
-          <div className={styles.wrongVerify}>
-            <IconLink icon={error} label={t`تکرار رمز عبور مطابق نمی‌باشد`}/>
-          </div>
+          {this.state.error && (
+            <div className={styles.wrongVerify}>
+              <IconLink icon={error} label={t`${this.state.error}`} />
+            </div>
+          )}
         </form>
       </Authentication>
     )

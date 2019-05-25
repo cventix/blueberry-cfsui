@@ -3,7 +3,7 @@ import { Route, Switch } from 'react-router-dom';
 import { t } from 'ttag'
 
 // internal components & styles
-import { FM } from './components/FM'
+import FM  from './components/FM'
 import { VM } from './components/VM'
 import './Sidebar.scss'
 import  {PreviewSideBar}  from './components/PreviewSideBar';
@@ -34,8 +34,8 @@ export const Sidebar: React.FunctionComponent<Iprops> = ({ createFolderModal, ha
             render={() => <PreviewSideBarImage onItemClick={onItemClick}  />}
           />
            <Route
-            exact path={`/fm/preview/music/:name`}
-            render={() => <PreviewSideBarImage onItemClick={onItemClick}  />}
+            exact path={`/fm/preview/:fileType/:name`}
+            render={() => <PreviewSideBar onItemClick={onItemClick}  />}
           />
           <Route
             exact
