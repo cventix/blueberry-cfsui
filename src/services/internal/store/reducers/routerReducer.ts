@@ -9,7 +9,7 @@ export const initialState: any = {
 }
 
 const routerReducer = (state: any = initialState, action: any) => {
-  console.log(action)
+
   switch (action.type) {
     case actionTypes.SET_ROUTER:
       return {

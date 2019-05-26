@@ -31,7 +31,8 @@ import {
   getTrashDocuments,
   getSharedDocuments,
   setPreviewImage,
-  generateDownloadLink
+  generateDownloadLink,
+  restoreFiles
 } from '../../services/internal/store/actions'
 import { DocumentsInterface } from '../../services/internal/repositories/documents'
 
@@ -42,6 +43,8 @@ import MoveFile from '../../components/ui-elements/Modal/MoveFileModal.tsx/MoveF
 import { TextInput } from '../../components/ui-elements/Input/Input'
 import { Button } from '../../components/ui-elements/Button/Button'
 import { t } from 'ttag'
+import { downloadDirectory } from '../../services/internal/store/actions'
+import { setToggle } from '../../services/internal/store/actions/selections'
 const steps = ['انتخاب سیستم عامل', 'انتخاب مدت سرویس', 'انتخاب طرح', 'اطلاعات کارت شبکه', 'انتخاب نام سرور و ثبت نهایی']
 const options = [{ value: 'chocolate', label: 'Chocolate' }, { value: 'strawberry', label: 'Strawberry' }, { value: 'vanilla', label: 'Vanilla' }]
 
@@ -58,6 +61,9 @@ class App extends Component<
     setPreviewImage?: any
     generateDownloadLink?: any
     item?: any
+    downloadDirectory?: any
+    setToggle?: any
+    restoreFiles?: any
   },
   {}
 > {
@@ -84,10 +90,22 @@ class App extends Component<
     this.setState({ showModal: false, modalView: '' })
   }
 
-  onItemClick = (e: any) => {
-    console.log(e)
+  onItemClick = async (e: any) => {
     if (!e.target) {
+      console.log(e)
       switch (e) {
+        case `دانلود با فرمت zip`:
+          await this.props.downloadDirectory({ documentIds: this.props.selection, downloadType: 'zip' })
+          break
+        case `دانلود با فرمت tar`:
+          await this.props.downloadDirectory({ documentIds: this.props.selection, downloadType: 'tar' })
+          break
+        case `دانلود با فرمت iso`:
+          await this.props.downloadDirectory({ documentIds: this.props.selection, downloadType: 'iso' })
+          break
+        case `بازیابی فایل`:
+          await this.props.restoreFiles({ documentIds: this.props.selection })
+          break
         case t`پوشه جدید`:
           this.setState({ modal: 'createFolder', showModal: true })
           break
@@ -135,17 +153,25 @@ class App extends Component<
     } else if (e.target.value) {
       switch (e.target.value) {
         case t`نمایش حذف شده‌ها`:
+          this.props.setToggle([false, true])
           if (this.props.history.location.pathname !== '/fm/trash') {
             this.props.history.push(`/fm/trash`)
             this.props.getTrashDocuments()
-          } else this.props.history.push(`/fm`)
+          } else {
+            this.props.history.push(`/fm`)
+            this.props.setToggle([false, false])
+          }
 
           break
         case t`به اشتراک گذاشته‌ شده‌ها`:
+          this.props.setToggle([true, false])
           if (this.props.history.location.pathname !== '/fm/shared') {
             this.props.history.push(`/fm/shared`)
             this.props.getSharedDocuments()
-          } else this.props.history.push(`/fm`)
+          } else {
+            this.props.history.push(`/fm`)
+            this.props.setToggle([false, false])
+          }
 
           break
       }
@@ -156,6 +182,7 @@ class App extends Component<
       }
     }
   }
+
   onCancle = () => {
     this.setState({ modal: '', countDownTime: 10000 })
     if (this.timer) {
@@ -276,7 +303,10 @@ const mapDispatchToProps = (dispatch: any) => {
     getSharedDocuments: () => dispatch(getSharedDocuments()),
     setRouter: (value: any) => dispatch(setRouter(value)),
     setPreviewImage: (value: any) => dispatch(setPreviewImage(value)),
-    generateDownloadLink: (value: any) => dispatch(generateDownloadLink(value))
+    generateDownloadLink: (value: any) => dispatch(generateDownloadLink(value)),
+    downloadDirectory: (value: any) => dispatch(downloadDirectory(value)),
+    setToggle: (value: any) => dispatch(setToggle(value)),
+    restoreFiles: (value: any) => dispatch(restoreFiles(value))
   }
 }
 

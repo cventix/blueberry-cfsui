@@ -18,6 +18,13 @@ import { setUserCredentials, setToken, login, register } from '../../../services
 import error from '../../../images/error.svg'
 import styles from '../Authentication.module.scss'
 
+function validate(email: string, password: string) {
+  return {
+    email: email.length === 0,
+    password: password.length === 0
+  }
+}
+
 class Register extends React.Component<any, any> {
   state = {
     username: '',
@@ -33,14 +40,34 @@ class Register extends React.Component<any, any> {
       [e.target.name]: e.target.value
     })
   }
-
-  handleSubmit = async (e: any) => {
-    const { history } = this.props
-    if (e) e.preventDefault()
+  handleBlur = () => {
     if (this.state.password !== this.state.passwordRepeat) {
       this.setState({ error: 'تکرار رمز عبور مطابق نمی‌باشد' })
     }
-    
+    if (!/^[a-zA-Z0-9]+@[a-zA-Z0-9]+\.[A-Za-z]+$/.test(this.state.email)) {
+      this.setState({ error: `ایمیل صحیح نمی باشد` })
+    }
+    if (!/^(?=.{5,45}$)(?![_.])(?!.*[_.]{2})[a-zA-Z0-9._]+(?<![_.])$/.test(this.state.username)) {
+      this.setState({
+        error: ` نام کاربری باید بین ۵ تا ۴۵ حرف باشد، با عدد شروع نشود و تنها شامل حروف انگلیسی و اعداد باشد.`
+      })
+    }
+  }
+  handleSubmit = async (e: any) => {
+    const { history } = this.props
+    if (e) e.preventDefault()
+    if (!this.state.password) {
+      this.setState({ error: `لطفا رمزعبور خود را وارد نمایید.` })
+    }
+    if (!this.state.passwordRepeat) {
+      this.setState({ error: `لطفا تکرار رمزعبور خود را وارد نمایید.` })
+    }
+    if (!this.state.email) {
+      this.setState({ error: `لطفا ایمیل خود را وارد نمایید.` })
+    }
+    if (!this.state.username) {
+      this.setState({ error: `لطفا نام کاربری خود را وارد نمایید.` })
+    }
     if (!this.state.error)
       try {
         await this.props.register(this.state.email, this.state.username, this.state.password)
@@ -55,10 +82,16 @@ class Register extends React.Component<any, any> {
         <form onSubmit={this.handleSubmit}>
           <span className={styles.title}>{t`ثبت‌نام کاربر جدید`}</span>
           <p className={styles.description}>{t`برای استفاده از خدمات ابتدا ثبت‌نام شوید`}</p>
-          <TextInput placeholder={t`نام کاربری`} name={'username'} onChange={this.handleChange} />
-          <TextInput placeholder={t`ایمیل`} name={'email'} onChange={this.handleChange} />
-          <TextInput placeholder={t`رمز عبور`} name={'password'} type={'password'} onChange={this.handleChange} />
-          <TextInput placeholder={t`تکرار رمز عبور`} name={'passwordRepeat'} type={'password'} onChange={this.handleChange} />
+          <TextInput placeholder={t`نام کاربری`} name={'username'} onChange={this.handleChange} onBlur={this.handleBlur} />
+          <TextInput placeholder={t`ایمیل`} type={'email'} name={'email'} onChange={this.handleChange} onBlur={this.handleBlur} />
+          <TextInput placeholder={t`رمز عبور`} name={'password'} type={'password'} onChange={this.handleChange} onBlur={this.handleBlur} />
+          <TextInput
+            placeholder={t`تکرار رمز عبور`}
+            name={'passwordRepeat'}
+            type={'password'}
+            onChange={this.handleChange}
+            onBlur={this.handleBlur}
+          />
           <div className={styles.row}>
             <div className={styles.switch}>
               {t`عضو هستید؟`}

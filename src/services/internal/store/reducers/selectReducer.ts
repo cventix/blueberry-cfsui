@@ -5,16 +5,21 @@ export interface PayloadInterface {
 }
 
 export const initialState: any = {
-  selection: []
+  selection: [],
+  toggle: [false, false]
 }
 
 const selectReducer = (state: any = initialState, action: any) => {
-  console.log(action)
   switch (action.type) {
     case actionTypes.SET_SELECTIONS:
       return {
         ...state,
         selection: action.payload
+      }
+    case actionTypes.SET_TOGGLE:
+      return {
+        ...state,
+        toggle: action.payload
       }
     default:
       return state

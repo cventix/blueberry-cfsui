@@ -73,7 +73,7 @@ export function* createFolder(action: any) {
     yield put(actions.setLoadingState(true))
     let response = yield documents.createFolder(folderInfo)
     let data = yield documents.getDocuments(getFolderInfo)
-    if (getFolderInfo  && getFolderInfo.isChildren == true) data = data.children
+    if (getFolderInfo && getFolderInfo.isChildren == true) data = data.children
     yield put(actions.setDocuments(data))
     yield put(actions.setResponse(response))
     yield put(actions.setLoadingState(false))
@@ -118,13 +118,31 @@ export function* shareDocuments(action: any) {
 }
 
 export function* generateLink(action: any) {
-console.log(action.payload )
+  console.log(action.payload)
   let uuid = { uuid: action.payload }
   console.log(uuid)
   try {
     yield put(actions.setLoadingState(true))
     yield documents.generateDownloadLink(uuid)
     yield put(actions.setLoadingState(false))
+  } catch (err) {
+    yield put(actions.setLoadingState(false))
+  }
+}
+
+export function* downloadDirectory(action: any) {
+  let info = { type: action.payload.downloadType, documentIds: action.payload.documentIds }
+
+  try {
+    yield documents.downloadDirectory(info)
+  } catch (err) {
+    yield put(actions.setLoadingState(false))
+  }
+}
+export function* restoreFiles(action: any) {
+  console.log(action)
+  try {
+    yield documents.restoreFiles({documentIds : action.payload.documentIds})
   } catch (err) {
     yield put(actions.setLoadingState(false))
   }

@@ -16,11 +16,12 @@ const classCreator = (className: any) => {
 }
 
 export const Button = ({ className, onClick, style, children, disabled }: Iprops) => {
+  
   return (
     <button
       disabled={disabled}
       className={className ? `${styles.btn} ${classCreator(className)}` : `${styles.btn}`}
-      {...onClick && { onClick: e => onClick(e) }}
+      onClick={e => onClick && onClick(e)}
       style={style}
     >
       {children}

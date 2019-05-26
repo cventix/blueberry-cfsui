@@ -4,11 +4,14 @@ import ReactDOM from 'react-dom';
 interface IProps {
   data: any
   width?: number
+  marginLeft?: number
   onSelect?: (option: number) => void
   optionSelected?: number
   position?: any
   id?: number
   fileType?: string
+  noButton?: boolean
+  buttonDropDown?: boolean
 }
 
 interface IState {
@@ -62,6 +65,8 @@ export const EnhanceDropdown = (ComposedComponent: any) =>
             onToggle={this.onToggle}
             fileType={this.props.fileType}
             isOpen={this.state.isOpen}
+            noButton={this.props.noButton}
+            buttonDropDown={this.props.buttonDropDown}
             id={this.props.id}
             selectable={false}
             data={this.props.data}

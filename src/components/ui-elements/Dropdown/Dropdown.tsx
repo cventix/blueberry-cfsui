@@ -3,6 +3,11 @@ import * as React from 'react'
 import DropdownItem from './DropdownItem'
 
 import styles from './Dropdown.module.scss'
+import buttonStyles from '../Button/Button.module.scss'
+
+import { Icon } from '../Icon'
+
+import bigger from '../../../images/bigger.1.svg'
 
 interface Iprops {
   isOpen: boolean
@@ -16,6 +21,8 @@ interface Iprops {
   id?: number
   selectable?: boolean
   fileType?: string
+  buttonDropDown?: boolean
+  marginLeft?: number
 }
 
 export const Dropdown: React.FunctionComponent<Iprops> = ({
@@ -30,10 +37,11 @@ export const Dropdown: React.FunctionComponent<Iprops> = ({
   selectable,
   id,
   children,
+  marginLeft,
+  buttonDropDown,
   position = 'absolute'
 }) => {
-  // data && fileType === 'D' ? data.shift() : data
-  console.log(fileType)
+
   return (
     <div className={styles.dropdownBox}>
       {children
@@ -43,12 +51,18 @@ export const Dropdown: React.FunctionComponent<Iprops> = ({
               <div className={styles.more} />
             </button>
           )}
-
+      {children
+        ? children
+        : buttonDropDown && (
+            <span onClick={onToggle} className={buttonStyles.caretSpan}>
+              <Icon src={bigger} />
+            </span>
+          )}
       {isOpen && (
-        <ul className={position ? [styles[position], styles.dropdown].join(' ') : styles.dropdown} style={{ width: width }}>
+        <ul className={position ? [styles[position], styles.dropdown].join(' ') : styles.dropdown} style={{ width: width, marginLeft: marginLeft }}>
           {data &&
             data.map((item: any, i: number) => {
-              if ((fileType === 'D' && item.label !== 'دانلود فایل') || fileType === 'F')
+              if ((fileType === 'D' && item.label !== 'دانلود فایل') || fileType === 'F' || !fileType)
                 return (
                   <DropdownItem
                     label={item.label}
@@ -59,7 +73,7 @@ export const Dropdown: React.FunctionComponent<Iprops> = ({
                     bordered={false}
                     isSelected={isSelected}
                     onSelect={onSelect}
-                    {...item.onClick && { onClick: () => item.onClick(id) }}
+                    onClick={item.onClick}
                     {...item.description && { description: item.description }}
                   />
                 )

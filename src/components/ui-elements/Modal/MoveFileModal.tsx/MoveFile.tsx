@@ -10,7 +10,7 @@ import { Button } from '../../Button/Button'
 import { navigateObject } from '../../../Content/Content'
 import { Breadcrumb } from '../../Breadcrumb/Breadcrumb'
 import { t } from 'ttag'
-import { setHistory } from '../../../../services/internal/store/actions/history';
+import { setHistory } from '../../../../services/internal/store/actions/history'
 
 export interface Iprops {
   showModal?: boolean
@@ -18,7 +18,7 @@ export interface Iprops {
   createFolder?: any
   document?: any
   getModalDocuments?: any
-  setHistory?:any
+  setHistory?: any
   modalDocs?: any
 }
 export interface Istate {
@@ -29,7 +29,6 @@ export interface Istate {
   fileId: number
   table: any
   history: any
-
 }
 class MoveFile extends React.Component<Iprops, Istate> {
   constructor(props: Iprops) {
@@ -47,6 +46,7 @@ class MoveFile extends React.Component<Iprops, Istate> {
 
   componentDidMount() {
     this.setState({ table: this.props.document.documents, history: [{ title: `پوشه اصلی`, link: '/', active: false, onClick: this.onGetDocument }] })
+    this.props.setHistory([{ title: `پوشه اصلی`, link: '/', active: false, onClick: this.onGetDocument }])
   }
   onGetDocument = async (isChildren?: boolean, path?: any) => {
     if (isChildren == true) {
@@ -79,7 +79,7 @@ class MoveFile extends React.Component<Iprops, Istate> {
       })[0].discriminator
       if (discriminator === 'D') {
         this.onGetDocument(true, name)
-        this.props.setHistory([{ title: `پوشه اصلی`, link: '/', active: false, onClick: this.onGetDocument }])
+        this.props.setHistory(this.state.history.push({ title: name, active: true, onClick: this.onGetDocument }))
         console.log(history)
         this.setState({ history })
       }
@@ -114,7 +114,7 @@ class MoveFile extends React.Component<Iprops, Istate> {
         </div>
         <div className={styles.submitButton}>
           <Button className={[this.state.fileId ? 'btnPrimary100' : 'btnPrimaryOutline', 'btnSm']} style={{ marginLeft: 5 }} disabled={true}>
-           {t`انتقال`}
+            {t`انتقال`}
           </Button>
           <Button className={['btnDefault100', 'btnSm']} onClick={handleClose}>
             {t`انصراف`}
@@ -131,7 +131,7 @@ const mapDispatchToProps = (dispatch: any) => {
   return {
     getModalDocuments: (value: any) => dispatch(getModalDocuments(value)),
     moveDocuments: () => dispatch(moveDocuments()),
-    setHistory: (value:any)=>dispatch(setHistory())
+    setHistory: (value: any) => dispatch(setHistory(value))
   }
 }
 

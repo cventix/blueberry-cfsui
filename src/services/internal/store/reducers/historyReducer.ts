@@ -5,11 +5,11 @@ export interface PayloadInterface {
 }
 
 export const initialState: any = {
-  history: []
+  history: ['go']
 }
 
 const historyReducer = (state: any = initialState, action: any) => {
-  console.log(action)
+
   switch (action.type) {
     case actionTypes.SET_HISTORY:
       return {

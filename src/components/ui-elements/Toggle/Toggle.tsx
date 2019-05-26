@@ -11,7 +11,7 @@ interface Iprops {
 
 const Toggle: React.FunctionComponent<Iprops> = ({ checked, disabled, onToggle,name, className }) => (
   <label className={disabled && checked  ? `${styles.onDisabled} ${styles.switch}` : disabled ? `${styles.disabled} ${styles.switch}` : styles.switch} {...onToggle && { onClick: () => onToggle(checked) }}>
-    <input type="checkbox" defaultChecked={checked} value={name}/>
+    <input type="checkbox" checked={checked} value={name}/>
     <span className={styles.knob} />
   </label>
 )

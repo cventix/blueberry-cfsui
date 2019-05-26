@@ -72,7 +72,7 @@ export interface IProps {
 export interface navigateObject {
   e: any
   name?: string
-  id?: any
+  id?: number
   item?: any
   uuid?: string
 }
@@ -121,15 +121,15 @@ class Content extends React.Component<IProps, IState> {
   async componentDidMount() {
     this.updateWindowDimensions()
     window.addEventListener('resize', this.updateWindowDimensions)
-    console.log(this.props.location.pathname)
+
     if (this.props.location.pathname === '/fm') {
       this.onGetDocument(false)
       this.setState({ table: this.props.data })
     } else {
-      console.log('jo')
+     
       this.onGetDocument(true, this.props.location.pathname.split('/fm/')[1])
     }
-    console.log(this.state.table)
+   
     this.setState({ showMore: this.state.table.length > 10 ? true : false })
   }
 
@@ -166,18 +166,16 @@ class Content extends React.Component<IProps, IState> {
    * @param nextProps
    */
   componentWillReceiveProps(nextProps: any) {
-    console.log('hi')
+
     if (nextProps.item) {
-      console.log('ee')
+   
       this.setState({
         item: nextProps.item
       })
     }
-    console.log(nextProps.selection.length > 0)
-    console.log(this.state.mainTable)
-    console.log('hi 2')
+
     if (nextProps.selection.length == 0 || (nextProps.selection.length > 0 && nextProps.document.documents !== this.state.mainTable)) {
-      console.log('inside props')
+      
       this.setState({
         table: sliceData({ array: nextProps.document.documents }),
         showMore: true,
@@ -190,7 +188,7 @@ class Content extends React.Component<IProps, IState> {
 
   // show more button function
   showMore = () => {
-    console.log(sliceData({ array: this.state.mainTable, choppedArray: this.state.table }))
+
     this.setState({
       filteredTable: sliceData({ array: this.state.mainTable, choppedArray: this.state.table }),
       showMore: Math.ceil(this.state.mainTable.length / this.step) - 1 === Math.ceil(this.state.table.length / 10) ? false : true
@@ -202,7 +200,7 @@ class Content extends React.Component<IProps, IState> {
    */
   componentWillUnmount() {
     window.removeEventListener('resize', this.updateWindowDimensions)
-    console.log('unmount')
+
   }
 
   updateWindowDimensions() {
@@ -210,8 +208,7 @@ class Content extends React.Component<IProps, IState> {
   }
 
   onSort = (sortBy: string, type?: string) => {
-    console.log(type)
-    console.log(this.state.table)
+
     let table = this.state.table
     switch (type) {
       case 'alphabet':
@@ -231,8 +228,7 @@ class Content extends React.Component<IProps, IState> {
           if (a.size) return b.size - a.size
         })
     }
-    console.log('table2')
-    console.log(table)
+  
     this.setState({ table })
   }
 
@@ -259,7 +255,7 @@ class Content extends React.Component<IProps, IState> {
         this.props.history.push(`${this.props.history.location.pathname}/${name}`)
         this.onGetDocument(true, name)
       } else {
-        console.log(item)
+
         this.props.history.push(`fm/preview/${item.genericType}${item.genericType === 'image' ? '/' + this.props.image : ''}/${name}`)
         this.props.setItem(item)
         this.setState({ modalView: 'previewModal', previewId: id, fileName: name, [`item${id}`]: item })
@@ -343,17 +339,17 @@ class Content extends React.Component<IProps, IState> {
   }
 
   // on item check
-  onCheck = (id: any) => {
+  onCheck = (id: number) => {
     let { selectedArray } = this.state
 
-    if (selectedArray.indexOf(id) === -1) selectedArray.push({'id':id})
+    if (selectedArray.indexOf(id) === -1) selectedArray.push(id)
     else
       selectedArray = selectedArray.filter(function(obj) {
         return obj !== id
       })
-    console.log(selectedArray)
+
     this.props.setSelections(selectedArray)
-    this.setState({ selectedArray }, () => console.log(selectedArray))
+    this.setState({ selectedArray })
   }
 
   public render() {
@@ -367,7 +363,6 @@ class Content extends React.Component<IProps, IState> {
     ]
     let modal, toaster, preview
 
-    console.log(this.state.table)
     switch (this.state.modalView) {
       case 'renameFile':
         modal = (
@@ -401,7 +396,6 @@ class Content extends React.Component<IProps, IState> {
         )
         break
       case 'previewModal':
-        console.log(Config)
         preview = (
           <Preview show={true} type={'music'} item={this.state[`item${this.state.previewId}`]} handleClose={this.handleClose}>
             {this.props.item.genericType === 'image' ? (

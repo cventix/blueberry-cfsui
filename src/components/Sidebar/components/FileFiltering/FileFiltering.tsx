@@ -13,22 +13,19 @@ export interface Iprops {
   onItemClick?: any
   forVM?: boolean
   router?: any
+  selection?: any
 }
 
-const FileFiltering = ({ forFM, forVM, onItemClick, router }: Iprops) => {
-	console.log(router.router.lenght>0 )
-
-console.log(router.router.lenght>0 && router.router.location.pathname =='/fm/shared')
-
-
+const FileFiltering = ({ forFM, forVM, onItemClick, selection }: Iprops) => {
+  console.log(selection.toggle[0], selection.toggle[1])
   return (
     <div className={styles.fileFiltering}>
       <div className={forFM ? styles.option : `hide`} onClick={onItemClick}>
-        <Toggle checked={router.router.lenght>0 && router.router.location.pathname =='/fm/shared'} name={t`به اشتراک گذاشته‌ شده‌ها`} />
+        <Toggle checked={selection.toggle[0]} name={t`به اشتراک گذاشته‌ شده‌ها`} />
         <span className={styles.text}>{t`به اشتراک گذاشته‌ شده‌ها`}</span>
       </div>
       <div className={forFM ? styles.option : `hide`} onClick={onItemClick}>
-        <Toggle checked={router =='/fm/trash'} name={t`نمایش حذف شده‌ها`} />
+        <Toggle checked={selection.toggle[1]} name={t`نمایش حذف شده‌ها`} />
         <span className={styles.text}>{t`نمایش حذف شده‌ها`}</span>
       </div>
       <div className={forVM ? styles.option : `hide`}>
@@ -38,6 +35,6 @@ console.log(router.router.lenght>0 && router.router.location.pathname =='/fm/sha
     </div>
   )
 }
-const mapStateToProps = (state: any) => ({ router: state.router })
+const mapStateToProps = (state: any) => ({ router: state.router, selection: state.selection })
 
 export default connect(mapStateToProps)(FileFiltering)

@@ -10,7 +10,7 @@ export const initialState: any = {
 }
 
 const documentReducer = (state: any = initialState, action: any) => {
-  console.log(action)
+
   switch (action.type) {
     case actionTypes.CREATE_FOLDER:
       return {
