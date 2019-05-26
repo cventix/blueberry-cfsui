@@ -42,9 +42,11 @@ export const Footer: React.FunctionComponent<Iprops> = (props) => {
 					</Button>
 				</div>
 			</div>
-			<ColorfulBox className={['blue', 'lg']}>
-				<VmInfo />
-			</ColorfulBox>
+			<div className={styles.infoWrapper}>
+				<ColorfulBox className={['blue', 'lg']}>
+					<VmInfo />
+				</ColorfulBox>
+			</div>
 		</footer>
 	)
 }

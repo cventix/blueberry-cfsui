@@ -45,7 +45,7 @@ export const Navbar: React.FunctionComponent<Iprops> = ({ toggleHamburgerMenu, t
           <NavLink to={`/vm`} className="item" activeClassName="current">
             <IconLink icon={vpsIcon} iconAlt={`vps ${altIcon}`} label={t`سرور و هاست`} /> 
           </NavLink>
-          <NavLink to={`/`} className="item" activeClassName="current">
+          <NavLink to={`#`} className="item" activeClassName="current">
             <IconLink icon={internetIcon} iconAlt={`Internet ${altIcon}`} label={t`اینترنت`} />
           </NavLink>
         </div>

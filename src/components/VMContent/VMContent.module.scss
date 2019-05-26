@@ -9,5 +9,13 @@
 	.cstBread {
 		flex: none;
 		flex-basis: 23%;
+
+		@media(max-width: $web-medium) {
+			flex-basis: 50%;
+		}
+	}
+
+	@media(max-width: $tablet) {
+		display: none;
 	}
 }

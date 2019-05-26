@@ -26,8 +26,10 @@ const classCreator = (className: any) => {
 }
 
 export const ColorfulBox = ({ className, width, height, margin, message, handleClose, hide, withClose, children }: Iprops) => (
-	<div className={hide ? `${styles.colorfulBox} ${styles.hide}` : `${styles.colorfulBox} ${classCreator(className)}`} style={{width: width, margin: margin, height: height}}>
-		{message}
+	<div 
+	className={hide ? `${styles.colorfulBox} ${styles.hide}` : `${styles.colorfulBox} ${classCreator(className)}`} 
+	style={{width: width, margin: margin, height: height}}>
+		<div className={styles.message}>{message}</div>
 		{withClose ? 
 			<Button onClick={handleClose}>
 				<Icon className={styles.closeIcon} src={cancelIcon} />

@@ -6,6 +6,74 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Transfer-Encoding: 8bit\n"
 
+msgid "قبـلی"
+msgstr "Previous"
+
+msgid "بعدی"
+msgstr "ٔNext"
+
+msgid "انصراف"
+msgstr "cancel"
+
+msgid "صدور صورتحساب"
+msgstr "ٔNext"
+
+msgid "مدت سرویس"
+msgstr "ٔNext"
+
+msgid "سیستم عامل"
+msgstr "ٔNext"
+
+msgid "هزینه سرویس"
+msgstr "ٔNext"
+
+msgid "پردازنده"
+msgstr "ٔNext"
+
+msgid "تخفیف سایت"
+msgstr "ٔNext"
+
+msgid "حافظه"
+msgstr "ٔNext"
+
+msgid "تخفیف کد تخفیف"
+msgstr "ٔNext"
+
+msgid "فضای دیسک"
+msgstr "ٔNext"
+
+msgid "کل هزینه"
+msgstr "ٔNext"
+
+msgid "مرحله اول"
+msgstr "ٔNext"
+
+msgid "انتخاب سیستم عامل"
+msgstr "ٔNext"
+
+
+msgid "انتخاب مدت سرویس"
+msgstr "ٔNext"
+
+msgid "انتخاب طرح"
+msgstr "ٔNext"
+
+msgid "اطلاعات کارت شبکه"
+msgstr "ٔNext"
+
+msgid "انتخاب نام سرور و ثبت نهایی"
+msgstr "ٔNext"
+
+msgid "سیستم عاملی که قصد دارید روی سرور مجازی شما نصب شود انتخاب کنید."
+msgstr "ٔNext"
+
+
+
+
+
+
+
+
 msgid "جستجو"
 msgstr "Search"
 

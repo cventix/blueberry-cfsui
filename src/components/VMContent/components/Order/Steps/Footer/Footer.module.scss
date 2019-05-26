@@ -3,11 +3,21 @@
 .footer {
 	margin-bottom: 20px;
 
+	.infoWrapper {
+		@media(max-width: $web-medium - 132) {
+			display: none;
+		}
+	}
+		
 	.btnWrapper {
 		@include flex(row, wrap);
 		justify-content: space-between;
 		align-items: center;
 		margin: 51px 0;
+
+		@media(max-width: $mobile) {
+			margin: 30px 0;
+		}
 
 		.right {
 			> button {
@@ -39,9 +49,12 @@
 
 		.item {
 			width: 20%;
+			margin-bottom: 14px;
+			margin-top: 2px;
+
 			ul {
 				li {
-
+					margin-top: 12px;
 				}
 			}
 			

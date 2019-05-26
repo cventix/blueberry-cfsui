@@ -21,13 +21,24 @@
 	.switcher {
 		position: absolute;
 		left: 30px;
-		bottom: -1px;
+		bottom: 2px;
+
+		@media(max-width: $mobile + 100) {
+			position: relative;
+			left: 0;
+		}
 	}
 }
 
 body:lang(en) {
-	.switcher {
-		right: 30px;
-		left: auto;
+	.mainFooter {
+		.switcher {
+			right: 30px;
+			left: auto;
+
+			@media(max-width: $mobile + 100) {
+				right: 0
+			}
+		}
 	}
 }

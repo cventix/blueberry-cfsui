@@ -36,14 +36,13 @@
 }
 
 .stepbarWrapper {
-    height: 45px;
+	height: 45px;
 	margin-top: 66px;
 	margin-bottom: 52px;
 }
 
 .cardWrapper {
 	@include flex(row, wrap);
-	justify-content: space-between;
 }
 
 .serviceDuration {
@@ -64,6 +63,7 @@
 .FinalStep {
 	.title {
 		color: $dk-gray;
+	    line-height: 48px;
 	}	
 
 	.description {
@@ -117,7 +117,7 @@
 	width: 650px;
 	height: $navbar-height;
 	margin: 0 auto 30px auto;
-	padding: 13px 20px;
+	padding: 0 20px;
 	background-color: #fff;
 	border: solid 1px #dbdbdb;
 	@include border-radius($br-radius-sm);

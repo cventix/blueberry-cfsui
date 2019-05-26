@@ -13,10 +13,17 @@
 		@include transition(opacity 500ms);
 	}
 
+	.message {
+		flex-basis: calc(100% - 17px)
+	}
+	
 	> button {
+		position: absolute;
 		display: flex;
 		align-items: center;
-		justify-content: center;
+		left: -2px;
+		width: 29px;
+		justify-content: flex-start;
 		background-color: transparent;
 		padding: 0;
 
@@ -68,7 +75,13 @@
 }
 
 body:lang(en) {
-	.alert {
+	.colorfulBox {
 		padding: 0 10px 0 12px;
+
+		> button {
+			position: absolute;
+			right: 2px;
+			left: auto;
+		}
 	}
 }

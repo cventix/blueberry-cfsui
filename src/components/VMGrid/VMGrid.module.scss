@@ -2,6 +2,13 @@
 
 .container {
 	@include flex(row, wrap);
-	justify-content: space-between;
-	margin: 0 39px; 
+	margin-right: 52px; 
+
+	@media(max-width: $web-medium-max) {
+		margin-right: 0;
+	}
+
+	@media(max-width: $tablet - 277) {
+		justify-content: center
+	}
 }

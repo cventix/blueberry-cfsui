@@ -10,6 +10,10 @@
 		@include border-radius(3px);
 		background-image: linear-gradient(to top, #f7f7f7, #ffffff);
 		border: solid 1px #e6e6e6;
+
+		@media(max-width: $tablet - 277) {
+			width: 53px;
+		}
 	}
 
 	&.off {
@@ -24,6 +28,10 @@
 .multipleControl, .multiplePlan {
 	@include flex(row, wrap);
 	justify-content: space-around;
+
+	@media(max-width: $tablet - 277) {
+		width: 298px $important;
+	}
 }
 
 .multiplePlan {

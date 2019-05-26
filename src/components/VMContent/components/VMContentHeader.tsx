@@ -20,7 +20,7 @@ export const VMContentHeader: React.FunctionComponent<Iprops> = ({ history, hand
   return (
     <div className={`${styles.header} ${className}`}>
       <Breadcrumb history={history} className={styles.cstBread}/>
-      <ColorfulBox className={['red', 'sm']} width={326} message="برای اعمال ارتقاء ، باید سرور را خاموش کنید" hide={false}/>
+      <ColorfulBox className={['red', 'sm']} width={326} message="برای اعمال ارتقاء ، باید سرور را خاموش کنید" hide={true}/>
       <SearchInput placeHolder={t`جستجو`} withSetting={true} handleInputChange={(e: string) => handleSearchInput(e)}/>
     </div>
   )
