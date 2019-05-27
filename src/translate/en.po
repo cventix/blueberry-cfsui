@@ -10,62 +10,62 @@ msgid "قبـلی"
 msgstr "Previous"
 
 msgid "بعدی"
-msgstr "ٔNext"
+msgstr "Next"
 
 msgid "انصراف"
-msgstr "cancel"
+msgstr "Cancel"
 
 msgid "صدور صورتحساب"
-msgstr "ٔNext"
+msgstr "Invoice issuance"
 
 msgid "مدت سرویس"
-msgstr "ٔNext"
+msgstr "Service term"
 
 msgid "سیستم عامل"
-msgstr "ٔNext"
+msgstr "OS"
 
 msgid "هزینه سرویس"
-msgstr "ٔNext"
+msgstr "Cost of service"
 
 msgid "پردازنده"
-msgstr "ٔNext"
+msgstr "Processor"
 
 msgid "تخفیف سایت"
-msgstr "ٔNext"
+msgstr "Discount site"
 
 msgid "حافظه"
-msgstr "ٔNext"
+msgstr "Memory"
 
 msgid "تخفیف کد تخفیف"
-msgstr "ٔNext"
+msgstr "Discount Discount Code"
 
 msgid "فضای دیسک"
-msgstr "ٔNext"
+msgstr "Disk space"
 
 msgid "کل هزینه"
-msgstr "ٔNext"
+msgstr "Total cost"
 
 msgid "مرحله اول"
-msgstr "ٔNext"
+msgstr "First step"
 
 msgid "انتخاب سیستم عامل"
-msgstr "ٔNext"
+msgstr "Select operating system"
 
 
 msgid "انتخاب مدت سرویس"
-msgstr "ٔNext"
+msgstr "Select service term"
 
 msgid "انتخاب طرح"
-msgstr "ٔNext"
+msgstr "Select a design"
 
 msgid "اطلاعات کارت شبکه"
-msgstr "ٔNext"
+msgstr "Network card info"
 
 msgid "انتخاب نام سرور و ثبت نهایی"
-msgstr "ٔNext"
+msgstr "Select the server name and final"
 
 msgid "سیستم عاملی که قصد دارید روی سرور مجازی شما نصب شود انتخاب کنید."
-msgstr "ٔNext"
+msgstr "Select the operating system that you plan to install on your virtual server."
 
 
 
