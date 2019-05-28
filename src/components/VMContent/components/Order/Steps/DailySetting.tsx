@@ -31,7 +31,7 @@ export const DailySetting: React.FunctionComponent<Iprops> = () => {
 			<div className={styles.stepbarWrapper}>
 				<Stepbar steps={steps} currentStep={2} />
 			</div>
-			<StepDescription stepNumber={3} title={[t`مرحله سوم: `, steps[2]].join(' ')} subTitle={t`می‌توانید مشخصات سرور را نسبت به نیاز روزانه خود انتخاب نمایید.`}/>
+			<StepDescription stepNumber={3} title={[t`مرحله سوم`, `:`, steps[2]].join(' ')} subTitle={t`می‌توانید مشخصات سرور را نسبت به نیاز روزانه خود انتخاب نمایید.`}/>
 				<SettingBox name={'CPU'} info={'4 core'} basePrice={'۱,۰۰۰ ریال'} minService={'1 core'}/>
 				<SettingBox name={'RAM'} info={'8 GB'} basePrice={'۱,۰۰۰ ریال'} minService={'1 GB'}/>
 				<SettingBox name={'DISK'} info={'30 GB'} basePrice={'۱,۰۰۰ ریال'} minService={'10 GB'}/>

@@ -40,15 +40,15 @@ export const VMDetailsUpgrade: React.FunctionComponent<Iprops> = () => {
 						<p className={styles.trafic}>ترافیک نامحدود</p>
 						<ul className={styles.softwareInfo}>
 							<li className={styles.row}>
-								<span>{t`پردازنده:`}</span>
+								<span>{t`پردازنده`}: </span>
 								<span>2 GHz  (1 Cores)</span>
 							</li>
 							<li className={styles.row}>
-								<span>{t`حافظه:`}</span>
+								<span>{t`حافظه`}: </span>
 								<span>512 MB</span>
 							</li>
 							<li className={styles.row}>
-								<span>{t`فضای دیسک:`}</span>
+								<span>{t`فضای دیسک`}: </span>
 								<span>10 GB</span>
 							</li>
 						</ul>

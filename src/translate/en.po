@@ -117,6 +117,9 @@ msgstr "Upgrade settings"
 msgid "از برق بکش"
 msgstr "Power up"
 
+msgid "تمدید سرور"
+msgstr "Extension server"
+
 msgid "خاموش کن"
 msgstr "Turn off"
 
@@ -176,6 +179,9 @@ msgstr "Enter the discount code"
 
 msgid "در صورتیکه کد تخفیف دارید آن را جهت بررسی و اعمال وارد کنید."
 msgstr "If you have a discount code, enter it for review."
+
+msgid "می‌توانید مشخصات سرور را نسبت به نیاز روزانه خود انتخاب نمایید."
+msgstr "You can choose the server profile for your daily requirement."
 
 msgid "بررسی"
 msgstr "Check"

@@ -33,8 +33,8 @@ export const VMDetailsSetting: React.FunctionComponent<Iprops> = () => {
 			<div className={styles.wrapper}>
 				<div className="networkInfo">
 					<div className="header">
-						<div>نام شبکه</div>
-						<div>تعداد IP</div>
+						<div>{t`نام شبکه`}</div>
+						<div>{t`تعداد IP`}</div>
 					</div>
 					<Hr backgroundColor={'#e5e5e5'} height={'1px'}/>
 					<div className="body">
