@@ -114,6 +114,13 @@
     @include btn-theme(linear-gradient(to top, #f2bf27, #f8cb45), #fff, 0);
     @include widthShadow;
   }
+  &.btnDisabled{
+    border-radius: 3px;
+    border: solid 1px #e5e7e9;
+    background-color: #f1f2f3;
+    color: #b3bcc5;
+  }
+  
 
   /* with extra radius */
   &.btnExtraRadius {
@@ -155,6 +162,7 @@
     height: 50px;
     line-height: 50;
   }
+ 
   &:disabled {
     cursor: auto;
   }

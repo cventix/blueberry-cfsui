@@ -49,6 +49,7 @@ import { Button } from '../../components/ui-elements/Button/Button'
 import { t } from 'ttag'
 import { downloadDirectory } from '../../services/internal/store/actions'
 import { setToggle } from '../../services/internal/store/actions/selections'
+import { ToastUndo } from '../../components/ui-elements/Toast/ToastUndo'
 const steps = ['انتخاب سیستم عامل', 'انتخاب مدت سرویس', 'انتخاب طرح', 'اطلاعات کارت شبکه', 'انتخاب نام سرور و ثبت نهایی']
 const options = [{ value: 'chocolate', label: 'Chocolate' }, { value: 'strawberry', label: 'Strawberry' }, { value: 'vanilla', label: 'Vanilla' }]
 
@@ -88,7 +89,8 @@ class App extends Component<
     prevProps: '',
     prevState: '',
     modal: '',
-    countDown: 10
+    countDown: 10,
+    toRemove: []
   }
   timer: any = ''
   countDownTime = 10000
@@ -96,10 +98,27 @@ class App extends Component<
   handleClose = () => {
     this.setState({ showModal: false, modalView: '' })
   }
-  notify = () => {
-    toast.success('حذف شد')
+
+  undo = (id: any) => {
+    this.setState({
+      toRemove: this.state.toRemove.filter((v: any) => v !== id)
+    })
   }
 
+  notify = () => {
+    this.setState({
+      toRemove: [...this.state.toRemove, this.props.selection[0]]
+    })
+    let documents = this.props.document.documents.filter((i: any) => i.id !== this.props.selection[0])
+    this.props.setDocuments(documents)
+    toast.success(<ToastUndo undo={this.undo} id={this.props.selection[0]} />, {
+      toRemove: [],
+      onClose: this.cleanCollection
+    })
+  }
+  cleanCollection = () => {
+    this.onRemoveDocument()
+  }
   onItemClick = async (e: any) => {
     if (!e.target) {
       console.log(e)
@@ -136,9 +155,6 @@ class App extends Component<
             this.props.setTempDocuments(this.props.document)
             console.log(this.props.selection[0])
 
-            var documents = this.props.document.documents.filter((i: any) => i.id !== this.props.selection[0])
-
-            this.props.setDocuments(documents)
             this.timer = setTimeout(() => {
               console.log(1)
               // this.onRemoveDocument()
@@ -302,7 +318,7 @@ class App extends Component<
         />
         <Main showModal={this.state.showModal}>
           <Switch>
-            <Route exact path={`/fm`} component={Content} />
+            <Route path={`/fm`} component={Content} />
             <Route exact path={`/vm`} component={VMContent} />
             <Route exact path={`/vm/order`} component={Order} />
           </Switch>

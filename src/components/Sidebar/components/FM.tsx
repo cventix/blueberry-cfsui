@@ -41,13 +41,13 @@ const FM: React.FunctionComponent<Iprops> = ({ onItemClick, selection, toggle })
         <IconLink icon={uploadIcon} iconAlt="upload icon" label={t`آپلود فایل`} />
       </Button>
       {toggle[1]  ? (
-        <Button   className={[selection && selection.length > 0 ? 'btnSuccess0' : 'btnSuccessOutline', 'btnLg']} style={{ marginBottom: '15px' }}>
+        <Button   className={[selection && selection.length > 0 ? 'btnSuccess0' : 'btnDisabled', 'btnLg']} style={{ marginBottom: '15px' }}>
           <IconLink onClick ={onItemClick} icon={refreshIcon} iconAlt="upload icon" label={t`بازیابی فایل`} />
         </Button>
       ) : (
         <DropDownButton
           data={data}
-          className={[selection && selection.length > 0 ? 'btnSuccess0' : 'btnSuccessOutline', 'btnLg']}
+          className={[selection && selection.length > 0 ? 'btnSuccess0' : 'btnDisabled', 'btnLg']}
           disabled={!selection || selection.length == 0}
           style={{ marginBottom: '15px' }}
         >

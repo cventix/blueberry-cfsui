@@ -3,17 +3,19 @@ import { css } from 'glamor'
 import 'react-toastify/dist/ReactToastify.css'
 
 toast.configure({
-  autoClose: 200000,
+  autoClose: 10000,
   draggable: false,
-  closeButton: false
+  closeButton: false,
+  rtl: true 
 })
 
 export default {
-  success(msg: string, options = {}) {
+  success(msg: any, options = {}) {
     return toast.success(msg, {
       ...options,
       className: css({
-        background: '#21d352 !important'
+        background: '#21d352 !important',
+        fontFamily: 'vazir-regular !important'
       }),
       progressClassName: css({
         background: '#007aff'

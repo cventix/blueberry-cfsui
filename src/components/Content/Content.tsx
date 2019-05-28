@@ -283,6 +283,7 @@ class Content extends React.Component<IProps, IState> {
       } else {
         this.props.history.push(`fm/preview/${item.genericType}${item.genericType === 'image' ? '/' + this.props.image : ''}/${name}`)
         this.props.setItem(item)
+        console.log('hi')
         this.setState({ modalView: 'previewModal', previewId: id, fileName: name, [`item${id}`]: item })
       }
     }
