@@ -5,7 +5,7 @@
  * numbers deep it goes
  */
 
-export const formatBytes = ({ bytes, toFixed = 2, lang = 'en' }: { bytes: number; toFixed?: number; lang?: string }): string => {
+export const formatBytes = ({ bytes, toFixed = 2, lang = 'en' }: { bytes: number; toFixed?: number; lang?: any }): string => {
   const units = ['bytes', 'KB', 'MB', 'GB', 'TB']
   const faUnits = ['بایت', 'کیلوبایت', 'مگابایت', 'گیگابایت', 'ترابایت']
   let unit = 0

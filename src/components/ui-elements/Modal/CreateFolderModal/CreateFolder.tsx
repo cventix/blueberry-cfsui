@@ -1,10 +1,10 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { UploadModal } from '../../Uploadmodal/Uploadmodal';
-import { TextInput } from '../../Input/Input';
-import { Button } from '../../Button/Button';
-import { createFolder, getDocuments } from '../../../../services/internal/store/actions/documents';
-
+import { UploadModal } from '../../Uploadmodal/Uploadmodal'
+import { TextInput } from '../../Input/Input'
+import { Button } from '../../Button/Button'
+import { createFolder, getDocuments } from '../../../../services/internal/store/actions/documents'
+import { t } from 'ttag'
 import styles from './CreateFolder.module.scss'
 
 export interface Iprops {
@@ -35,7 +35,13 @@ class CFmodal extends React.Component<Iprops, any> {
 
   handleSubmit = async (e: any) => {
     if (e) e.preventDefault()
-    let parentId = this.props.document[0].parent.id
+    let parentId, parentName
+    console.log(this.props.document[0].parent)
+    if (this.props.document[0].parent) {
+      parentId = this.props.document[0].parent.id
+      parentName = this.props.document[0].parent.name
+    }
+
     // await this.props.getDocuments()
     try {
       let result = await this.props.createFolder({ name: this.state.name, parentId })
@@ -67,14 +73,14 @@ class CFmodal extends React.Component<Iprops, any> {
         show={showModal}
         handleClose={handleCFClose}
         width={640}
-        title={'ایجاد پوشه جدید'}
-        formDescription={'برای ایجاد پوشه اطلاعات خود را در فرم زیر وارد نمایید'}
+        title={t`ایجاد پوشه جدید`}
+        formDescription={t`برای ایجاد پوشه اطلاعات خود را در فرم زیر وارد نمایید`}
       >
         <form onSubmit={this.handleSubmit}>
-          <TextInput placeholder={'نام پوشه'} style={{ width: 300 }} onChange={this.changeHandler} name={'name'} />
-          <TextInput placeholder={'توضیحات پوشه'} style={{ width: 300 }} onChange={this.changeHandler} name={'description'} />
+          <TextInput placeholder={t`نام پوشه`} style={{ width: 300 }} onChange={this.changeHandler} name={'name'} />
+          <TextInput placeholder={t`توضیحات پوشه`} style={{ width: 300 }} onChange={this.changeHandler} name={'description'} />
           <div className={styles.submitButton}>
-            <Button className={['btnPrimary100', 'btnSm']}>ایجاد پوشه</Button>
+            <Button className={['btnPrimary100', 'btnSm']}>{t`ایجاد`}</Button>
           </div>
         </form>
       </UploadModal>

@@ -5,6 +5,10 @@ export interface IGetDocumentsInput {
   path?: string
   headers?: object
 }
+export interface IGenerateLinkInput {
+  uuid?: string
+  headers?: object
+}
 
 export interface ICreateFolderInput {
   name: string
@@ -30,6 +34,15 @@ export interface IUrlUploadInput {
   parentId?: number
   path?: string
 }
+export interface IDownloadDirectoryInput {
+  documentIds: Array<number>
+  type: string
+}
+
+export interface IRestoreFileInput {
+  documentIds: Array<number>
+  
+}
 
 export interface DocumentsInterface {
   getDocuments(input?: IGetDocumentsInput): Promise<object>
@@ -37,6 +50,7 @@ export interface DocumentsInterface {
   renameFolder(input: IRenameFolderInput): Promise<object>
   moveDocuments(input: IMoveDocumentsInput): Promise<object>
   shareDocuments(input: IShareDocumentsInput): Promise<object>
+  downloadDirectory(input: IDownloadDirectoryInput): Promise<object>
 }
 
 class Documents implements DocumentsInterface {
@@ -132,6 +146,36 @@ class Documents implements DocumentsInterface {
     const body = { userEmails }
     try {
       return await this._rest.post({ url, body })
+    } catch (error) {
+      throw error
+    }
+  }
+  async generateDownloadLink({ uuid, headers }: IGenerateLinkInput = {}) {
+    console.log(uuid)
+    const url = `/rest/publicAccess/${uuid}/generateDownloadLink`
+    try {
+      let result = await this._rest.get({ url, headers })
+      return result
+    } catch (error) {
+      throw error
+    }
+  }
+  async downloadDirectory({ documentIds, type }: IDownloadDirectoryInput) {
+    console.log(documentIds, type)
+    let url = `/rest/documents/archive?ids=${documentIds.join()}&format=${type}`
+    console.log(url)
+    try {
+      return await this._rest.get({ url })
+    } catch (error) {
+      throw error
+    }
+  }
+  async restoreFiles({ documentIds }: IRestoreFileInput) {
+    console.log(documentIds)
+    let url = `/rest/documents/restore?ids=${documentIds.join()}`
+  
+    try {
+      return await this._rest.put({ url })
     } catch (error) {
       throw error
     }

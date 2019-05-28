@@ -5,13 +5,13 @@
 
 .clipboard {
   @include input-theme;
-  width: 284px;
+  width: 100%;
   border: 1px solid $input-border;
 
   input {
     left: 57px;
     top: -3px;
-    width: 221px;
+    width: 71% !important;
     direction: ltr;
     height: 28px $important;
     position: absolute $important;

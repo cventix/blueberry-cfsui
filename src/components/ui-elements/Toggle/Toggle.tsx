@@ -4,15 +4,19 @@ import styles from './Toggle.module.scss'
 interface Iprops {
   checked: boolean
   disabled?: boolean
-  vmSwitc?: boolean
+  vmSwitch?: boolean
   onToggle?: (e: boolean) => void
   className?: string
+  name?: string
 }
-const Toggle: React.FunctionComponent<Iprops> = ({ checked, disabled, onToggle, className , vmSwitc}) => (
-	<label className={vmSwitc ? `${styles.switch} ${styles.vmSwitch}` : disabled && checked ? `${styles.switch} ${styles.onDisabled} ${styles.vmSwitch}` : disabled ? `${styles.disabled} ${styles.switch}` : styles.switch} 
-		{...onToggle && { onClick: () => onToggle(checked) }}>
-		<input type="checkbox" defaultChecked={checked} />
-		<span className={styles.knob} />
-	</label>
+
+// Toggle Mode Style
+// className={vmSwitc ? `${styles.switch} ${styles.vmSwitch}` : disabled && checked ? `${styles.switch} ${styles.onDisabled} ${styles.vmSwitch}` : disabled ? `${styles.disabled} ${styles.switch}` : styles.switch} 
+
+const Toggle: React.FunctionComponent<Iprops> = ({ checked, disabled, onToggle,name, className }) => (
+  <label className={disabled && checked  ? `${styles.onDisabled} ${styles.switch}` : disabled ? `${styles.disabled} ${styles.switch}` : styles.switch} {...onToggle && { onClick: () => onToggle(checked) }}>
+    <input type="checkbox" checked={checked} value={name}/>
+    <span className={styles.knob} />
+  </label>
 )
 export default Toggle

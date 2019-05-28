@@ -1,43 +1,38 @@
-import * as React from 'react'
-import Timeout from '../../SetTimeout/TimeOut'
-// styles
-import styles from './Toast.module.scss'
+import { toast } from 'react-toastify'
+import { css } from 'glamor'
+import 'react-toastify/dist/ReactToastify.css'
 
-export interface Iprops {
-  level?: string
-  width?: number
-  visible?: boolean
-  message?: string
-  caret?: boolean
-}
+toast.configure({
+  autoClose: 200000,
+  draggable: false,
+  closeButton: false
+})
 
-class Toast extends React.Component<Iprops, any> {
-  constructor(props: Iprops) {
-    super(props)
-    this.state = {
-      visible: false
-    }
-  }
-  componentWillReceiveProps(nextProps: Iprops) {
-    if (this.props.visible !== nextProps.visible) {
-      this.setState({
-        visible: nextProps.visible
+export default {
+  success(msg: string, options = {}) {
+    return toast.success(msg, {
+      ...options,
+      className: css({
+        background: '#21d352 !important'
+      }),
+      progressClassName: css({
+        background: '#007aff'
+      }),
+      position: toast.POSITION.BOTTOM_LEFT
+    })
+  },
+  error(msg: string, options = {}) {
+    return toast.error(msg, {
+      ...options,
+      className: {
+        color: '#fff',
+        minHeight: '60px',
+        borderRadius: '8px',
+        boxShadow: '2px 2px 20px 2px rgba(0,0,0,0.3)'
+      },
+      progressClassName: css({
+        background: '#007aff'
       })
-    }
-  }
-
-  render() {
-    let classes = `${styles.toast} ${this.props.level && styles[this.props.level]} `
-    classes += this.state.visible ? `${styles.visible}` : ''
-    console.log()
-    return (
-      this.props.children && (
-        <div className={classes} style={{ width: this.props.width }}>
-          <div className={styles.row}>{this.props.children}</div>
-        </div>
-      )
-    )
+    })
   }
 }
-
-export default Toast
