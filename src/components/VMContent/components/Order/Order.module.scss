@@ -92,7 +92,7 @@
 		margin: 0 0 124px;
 
 		@media(max-width: $tablet) {
-			margin: 0 0 124px;
+			margin: 0 0 50px;
 		}
 	}
 
@@ -170,16 +170,36 @@
 	border: solid 1px #dbdbdb;
 	@include border-radius($br-radius-sm);
 
-	@media (min-width: $mobile + 20) and (max-width: 651px) {
-		width: 400px;
+	@media (min-width: $tablet + 1) and (max-width: $web-medium) {
+		width: 450px;
+
+		.center {
+			> div {
+				> input {
+					width: 280px $important;
+				}
+			}
+		}
+	}
+
+	@media (min-width: 641px) and (max-width: $tablet) {
+		width: 600px;
 	}	
 
-	@media (min-width: $mobile) and (max-width: $mobile + 20) {
-		width: $mobile;
+	@media (min-width: 571px) and (max-width: 640px) {
+		width: 500px;
+
+		.center {
+			> div {
+				> input {
+					width: 260px $important;
+				}
+			}
+		}
 	}	
 
-	@media (max-width: $mobile + 1) {
-		width: 320px;
+	@media (min-width: $mobile) and (max-width: 570px) {
+		width: 345px;
 	}
 
 	.right {
@@ -195,8 +215,12 @@
 	}	
 
 	.center {
-		margin: -8px 34px;
+		margin: 0 34px;
 		flex-grow: 1;
+
+		> div {
+			padding-bottom: 10px;
+		}
 	}	
 
 	.left {
