@@ -24,7 +24,6 @@ import { setRouter } from '../../services/internal/store/actions/router'
 
 import toast from '../../components/ui-elements/Toast/Toast'
 
-
 import {
   setUserCredentials,
   setToken,
@@ -250,7 +249,7 @@ class App extends Component<
       //     //   </div>
       //     // </Toast>
       //   )
-        // break
+      // break
       case 'moveFile':
         modal = <MoveFile handleClose={this.handleClose} showModal={this.state.showModal} />
         break
@@ -303,26 +302,9 @@ class App extends Component<
         />
         <Main showModal={this.state.showModal}>
           <Switch>
-<<<<<<< HEAD
-            <Route
-              exact
-              path={`/`}
-              component={Content}  
-            />
-            <Route
-              exact
-              path={`/vm`}
-              component={VMContent} 
-            />
-            <Route
-              exact
-              path={`/vm/order`}
-              component={Order} 
-            />
-=======
-            <Route path={`/fm`} component={Content} />
+            <Route exact path={`/fm`} component={Content} />
             <Route exact path={`/vm`} component={VMContent} />
->>>>>>> 9af9220be0dca4e6057ead46c6b4e27a50b619b4
+            <Route exact path={`/vm/order`} component={Order} />
           </Switch>
         </Main>
 
