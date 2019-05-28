@@ -4,13 +4,13 @@ import { Breadcrumb, BreadcrumbItem } from '../ui-elements/Breadcrumb/Breadcrumb
 import { SearchInput } from '../ui-elements/SearchInput/SearchInput'
 import { SwitchIcon } from './SwitchIcon'
 
-//icons
+// Icons
 import list from '../../images/switchViewIcons/list-view.svg'
 import grid from '../../images/switchViewIcons/grid-view.svg'
 import listViewActive from '../../images/switchViewIcons/list-view-active.svg'
 import gridViewActive from '../../images/switchViewIcons/grid-view-active.svg'
 
-//styles
+// Styles
 import styles from './Content.module.scss'
 
 export default interface Iprops {
