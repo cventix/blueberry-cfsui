@@ -5,11 +5,12 @@ export interface PayloadInterface {
 }
 
 export const initialState: any = {
-  documents: []
+  documents: [],
+  tem_doucuments: [],
+  modal_documents: []
 }
 
 const documentReducer = (state: any = initialState, action: any) => {
-  console.log(action)
   switch (action.type) {
     case actionTypes.CREATE_FOLDER:
       return {
@@ -26,10 +27,20 @@ const documentReducer = (state: any = initialState, action: any) => {
         ...state,
         documents: action.payload
       }
+    case actionTypes.SET_MODAL_DOCUMENTS:
+      return {
+        ...state,
+        modal_documents: action.payload
+      }
     case actionTypes.SET_RESPONSE:
       return {
         ...state,
         response: action.payload
+      }
+    case actionTypes.SET_TEMP_DOCUMENTS:
+      return {
+        ...state,
+        temp_documents: action.payload
       }
     default:
       return state

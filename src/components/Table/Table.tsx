@@ -12,11 +12,13 @@ const EnhancedDropdown = enhancer(Dropdown)
 
 export default interface Iprops {
   table?: object[]
+
   dropdown?: boolean
   onCheckAll?: () => void
   checkAll?: boolean
   onSort?: any
   tabletView?: boolean
+  onOpenCFModal?: any
   onSelect?: (option: number) => void
   onRenameDocument?: (e: any) => void
   handleNavigate?: any
@@ -43,33 +45,40 @@ export const Table: React.FunctionComponent<Iprops> = ({
   optionSelected,
   checkbox,
   onCheck,
+  onOpenCFModal,
   hasHeader = true
 }) => {
   const header = [t`نام`, t`تاریخ`, t`مالک`, t`حجم`]
-  return  (
+  console.log(table)
+  return (
     <table className={styles.table}>
-     {hasHeader && <TableHeader
-        titles={header}
-        dropdown={dropdown}
-        {...onCheckAll && { checkAll: checkAll, onCheckAll: onCheckAll }}
-        onSort={onSort}
-        tabletView={tabletView}
-      />}
+      {hasHeader && (
+        <TableHeader
+          titles={header}
+          dropdown={dropdown}
+          {...onCheckAll && { checkAll: checkAll, onCheckAll: onCheckAll }}
+          onSort={onSort}
+          tabletView={tabletView}
+          onOpenCFModal={onOpenCFModal}
+        />
+      )}
       <tbody>
         {table &&
           table.map((item: any, i: number) => {
             return (
               <tr key={item.id}>
                 {Object.keys(item).map((k, i) => {
-                  if (k !== 'type' && k !== 'id' && k !== 'fullPath' && k !== 'discriminator') {
+                  if (k !== 'type' && k !== 'id' && k !== 'fullPath' && k !== 'discriminator' && k !== 'uuid' && k !== 'item') {
                     return (
                       <TableItem
                         name={k}
                         key={i}
                         id={item.id}
+                        uuid={item.uuid}
                         handleNavigate={k === 'name' && handleNavigate}
                         label={item[k]}
                         itemName={item.name}
+                        item={item}
                         onCheck={onCheck}
                         checkAll={checkAll}
                         className={k === 'name' ? ['show'] : [' ']}
@@ -79,12 +88,14 @@ export const Table: React.FunctionComponent<Iprops> = ({
                     )
                   }
                 })}
+
                 {dropdown && (
                   <td className={[styles.show, styles.left].join(' ')}>
                     <EnhancedDropdown
                       width={138}
                       optionSelected={optionSelected}
                       onSelect={onSelect}
+                      fileType={item.discriminator}
                       position={'absoulte'}
                       data={dropDownData && dropDownData}
                       id={item.id}

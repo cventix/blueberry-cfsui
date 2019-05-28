@@ -39,7 +39,7 @@ export const Navbar: React.FunctionComponent<Iprops> = ({ toggleHamburgerMenu, t
           <Icon src={logo} className="logo" alt="pg-logo" />
         </a>
         <div className="nav">
-          <NavLink to={`/`} className="item" activeClassName="current">
+          <NavLink to={`/fm`} className="item" activeClassName="current">
             <IconLink icon={fileCloudIcon} iconAlt={`File-cloud ${altIcon}`} label={t`میزبانی‌فایل`} />
           </NavLink>
           <NavLink to={`/vm`} className="item" activeClassName="current">

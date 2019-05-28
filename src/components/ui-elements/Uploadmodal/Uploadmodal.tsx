@@ -11,17 +11,18 @@ export default interface Iprops {
   width?: number
   formDescription?: string
   children?: any
+  flexDirection?:string
   handleClose?: () => void
 }
 
-export const UploadModal: React.FunctionComponent<Iprops> = ({ show, title, formDescription, width, handleClose, children }) => {
+export const UploadModal: React.FunctionComponent<Iprops> = ({ show, title, formDescription, width, handleClose, children,flexDirection }) => {
   return (
     <Modal show={show} title={title} width={width} handleClose={handleClose}>
       <div className={styles.uploadModal}>
         <div>
           <span>{formDescription}</span>
         </div>
-        <div className={styles.row}>{children}</div>
+        <div className={flexDirection && flexDirection==='column' ? styles.column :styles.row}>{children}</div>
       </div>
     </Modal>
   )

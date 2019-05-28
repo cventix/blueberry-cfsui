@@ -1,5 +1,5 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
+import { Link, Redirect } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { t } from 'ttag'
 import { Authentication } from '../Authentication'
@@ -23,23 +23,26 @@ class Login extends React.Component<any, any> {
   state = {
     email: '',
     password: '',
-    loading: false
+    loading: false,
+    token: ''
   }
-  
+
   handleChange = (e: any) => {
     console.log(e.target)
     this.setState({
       [e.target.name]: e.target.value
     })
   }
-
+  componentWillReceiveProps(nextProps: any) {
+    this.setState({ token: nextProps.auth.token })
+  }
   handleSubmit = async (e: any) => {
     const { history } = this.props
-    console.log(this.state.email)
+    console.log(this.props.auth.token)
     if (e) e.preventDefault()
     try {
-      await this.props.login({ email: this.state.email, password: this.state.password })
-      setTimeout(() => history.push('/'), 3000)
+      let result = await this.props.login({ email: this.state.email, password: this.state.password })
+      console.log(result)
     } catch (error) {
       console.log('E: ', error)
     }
@@ -48,39 +51,44 @@ class Login extends React.Component<any, any> {
   componentDidMount() {}
 
   render() {
-    return (
-      <Authentication>
-        <form className={styles.login} onSubmit={this.handleSubmit}>
-          <span className={styles.title}>{t`ورود به حساب کاربری`}</span>
-          <p className={styles.description}>{t`برای استفاده از خدمات ابتدا وارد شوید`}</p>
-          <TextInput placeholder={t`نام کاربر یا ایمیل`} name={'email'} onChange={this.handleChange} />
-          <TextInput placeholder={t`رمز عبور`} name={'password'} type={'password'} onChange={this.handleChange} />
-          <div className={styles.row}>
-            <div className={styles.switch}>
-              {t`عضو نیستید؟`}
-              <Link to={'/register'}>
-                <span className={styles.link}>{t`ثبت‌نام`}</span>
-              </Link>
+    if (this.state.token) {
+      return <Redirect to='/fm'/>;
+    }
+
+    else if (!this.state.token)
+      return (
+        <Authentication>
+          <form className={styles.login} onSubmit={this.handleSubmit}>
+            <span className={styles.title}>{t`ورود به حساب کاربری`}</span>
+            <p className={styles.description}>{t`برای استفاده از خدمات ابتدا وارد شوید`}</p>
+            <TextInput placeholder={t`نام کاربر یا ایمیل`} name={'email'} onChange={this.handleChange} />
+            <TextInput placeholder={t`رمز عبور`} name={'password'} type={'password'} onChange={this.handleChange} />
+            <div className={styles.row}>
+              <div className={styles.switch}>
+                {t`عضو نیستید؟`}
+                <Link to={'/register'}>
+                  <span className={styles.link}>{t`ثبت‌نام`}</span>
+                </Link>
+              </div>
+              <Button className={[this.props.isLoading && !this.state.loading ? 'btnSecondary' : 'btnSuccess0', 'btnSm']}>
+                {this.props.isLoading && !this.state.loading && (
+                  <div className={styles.buttonLoading}>
+                    <Icon src={loading} />
+                  </div>
+                )}
+                {t`ورود`}
+              </Button>
             </div>
-            <Button className={[this.props.isLoading && !this.state.loading ? 'btnSecondary' : 'btnSuccess0', 'btnSm']}>
-              {this.props.isLoading && !this.state.loading && (
-                <div className={styles.buttonLoading}>
-                  <Icon src={loading} />
-                </div>
-              )}
-              {t`ورود`}
-            </Button>
-          </div>
-          <Link to={'/'} className={styles.forgetPassword}>
-            <IconLink icon={lock} label={t`رمز عبور را فراموش کرده‌ام!`}/>
-          </Link>
-        </form>
-      </Authentication>
-    )
+            <Link to={'/'} className={styles.forgetPassword}>
+              <IconLink icon={lock} label={t`رمز عبور را فراموش کرده‌ام!`} />
+            </Link>
+          </form>
+        </Authentication>
+      )
   }
 }
 
-const mapStateToProps = (state: any) => ({ isLoading: state.loading.isLoading })
+const mapStateToProps = (state: any) => ({ isLoading: state.loading.isLoading, auth: state.auth })
 
 const mapDispatchToProps = (dispatch: any) => {
   return {

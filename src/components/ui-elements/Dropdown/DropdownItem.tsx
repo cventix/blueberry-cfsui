@@ -11,7 +11,7 @@ interface Iprops {
   onClickdescription?: string
   selectable?: boolean
   bordered?: boolean
-  onClick?: (id: number) => void
+  onClick?: (id: any) => void
   description?: string
   id?: number
 }
@@ -37,7 +37,7 @@ export const DropdownItem: React.FunctionComponent<Iprops> = ({
   }
 console.log(id)
   return (
-    <li className={liClassName} onClick={() => (onClick && id && onClick(id) ? onClick(id) : onSelect && onSelect(index))}>
+    <li className={liClassName} onClick={() => (onClick ?( id && label ? onClick(id) : label && onClick(label) ): onSelect && onSelect(index))}>
       <a href={link}>
         <p className={styles.label}>
           {selectable && isSelected === index && <span className={styles.checkmark} />}

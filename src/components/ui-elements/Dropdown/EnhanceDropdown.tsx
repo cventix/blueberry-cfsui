@@ -1,12 +1,17 @@
 import * as React from 'react'
+import ReactDOM from 'react-dom';
 
 interface IProps {
   data: any
   width?: number
+  marginLeft?: number
   onSelect?: (option: number) => void
   optionSelected?: number
   position?: any
   id?: number
+  fileType?: string
+  noButton?: boolean
+  buttonDropDown?: boolean
 }
 
 interface IState {
@@ -25,11 +30,19 @@ export const EnhanceDropdown = (ComposedComponent: any) =>
 
     componentDidMount() {
       window.addEventListener('click', this.handleDocumentClick)
+      document.addEventListener('click', this.handleClickOutside, true);
     }
     componentWillUnmount() {
       window.removeEventListener('click', this.handleDocumentClick)
+      document.removeEventListener('click', this.handleClickOutside, true);
     }
-
+    handleClickOutside = (event:any) => {
+      const domNode = ReactDOM.findDOMNode(this);
+  
+      if (!domNode || !domNode.contains(event.target)) {
+        this.setState({ isOpen: false })
+      }
+  }
     handleDocumentClick() {
       if (this.state.isOpen) {
         this.onToggle()
@@ -50,7 +63,10 @@ export const EnhanceDropdown = (ComposedComponent: any) =>
           <ComposedComponent
             {...this.props}
             onToggle={this.onToggle}
+            fileType={this.props.fileType}
             isOpen={this.state.isOpen}
+            noButton={this.props.noButton}
+            buttonDropDown={this.props.buttonDropDown}
             id={this.props.id}
             selectable={false}
             data={this.props.data}

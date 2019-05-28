@@ -1,0 +1,48 @@
+@import '../../styles/global';
+
+.commentBox {
+  @include border-radius(3px);
+  padding: 8px;
+  border: solid 1px #dfdfdf;
+  background-color: #ffffff;
+  display: flex;
+  .commentContent {
+    @include flex(column, unset);
+  }
+  .commentHeader {
+    @include flex(row, wrap);
+    justify-content: space-between;
+    align-items: center;
+    font-size: 10px;
+  }
+  .right {
+    @include flex(row, wrap);
+    align-items: center;
+  }
+  .column {
+    @include flex(column, wrap);
+    align-items: center;
+  }
+  .littleSize {
+    color: #9b9b9b;
+    font-size: 8px;
+  }
+  .avatar {
+    margin-left: 7px;
+  }
+  .commentBody {
+    font-size: 10px;
+    margin-top: 6px;
+  }
+  textarea {
+    border: none;
+    overflow: auto;
+    outline: none;
+
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+    box-shadow: none;
+
+    resize: none;
+  }
+}

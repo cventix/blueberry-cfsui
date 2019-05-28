@@ -3,26 +3,36 @@ import { Icon } from '../Icon'
 import bigger from '../../../images/bigger.svg'
 
 import styles from './Breadcrumb.module.scss'
+import { Link } from 'react-router-dom'
 
 export interface BreadcrumbItem {
   title: string
   link: string
   active?: boolean
+  onClick?: any
 }
 
 export default interface Iprops {
   history: BreadcrumbItem[]
+  modal?: boolean
   className?: string
 }
 
-export const Breadcrumb: React.FunctionComponent<Iprops> = ({ history, className }) => (
-  <div className={[styles.breadcrumb, className].join(' ')}>
+export const Breadcrumb: React.FunctionComponent<Iprops> = ({ history, modal, className }) => (
+  <div className={` ${modal ? [styles.breadcrumb, styles.modalbread, className].join(' ') : styles.breadcrumb}`}>
     {history.map((item: BreadcrumbItem, index: number) => {
-      return (
+      return !item.onClick ? (
         <React.Fragment key={index}>
-          <a href={item.link} className={item.active ? [styles.active, styles.item].join(' ') : styles.item}>
+          <Link to={item.link} className={item.active ? [styles.active, styles.item].join(' ') : styles.item}>
             {item.title}
-          </a>
+          </Link>
+          {!item.active && <Icon src={bigger} />}
+        </React.Fragment>
+      ) : (
+        <React.Fragment key={index}>
+          <span onClick={() => item.onClick()} className={item.active ? [styles.active, styles.item].join(' ') : styles.item}>
+            {item.title}
+          </span>
           {!item.active && <Icon src={bigger} />}
         </React.Fragment>
       )

@@ -13,4 +13,11 @@
     width: 80%;
     margin: 15px 0 48px;
   }
+  .column {
+    @include flex(column, wrap);
+    align-items: center;
+    justify-content: center;
+    width: 80%;
+    margin: 15px 0 48px;
+  }
 }

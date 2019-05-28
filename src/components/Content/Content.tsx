@@ -15,10 +15,20 @@ import { CountdownTimer } from '../ui-elements/CountdownTimer/CountdownTimer'
 import Toast from '../ui-elements/Toast/Toast'
 import { ContentHeader } from './ContentHeader'
 import { ContentBody } from './ContentBody'
+import CFModal from '../ui-elements/Modal/CreateFolderModal/CreateFolder'
+import Config from '../../services/internal/config/config'
 
 // Services
 import { bottle } from '../../services'
-import { getDocuments, createFolder, renameFolder, removeFolder, moveDocuments, shareDocuments } from '../../services/internal/store/actions'
+import {
+  getDocuments,
+  createFolder,
+  renameFolder,
+  removeFolder,
+  moveDocuments,
+  shareDocuments,
+  setSidebarItems
+} from '../../services/internal/store/actions'
 import { formatDate } from '../../services/internal/utils/formatDates'
 import { formatBytes } from '../../services/internal/utils/formatBytes'
 import { sliceData } from '../../services/internal/utils/sliceData'
@@ -28,7 +38,8 @@ import { setSelections } from '../../services/internal/store/actions/selections'
 import loading from '../../images/loading/tail-spin.2.svg'
 import arrowBottom from '../../images/buttonIcons/icon-btn-arrow-bottom.svg'
 import styles from './Content.module.scss'
-
+import { Preview } from '../ui-elements/Preview/Preview'
+import image from '../../images/image.jpg'
 const sort = (data: object[]) => {
   var sortOrder = ['folder', 'image', 'music']
   data.sort(function(a: any, b: any) {
@@ -48,17 +59,22 @@ export interface IProps {
   history?: any
   location?: any
   prevProps?: any
+  item?: any
   prevState?: any
   document?: any
   loading?: boolean
   auth?: any
   setSelections?: any
+  setItem?: any
+  image?: any
 }
 
 export interface navigateObject {
   e: any
   name?: string
   id?: number
+  item?: any
+  uuid?: string
 }
 
 export interface IState {
@@ -68,7 +84,9 @@ export interface IState {
   width: number
   height: number
   optionSelected?: number
-  ascending: string
+  ascendingSize: boolean
+  ascendingDate: boolean
+  ascendingName: boolean
   showMore: boolean
   selectedArray: number[]
   [key: string]: any
@@ -77,11 +95,11 @@ export interface IState {
 class Content extends React.Component<IProps, IState> {
   step = 10
   timer: any = 0
-  countDownTime = 100000
+  countDownTime = 3000
   constructor(props: any) {
     super(props)
     this.state = {
-      table: '',
+      table: [],
       filteredTable: [],
       checkAll: false,
       selectedArray: [],
@@ -90,10 +108,12 @@ class Content extends React.Component<IProps, IState> {
       height: 0,
       showMore: false,
       modalView: '',
-      ascending: 'ascending',
+      ascendingSize: false,
+      ascendingDate: true,
+      ascendingName: false,
       name: '',
-      showRename: false,
-      showRemove: false,
+      showModal: false,
+      showToaster: false,
       description: '',
       showToast: false,
       message: ''
@@ -105,17 +125,20 @@ class Content extends React.Component<IProps, IState> {
   async componentDidMount() {
     this.updateWindowDimensions()
     window.addEventListener('resize', this.updateWindowDimensions)
-    if (this.props.location.pathname === '/') {
+
+    if (this.props.location.pathname === '/fm') {
       this.onGetDocument(false)
       this.setState({ table: this.props.data })
     } else {
-      this.onGetDocument(true, this.props.location.pathname)
+      this.onGetDocument(true, this.props.location.pathname.split('/fm/')[1])
     }
+
+    this.setState({ showMore: this.state.table.length > 10 ? true : false })
   }
 
   /**back button */
   componentDidUpdate(prevProps: any, prevState: any) {
-    if (this.props.location.pathname !== prevProps.location.pathname && this.props.location.pathname === '/') {
+    if (this.props.location.pathname !== prevProps.location.pathname && this.props.location.pathname === '/fm') {
       this.onGetDocument(false)
     }
   }
@@ -138,25 +161,36 @@ class Content extends React.Component<IProps, IState> {
       }
     }
   }
-
+  turnOffbutton = () => {
+    if (this.state.showMore !== false) this.setState({ showMore: false })
+  }
   /**
    * gets data and makes an obj
    * @param nextProps
    */
   componentWillReceiveProps(nextProps: any) {
-    this.setState({
-      table: sliceData({ array: nextProps.document.documents }),
-      showMore: true,
-      mainTable: nextProps.document.documents,
-      filteredTable: this.state.table
-    })
+    console.log(nextProps)
+    if (nextProps.item) {
+      this.setState({
+        item: nextProps.item
+      })
+    }
+
+    if (nextProps.selection.length == 0 || (nextProps.selection.length > 0 && nextProps.document.documents !== this.state.mainTable)) {
+      console.log('aha')
+      this.setState({
+        table: sliceData({ array: nextProps.document.documents }),
+        showMore: nextProps.document.documents.length > 10,
+        mainTable: nextProps.document.documents,
+        filteredTable: sliceData({ array: nextProps.document.documents })
+      })
+    }
   }
 
   // show more button function
   showMore = () => {
-    console.log(this.state.mainTable)
     this.setState({
-      table: sliceData({ array: this.state.mainTable, choppedArray: this.state.table }),
+      filteredTable: sliceData({ array: this.state.mainTable, choppedArray: this.state.table }),
       showMore: Math.ceil(this.state.mainTable.length / this.step) - 1 === Math.ceil(this.state.table.length / 10) ? false : true
     })
   }
@@ -166,7 +200,6 @@ class Content extends React.Component<IProps, IState> {
    */
   componentWillUnmount() {
     window.removeEventListener('resize', this.updateWindowDimensions)
-    console.log('unmount')
   }
 
   updateWindowDimensions() {
@@ -174,41 +207,62 @@ class Content extends React.Component<IProps, IState> {
   }
 
   onSort = (sortBy: string, type?: string) => {
-    console.log('hi')
+    console.log(sortBy)
     let table = this.state.table
-    switch (type) {
-      case 'alphabet':
+    switch (sortBy) {
+      case t`نام`:
         table &&
           table.sort((a: any, b: any) => {
-            if (a[sortBy] < b[sortBy]) {
-              return -1
+            if (this.state.ascendingDate) {
+              if (a.name < b.name) {
+                return -1
+              }
+              if (a.name > b.name) {
+                return 1
+              }
+              return 0
+            } else {
+              if (b.name < a.name) {
+                return -1
+              }
+              if (b.name > a.name) {
+                return 1
+              }
+              return 0
             }
-            if (a[sortBy] > b[sortBy]) {
-              return 1
-            }
-            return 0
           })
         break
-      default:
-        table &&
-          table.sort((a: any, b: any) => {
-            if (this.state[sortBy] !== 'ascending') {
-              this.setState({ [sortBy]: 'ascending' })
-              return a[sortBy] - b[sortBy]
-            } else {
-              this.setState({ [sortBy]: 'decending' })
-              return b[sortBy] - a[sortBy]
-            }
-          })
+      case t`حجم`:
+        table.sort((a: any, b: any) => {
+          if (a.size) {
+            if (this.state.ascendingSize) return b.size - a.size
+            else return a.size - b.size
+          }
+        })
+        break
+      case t`تاریخ`:
+        table.sort((a: any, b: any) => {
+          if (this.state.ascendingDate) return new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime()
+          else return new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
+        })
+        break
     }
 
-    this.setState({ table })
+    this.setState({
+      table: sliceData({ array: table }),
+      mainTable: table,
+      filteredTable: this.state.table,
+      ascendingSize: !this.state.ascendingSize,
+      ascendingDate: !this.state.ascendingDate,
+      ascendingName: !this.state.ascendingName
+    })
   }
 
   onCheckAll = () => {
     this.setState({ checkAll: !this.state.checkAll })
   }
 
+  //switch between grid and list
   switchView = (view: string) => {
     this.setState({ view })
   }
@@ -217,33 +271,46 @@ class Content extends React.Component<IProps, IState> {
     this.setState({ optionSelected })
   }
 
-  handleNavigate = ({ e, name, id }: navigateObject) => {
+  // navigate to directories
+  handleNavigate = ({ e, name, id, uuid, item }: navigateObject) => {
     if (e.target.tagName != 'INPUT') {
       let discriminator = this.state.table.filter((obj: any) => {
-        console.log(obj.name == name)
         return obj.name == name
       })[0].discriminator
       if (discriminator === 'D') {
-        this.props.history.push(name)
+        this.props.history.push(`${this.props.history.location.pathname}/${name}`)
         this.onGetDocument(true, name)
+      } else {
+        this.props.history.push(`fm/preview/${item.genericType}${item.genericType === 'image' ? '/' + this.props.image : ''}/${name}`)
+        this.props.setItem(item)
+        this.setState({ modalView: 'previewModal', previewId: id, fileName: name, [`item${id}`]: item })
       }
     }
+  }
+  onOpenCFModal = () => {
+    this.setState({ modalView: 'createFolder', showModal: true })
   }
 
   onRenameDocument = async (e: any) => {
     if (e) e.preventDefault()
+    let table = this.state.table
     try {
       let result = await this.props.renameFolder({ folderId: this.state.renameFileId, name: this.state.renameInput })
-      this.setState({ showRename: false, modalView: 'doneRename' })
+      table.map((each: any) => {
+        if (each.id === this.state.renameFileId) each.name = result.payload.name
+      })
+      this.setState({ showModal: false, modalView: 'modalView', table, showToaster: true })
     } catch (error) {
       console.log('E: ', error)
     }
   }
 
   onRemoveDocument = async () => {
+    let table = this.state.table
     try {
       let result = await this.props.removeFolder({ folderId: this.state.isSelected })
-      this.setState({ showRemove: false })
+      table = table.filter((x: any) => x.id !== result.payload.folderId)
+      this.setState({ showToaster: false, table })
     } catch (error) {
       console.log('E: ', error)
     }
@@ -260,25 +327,26 @@ class Content extends React.Component<IProps, IState> {
     let renameInput = this.state.table.filter((obj: any) => {
       return obj.id === renameFileId
     })[0].name
-    this.setState({ modalView: 'renameFile', showRename: true, renameInput, renameFileId })
+    this.setState({ modalView: 'renameFile', showModal: true, renameInput, renameFileId })
   }
 
-  closeRenameModalclose = () => {
-    this.setState({ showRename: false, renameFileId: '' })
+  handleClose = () => {
+    if (this.props.history.location.pathname.includes('preview')) this.props.history.goBack()
+    this.setState({ showModal: false, renameFileId: '', modalView: '' })
   }
 
   // remove modal
   openRemoveModal = (isSelected: number) => {
-    this.setState({ showRemove: true, isSelected, modalView: 'removeFile', countDown: this.countDownTime / 1000 })
+    this.setState({ showToaster: true, isSelected, modalView: 'removeFile', countDown: this.countDownTime / 1000 })
     this.timer = setTimeout(() => {
-      // this.onRemoveDocument()
-      this.setState({ showRemove: false, modalView: '' })
+      this.onRemoveDocument()
+      this.setState({ showToaster: false, modalView: '' })
       this.timer = 0
     }, this.countDownTime)
   }
 
   onCancle = () => {
-    this.setState({ showRemove: false, modalView: '' })
+    this.setState({ showToaster: false, modalView: '' })
     if (this.timer) {
       clearTimeout(this.timer)
     }
@@ -287,18 +355,18 @@ class Content extends React.Component<IProps, IState> {
   // handle search
   onChangeSearchInput = (val: string) => {
     let filteredTable = this.state.table.filter((obj: any) => {
-      return obj.cfsFullPath.includes(val);
-    });
+      return obj.cfsFullPath.includes(val)
+    })
 
     this.setState({
       filteredTable
-    });
+    })
   }
 
   // on item check
   onCheck = (id: number) => {
     let { selectedArray } = this.state
-
+    console.log(id)
     if (selectedArray.indexOf(id) === -1) selectedArray.push(id)
     else
       selectedArray = selectedArray.filter(function(obj) {
@@ -306,61 +374,83 @@ class Content extends React.Component<IProps, IState> {
       })
     console.log(selectedArray)
     this.props.setSelections(selectedArray)
-    this.setState({ selectedArray }, () => console.log(selectedArray))
+    this.setState({ selectedArray })
   }
 
   public render() {
     let dropDownData = [
-      { label: ' دانلود فایل' },
-      { label: 'تغییر نام', onClick: this.openRenameModal },
-      { label: 'اشتراک گذاری' },
-      { label: 'افزودن توضیح' },
-      { label: 'دریافت لینک‌ها' },
-      { label: 'حذف فایل', onClick: this.openRemoveModal }
+      { label: t`دانلود فایل` },
+      { label: t`تغییر نام`, onClick: this.openRenameModal },
+      { label: t`اشتراک گذاری` },
+      { label: t`افزودن توضیح` },
+      { label: t`دریافت لینک‌ها` },
+      { label: t`حذف فایل`, onClick: this.openRemoveModal }
     ]
-    let modal, toaster
+    let modal, toaster, preview
+
     switch (this.state.modalView) {
       case 'renameFile':
         modal = (
           <UploadModal
-            show={this.state.showRename || this.state.showRemove}
+            show={this.state.showModal}
             width={640}
             title={'تغییر نام'}
             formDescription={' نام جدید را در فرم زیر وارد نمایید'}
-            handleClose={this.closeRenameModalclose}
+            handleClose={this.handleClose}
           >
             <RenameFile value={this.state.renameInput} changeHandler={this.changeHandler} handleSubmit={this.onRenameDocument} />
           </UploadModal>
         )
         break
-      case 'removeFile':
-        toaster = (
-          <Toast level={'success'} caret={false}>
-            <CountdownTimer startTimeInSeconds={this.state.countDown} />
-            پوشه حذف شد
-            <div className={styles.undo} onClick={this.onCancle}>
-              انصراف
-            </div>
-          </Toast>
+      // case 'removeFile':
+      //   toaster = (
+      //     <Toast level={'success'} caret={false}>
+      //       <CountdownTimer startTimeInSeconds={this.state.countDown} />
+      //       پوشه حذف شد
+      //       <div className={styles.undo} onClick={this.onCancle}>
+      //         انصراف
+      //       </div>
+      //     </Toast>
+      //   )
+      //   break
+      // case 'renameDone':
+      //   toaster = (
+      //     <Toast level={'success'} caret={false}>
+      //       نام تغییر یافت
+      //     </Toast>
+      //   )
+      //   break
+      case 'previewModal':
+        preview = (
+          <Preview show={true} type={'music'} item={this.state[`item${this.state.previewId}`]} handleClose={this.handleClose}>
+            {this.props.item.genericType === 'image' ? (
+              <img src={`http://cdn.persiangig.com/preview/${this.props.item.uuid}/${this.props.image}/${this.props.item.name}`} />
+            ) : (
+              this.props.item.genericType && <Icon mimetype={this.props.item.genericType} style={{ width: 300 }} />
+            )}
+          </Preview>
         )
         break
-      case 'renameDone':
-        toaster = (
-          <Toast level={'success'} caret={false}>
-            نام تغییر یافت
-          </Toast>
-        )
+      case 'createFolder':
+        modal = <CFModal handleCFClose={this.handleClose} showModal={this.state.showModal} />
         break
     }
-    const history = [{ title: t`پوشه اصلی`, link: '/', active: false }]
-    if (this.props.location.pathname !== '/')
-      history.push({ title: this.props.location.pathname.split('/'), link: this.props.location.pathname, active: true })
-    console.log(this.props.auth.username)
-    return !this.props.loading && this.state.table.length > 0 ? (
+    const history = [{ title: t`پوشه اصلی`, link: '/fm', active: false }]
+    if (this.props.location.pathname !== '/fm')
+      history.push({ title: this.props.location.pathname.split('/fm/'), link: this.props.location.pathname.split['/'], active: true })
+    console.log(this.state.filteredTable)
+    return !this.props.loading && this.state.table && this.state.table.length > 0 ? (
       <React.Fragment>
-        <ContentHeader view={this.state.view} history={history} switchView={this.switchView} handleSearchInput={(e: any) => this.onChangeSearchInput(e)}/>
-        <ContentBody
+        <ContentHeader
           view={this.state.view}
+          history={history}
+          switchView={this.switchView}
+          handleSearchInput={(e: any) => this.onChangeSearchInput(e)}
+        />
+        <ContentBody
+          turnOffbutton={this.turnOffbutton}
+          view={this.state.view}
+          onOpenCFModal={this.onOpenCFModal}
           username={this.props.auth.username}
           width={this.state.width}
           table={this.state.filteredTable}
@@ -374,6 +464,7 @@ class Content extends React.Component<IProps, IState> {
           checkAll={this.state.checkAll}
         />
         {modal}
+        {preview}
         {toaster}
         <div className={styles.footer}>
           <Button
@@ -391,7 +482,15 @@ class Content extends React.Component<IProps, IState> {
   }
 }
 
-const mapStateToProps = (state: IState) => ({ document: state.document, loading: state.loading.isLoading, auth: state.auth })
+const mapStateToProps = (state: IState) => ({
+  state: state,
+  document: state.document,
+  loading: state.loading.isLoading,
+  auth: state.auth,
+  item: state.sidebar.item,
+  image: state.sidebar.image,
+  selection: state.selection.selection
+})
 
 const mapDispatchToProps = (dispatch: any) => {
   return {
@@ -401,7 +500,8 @@ const mapDispatchToProps = (dispatch: any) => {
     moveDocuments: () => dispatch(moveDocuments()),
     shareDocuments: () => dispatch(shareDocuments()),
     removeFolder: (value: any) => dispatch(removeFolder(value)),
-    setSelections: (value: any) => dispatch(setSelections(value))
+    setSelections: (value: any) => dispatch(setSelections(value)),
+    setItem: (value: any) => dispatch(setSidebarItems(value))
   }
 }
 

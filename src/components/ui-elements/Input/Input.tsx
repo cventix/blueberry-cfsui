@@ -12,6 +12,7 @@ import styles from './Input.module.scss'
 export default interface Iprops {
   placeholder?: string
   onChange?: (e: any) => void
+  onBlur?: () => void
   label?: string
   disabled?: boolean
   message?: string
@@ -25,7 +26,22 @@ export default interface Iprops {
   value?: string
 }
 
-export const TextInput = ({ placeholder, onChange, name, label, value, type="text", disabled = false, message, error = false, success, withIcon, icon, style }: Iprops) => {
+export const TextInput = ({
+  placeholder,
+  onChange,
+  name,
+  label,
+  value,
+  type = 'text',
+  disabled = false,
+  message,
+  onBlur,
+  error = false,
+  success,
+  withIcon,
+  icon,
+  style
+}: Iprops) => {
   return (
     <div
       className={
@@ -48,6 +64,7 @@ export const TextInput = ({ placeholder, onChange, name, label, value, type="tex
         name={name}
         disabled={disabled}
         onChange={(e: any) => onChange && onChange(e)}
+        onBlur={() => onBlur && onBlur()}
       />
       <Icon className={withIcon ? styles.withIcon : `hide`} src={icon} />
       <span className={error ? styles.shoowErorrMsg : `hide`}>

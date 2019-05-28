@@ -3,6 +3,11 @@ import * as React from 'react'
 import DropdownItem from './DropdownItem'
 
 import styles from './Dropdown.module.scss'
+import buttonStyles from '../Button/Button.module.scss'
+
+import { Icon } from '../Icon'
+
+import bigger from '../../../images/bigger.1.svg'
 
 interface Iprops {
   isOpen: boolean
@@ -15,6 +20,9 @@ interface Iprops {
   position?: any
   id?: number
   selectable?: boolean
+  fileType?: string
+  buttonDropDown?: boolean
+  marginLeft?: number
 }
 
 export const Dropdown: React.FunctionComponent<Iprops> = ({
@@ -25,11 +33,15 @@ export const Dropdown: React.FunctionComponent<Iprops> = ({
   onSelect,
   width,
   noButton,
+  fileType,
   selectable,
   id,
   children,
+  marginLeft,
+  buttonDropDown,
   position = 'absolute'
 }) => {
+
   return (
     <div className={styles.dropdownBox}>
       {children
@@ -39,25 +51,32 @@ export const Dropdown: React.FunctionComponent<Iprops> = ({
               <div className={styles.more} />
             </button>
           )}
-
+      {children
+        ? children
+        : buttonDropDown && (
+            <span onClick={onToggle} className={buttonStyles.caretSpan}>
+              <Icon src={bigger} />
+            </span>
+          )}
       {isOpen && (
-        <ul className={position ? [styles[position], styles.dropdown].join(' ') : styles.dropdown} style={{ width: width }}>
+        <ul className={position ? [styles[position], styles.dropdown].join(' ') : styles.dropdown} style={{ width: width, marginLeft: marginLeft }}>
           {data &&
             data.map((item: any, i: number) => {
-              return (
-                <DropdownItem
-                  label={item.label}
-                  index={i}
-                  selectable={selectable}
-                  key={i}
-                  id={id}
-                  bordered={false}
-                  isSelected={isSelected}
-                  onSelect={onSelect}
-                  {...item.onClick && { onClick: ()=>item.onClick(id) }}
-                  {...item.description && { description: item.description }}
-                />
-              )
+              if ((fileType === 'D' && item.label !== 'دانلود فایل') || fileType === 'F' || !fileType)
+                return (
+                  <DropdownItem
+                    label={item.label}
+                    index={i}
+                    selectable={selectable}
+                    key={i}
+                    id={id}
+                    bordered={false}
+                    isSelected={isSelected}
+                    onSelect={onSelect}
+                    onClick={item.onClick}
+                    {...item.description && { description: item.description }}
+                  />
+                )
             })}
         </ul>
       )}

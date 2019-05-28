@@ -22,7 +22,7 @@ export const initialState: StateInterface = {
 }
 
 const authReducer = (state: StateInterface = initialState, action: any) => {
-  console.log(state)
+
   switch (action.type) {
     case actionTypes.SET_TOKEN:
       return {

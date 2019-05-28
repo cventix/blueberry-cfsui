@@ -3,34 +3,43 @@
 $arrow-width: 16px;
 .flex {
   display: flex;
-  &:nth-child(2){
+  &:nth-child(2) {
     margin-left: 20px;
   }
 }
-.undo{
-  color:green;
-  margin-right:10px;
-  cursor:pointer;
+.undo {
+  color: green;
+  margin-right: 10px;
+  cursor: pointer;
 }
-.loading{
-  width:100%;
+.loading {
+  width: 100%;
   display: flex;
-  min-height:200px;
+  min-height: 200px;
   justify-content: center;
   align-items: center;
+}
+.row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: row;
+  button {
+    margin-right: 15px;
+  }
 }
 .header {
   @include flex(row, wrap);
   margin-bottom: 35px;
 
-  @media(max-width: $tablet) {
+  @media (max-width: $tablet) {
     margin-bottom: 0;
   }
 
   .left {
     display: flex;
-    
-    @media(max-width: $tablet) {
+
+    @media (max-width: $tablet) {
       display: none;
     }
 
@@ -43,14 +52,14 @@ $arrow-width: 16px;
         margin-right: 30px;
       }
     }
-  
+
     .viewMode {
-       @include flex(column, wrap);
-       justify-content: center;
-       align-items: center;
-       img {
+      @include flex(column, wrap);
+      justify-content: center;
+      align-items: center;
+      img {
         cursor: pointer;
-       } 
+      }
     }
   }
 }
