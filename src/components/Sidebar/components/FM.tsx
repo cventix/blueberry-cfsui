@@ -34,7 +34,7 @@ const FM: React.FunctionComponent<Iprops> = ({ onItemClick, selection, toggle })
     { label: `دانلود با فرمت iso`, onClick: onItemClick },
     { label: `دانلود با فرمت tar`, onClick: onItemClick }
   ]
- console.log(toggle)
+ console.log(selection && selection.length > 0 )
   return (
     <div className="menu">
       <Button className={['btnPrimary0', 'btnLg']} style={{ marginBottom: '15px' }}>
@@ -64,6 +64,6 @@ const FM: React.FunctionComponent<Iprops> = ({ onItemClick, selection, toggle })
     </div>
   )
 }
-const mapStateToProps = (state: any) => ({ selection: state.selection.selection, toggle: state.selection.toggle})
+const mapStateToProps = (state: any) => ({ select:state,selection: state.selection.selection, toggle: state.selection.toggle})
 
 export default connect(mapStateToProps)(FM)

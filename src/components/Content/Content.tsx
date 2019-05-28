@@ -84,7 +84,9 @@ export interface IState {
   width: number
   height: number
   optionSelected?: number
-  ascending: string
+  ascendingSize: boolean
+  ascendingDate: boolean
+  ascendingName: boolean
   showMore: boolean
   selectedArray: number[]
   [key: string]: any
@@ -106,7 +108,9 @@ class Content extends React.Component<IProps, IState> {
       height: 0,
       showMore: false,
       modalView: '',
-      ascending: 'ascending',
+      ascendingSize: false,
+      ascendingDate: true,
+      ascendingName: false,
       name: '',
       showModal: false,
       showToaster: false,
@@ -126,10 +130,9 @@ class Content extends React.Component<IProps, IState> {
       this.onGetDocument(false)
       this.setState({ table: this.props.data })
     } else {
-     
       this.onGetDocument(true, this.props.location.pathname.split('/fm/')[1])
     }
-   
+
     this.setState({ showMore: this.state.table.length > 10 ? true : false })
   }
 
@@ -166,29 +169,26 @@ class Content extends React.Component<IProps, IState> {
    * @param nextProps
    */
   componentWillReceiveProps(nextProps: any) {
-
+    console.log(nextProps)
     if (nextProps.item) {
-   
       this.setState({
         item: nextProps.item
       })
     }
 
     if (nextProps.selection.length == 0 || (nextProps.selection.length > 0 && nextProps.document.documents !== this.state.mainTable)) {
-      
+      console.log('aha')
       this.setState({
         table: sliceData({ array: nextProps.document.documents }),
-        showMore: true,
+        showMore: nextProps.document.documents.length > 10,
         mainTable: nextProps.document.documents,
-        filteredTable: this.state.table
+        filteredTable: sliceData({ array: nextProps.document.documents })
       })
     }
-    if (nextProps.document.document < 10) this.setState({ showMore: false })
   }
 
   // show more button function
   showMore = () => {
-
     this.setState({
       filteredTable: sliceData({ array: this.state.mainTable, choppedArray: this.state.table }),
       showMore: Math.ceil(this.state.mainTable.length / this.step) - 1 === Math.ceil(this.state.table.length / 10) ? false : true
@@ -200,7 +200,6 @@ class Content extends React.Component<IProps, IState> {
    */
   componentWillUnmount() {
     window.removeEventListener('resize', this.updateWindowDimensions)
-
   }
 
   updateWindowDimensions() {
@@ -208,28 +207,55 @@ class Content extends React.Component<IProps, IState> {
   }
 
   onSort = (sortBy: string, type?: string) => {
-
+    console.log(sortBy)
     let table = this.state.table
-    switch (type) {
-      case 'alphabet':
+    switch (sortBy) {
+      case t`نام`:
         table &&
           table.sort((a: any, b: any) => {
-            if (a[sortBy] < b[sortBy]) {
-              return -1
+            if (this.state.ascendingDate) {
+              if (a.name < b.name) {
+                return -1
+              }
+              if (a.name > b.name) {
+                return 1
+              }
+              return 0
+            } else {
+              if (b.name < a.name) {
+                return -1
+              }
+              if (b.name > a.name) {
+                return 1
+              }
+              return 0
             }
-            if (a[sortBy] > b[sortBy]) {
-              return 1
-            }
-            return 0
           })
         break
-      default:
+      case t`حجم`:
         table.sort((a: any, b: any) => {
-          if (a.size) return b.size - a.size
+          if (a.size) {
+            if (this.state.ascendingSize) return b.size - a.size
+            else return a.size - b.size
+          }
         })
+        break
+      case t`تاریخ`:
+        table.sort((a: any, b: any) => {
+          if (this.state.ascendingDate) return new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime()
+          else return new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
+        })
+        break
     }
-  
-    this.setState({ table })
+
+    this.setState({
+      table: sliceData({ array: table }),
+      mainTable: table,
+      filteredTable: this.state.table,
+      ascendingSize: !this.state.ascendingSize,
+      ascendingDate: !this.state.ascendingDate,
+      ascendingName: !this.state.ascendingName
+    })
   }
 
   onCheckAll = () => {
@@ -255,7 +281,6 @@ class Content extends React.Component<IProps, IState> {
         this.props.history.push(`${this.props.history.location.pathname}/${name}`)
         this.onGetDocument(true, name)
       } else {
-
         this.props.history.push(`fm/preview/${item.genericType}${item.genericType === 'image' ? '/' + this.props.image : ''}/${name}`)
         this.props.setItem(item)
         this.setState({ modalView: 'previewModal', previewId: id, fileName: name, [`item${id}`]: item })
@@ -341,13 +366,13 @@ class Content extends React.Component<IProps, IState> {
   // on item check
   onCheck = (id: number) => {
     let { selectedArray } = this.state
-
+    console.log(id)
     if (selectedArray.indexOf(id) === -1) selectedArray.push(id)
     else
       selectedArray = selectedArray.filter(function(obj) {
         return obj !== id
       })
-
+    console.log(selectedArray)
     this.props.setSelections(selectedArray)
     this.setState({ selectedArray })
   }
@@ -377,24 +402,24 @@ class Content extends React.Component<IProps, IState> {
           </UploadModal>
         )
         break
-      case 'removeFile':
-        toaster = (
-          <Toast level={'success'} caret={false}>
-            <CountdownTimer startTimeInSeconds={this.state.countDown} />
-            پوشه حذف شد
-            <div className={styles.undo} onClick={this.onCancle}>
-              انصراف
-            </div>
-          </Toast>
-        )
-        break
-      case 'renameDone':
-        toaster = (
-          <Toast level={'success'} caret={false}>
-            نام تغییر یافت
-          </Toast>
-        )
-        break
+      // case 'removeFile':
+      //   toaster = (
+      //     <Toast level={'success'} caret={false}>
+      //       <CountdownTimer startTimeInSeconds={this.state.countDown} />
+      //       پوشه حذف شد
+      //       <div className={styles.undo} onClick={this.onCancle}>
+      //         انصراف
+      //       </div>
+      //     </Toast>
+      //   )
+      //   break
+      // case 'renameDone':
+      //   toaster = (
+      //     <Toast level={'success'} caret={false}>
+      //       نام تغییر یافت
+      //     </Toast>
+      //   )
+      //   break
       case 'previewModal':
         preview = (
           <Preview show={true} type={'music'} item={this.state[`item${this.state.previewId}`]} handleClose={this.handleClose}>
@@ -413,7 +438,7 @@ class Content extends React.Component<IProps, IState> {
     const history = [{ title: t`پوشه اصلی`, link: '/fm', active: false }]
     if (this.props.location.pathname !== '/fm')
       history.push({ title: this.props.location.pathname.split('/fm/'), link: this.props.location.pathname.split['/'], active: true })
-
+    console.log(this.state.filteredTable)
     return !this.props.loading && this.state.table && this.state.table.length > 0 ? (
       <React.Fragment>
         <ContentHeader
@@ -458,6 +483,7 @@ class Content extends React.Component<IProps, IState> {
 }
 
 const mapStateToProps = (state: IState) => ({
+  state: state,
   document: state.document,
   loading: state.loading.isLoading,
   auth: state.auth,

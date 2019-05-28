@@ -32,7 +32,7 @@ export const TableHeader: React.FunctionComponent<Iprops> = ({ titles,onOpenCFMo
                   checkbox={label === 'name' ? true : false}
                   onCheckAll={onCheckAll}
                   sortable={true}
-                  sortType={label === t`تاریخ` ? 'alphabet' : ' '}
+                  sortType={label === t`نام` ? 'alphabet' : ' '}
                   onSort={onSort}
                   className={label === t`نام` ? ['header', 'show'] : ['header']}
                 />

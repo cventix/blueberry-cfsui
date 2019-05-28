@@ -12,10 +12,12 @@ export const initialState: any = {
 const selectReducer = (state: any = initialState, action: any) => {
   switch (action.type) {
     case actionTypes.SET_SELECTIONS:
-      return {
-        ...state,
-        selection: action.payload
-      }
+      return Object.assign(
+        {},
+        state,
+
+        { selection: action.payload }
+      )
     case actionTypes.SET_TOGGLE:
       return {
         ...state,

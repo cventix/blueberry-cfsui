@@ -84,7 +84,7 @@ export const ContentBody: React.FunctionComponent<Iprops> = ({
 }) => {
   table = isMoveModal ? makeSimpleArray(table) : makeArray(table, username)
   table.length < 10 && turnOffbutton && turnOffbutton()
-
+  console.log(table)
   return view === 'table' && width && width < 768 ? (
     <Grid sortable={true} dropDownData={dropDownData} onSort={onSort} checkbox={true} table={table} handleNavigate={handleNavigate} {...rest} />
   ) : view === 'table' ? (

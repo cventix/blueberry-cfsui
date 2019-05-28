@@ -49,6 +49,7 @@ export const Table: React.FunctionComponent<Iprops> = ({
   hasHeader = true
 }) => {
   const header = [t`نام`, t`تاریخ`, t`مالک`, t`حجم`]
+  console.log(table)
   return (
     <table className={styles.table}>
       {hasHeader && (

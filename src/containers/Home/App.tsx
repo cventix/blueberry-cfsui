@@ -22,6 +22,9 @@ import { bottle } from '../../services'
 import { PayloadInterface } from '../../services/internal/store/reducers/authReducer'
 import { setRouter } from '../../services/internal/store/actions/router'
 
+import toast from '../../components/ui-elements/Toast/Toast'
+
+
 import {
   setUserCredentials,
   setToken,
@@ -32,7 +35,9 @@ import {
   getSharedDocuments,
   setPreviewImage,
   generateDownloadLink,
-  restoreFiles
+  restoreFiles,
+  setDocuments,
+  setTempDocuments
 } from '../../services/internal/store/actions'
 import { DocumentsInterface } from '../../services/internal/repositories/documents'
 
@@ -53,17 +58,20 @@ class App extends Component<
     login: any
     setUserInfo: any
     history?: any
-    selection?: any[]
+    selection?: any
     setRouter?: any
     removeFolder?: any
     getTrashDocuments?: any
     getSharedDocuments?: any
+    setDocuments?: any
     setPreviewImage?: any
     generateDownloadLink?: any
     item?: any
     downloadDirectory?: any
     setToggle?: any
     restoreFiles?: any
+    setTempDocuments?: any
+    document?: any
   },
   {}
 > {
@@ -84,10 +92,13 @@ class App extends Component<
     countDown: 10
   }
   timer: any = ''
-  countDownTime = 100000
+  countDownTime = 10000
 
   handleClose = () => {
     this.setState({ showModal: false, modalView: '' })
+  }
+  notify = () => {
+    toast.success('حذف شد')
   }
 
   onItemClick = async (e: any) => {
@@ -121,9 +132,18 @@ class App extends Component<
           break
         case t`حذف`:
           if (this.props.selection && this.props.selection.length > 0) {
-            this.setState({ modal: 'remove', showModal: true })
+            // this.setState({ modal: 'remove', showModal: true })
+            this.notify()
+            this.props.setTempDocuments(this.props.document)
+            console.log(this.props.selection[0])
+
+            var documents = this.props.document.documents.filter((i: any) => i.id !== this.props.selection[0])
+
+            this.props.setDocuments(documents)
             this.timer = setTimeout(() => {
-              this.onRemoveDocument()
+              console.log(1)
+              // this.onRemoveDocument()
+              // this.setDocuments({})
               this.timer = 0
             }, this.countDownTime)
           } else {
@@ -220,17 +240,17 @@ class App extends Component<
       case 'createFolder':
         modal = <CFModal handleCFClose={this.handleClose} showModal={this.state.showModal} />
         break
-      case 'remove':
-        modal = (
-          <Toast level={'success'} caret={false}>
-            <CountdownTimer startTimeInSeconds={this.state.countDown} />
-            {t`پوشه حذف شد`}
-            <div className={styles.undo} onClick={this.onCancle}>
-              {t`انصراف`}
-            </div>
-          </Toast>
-        )
-        break
+      // case 'remove':
+      //   modal = (
+      //     // <Toast level={'success'} caret={false}>
+      //     //   <CountdownTimer startTimeInSeconds={this.state.countDown} />
+      //     //   {t`پوشه حذف شد`}
+      //     //   <div className={styles.undo} onClick={this.onCancle}>
+      //     //     {t`انصراف`}
+      //     //   </div>
+      //     // </Toast>
+      //   )
+        // break
       case 'moveFile':
         modal = <MoveFile handleClose={this.handleClose} showModal={this.state.showModal} />
         break
@@ -287,6 +307,7 @@ class App extends Component<
             <Route exact path={`/vm`} component={VMContent} />
           </Switch>
         </Main>
+
         {modal}
       </>
     )
@@ -301,6 +322,8 @@ const mapDispatchToProps = (dispatch: any) => {
     signout: () => dispatch(signout()),
     getTrashDocuments: () => dispatch(getTrashDocuments()),
     getSharedDocuments: () => dispatch(getSharedDocuments()),
+    setDocuments: (value: any) => dispatch(setDocuments(value)),
+    setTempDocuments: (value: any) => dispatch(setTempDocuments(value)),
     setRouter: (value: any) => dispatch(setRouter(value)),
     setPreviewImage: (value: any) => dispatch(setPreviewImage(value)),
     generateDownloadLink: (value: any) => dispatch(generateDownloadLink(value)),
