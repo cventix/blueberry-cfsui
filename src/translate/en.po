@@ -16,7 +16,7 @@ msgid "انصراف"
 msgstr "Cancel"
 
 msgid "صدور صورتحساب"
-msgstr "Invoice issuance"
+msgstr "Issuance"
 
 msgid "مدت سرویس"
 msgstr "Service term"
@@ -48,9 +48,23 @@ msgstr "Total cost"
 msgid "مرحله اول"
 msgstr "First step"
 
+msgid "مرحله دوم"
+msgstr "Second step"
+
+msgid "مرحله سوم"
+msgstr "Third step"
+
+msgid "مرحله چهارم"
+msgstr "Fourth step"
+
+msgid "مرحله پنجم"
+msgstr "Fifth step"
+
+msgid "مرحله نهایی"
+msgstr "Final step"
+
 msgid "انتخاب سیستم عامل"
 msgstr "Select operating system"
-
 
 msgid "انتخاب مدت سرویس"
 msgstr "Select service term"
@@ -67,12 +81,104 @@ msgstr "Select the server name and final"
 msgid "سیستم عاملی که قصد دارید روی سرور مجازی شما نصب شود انتخاب کنید."
 msgstr "Select the operating system that you plan to install on your virtual server."
 
+msgid "انتخاب تنظیمات سفارشی"
+msgstr "Select Custom Settings"
 
+msgid "لیست سرورها"
+msgstr "List of servers"
 
+msgid "با خرید پلن روزانه، سرور شما هر روز به صورت خودکار تمدید می شود. هر گاه از تمدید منصرف شدید، می توانید سرور را حذف نمایید."
+msgstr "By purchasing a daily plan, your server will be automatically renewed every day. Whenever you give up the extension, you can delete the server."
 
+msgid "حذف سرور"
+msgstr "Delete"
 
+msgid "پرداخت صورتحساب"
+msgstr "Invoice payment"
 
+msgid "مشاهده صورتحساب"
+msgstr "Invoice view"
 
+msgid "ایجاد سرور"
+msgstr "Create Server"
+
+msgid "خرید سرور جدید"
+msgstr "Buy new server"
+
+msgid "اتصال از دور"
+msgstr "Remote connection"
+
+msgid "تنظیمات"
+msgstr "Setting"
+
+msgid "تنظیمات ارتقا"
+msgstr "Upgrade settings"
+
+msgid "از برق بکش"
+msgstr "Power up"
+
+msgid "خاموش کن"
+msgstr "Turn off"
+
+msgid "روشن کن"
+msgstr "Turn on"
+
+msgid "سرور مجازی را به دلخواه خود بسازید"
+msgstr "Create a virtual server to your liking"
+
+msgid "بدلیل عدم پرداخت لغو شد"
+msgstr "Cancellation to non-payment"
+
+msgid "پرداخت شده"
+msgstr "Paid"
+
+msgid "نمایش سرورهای فعال"
+msgstr "Show active servers"
+
+msgid "می‌خواهید فایل‌هایتان حذف نشود"
+msgstr "You don't want to delete files"
+
+msgid "از حجم شما استفاده شده"
+msgstr "Of your volume is used"
+
+msgid "مدت زمانی که قصد دارید سرویس برای شما فعال شود انتخاب کنید."
+msgstr "Select the length of time you want the service to be activated for you."
+
+msgid "کانفیگ سروری که قصد دارید آن را ایجاد کنید انتخاب کنید."
+msgstr "Select the root configuration you want to create."
+
+msgid "ترافیک نامحدود"
+msgstr "Unlimited traffic"
+
+msgid "طرحی انتخاب نکرده‌اید."
+msgstr "You have not chosen a plan."
+
+msgid "اطلاعات کارت شبکه شما در زیر نمایش داده شده است."
+msgstr "Your network card information is displayed below."
+
+msgid "نام شبکه"
+msgstr "Network name"
+
+msgid "تعداد IP"
+msgstr "IP number"
+
+msgid "نام سرور خود را انتحاب کنید"
+msgstr "Select your server name"
+
+msgid "نام سرور را وارد کنید"
+msgstr "Enter the server name"
+
+msgid "نام سرور باید انگلیسی و تنها شامل حرف، عدد و خط تیره باشد."
+msgstr "The server name must be English and only include letters, numbers and dashes."
+
+msgid "کد تخفیف را وارد کنید"
+msgstr "Enter the discount code"
+
+msgid "در صورتیکه کد تخفیف دارید آن را جهت بررسی و اعمال وارد کنید."
+msgstr "If you have a discount code, enter it for review."
+
+msgid "بررسی"
+msgstr "Check"
 
 msgid "جستجو"
 msgstr "Search"

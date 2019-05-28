@@ -3,7 +3,7 @@
 .colorfulBox {
 	position: relative;
 	@include flex(row, wrap);
-	padding: 0 12px 0 10px;
+	padding: 10px 12px 10px 10px;
 	font-family: $medium-font;
 	opacity: 1;
 
@@ -14,7 +14,7 @@
 	}
 
 	.message {
-		flex-basis: calc(100% - 17px)
+		flex-basis: calc(100% - 29px)
 	}
 	
 	> button {
@@ -76,7 +76,7 @@
 
 body:lang(en) {
 	.colorfulBox {
-		padding: 0 10px 0 12px;
+		padding: 10px 10px 10px 12px;
 
 		> button {
 			position: absolute;

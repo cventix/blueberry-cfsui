@@ -3,7 +3,7 @@
 .item {
 	position: relative;
 	min-width: 220px;
-	height: 180px;
+	flex-basis: calc(25% - 55px);
 	padding: 13px 10px 10px;
 	background-color: #fff;
 	@include border-radius($br-radius-sm);
@@ -40,6 +40,10 @@
 		margin-top: 20px;
 		margin-left: 0;
 		justify-content: center;
+
+		&:first-child {
+			margin-top: 0
+		}
 	}
 
 	.show {
@@ -207,6 +211,7 @@
 
 		button {
 			font-size: $font-size - 2;
+			
 			> div {
 				> img {
 					margin-left: 8px;
@@ -231,6 +236,29 @@
 
 body:lang(en) {
 	.item {
+		margin-right: 45px;
+		margin-left: 0;
+
+		@media(min-width: $web-medium + 1) and (max-width: $web-medium-max) {
+			margin-right: 3px;
+		}
+
+		@media(min-width: $tablet + 1) and (max-width: $web-medium) {
+			margin-right: 4px;
+		}
+
+		@media(min-width: $tablet - 63) and (max-width: $tablet) {
+			margin-right: 5px;
+		}
+
+		@media(min-width: $tablet - 278) and (max-width: $tablet - 62) {
+			margin-right: 7px;
+		}
+
+		@media(max-width: $tablet - 277) {
+			margin-right: 0;
+		}
+
 		.top {
 			.state {
 				flex-direction: row-reverse;

@@ -24,22 +24,24 @@ export const FinalStep: React.FunctionComponent<Iprops> = () => {
 			<div className={styles.stepbarWrapper}>
 				<Stepbar steps={steps} currentStep={4} />
 			</div>
-			<StepDescription stepNumber={5} title={[t`مرحله پنجم: `, steps[4]].join(' ')} subTitle={t`نام سرور خود را انتحاب کنید`}/>
+			<StepDescription stepNumber={5} title={[t`مرحله پنجم`, `:`, steps[4]].join(' ')} subTitle={t`نام سرور خود را انتحاب کنید`}/>
 			<ColorfulBox className={['white', 'lg']} margin={"0 0 30px 0"}>
 				<div className={styles.serverName}>
-					<span className={styles.title}>{t`نام سرور را وارد کنید`}:</span>
-					<p className={styles.description}>{t`نام سرور باید انگلیسی و تنها شامل حرف، عدد و خط تیره باشد.`}</p>
+					<span className={styles.caption}>{t`نام سرور را وارد کنید`}:</span>
+					<p className={styles.dscp}>{t`نام سرور باید انگلیسی و تنها شامل حرف، عدد و خط تیره باشد.`}</p>
 					<TextInput/>
 				</div>
 			</ColorfulBox>
-			<ColorfulBox className={['green', 'lg']} margin={"0 0 124px 0"}>
-				<div className={styles.discount}>
-					<span className={styles.title}>{t`کد تخفیف را وارد کنید`}:</span>
-					<p className={styles.description}>{t`در صورتیکه کد تخفیف دارید آن را جهت بررسی و اعمال وارد کنید.`}</p>
-					<TextInput style={{ display: 'inline-block'}}/>
-					<Button className={['btnDefault0', 'btnSm']}>{t`بررسی`}</Button>
-				</div>
-			</ColorfulBox>
+			<div className={styles.wrapper}>
+				<ColorfulBox className={['green', 'lg']}>
+					<div className={styles.discount}>
+						<span className={styles.caption}>{t`کد تخفیف را وارد کنید`}:</span>
+						<p className={styles.dscp}>{t`در صورتیکه کد تخفیف دارید آن را جهت بررسی و اعمال وارد کنید.`}</p>
+						<TextInput style={{ display: 'inline-block'}}/>
+						<Button className={['btnDefault0', 'btnSm']}>{t`بررسی`}</Button>
+					</div>
+				</ColorfulBox>
+			</div>
 			<Footer finalStep={true}/>
 		</div>
 	)

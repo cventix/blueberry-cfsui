@@ -9,6 +9,7 @@ export default interface Iprops {
   text?: string
   position?: string
   height?: number
+  lineHeight?: string
 }
 
 export const Tooltip: React.FunctionComponent<Iprops> = props => {
@@ -18,7 +19,7 @@ export const Tooltip: React.FunctionComponent<Iprops> = props => {
     && styles.left, props.position === 'right' 
     && styles.right].join(' ')}>
       <div className={styles.hasTooltip}>{props.children}</div>
-      <div style={{ width: props.width, height: props.height }} 
+      <div style={{ width: props.width, height: props.height, lineHeight: props.lineHeight}} 
         className={[styles.text, props.position && styles[props.position]].join(' ')}>
         {props.text}
       </div>

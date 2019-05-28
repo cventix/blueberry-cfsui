@@ -7,6 +7,10 @@
 .stepDescription {
 	@include flex(row, wrap);
 	margin-bottom: 65px;
+
+	@media(max-width: $mobile) {
+		margin-bottom: 20px;
+	}
 	
 	.number {
 		display: flex;
@@ -18,18 +22,36 @@
 		border: solid 1px $dk-gray;
 		font-size: $font-size + 8;
 		@include border-radius(50%);
+
+		@media(max-width: $mobile) {
+			width: 32px;
+			height: 32px;
+			font-size: $font-size + 6;
+		}
 	}
 
 	.text {
 		.title {
 			font-size: $font-size + 2;
 			color: $dk-gray;
+
+			@media(max-width: $mobile) {
+				font-size: $font-size - 2;
+			}
 		}
 
 		.subTitle {
 			font-size: $font-size - 2;
 			color: $lt-gray;
-		    margin-top: 1px;
+			margin-top: 1px;
+
+			@media(max-width: $mobile) {
+				font-size: $font-size - 5;
+				white-space: nowrap;
+				text-overflow: ellipsis;
+				overflow: hidden;
+				width: 245px;
+			}
 		}
 	}
 	
@@ -39,6 +61,11 @@
 	height: 45px;
 	margin-top: 66px;
 	margin-bottom: 52px;
+
+	@media(max-width: $mobile) {
+		margin-top: 25px;
+		margin-bottom: -5px;
+	}
 }
 
 .cardWrapper {
@@ -61,15 +88,22 @@
   }
 
 .FinalStep {
-	.title {
+	.wrapper {
+		margin: 0 0 124px;
+
+		@media(max-width: $tablet) {
+			margin: 0 0 124px;
+		}
+	}
+
+	.caption {
 		color: $dk-gray;
-	    line-height: 48px;
+		line-height: 32px;
 	}	
 
-	.description {
+	.dscp {
 		color: $lt-gray;
 		font-size: $font-size - 2;
-		line-height: 0px;
 		margin-top: -4px;
 	}
 
@@ -77,15 +111,15 @@
 		padding: 6px;
 		width: 100%;
 
-		.description {
+		.dscp {
 			margin-bottom: 25px;
 		}
 
 		input {
 			width: 372px;
 
-			@media(max-width: $mobile) {
-				width: 320px;
+			@media(max-width: $mobile + 65) {
+				width: 255px;
 			}
 		}
 	}
@@ -94,7 +128,7 @@
 	    padding: 6px;
 		width: 100%;
 
-		.description {
+		.dscp {
 			margin-bottom: 18px;
 		}
 
@@ -105,8 +139,22 @@
 
 		button {
 			margin-right: 10px;
+
+			@media(max-width: $mobile + 65) {
+				margin-right: 3px;
+			}
 		}
 
+	}
+}
+
+.chooseNetworkCard {
+	.wrapper {
+		margin: 0 0 145px;
+
+		@media(max-width: $tablet) {
+			margin: 0 0 30px;
+		}
 	}
 }
 
@@ -159,13 +207,19 @@
 
 body:lang(en) {
 	.number {
-		margin-right: 10px;
+		margin-right: 9px;
+		margin-left: 0
 	}
 
 	.FinalStep {
 		.discount {
 			button {
 				margin-left: 10px;
+				margin-right: 0;
+
+				@media(max-width: $mobile + 65) {
+					margin-left: 3px;
+				}
 			}
 		}
  	}

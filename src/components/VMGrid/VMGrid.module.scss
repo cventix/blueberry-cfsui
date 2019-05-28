@@ -12,3 +12,15 @@
 		justify-content: center
 	}
 }
+
+body:lang(en) {
+	.container {
+		margin-left: 52px;
+		margin-right: 0;
+
+		@media(max-width: $web-medium-max) {
+			margin-left: 0;
+		}
+	}
+
+}

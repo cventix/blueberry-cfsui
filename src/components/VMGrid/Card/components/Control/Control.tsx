@@ -33,7 +33,7 @@ export interface MPprops {
 
 export const Control: React.FunctionComponent<Iprops> = ({ text, icon, className}) => (
 	<div className={className ? `${styles.control} ${styles[className]}` : styles.control}>
-		<Tooltip text={text} width={80} height={27} position={'bottom'}>
+		<Tooltip text={text} width={86} height={27} position={'bottom'} lineHeight={'11px'}>
 			<Button>
 				<Icon src={icon} />
 			</Button>

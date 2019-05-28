@@ -23,20 +23,22 @@ export const ChooseNetworkCard: React.FunctionComponent<Iprops> = () => {
 			<div className={styles.stepbarWrapper}>
 				<Stepbar steps={steps} currentStep={3} />
 			</div>
-			<StepDescription stepNumber={4} title={[t`مرحله چهارم: `, steps[3]].join(' ')} subTitle={t`اطلاعات کارت شبکه شما در زیر نمایش داده شده است.`}/>
-			<ColorfulBox className={['white', 'lg']} margin={"0 0 145px 0"}>
-				<div className="networkInfo">
-					<div className="header">
-						<div>نام شبکه</div>
-						<div>تعداد IP</div>
+			<StepDescription stepNumber={4} title={[t`مرحله چهارم`, `:`, steps[3]].join(' ')} subTitle={t`اطلاعات کارت شبکه شما در زیر نمایش داده شده است.`}/>
+			<div className={styles.wrapper}>
+				<ColorfulBox className={['white', 'lg']} fontSize={14}>
+					<div className="networkInfo">
+						<div className="header">
+							<div>{t`نام شبکه`}</div>
+							<div>{t`تعداد IP`}</div>
+						</div>
+						<Hr backgroundColor={'#e5e5e5'} height={'1px'}/>
+						<div className="body">
+							<div>Internet180_0</div>
+							<div>1</div>
+						</div>
 					</div>
-					<Hr backgroundColor={'#e5e5e5'} height={'1px'}/>
-					<div className="body">
-						<div>Internet180_0</div>
-						<div>1</div>
-					</div>
-				</div>
-			</ColorfulBox>
+				</ColorfulBox>
+			</div>
 			<Footer/>
 		</div>
 	)

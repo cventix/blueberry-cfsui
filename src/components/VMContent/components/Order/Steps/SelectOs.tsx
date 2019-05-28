@@ -14,8 +14,8 @@ import Card from './Card/Card'
 // icons & styles
 import debianOs from '../../../../../images/vmIcons/osIcons/debian.svg'
 import centOs from '../../../../../images/vmIcons/osIcons/centos.svg'
-import ubuntuOs from '../../../../../images/vmIcons/osIcons/ubuntu.svg'
-import windowsOs from '../../../../../images/vmIcons/osIcons/windows.svg'
+import ubuntuOs from '../../../../../images/vmIcons/osIcons/ubuntu.png'
+import windowsOs from '../../../../../images/vmIcons/osIcons/windows.png'
 import styles from '../Order.module.scss'
 
 export default interface Iprops {
@@ -31,7 +31,7 @@ export const SelectOs: React.FunctionComponent<Iprops> = ({}) => {
 			<div className={styles.stepbarWrapper}>
 				<Stepbar steps={steps} currentStep={0} />
 			</div>
-			<StepDescription stepNumber={1} title={[t`مرحله اول: `, steps[0]].join(' ')} subTitle={t`سیستم عاملی که قصد دارید روی سرور مجازی شما نصب شود انتخاب کنید.`}/>
+			<StepDescription stepNumber={1} title={[t`مرحله اول`, `:`, steps[0]].join(' ')} subTitle={t`سیستم عاملی که قصد دارید روی سرور مجازی شما نصب شود انتخاب کنید.`}/>
 			<div className={styles.cardWrapper}>
 				<Card footerData={"Debian 8 (64bit)"}>
 					{GetImgByOs('debian')}

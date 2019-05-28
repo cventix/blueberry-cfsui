@@ -2,12 +2,6 @@
 
 .footer {
 	margin-bottom: 20px;
-
-	.infoWrapper {
-		@media(max-width: $web-medium - 132) {
-			display: none;
-		}
-	}
 		
 	.btnWrapper {
 		@include flex(row, wrap);
@@ -52,6 +46,11 @@
 			margin-bottom: 14px;
 			margin-top: 2px;
 
+			@media(max-width: $web-medium - 132) {
+				width: 100%;
+				margin-bottom: 0
+			}
+
 			ul {
 				li {
 					margin-top: 12px;
@@ -74,6 +73,10 @@ body:lang(en) {
 					margin-right: 20px;
 					margin-left: 0;
 					direction: rtl;
+
+					&:first-child {
+					 width: 95px;
+					}
 				}
 			}
 		}

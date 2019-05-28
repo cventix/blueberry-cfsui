@@ -105,7 +105,41 @@
 
 body:lang(en) {
 	.item {
-		margin-right: 55px;
-		margin-left: 0;
+		margin-left: 55px;
+		margin-right: 0;
+		
+		@media(min-width: $web-medium + 1) and (max-width: $web-medium-max) {
+			margin-bottom: 3px;
+			margin-right: 3px;
+			margin-left: 0;
+			flex-basis: calc(33.33% - 3px);
+		}
+
+		@media(min-width: $tablet + 1) and (max-width: $web-medium) {
+			margin-bottom: 4px;
+			margin-right: 4px;
+			margin-left: 0;
+			flex-basis: calc(50% - 4px);
+		}
+
+		@media(min-width: $tablet - 63) and (max-width: $tablet) {
+			margin-bottom: 5px;
+			margin-right: 5px;
+			margin-left: 0;
+			flex-basis: calc(33.33% - 5px);
+		}
+
+		@media(min-width: $tablet - 278) and (max-width: $tablet - 62) {
+			margin-bottom: 7px;
+			margin-right: 7px;
+			margin-left: 0;
+			flex-basis: calc(50% - 7px);
+		}
+		@media(max-width: $tablet - 277) {
+			flex-basis: 100%;
+			margin-bottom: 20px;
+			margin-right: 0;
+			margin-left: 0;
+		}
 	}
 }

@@ -38,7 +38,7 @@ export default class Order extends React.Component<any, any> {
                         <Route 
                             exact
                             path={`${match.path}`}
-                            component={DailySetting}
+                            component={FinalStep}
                         />
                         <Route 
                             exact

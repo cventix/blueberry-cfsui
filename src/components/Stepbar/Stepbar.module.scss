@@ -32,8 +32,8 @@ $stepbar-color: #e8eaeb;
 		}
 
 		@media(max-width: $tablet - 199) {
-			width: 320px;
-			margin-left: -160px;
+			width: 300px;
+			margin-left: -150px;
 		}
 
 		.step {
@@ -51,7 +51,7 @@ $stepbar-color: #e8eaeb;
 			}
 
 			@media(max-width: $tablet - 199) {
-				width: 73.75px;
+				width: 67.75px;
 			}
 
 			.item {
@@ -147,7 +147,7 @@ $stepbar-color: #e8eaeb;
 
 				@media(max-width: $tablet - 199) {
 					right: 25px;
-					width: 48px;
+					width: 43px;
 				}
 			}
 

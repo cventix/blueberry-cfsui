@@ -2,7 +2,6 @@ import React, { FunctionComponent } from 'react'
 import { t } from "ttag";
 
 // ui-elements
-import { ColorfulBox } from '../../../../../../components/ui-elements/ColorfulBox/ColorfulBox'
 import { Button } from "../../../../../../components/ui-elements/Button/Button";
 import { IconLink } from '../../../../../../components/ui-elements/IconLink'
 
@@ -20,6 +19,7 @@ export default interface Iprops {
 	handleCancelBtn?: () => void
 	handlePreviousStep?: () => void
 	finalStep?: boolean
+	hide?: boolean
 }
 
 export const Footer: React.FunctionComponent<Iprops> = (props) => { 
@@ -37,15 +37,13 @@ export const Footer: React.FunctionComponent<Iprops> = (props) => {
 					<Button className={['btnDefault0', 'btnSm']} onClick={props.handleCancelBtn}>{t`انصراف`}</Button>
 				</div>
 				<div className={styles.left}>
-					<Button className={['btnPrimary0', 'btnSm']} onClick={props.handleNextStep} style={props.finalStep ? {width: '150px', direction: 'rtl'} : {}}>
+					<Button className={['btnPrimary0', 'btnSm']} onClick={props.handleNextStep} style={props.finalStep ? {width: '159px', direction: 'rtl'} : {}}>
 						{props.finalStep ? <IconLink icon={invoiceIcon} label={t`صدور صورتحساب`}/> : <IconLink icon={arrowLeftIcon} label={t`بعدی`}/>}
 					</Button>
 				</div>
 			</div>
 			<div className={styles.infoWrapper}>
-				<ColorfulBox className={['blue', 'lg']}>
-					<VmInfo />
-				</ColorfulBox>
+				<VmInfo hide={props.hide}/>
 			</div>
 		</footer>
 	)
