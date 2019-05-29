@@ -50,6 +50,7 @@ import { t } from 'ttag'
 import { downloadDirectory } from '../../services/internal/store/actions'
 import { setToggle } from '../../services/internal/store/actions/selections'
 import { ToastUndo } from '../../components/ui-elements/Toast/ToastUndo'
+import ShareModal from '../../components/ui-elements/Modal/ShareModal.tsx/ShareModal';
 const steps = ['انتخاب سیستم عامل', 'انتخاب مدت سرویس', 'انتخاب طرح', 'اطلاعات کارت شبکه', 'انتخاب نام سرور و ثبت نهایی']
 const options = [{ value: 'chocolate', label: 'Chocolate' }, { value: 'strawberry', label: 'Strawberry' }, { value: 'vanilla', label: 'Vanilla' }]
 
@@ -248,7 +249,10 @@ class App extends Component<
   componentDidMount() {
     this.props.setRouter(this.props.history)
   }
-
+  componentWillReceiveProps(nextProps:any){
+    if(nextProps.errors.errors)
+    toast.error(nextProps.errors.errors)
+  }
   render() {
     let modal
     switch (this.state.modal) {
@@ -317,6 +321,8 @@ class App extends Component<
           }}
         />
         <Main showModal={this.state.showModal}>
+         {/* <ShareModal handleCFClose={this.handleClose} showModal={true} />
+           */}
           <Switch>
             <Route path={`/fm`} component={Content} />
             <Route exact path={`/vm`} component={VMContent} />
@@ -330,7 +336,7 @@ class App extends Component<
   }
 }
 
-const mapStateToProps = (state: any) => ({ document: state.document, selection: state.selection.selection, item: state.sidebar.item })
+const mapStateToProps = (state: any) => ({ document: state.document, selection: state.selection.selection, item: state.sidebar.item ,errors:state.errors})
 
 const mapDispatchToProps = (dispatch: any) => {
   return {

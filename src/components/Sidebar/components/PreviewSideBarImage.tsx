@@ -28,19 +28,20 @@ export interface Iprops {
   item?: any
   image?: any
   generateDownloadLink?: any
+  downloadToken?: string
 }
 
-const PreviewSideBarImage: React.FunctionComponent<Iprops> = ({ onItemClick, item, image,generateDownloadLink }) => {
+const PreviewSideBarImage: React.FunctionComponent<Iprops> = ({ onItemClick, item, image, generateDownloadLink, downloadToken }) => {
   console.log(generateDownloadLink)
   return (
     <div className="menu">
       <Button className={['btnSuccess0', 'btnLg']} style={{ marginBottom: '15px' }}>
         <a
-          href={`http://localhost:3000/rest/publicAccess/KhDNZ5JdtS/generateDownloadLink`}
+          href={`http://cdn.persiangig.com/dl/${downloadToken}/${item.uuid}/${item.name}`}
           style={{ color: 'inherit' }}
           download
         >
-          <IconLink icon={uploadIcon} iconAlt="upload icon" label={t`دانلود فایل`} onClick={onItemClick}/>
+          <IconLink icon={uploadIcon} iconAlt="upload icon" label={t`دانلود فایل`} onClick={onItemClick} />
         </a>
       </Button>
       <div className={'downloadBox'}>آمار: {JSON.stringify(item.downloadCount)} دانلود</div>
@@ -58,15 +59,12 @@ const PreviewSideBarImage: React.FunctionComponent<Iprops> = ({ onItemClick, ite
         />
       </div>
       <div>
-        
         {/* <CommentInput /> */}
         {/* <Comment user={'shaghz'} comment={'12/2/32'} details={'عکس بسیار قشنگی است. لطفا این قبیل کارها را ادامه بده'}/> */}
       </div>
     </div>
   )
 }
-const mapStateToProps = (state: any) => ({ item: state.sidebar.item, image: state.sidebar.image })
+const mapStateToProps = (state: any) => ({ item: state.sidebar.item, image: state.sidebar.image, downloadToken: state.sidebar.downloadToken })
 
-export default connect(
-  mapStateToProps
-)(PreviewSideBarImage)
+export default connect(mapStateToProps)(PreviewSideBarImage)

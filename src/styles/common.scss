@@ -11,12 +11,17 @@
   display: -webkit-flex;
   display: flex;
   align-items: center;
-
+  .imageIcon {
+    width: 28px;
+    height: 28px;
+    object-fit: cover;
+    border-radius:3px;
+  }
   .icon {
     margin-right: 21px;
     margin-left: 15px;
 
-    @media(max-width: $tablet) {
+    @media (max-width: $tablet) {
       margin-right: 15px;
     }
   }
@@ -41,19 +46,19 @@
     font-family: $medium-font;
   }
 
-  .header, .body {
+  .header,
+  .body {
     @include flex(row, wrap);
 
     > div {
       width: 50%;
-      line-height: 50px
+      line-height: 50px;
     }
   }
 
   .body {
     color: $dk-gray;
   }
-
 }
 
 /* m choosePlanCard */
@@ -62,9 +67,9 @@
     display: block;
     text-align: center;
   }
-  
+
   footer {
-    direction: rtl
+    direction: rtl;
   }
 
   .planInfo {

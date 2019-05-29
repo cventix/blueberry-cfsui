@@ -88,7 +88,8 @@ $side-length: 10px;
   img {
     width: $icon-length;
     height: $icon-length;
-
+    object-fit: cover;
+    border-radius: 1px;
     @media(max-width: $mobile - 20) {
       width: $icon-length - 10;
       height: $icon-length - 10;

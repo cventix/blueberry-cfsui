@@ -17,13 +17,14 @@ export default interface Iprops {
   checkAll?: boolean
   dropdown?: boolean
   dropDownData?: any
+  uuid?: string
   handleNavigate?: (e: navigateObject) => void
 }
 
-export const Card: React.FunctionComponent<Iprops> = ({ item, checkbox, handleNavigate, dropdown, checkAll, dropDownData }) => {
+export const Card: React.FunctionComponent<Iprops> = ({ item, checkbox, handleNavigate, dropdown,uuid, checkAll, dropDownData }) => {
   return (
     <div className={styles.item} {...handleNavigate && { onClick: (e) => handleNavigate({ e: e, name: item['name'] }) }}>
-      <div className={styles.type}>{item && item['type'] && <Icon mimetype={item['type']} />}</div>
+      <div className={styles.type}>{item && item['type'] && item['type'] =='image' ? <Icon src={`http://cdn.persiangig.com/preview/${item['uuid']}/medium/${item['name']}`} className={'imageIcon icon'} /> :<Icon mimetype={item['type']} />}</div>
       <div className={styles.info}>
         <span className={styles.name}>{item['name']}</span>
         <span className={styles.date}>

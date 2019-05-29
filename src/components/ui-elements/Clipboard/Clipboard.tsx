@@ -11,7 +11,7 @@ import { Button } from '../Button/Button'
 import styles from './Clipboard.module.scss'
 
 export default interface Iprops {
-  onClick: any
+  onClick?: any
   placeholder: string
 }
 

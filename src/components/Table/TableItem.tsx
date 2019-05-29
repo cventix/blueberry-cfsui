@@ -53,7 +53,7 @@ export const TableItem: React.FunctionComponent<Iprops> = ({
           </div>
         )}
         <div className={'rowItem'} {...handleNavigate && { onClick: e => handleNavigate({ e: e, name: itemName, id: id ,uuid:uuid,item:item.item}) }}>
-          {hasType && <Icon mimetype={hasType} />}
+          {hasType && hasType==='image' ? <Icon src={`http://cdn.persiangig.com/preview/${uuid}/medium/${name}`} className={'imageIcon icon'} />: <Icon mimetype={hasType} />}
           <div className={styles.name}>{label}</div>
         </div>
         {sortable && (

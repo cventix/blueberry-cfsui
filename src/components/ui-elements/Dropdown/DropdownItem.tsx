@@ -35,12 +35,12 @@ export const DropdownItem: React.FunctionComponent<Iprops> = ({
   if (isSelected === index) {
     liClassName += ' ' + styles.selected
   }
-console.log(id)
+console.log(selectable && isSelected == index)
   return (
     <li className={liClassName} onClick={() => (onClick ?( id && label ? onClick(id) : label && onClick(label) ): onSelect && onSelect(index))}>
       <a href={link}>
         <p className={styles.label}>
-          {selectable && isSelected === index && <span className={styles.checkmark} />}
+          {selectable && isSelected == index && <span className={styles.checkmark} />}
           <span className={selectable ? styles.text : ' '}>{label}</span>
         </p>
         <p className={[styles.description, selectable ? styles.text : ' '].join(' ')}>{description}</p>

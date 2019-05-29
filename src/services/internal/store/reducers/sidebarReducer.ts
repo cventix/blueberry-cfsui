@@ -6,7 +6,8 @@ export interface PayloadInterface {
 
 export const initialState: any = {
   item: [],
-  image: 'medium'
+  image: 'medium',
+  downloadToken:[]
 }
 
 const selectReducer = (state: any = initialState, action: any) => {
@@ -21,6 +22,12 @@ const selectReducer = (state: any = initialState, action: any) => {
         ...state,
         image: action.payload
       }
+      case actionTypes.SET_DOWNLOAD_TOKEN:
+        return {
+          ...state,
+          downloadToken: action.payload
+        }
+      
     default:
       return state
   }

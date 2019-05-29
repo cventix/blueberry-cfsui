@@ -6,7 +6,7 @@ toast.configure({
   autoClose: 10000,
   draggable: false,
   closeButton: false,
-  rtl: true 
+  rtl: true
 })
 
 export default {
@@ -26,12 +26,12 @@ export default {
   error(msg: string, options = {}) {
     return toast.error(msg, {
       ...options,
-      className: {
-        color: '#fff',
-        minHeight: '60px',
-        borderRadius: '8px',
-        boxShadow: '2px 2px 20px 2px rgba(0,0,0,0.3)'
-      },
+      className: css({
+        height: '35px !important',
+        fontFamily: 'vazir-regular !important'
+      }),
+      position: toast.POSITION.BOTTOM_LEFT,
+      hideProgressBar: true,
       progressClassName: css({
         background: '#007aff'
       })

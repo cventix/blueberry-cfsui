@@ -40,6 +40,7 @@ import arrowBottom from '../../images/buttonIcons/icon-btn-arrow-bottom.svg'
 import styles from './Content.module.scss'
 import { Preview } from '../ui-elements/Preview/Preview'
 import image from '../../images/image.jpg'
+import ShareModal from '../ui-elements/Modal/ShareModal.tsx/ShareModal'
 const sort = (data: object[]) => {
   var sortOrder = ['folder', 'image', 'music']
   data.sort(function(a: any, b: any) {
@@ -330,6 +331,12 @@ class Content extends React.Component<IProps, IState> {
     })[0].name
     this.setState({ modalView: 'renameFile', showModal: true, renameInput, renameFileId })
   }
+  openShareModal = (id: number) => {
+    let shareInput = this.state.table.filter((obj: any) => {
+      return obj.id === id
+    })[0].uuid
+    this.setState({ modalView: 'shareFile', showModal: true, shareInput })
+  }
 
   handleClose = () => {
     if (this.props.history.location.pathname.includes('preview')) this.props.history.goBack()
@@ -382,7 +389,7 @@ class Content extends React.Component<IProps, IState> {
     let dropDownData = [
       { label: t`دانلود فایل` },
       { label: t`تغییر نام`, onClick: this.openRenameModal },
-      { label: t`اشتراک گذاری` },
+      { label: t`اشتراک گذاری`, onClick: this.openShareModal },
       { label: t`افزودن توضیح` },
       { label: t`دریافت لینک‌ها` },
       { label: t`حذف فایل`, onClick: this.openRemoveModal }
@@ -402,6 +409,9 @@ class Content extends React.Component<IProps, IState> {
             <RenameFile value={this.state.renameInput} changeHandler={this.changeHandler} handleSubmit={this.onRenameDocument} />
           </UploadModal>
         )
+        break
+      case 'shareFile':
+        modal = <ShareModal handleCFClose={this.handleClose} showModal={true} />
         break
       // case 'removeFile':
       //   toaster = (
@@ -436,6 +446,7 @@ class Content extends React.Component<IProps, IState> {
         modal = <CFModal handleCFClose={this.handleClose} showModal={this.state.showModal} />
         break
     }
+
     const history = [{ title: t`پوشه اصلی`, link: '/fm', active: false }]
     if (this.props.location.pathname !== '/fm')
       history.push({ title: this.props.location.pathname.split('/fm/'), link: this.props.location.pathname.split['/'], active: true })
