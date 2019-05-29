@@ -1,15 +1,27 @@
 @import '../../../../styles/global.scss';
 
 .VMDetails {
+	@media(max-width: $mobile) {
+		margin-top: -43px;
+
+		> div {
+			margin-left: 0;
+		}
+	}
+
 	.choosePlanCard {
 		@include choosePlanCard;
 	}
 
 	.cardWrapper {
 		@include flex(row, wrap);
-		justify-content: space-between;
 		margin-top: 65px;
 		margin-bottom: 50px;
+
+		@media(max-width: $mobile) {
+			margin-top: 20px;
+			margin-bottom: 20px;
+		}
 	}
 
 	.upgradeFooter {
@@ -20,6 +32,11 @@
 			justify-content: space-between;
 			color: $dk-gray;
 			flex-basis: calc(100% - 263px);
+
+			@media(max-width: 500px) {
+				flex-basis: 100%;
+				@include flex(column, wrap);
+			}
 
 			.value {
 				color: $dk-gray;
@@ -37,6 +54,13 @@
 				margin-left: 9px;
 			}
 		}
+
+		button {
+			@media(max-width: 500px) {
+				margin-top: 24px;
+				width: 100% $important;
+			}
+		}
 	}
 
 	.wrapper {
@@ -46,15 +70,44 @@
 		border: solid 1px $input-border;
 		@include border-radius($br-radius-sm);
 
+		@media(max-width: $mobile + 125) {
+			margin-top: 10px;
+		}
+
 		&.deleteVM {
 			@include flex(row, wrap);
 			justify-content: space-between;
 
+			.right {
+				@media(max-width: $tablet) {
+					margin-bottom: 15px;
+				}
+			}
+
 			.left {
 				display: flex;
-				
+
+				img {
+					margin-left: 8px;
+				}
 				> button {
 					margin-right: 32px;
+
+					@media(max-width: $mobile) {
+						margin-right: 4px;
+					}
+				}
+
+				@media(max-width: $mobile) {
+					width: 100%;
+
+					> div {
+						display: none;
+					}
+
+					button {
+						width: 100% $important;
+					}
 				}
 			}
 		}
@@ -94,6 +147,39 @@
 			margin-top: 3px;
 			color: $lt-gray;
 			font-size: $font-size - 2;
+		}
+	}
+}
+
+body:lang(en) {
+	.VMDetails {
+		.wrapper {
+			&.deleteVM {
+				.left {
+					img {
+						margin-right: 8px;
+						margin-left: 0;
+					}
+
+					> button {
+						margin-right: 0 $important;
+						margin-left: 32px;
+
+						@media(max-width: $tablet) {
+							margin-left: 4px;
+						}
+
+					}
+				}
+			}
+		}
+
+		.upgradeFooter {
+			.inBtn {
+				img {
+					margin-right: 9px;
+				}
+			}
 		}
 	}
 }

@@ -24,7 +24,34 @@
 				}
 			}
 		}
+
 		.left {
+			.largBtn {
+				@media(max-width: $mobile) {
+					width: 85px;
+
+					button {
+						width: 100% $important;
+
+						> img {
+							@media(max-width: $mobile) {
+								display: none;
+							}
+						}
+
+						> span {
+							@media(max-width: $mobile) {
+								overflow: hidden;
+								text-overflow: ellipsis;
+								width: 69px;
+								white-space: nowrap;
+								display: block;
+							}
+						}
+					}
+				}
+			}
+
 			> button {
 				direction: ltr;
 
@@ -56,7 +83,6 @@
 					margin-top: 12px;
 				}
 			}
-			
 
 			.value {
 				color: $dk-gray
@@ -75,8 +101,17 @@ body:lang(en) {
 					direction: rtl;
 
 					&:first-child {
-					 width: 95px;
+					 	width: 100px;
 					}
+
+					@media(max-width: $mobile) {
+						margin-right: 10px;
+					}
+				}
+
+				img {
+					margin-right: 9px;
+					margin-left: 0;
 				}
 			}
 		}

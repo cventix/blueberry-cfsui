@@ -30,7 +30,9 @@ export default class Order extends React.Component<any, any> {
         const history = [{ title: t`لیست سرورها`, link: '/vm', active: false }]
         if (this.props.location.pathname !== '/vm')
             history.push({ title: this.props.location.pathname.split('/'), link: this.props.location.pathname, active: true })
+        
         console.log(this.props.location.pathname)
+        
         return (
             <React.Fragment>
                 <VMContentHeader history={history} handleSearchInput={(e: any) => this.onChangeSearchInput(e)} className={styles.oredrHeader}/>
@@ -38,7 +40,7 @@ export default class Order extends React.Component<any, any> {
                         <Route 
                             exact
                             path={`${match.path}`}
-                            component={DailySetting}
+                            component={FinalStep}
                         />
                         <Route 
                             exact

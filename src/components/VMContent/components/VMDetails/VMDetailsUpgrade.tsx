@@ -37,7 +37,122 @@ export const VMDetailsUpgrade: React.FunctionComponent<Iprops> = () => {
 				active={true}>
 					<div className={styles.planInfo}>
 						<span className={styles.name}>VPS1</span>
-						<p className={styles.trafic}>ترافیک نامحدود</p>
+						<p className={styles.trafic}>{t`ترافیک نامحدود`}</p>
+						<ul className={styles.softwareInfo}>
+							<li className={styles.row}>
+								<span>{t`پردازنده`}: </span>
+								<span>2 GHz  (1 Cores)</span>
+							</li>
+							<li className={styles.row}>
+								<span>{t`حافظه`}: </span>
+								<span>512 MB</span>
+							</li>
+							<li className={styles.row}>
+								<span>{t`فضای دیسک`}: </span>
+								<span>10 GB</span>
+							</li>
+						</ul>
+					</div>
+				</OrderCard>
+				<OrderCard footerData={<MultiplePlan activePlanNum={1}/>} 
+				className={styles.choosePlanCard} 
+				withoutHover={true}
+				active={true}>
+					<div className={styles.planInfo}>
+						<span className={styles.name}>VPS1</span>
+						<p className={styles.trafic}>{t`ترافیک نامحدود`}</p>
+						<ul className={styles.softwareInfo}>
+							<li className={styles.row}>
+								<span>{t`پردازنده`}: </span>
+								<span>2 GHz  (1 Cores)</span>
+							</li>
+							<li className={styles.row}>
+								<span>{t`حافظه`}: </span>
+								<span>512 MB</span>
+							</li>
+							<li className={styles.row}>
+								<span>{t`فضای دیسک`}: </span>
+								<span>10 GB</span>
+							</li>
+						</ul>
+					</div>
+				</OrderCard>
+				<OrderCard footerData={<MultiplePlan activePlanNum={1}/>} 
+				className={styles.choosePlanCard} 
+				withoutHover={true}
+				active={true}>
+					<div className={styles.planInfo}>
+						<span className={styles.name}>VPS1</span>
+						<p className={styles.trafic}>{t`ترافیک نامحدود`}</p>
+						<ul className={styles.softwareInfo}>
+							<li className={styles.row}>
+								<span>{t`پردازنده`}: </span>
+								<span>2 GHz  (1 Cores)</span>
+							</li>
+							<li className={styles.row}>
+								<span>{t`حافظه`}: </span>
+								<span>512 MB</span>
+							</li>
+							<li className={styles.row}>
+								<span>{t`فضای دیسک`}: </span>
+								<span>10 GB</span>
+							</li>
+						</ul>
+					</div>
+				</OrderCard>
+				<OrderCard footerData={<MultiplePlan activePlanNum={1}/>} 
+				className={styles.choosePlanCard} 
+				withoutHover={true}
+				active={true}>
+					<div className={styles.planInfo}>
+						<span className={styles.name}>VPS1</span>
+						<p className={styles.trafic}>{t`ترافیک نامحدود`}</p>
+						<ul className={styles.softwareInfo}>
+							<li className={styles.row}>
+								<span>{t`پردازنده`}: </span>
+								<span>2 GHz  (1 Cores)</span>
+							</li>
+							<li className={styles.row}>
+								<span>{t`حافظه`}: </span>
+								<span>512 MB</span>
+							</li>
+							<li className={styles.row}>
+								<span>{t`فضای دیسک`}: </span>
+								<span>10 GB</span>
+							</li>
+						</ul>
+					</div>
+				</OrderCard>
+				<OrderCard footerData={<MultiplePlan activePlanNum={1}/>} 
+				className={styles.choosePlanCard} 
+				withoutHover={true}
+				active={true}>
+					<div className={styles.planInfo}>
+						<span className={styles.name}>VPS1</span>
+						<p className={styles.trafic}>{t`ترافیک نامحدود`}</p>
+						<ul className={styles.softwareInfo}>
+							<li className={styles.row}>
+								<span>{t`پردازنده`}: </span>
+								<span>2 GHz  (1 Cores)</span>
+							</li>
+							<li className={styles.row}>
+								<span>{t`حافظه`}: </span>
+								<span>512 MB</span>
+							</li>
+							<li className={styles.row}>
+								<span>{t`فضای دیسک`}: </span>
+								<span>10 GB</span>
+							</li>
+						</ul>
+					</div>
+				</OrderCard>
+				<OrderCard footerData={<MultiplePlan activePlanNum={1}/>} 
+				className={styles.choosePlanCard} 
+				withoutHover={true}
+				active={true}>
+					<div className={styles.planInfo}>
+						<span className={styles.name}>VPS1</span>
+						<p className={styles.trafic}>{t`ترافیک نامحدود`}</p>
 						<ul className={styles.softwareInfo}>
 							<li className={styles.row}>
 								<span>{t`پردازنده`}: </span>
@@ -56,7 +171,7 @@ export const VMDetailsUpgrade: React.FunctionComponent<Iprops> = () => {
 				</OrderCard>
 			</div>
 			<div className={styles.upgradeFooter}>
-				<ColorfulBox className={['blue', 'lg']} height={80}>
+				<ColorfulBox className={['blue', 'lg']}>
 					<div className={styles.vmInfo}>
 						<div className={styles.value}>{'VPS1'}</div>
 						<div className={styles.value}>{'۳ ماهه'}</div>
@@ -65,7 +180,7 @@ export const VMDetailsUpgrade: React.FunctionComponent<Iprops> = () => {
 						<div><span className={styles.value}>{t`کل هزینه`}:  </span><span className={styles.value}>۲۷۰,۰۰۰ ریال</span></div>
 					</div>
 					<Button className={['btnPrimary0', 'btnSm']} style={{width: '150px'}}>
-						<IconLink icon={upgradeIcon} label={t`اعمال ارتقاء`} className={`${styles.iconLink} ${styles.inBtn}`}/>
+						<IconLink icon={upgradeIcon} label={t`اعمال ارتقاء`} className={`iconLink ${styles.inBtn}`}/>
 					</Button>
 				</ColorfulBox>
 			</div>

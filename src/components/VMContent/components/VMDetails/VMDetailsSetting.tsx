@@ -45,8 +45,8 @@ export const VMDetailsSetting: React.FunctionComponent<Iprops> = () => {
 			</div>
 			<div className={`${styles.wrapper} ${styles.deleteVM}`}>
 				<div className={styles.right}>
-					<div className={styles.title}>حذف سرور مجازی برای همیشه</div>
-					<div className={styles.hint}>توجه داشته باشید با حذف سرور اطلاعات شما پاک می شود.</div>
+					<div className={styles.title}>{t`حذف سرور مجازی برای همیشه`}</div>
+					<div className={styles.hint}>{t`توجه داشته باشید با حذف سرور اطلاعات شما پاک می شود.`}</div>
 				</div>
 				<div className={styles.left}>
 					<Tooltip text={t`ابتدا سرور را خاموش کنید`} width={135} height={27} position={'bottom'}>

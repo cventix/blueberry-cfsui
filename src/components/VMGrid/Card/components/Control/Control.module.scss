@@ -35,9 +35,21 @@
 }
 
 .multiplePlan {
+	width: 213px;
 	button {
 		font-size: $font-size - 2;
 		width: 50px;
-		padding: 0 5px;
+
+		@media(max-width: $mobile + 115) {
+			width: 67px;
+		}
+	}
+}
+
+body:lang(en) {
+	.multiplePlan {
+		button {
+			font-size: $font-size - 4;
+		}
 	}
 }

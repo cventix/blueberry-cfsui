@@ -23,9 +23,9 @@ export const VMDetailsShh: React.FunctionComponent<Iprops> = () => {
 				on={true} status={"198.143.181.40"}
 			>
 			<div className={styles.wrapper}>
-				<div className={styles.title}>اتصال به سرور از طریق SSH</div>
+				<div className={styles.title}>{t`اتصال به سرور از طریق SSH`}</div>
 				<code className={styles.codeWrapper}>$ ssh root@198.143.181.40</code>
-				<div className={styles.hint}>* رمز عبور به ایمیل شما فرستاده شده است.</div>
+				<div className={styles.hint}>{t`* رمز عبور به ایمیل شما فرستاده شده است.`}</div>
 			</div>
 			</Card>
 		</div>

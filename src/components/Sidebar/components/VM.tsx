@@ -1,4 +1,5 @@
 import * as React from 'react'
+import { Link } from 'react-router-dom';
 import { t } from 'ttag'
 
 // ui-elements
@@ -24,9 +25,11 @@ export default interface Iprops {
 export const VM: React.FunctionComponent<Iprops> = ({ onItemClick }) => {
   return (
     <div className="menu">
-      <Button className={['btnSuccess0', 'btnLg']} style={{ marginBottom: '15px' }}>
-        <IconLink icon={purchaseIcon} iconAlt="upload icon" label={t`خرید سرور جدید`}/>
-      </Button>
+      <Link to="/vm/order">
+        <Button className={['btnSuccess0', 'btnLg']} style={{ marginBottom: '15px' }}>
+          <IconLink icon={purchaseIcon} iconAlt="upload icon" label={t`خرید سرور جدید`}/>
+        </Button> 
+      </Link>
       <IconLink icon={upFromUrlIcon} className="iconLink upFromUrl" iconAlt="upload icon" label={t`آپلود فایل از URL`}/>
       <ActionNav onItemClick={onItemClick}/>
       <Hr />

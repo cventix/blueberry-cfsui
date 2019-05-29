@@ -37,9 +37,11 @@ export const Footer: React.FunctionComponent<Iprops> = (props) => {
 					<Button className={['btnDefault0', 'btnSm']} onClick={props.handleCancelBtn}>{t`انصراف`}</Button>
 				</div>
 				<div className={styles.left}>
-					<Button className={['btnPrimary0', 'btnSm']} onClick={props.handleNextStep} style={props.finalStep ? {width: '159px', direction: 'rtl'} : {}}>
-						{props.finalStep ? <IconLink icon={invoiceIcon} label={t`صدور صورتحساب`}/> : <IconLink icon={arrowLeftIcon} label={t`بعدی`}/>}
-					</Button>
+					<div className={props.finalStep ? styles.largBtn : 'hide'}>
+						<Button className={['btnPrimary0', 'btnSm']} onClick={props.handleNextStep} style={props.finalStep ? {width: '159px', direction: 'rtl'} : {}}>
+							{props.finalStep ? <IconLink icon={invoiceIcon} label={t`صدور صورتحساب`}/> : <IconLink icon={arrowLeftIcon} label={t`بعدی`}/>}
+						</Button>
+					</div>
 				</div>
 			</div>
 			<div className={styles.infoWrapper}>
