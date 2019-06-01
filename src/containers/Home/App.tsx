@@ -1,33 +1,28 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Route, Switch } from 'react-router-dom'
+import { t } from 'ttag'
 
 import { Navbar } from '../../components/Navbar/Navbar'
 import { Sidebar } from '../../components/Sidebar/Sidebar'
-
 import { Main } from '../../components/Main/Main'
-import './App.css'
-import styles from '../../components/Content/Content.module.scss'
-
 import Content from '../../components/Content/Content'
 import VMContent from '../../components/VMContent/VMContent'
 import Order from '../../components/VMContent/components/Order/Order'
-import { Table } from '../../components/Table/Table'
 import { Modal } from '../../components/ui-elements/Modal/Modal'
-import { Preview } from '../../components/ui-elements/Preview/Preview'
-import icon from '../../images/buttonIcons/icon-btn-arrow-bottom.svg'
 import CFModal from '../../components/ui-elements/Modal/CreateFolderModal/CreateFolder'
+import { UploadModal } from '../../components/ui-elements/Uploadmodal/Uploadmodal'
+import MoveFile from '../../components/ui-elements/Modal/MoveFileModal.tsx/MoveFile'
+import { TextInput } from '../../components/ui-elements/Input/Input'
+import { Button } from '../../components/ui-elements/Button/Button'
+import { downloadDirectory } from '../../services/internal/store/actions'
+import { setToggle } from '../../services/internal/store/actions/selections'
+import { ToastUndo } from '../../components/ui-elements/Toast/ToastUndo'
+
 // Services
-import { bottle } from '../../services'
-import { PayloadInterface } from '../../services/internal/store/reducers/authReducer'
 import { setRouter } from '../../services/internal/store/actions/router'
-
 import toast from '../../components/ui-elements/Toast/Toast'
-
 import {
-  setUserCredentials,
-  setToken,
-  login,
   removeFolder,
   signout,
   getTrashDocuments,
@@ -38,21 +33,11 @@ import {
   setDocuments,
   setTempDocuments
 } from '../../services/internal/store/actions'
-import { DocumentsInterface } from '../../services/internal/repositories/documents'
 
-import Toast from '../../components/ui-elements/Toast/Toast'
-import { CountdownTimer } from '../../components/ui-elements/CountdownTimer/CountdownTimer'
-import { UploadModal } from '../../components/ui-elements/Uploadmodal/Uploadmodal'
-import MoveFile from '../../components/ui-elements/Modal/MoveFileModal.tsx/MoveFile'
-import { TextInput } from '../../components/ui-elements/Input/Input'
-import { Button } from '../../components/ui-elements/Button/Button'
-import { t } from 'ttag'
-import { downloadDirectory } from '../../services/internal/store/actions'
-import { setToggle } from '../../services/internal/store/actions/selections'
-import { ToastUndo } from '../../components/ui-elements/Toast/ToastUndo'
-import ShareModal from '../../components/ui-elements/Modal/ShareModal.tsx/ShareModal';
-const steps = ['انتخاب سیستم عامل', 'انتخاب مدت سرویس', 'انتخاب طرح', 'اطلاعات کارت شبکه', 'انتخاب نام سرور و ثبت نهایی']
-const options = [{ value: 'chocolate', label: 'Chocolate' }, { value: 'strawberry', label: 'Strawberry' }, { value: 'vanilla', label: 'Vanilla' }]
+//styles
+import './App.css'
+import styles from '../../components/Content/Content.module.scss'
+import { IRemoveFolderInput, IDownloadDirectoryInput, IGenerateLinkInput } from '../../services/internal/repositories/documents'
 
 class App extends Component<
   {
@@ -73,13 +58,12 @@ class App extends Component<
     restoreFiles?: any
     setTempDocuments?: any
     document?: any
+    match?:any
   },
   {}
 > {
-  private _documents: DocumentsInterface
   constructor(props: any) {
     super(props)
-    this._documents = bottle.container.Documents
   }
 
   state = {
@@ -139,9 +123,6 @@ class App extends Component<
         case t`پوشه جدید`:
           this.setState({ modal: 'createFolder', showModal: true })
           break
-        case t`پوشه جدید`:
-          this.setState({ modal: 'createFolder', showModal: true })
-          break
         case t`انتقال`:
           if (this.props.selection && this.props.selection.length > 0) {
             this.setState({ modal: 'moveFile', showModal: true })
@@ -174,6 +155,8 @@ class App extends Component<
           break
         case t`متوسط`:
           this.props.setPreviewImage('medium')
+          console.log(this.props.match)
+          // this.props.history.push(this.props.history.location.pathname.split('/image'))
           break
         case t`کوچک`:
           this.props.setPreviewImage('small')
@@ -219,13 +202,6 @@ class App extends Component<
     }
   }
 
-  onCancle = () => {
-    this.setState({ modal: '', countDownTime: 10000 })
-    if (this.timer) {
-      clearTimeout(this.timer)
-    }
-  }
-
   onRemoveDocument = async () => {
     try {
       let result = await this.props.removeFolder({ folderId: this.props.selection })
@@ -249,9 +225,8 @@ class App extends Component<
   componentDidMount() {
     this.props.setRouter(this.props.history)
   }
-  componentWillReceiveProps(nextProps:any){
-    if(nextProps.errors.errors)
-    toast.error(nextProps.errors.errors)
+  componentWillReceiveProps(nextProps: any) {
+    if (nextProps.messages.errors) toast.error(nextProps.messages.errors)
   }
   render() {
     let modal
@@ -259,17 +234,6 @@ class App extends Component<
       case 'createFolder':
         modal = <CFModal handleCFClose={this.handleClose} showModal={this.state.showModal} />
         break
-      // case 'remove':
-      //   modal = (
-      //     // <Toast level={'success'} caret={false}>
-      //     //   <CountdownTimer startTimeInSeconds={this.state.countDown} />
-      //     //   {t`پوشه حذف شد`}
-      //     //   <div className={styles.undo} onClick={this.onCancle}>
-      //     //     {t`انصراف`}
-      //     //   </div>
-      //     // </Toast>
-      //   )
-      // break
       case 'moveFile':
         modal = <MoveFile handleClose={this.handleClose} showModal={this.state.showModal} />
         break
@@ -321,8 +285,6 @@ class App extends Component<
           }}
         />
         <Main showModal={this.state.showModal}>
-         {/* <ShareModal handleCFClose={this.handleClose} showModal={true} />
-           */}
           <Switch>
             <Route path={`/fm`} component={Content} />
             <Route exact path={`/vm`} component={VMContent} />
@@ -336,11 +298,18 @@ class App extends Component<
   }
 }
 
-const mapStateToProps = (state: any) => ({ document: state.document, selection: state.selection.selection, item: state.sidebar.item ,errors:state.errors})
+const mapStateToProps = (state: any) => ({
+  document: state.document,
+  selection: state.selection.selection,
+  item: state.sidebar.item,
+  messages: state.messages
+})
 
 const mapDispatchToProps = (dispatch: any) => {
   return {
-    removeFolder: (value: any) => dispatch(removeFolder(value)),
+    removeFolder: (value: IRemoveFolderInput) => dispatch(removeFolder(value)),
+    generateDownloadLink: (value: IGenerateLinkInput) => dispatch(generateDownloadLink(value)),
+    downloadDirectory: (value: IDownloadDirectoryInput) => dispatch(downloadDirectory(value)),
     signout: () => dispatch(signout()),
     getTrashDocuments: () => dispatch(getTrashDocuments()),
     getSharedDocuments: () => dispatch(getSharedDocuments()),
@@ -348,8 +317,6 @@ const mapDispatchToProps = (dispatch: any) => {
     setTempDocuments: (value: any) => dispatch(setTempDocuments(value)),
     setRouter: (value: any) => dispatch(setRouter(value)),
     setPreviewImage: (value: any) => dispatch(setPreviewImage(value)),
-    generateDownloadLink: (value: any) => dispatch(generateDownloadLink(value)),
-    downloadDirectory: (value: any) => dispatch(downloadDirectory(value)),
     setToggle: (value: any) => dispatch(setToggle(value)),
     restoreFiles: (value: any) => dispatch(restoreFiles(value))
   }

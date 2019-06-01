@@ -23,9 +23,8 @@ class Auth implements AuthInterface {
   }
 
   async register(email: string, username: string, password: string) {
-    console.log('hi')
     const url = '/rest/users/signup'
-    console.log('hi')
+
     const body = {
       email,
       username,
@@ -33,6 +32,15 @@ class Auth implements AuthInterface {
     }
     try {
       return await this._rest.post({ url, body })
+    } catch (error) {
+      throw error
+    }
+  }
+
+  async forgetPassword(email: string) {
+    const url = `/rest/users/resetPassword?email=${email}`
+    try {
+      return await this._rest.get({ url })
     } catch (error) {
       throw error
     }

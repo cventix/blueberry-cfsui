@@ -1,11 +1,11 @@
 import { put } from 'redux-saga/effects'
 import * as actions from '../actions'
-
+import { AnyAction } from 'redux'
 import { bottle } from '../../../index'
 
 const documents = bottle.container.Documents
-
-export function* getDocuments(action: any) {
+console.log
+export function* getDocuments(action: AnyAction) {
   let folderInfo
   if (action.payload) folderInfo = { isChildren: action.payload.isChildren, path: action.payload.path, headers: action.payload.headers }
   console.log()
@@ -19,8 +19,7 @@ export function* getDocuments(action: any) {
     yield put(actions.setLoadingState(false))
   }
 }
-export function* getModalDocuments(action: any) {
-
+export function* getModalDocuments(action: AnyAction) {
   let folderInfo
   if (action.payload) folderInfo = { isChildren: action.payload.isChildren, path: action.payload.path, headers: action.payload.headers }
   try {
@@ -33,7 +32,7 @@ export function* getModalDocuments(action: any) {
     yield put(actions.setLoadingState(false))
   }
 }
-export function* getTrashDocuments(action: any) {
+export function* getTrashDocuments() {
   try {
     yield put(actions.setLoadingState(true))
     let data = yield documents.getTrashDocuments()
@@ -43,7 +42,7 @@ export function* getTrashDocuments(action: any) {
     yield put(actions.setLoadingState(false))
   }
 }
-export function* getSharedDocuments(action: any) {
+export function* getSharedDocuments() {
   try {
     yield put(actions.setLoadingState(true))
     let data = yield documents.getSharedDocuments()
@@ -53,7 +52,7 @@ export function* getSharedDocuments(action: any) {
     yield put(actions.setLoadingState(false))
   }
 }
-export function* removeFolder(action: any) {
+export function* removeFolder(action: AnyAction) {
   let folderInfo = { folderId: action.payload.folderId }
   try {
     yield put(actions.setLoadingState(true))
@@ -63,7 +62,7 @@ export function* removeFolder(action: any) {
     yield put(actions.setLoadingState(false))
   }
 }
-export function* createFolder(action: any) {
+export function* createFolder(action: AnyAction) {
   let getFolderInfo
   let folderInfo = { name: action.payload.name, description: action.payload.description, parentId: action.payload.parentId }
   if (action.payload.parentId) getFolderInfo = { isChildren: true, path: action.payload.parentName }
@@ -80,7 +79,7 @@ export function* createFolder(action: any) {
   }
 }
 
-export function* renameFolder(action: any) {
+export function* renameFolder(action: AnyAction) {
   let renameInfo = { name: action.payload.name, folderId: action.payload.folderId }
   try {
     yield put(actions.setLoadingState(true))
@@ -92,7 +91,7 @@ export function* renameFolder(action: any) {
   }
 }
 
-export function* moveDocuments(action: any) {
+export function* moveDocuments(action: AnyAction) {
   let moveInfo = { targetId: action.targetId, documentIds: action.documentIds }
   try {
     yield put(actions.setLoadingState(true))
@@ -103,7 +102,7 @@ export function* moveDocuments(action: any) {
   }
 }
 
-export function* shareDocuments(action: any) {
+export function* shareDocuments(action: AnyAction) {
   let shareInfo = { userEmails: action.userEmails, documentIds: action.documentIds }
   try {
     yield put(actions.setLoadingState(true))
@@ -114,7 +113,7 @@ export function* shareDocuments(action: any) {
   }
 }
 
-export function* generateLink(action: any) {
+export function* generateLink(action: AnyAction) {
   let uuid = { uuid: action.payload }
   try {
     let result = yield documents.generateDownloadLink(uuid)
@@ -124,7 +123,7 @@ export function* generateLink(action: any) {
   }
 }
 
-export function* downloadDirectory(action: any) {
+export function* downloadDirectory(action: AnyAction) {
   let info = { type: action.payload.downloadType, documentIds: action.payload.documentIds }
   try {
     yield documents.downloadDirectory(info)
@@ -133,7 +132,7 @@ export function* downloadDirectory(action: any) {
     yield put(actions.setLoadingState(false))
   }
 }
-export function* restoreFiles(action: any) {
+export function* restoreFiles(action: AnyAction) {
   try {
     yield documents.restoreFiles({ documentIds: action.payload.documentIds })
   } catch (err) {

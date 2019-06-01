@@ -53,8 +53,9 @@ class Rest implements RestInterface {
         ;(httpInput as any).data = body
       }
       console.log('httpInput', httpInput)
-      const { data } = await this._http(httpInput)
-      return data
+      const { data, status } = await this._http(httpInput)
+
+      return data ? data : status
     } catch ({ response: { data } }) {
       // console.log(error.response)
       throw data

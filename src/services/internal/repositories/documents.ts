@@ -1,4 +1,5 @@
 import { RestInterface } from '../../external/rest/rest'
+import { removeFolder } from '../store/sagas/documents'
 
 export interface IGetDocumentsInput {
   isChildren?: boolean
@@ -41,7 +42,10 @@ export interface IDownloadDirectoryInput {
 
 export interface IRestoreFileInput {
   documentIds: Array<number>
-  
+}
+
+export interface IRemoveFolderInput {
+  folderId: Array<number>
 }
 
 export interface DocumentsInterface {
@@ -51,6 +55,7 @@ export interface DocumentsInterface {
   moveDocuments(input: IMoveDocumentsInput): Promise<object>
   shareDocuments(input: IShareDocumentsInput): Promise<object>
   downloadDirectory(input: IDownloadDirectoryInput): Promise<object>
+  generateDownloadLink(input: IGenerateLinkInput): Promise<object>
 }
 
 class Documents implements DocumentsInterface {
@@ -124,7 +129,7 @@ class Documents implements DocumentsInterface {
       throw error
     }
   }
-  async removeFolder({ folderId, name }: any) {
+  async removeFolder({ folderId }: any) {
     const url = `/rest/documents/trash?sort=+discriminator,+name&ids=${folderId}`
     try {
       return await this._rest.put({ url })
@@ -173,7 +178,7 @@ class Documents implements DocumentsInterface {
   async restoreFiles({ documentIds }: IRestoreFileInput) {
     console.log(documentIds)
     let url = `/rest/documents/restore?ids=${documentIds.join()}`
-  
+
     try {
       return await this._rest.put({ url })
     } catch (error) {

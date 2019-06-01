@@ -1,9 +1,21 @@
 import { takeEvery, all, takeLatest } from 'redux-saga/effects'
 
 import { actionTypes } from '../actions/types'
-import { login, register, signout } from './auth'
-import { getDocuments,getSharedDocuments,generateLink,downloadDirectory, createFolder, renameFolder, moveDocuments, shareDocuments, removeFolder, getTrashDocuments , getModalDocuments, restoreFiles} from './documents'
-
+import { login, register, signout, forgetPassword } from './auth'
+import {
+  getDocuments,
+  getSharedDocuments,
+  generateLink,
+  downloadDirectory,
+  createFolder,
+  renameFolder,
+  moveDocuments,
+  shareDocuments,
+  removeFolder,
+  getTrashDocuments,
+  getModalDocuments,
+  restoreFiles
+} from './documents'
 
 // import { getUserInfo } from './user'
 
@@ -11,7 +23,7 @@ function* watchAuth() {
   yield takeEvery(actionTypes.INIT_LOGIN, login)
   yield takeEvery(actionTypes.REGISTER, register)
   yield takeEvery(actionTypes.SIGNOUT, signout)
-  //   yield takeEvery(actionTypes.FORGET_PASSWORD, forgetPassword)
+  yield takeEvery(actionTypes.FORGET_PASSWORD, forgetPassword)
   //   yield takeEvery(actionTypes.CHANGE_PASSWORD, resetPassword)
   //   yield takeEvery(actionTypes.VERIFY_MOBILE, verifyMobile)
   //   yield takeEvery(actionTypes.LOGOUT, logout)
@@ -29,10 +41,9 @@ function* watchDocuments() {
   yield takeEvery(actionTypes.GET_TRASH_DOCUMENTS, getTrashDocuments)
   yield takeEvery(actionTypes.GET_SHARED_DOCUMENTS, getSharedDocuments)
   yield takeEvery(actionTypes.GENERATE_DOWNLOAD_LINK, generateLink)
-    
+
   yield takeEvery(actionTypes.RESTORE_FILES, restoreFiles)
   yield takeEvery(actionTypes.DOWNLOAD_DIRECTORY, downloadDirectory)
-  
 }
 
 export function* rootSaga() {

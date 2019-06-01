@@ -1,7 +1,24 @@
 import { actionTypes } from '../actions/types'
 
+export interface StateInterface {
+  documents?: any[]
+  tem_doucuments: any[]
+  modal_documents?: any[]
+  value?: any[]
+  response?: any[]
+}
+
 export interface PayloadInterface {
-  data?: object[]
+  documents?: any[]
+  tem_doucuments: any[]
+  modal_documents?: any[]
+  value?: any[]
+  response?: any[]
+}
+
+export interface ActionInterface {
+  type: string
+  payload: PayloadInterface
 }
 
 export const initialState: any = {
@@ -10,7 +27,7 @@ export const initialState: any = {
   modal_documents: []
 }
 
-const documentReducer = (state: any = initialState, action: any) => {
+const documentReducer = (state: StateInterface = initialState, action: any) => {
   switch (action.type) {
     case actionTypes.CREATE_FOLDER:
       return {

@@ -23,6 +23,13 @@ const selectReducer = (state: any = initialState, action: any) => {
         ...state,
         toggle: action.payload
       }
+      case actionTypes.REMOVE_SELECTION:
+          return {
+            ...state,
+            selection: []
+          }
+          
+      
     default:
       return state
   }

@@ -7,12 +7,13 @@ import Dropdown from '../ui-elements/Dropdown/Dropdown'
 import { EnhanceDropdown as enhancer } from '../ui-elements/Dropdown/EnhanceDropdown'
 
 import styles from './Table.module.scss'
+import { connect } from 'react-redux'
 
 const EnhancedDropdown = enhancer(Dropdown)
 
-export default interface Iprops {
+export interface Iprops {
   table?: object[]
-
+  selection?: any
   dropdown?: boolean
   onCheckAll?: () => void
   checkAll?: boolean
@@ -31,10 +32,11 @@ export default interface Iprops {
   data?: any
   hasHeader?: boolean
 }
-export const Table: React.FunctionComponent<Iprops> = ({
+const Table: React.FunctionComponent<Iprops> = ({
   table,
   dropdown,
   onCheckAll,
+  selection,
   checkAll,
   onSort,
   tabletView,
@@ -49,7 +51,7 @@ export const Table: React.FunctionComponent<Iprops> = ({
   hasHeader = true
 }) => {
   const header = [t`نام`, t`تاریخ`, t`مالک`, t`حجم`]
-  console.log(table)
+
   return (
     <table className={styles.table}>
       {hasHeader && (
@@ -64,7 +66,7 @@ export const Table: React.FunctionComponent<Iprops> = ({
       )}
       <tbody>
         {table &&
-          table.map((item: any, i: number) => {
+          table.map((item: any, index: number) => {
             return (
               <tr key={item.id}>
                 {Object.keys(item).map((k, i) => {
@@ -80,7 +82,7 @@ export const Table: React.FunctionComponent<Iprops> = ({
                         itemName={item.name}
                         item={item}
                         onCheck={onCheck}
-                        checkAll={checkAll}
+                        checked={selection[index]}
                         className={k === 'name' ? ['show'] : [' ']}
                         checkbox={checkbox === false ? checkbox : k === 'name' ? true : false}
                         hasType={k === 'name' && item['type']}
@@ -109,3 +111,6 @@ export const Table: React.FunctionComponent<Iprops> = ({
     </table>
   )
 }
+const mapStateToProps = (state: any) => ({ selection: state.selection.selection })
+
+export default connect(mapStateToProps)(Table)

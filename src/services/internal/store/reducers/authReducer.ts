@@ -9,6 +9,7 @@ export interface StateInterface {
 export interface PayloadInterface {
   token?: string
   username?: string
+  email?: string
 }
 
 export interface ActionInterface {

@@ -12,34 +12,39 @@ import { IconLink } from '../../../components/ui-elements/IconLink'
 
 // services
 import { PayloadInterface } from '../../../services/internal/store/reducers/authReducer'
-import { setUserCredentials, setToken, login } from '../../../services/internal/store/actions'
+import { setUserCredentials, setToken, login, removeMessages } from '../../../services/internal/store/actions'
 
 // icons & styles
 import loading from '../../../images/loading/tail-spin.svg'
 import lock from '../../../images/typeIcons/login/lock.svg'
 import styles from '../Authentication.module.scss'
+import error from '../../../images/error.svg'
 
 class Login extends React.Component<any, any> {
   state = {
     email: '',
     password: '',
     loading: false,
-    token: ''
+    token: '',
+    msg: false
   }
 
-  handleChange = (e: any) => {
-    console.log(e.target)
+  handleChange = async (e: any) => {
     this.setState({
       [e.target.name]: e.target.value
     })
+  }
+  onBlur = async () => {
+    await this.props.removeMessages()
   }
   componentWillReceiveProps(nextProps: any) {
     this.setState({ token: nextProps.auth.token })
   }
   handleSubmit = async (e: any) => {
     const { history } = this.props
-    console.log(this.props.auth.token)
+
     if (e) e.preventDefault()
+    await this.props.removeMessages()
     try {
       let result = await this.props.login({ email: this.state.email, password: this.state.password })
       console.log(result)
@@ -52,16 +57,14 @@ class Login extends React.Component<any, any> {
 
   render() {
     if (this.state.token) {
-      return <Redirect to='/fm'/>;
-    }
-
-    else if (!this.state.token)
+      return <Redirect to="/fm" />
+    } else if (!this.state.token)
       return (
         <Authentication>
           <form className={styles.login} onSubmit={this.handleSubmit}>
             <span className={styles.title}>{t`ورود به حساب کاربری`}</span>
             <p className={styles.description}>{t`برای استفاده از خدمات ابتدا وارد شوید`}</p>
-            <TextInput placeholder={t`نام کاربر یا ایمیل`} name={'email'} onChange={this.handleChange} />
+            <TextInput placeholder={t`نام کاربر یا ایمیل`} name={'email'} onChange={this.handleChange} onBlur={this.onBlur} />
             <TextInput placeholder={t`رمز عبور`} name={'password'} type={'password'} onChange={this.handleChange} />
             <div className={styles.row}>
               <div className={styles.switch}>
@@ -79,7 +82,12 @@ class Login extends React.Component<any, any> {
                 {t`ورود`}
               </Button>
             </div>
-            <Link to={'/'} className={styles.forgetPassword}>
+            {this.props.messages.errors.length > 0 && (
+              <div className={[styles.wrongVerify, styles.warn].join(' ')}>
+                <IconLink icon={error} label={t`${this.props.messages.errors}`} />
+              </div>
+            )}
+            <Link to={'/forgetpassword'} className={styles.forgetPassword}>
               <IconLink icon={lock} label={t`رمز عبور را فراموش کرده‌ام!`} />
             </Link>
           </form>
@@ -88,13 +96,14 @@ class Login extends React.Component<any, any> {
   }
 }
 
-const mapStateToProps = (state: any) => ({ isLoading: state.loading.isLoading, auth: state.auth })
+const mapStateToProps = (state: any) => ({ isLoading: state.loading.isLoading, auth: state.auth, messages: state.messages })
 
 const mapDispatchToProps = (dispatch: any) => {
   return {
     login: (payload: PayloadInterface) => dispatch(login(payload)),
     setToken: (token: string) => dispatch(setToken(token)),
-    setUserInfo: (payload: PayloadInterface) => dispatch(setUserCredentials(payload))
+    setUserInfo: (payload: PayloadInterface) => dispatch(setUserCredentials(payload)),
+    removeMessages: (payload: PayloadInterface) => dispatch(removeMessages(payload))
   }
 }
 

@@ -1,4 +1,4 @@
-@import "../../styles/global";
+@import '../../styles/global';
 
 .wrapper {
   @include flex(column, nowrap);
@@ -21,7 +21,7 @@
     @include border-radius($br-radius-sm);
     @include box-shadow(0 1px 3px 0 rgba(0, 0, 0, 0.15));
 
-    @media(max-width: $tablet) {
+    @media (max-width: $tablet) {
       width: 300px;
       padding: 30px 0 38px 0;
       background-color: transparent;
@@ -39,7 +39,8 @@
       }
     }
 
-    .title, .description {
+    .title,
+    .description {
       color: $dk-gray;
     }
 
@@ -92,15 +93,21 @@
       }
     }
 
-    .wrongVerify {
-     
-      line-height: 35px;
-      margin-top: 20px;
-      padding-right: 10px; 
-      padding-left: 10px; 
+    .warn {
       background-color: rgba(255, 71, 71, 0.05);
       border: solid 1px $red;
       color: $red;
+    }
+    .success {
+      background-color: rgba(33, 211, 82, 0.1);
+      border: solid 1px $green;
+      color: $green;
+    }
+    .wrongVerify {
+      line-height: 35px;
+      margin-top: 20px;
+      padding-right: 10px;
+      padding-left: 10px;
       font-size: $font-size - 4;
       text-align: right;
       @include border-radius($br-radius-sm);
@@ -131,7 +138,7 @@ body:lang(en) {
         }
       }
 
-      .wrongVerify { 
+      .wrongVerify {
         text-align: left;
 
         img {

@@ -16,22 +16,56 @@ export default interface Iprops {
   checkbox?: boolean
   checkAll?: boolean
   dropdown?: boolean
+  id?: number
+  onCheck?: (id: number, e: any) => void
   dropDownData?: any
   uuid?: string
   handleNavigate?: (e: navigateObject) => void
+  onCheckAll?: any
+  checked?: any
 }
 
-export const Card: React.FunctionComponent<Iprops> = ({ item, checkbox, handleNavigate, dropdown,uuid, checkAll, dropDownData }) => {
+export const Card: React.FunctionComponent<Iprops> = ({
+  item,
+  checkbox,
+  handleNavigate,
+  dropdown,
+  uuid,
+  onCheck,
+  id,
+  onCheckAll,
+  checked,
+  dropDownData
+}) => {
+  console.log(onCheck)
   return (
-    <div className={styles.item} {...handleNavigate && { onClick: (e) => handleNavigate({ e: e, name: item['name'] }) }}>
-      <div className={styles.type}>{item && item['type'] && item['type'] =='image' ? <Icon src={`http://cdn.persiangig.com/preview/${item['uuid']}/medium/${item['name']}`} className={'imageIcon icon'} /> :<Icon mimetype={item['type']} />}</div>
-      <div className={styles.info}>
-        <span className={styles.name}>{item['name']}</span>
-        <span className={styles.date}>
-          {item['created_at']} {item['size'] && item['size'] !== '---' && `,${item['size']}`}
-        </span>
+    <div className={styles.item}>
+      <div
+        {...handleNavigate && { onClick: e => handleNavigate({ e: e, name: item['name'] }) }}
+        style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}
+      >
+        <div className={styles.type}>
+          {item && item['type'] && item['type'] == 'image' ? (
+            <Icon src={`http://cdn.persiangig.com/preview/${item['uuid']}/medium/${item['name']}`} className={'imageIcon icon'} />
+          ) : (
+            <Icon mimetype={item['type']} />
+          )}
+        </div>
+        <div className={styles.info}>
+          <span className={styles.name}>{item['name']}</span>
+          <span className={styles.date}>
+            {item['created_at']} {item['size'] && item['size'] !== '---' && `,${item['size']}`}
+          </span>
+        </div>
       </div>
-      {checkbox && <Checkbox checked={checkAll} className={styles.checkbox} />}
+      {checkbox && (
+        <Checkbox
+          className={styles.checkbox}
+          onChange={e => (onCheckAll ? onCheckAll() : onCheck && item['id'] && onCheck(item['id'], e))}
+          checked={checked}
+        />
+      )}
+
       {dropdown && (
         <div className={styles.dropdown}>
           <EnhancedDropdown data={dropDownData} id={item.id} />

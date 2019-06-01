@@ -102,7 +102,7 @@ class Register extends React.Component<any, any> {
             <Button className={['btnPrimary0', 'btnSm']}>{t`ثبت‌نام`}</Button>
           </div>
           {this.state.error && (
-            <div className={styles.wrongVerify}>
+            <div className={[styles.wrongVerify,styles.warn].join(' ')}>
               <IconLink icon={error} label={t`${this.state.error}`} />
             </div>
           )}

@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
 
 // components
-import { Grid } from '../Grid/Grid'
-import { Table } from '../Table/Table'
+import Grid from '../Grid/Grid'
+import  Table  from '../Table/Table'
 
 // services
 import { formatDate } from '../../services/internal/utils/formatDates'
@@ -84,7 +84,7 @@ export const ContentBody: React.FunctionComponent<Iprops> = ({
 }) => {
   table = isMoveModal ? makeSimpleArray(table) : makeArray(table, username)
   table.length < 10 && turnOffbutton && turnOffbutton()
-  console.log(table)
+  
   return view === 'table' && width && width < 768 ? (
     <Grid sortable={true} dropDownData={dropDownData} onSort={onSort} checkbox={true} table={table} handleNavigate={handleNavigate} {...rest} />
   ) : view === 'table' ? (

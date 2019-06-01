@@ -3,10 +3,10 @@ import loadingReducer from './loadingReducer'
 import authReducer from './authReducer'
 import documentReducer from './documentReducer'
 import selectReducer from './selectReducer'
-import routerReducer from './routerReducer';
-import sidebarReducer from './sidebarReducer';
-import historyReducer from './historyReducer';
-import errorsReducer from './errorsReducer';
+import routerReducer from './routerReducer'
+import sidebarReducer from './sidebarReducer'
+import historyReducer from './historyReducer'
+import messagesReducer from './messagesReducer'
 
 export default combineReducers({
   auth: authReducer,
@@ -16,5 +16,5 @@ export default combineReducers({
   router: routerReducer,
   sidebar: sidebarReducer,
   history: historyReducer,
-errors:errorsReducer
+  messages: messagesReducer
 })

@@ -15,7 +15,9 @@ export default {
       ...options,
       className: css({
         background: '#21d352 !important',
-        fontFamily: 'vazir-regular !important'
+        fontFamily: 'vazir-regular !important',
+        textAlign: 'center !important'
+
       }),
       progressClassName: css({
         background: '#007aff'
@@ -28,8 +30,12 @@ export default {
       ...options,
       className: css({
         height: '35px !important',
-        fontFamily: 'vazir-regular !important'
+        fontFamily: 'vazir-regular !important',
+        padding:'0 !important',
+        minHeight:'35px !important',
+        textAlign: 'center !important'
       }),
+    
       position: toast.POSITION.BOTTOM_LEFT,
       hideProgressBar: true,
       progressClassName: css({

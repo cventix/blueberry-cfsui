@@ -4,22 +4,17 @@ import { connect } from 'react-redux'
 import { t } from 'ttag'
 
 // components
-import { Table } from '../Table/Table'
-import { Grid } from '../Grid/Grid'
 import { Button } from '../ui-elements/Button/Button'
 import { IconLink } from '../ui-elements/IconLink'
 import { UploadModal } from '../ui-elements/Uploadmodal/Uploadmodal'
 import { RenameFile } from '../ui-elements/Modal/ModalContent/RenameFile'
 import { Icon } from '../ui-elements/Icon'
-import { CountdownTimer } from '../ui-elements/CountdownTimer/CountdownTimer'
-import Toast from '../ui-elements/Toast/Toast'
 import { ContentHeader } from './ContentHeader'
 import { ContentBody } from './ContentBody'
 import CFModal from '../ui-elements/Modal/CreateFolderModal/CreateFolder'
-import Config from '../../services/internal/config/config'
 
 // Services
-import { bottle } from '../../services'
+
 import {
   getDocuments,
   createFolder,
@@ -32,7 +27,7 @@ import {
 import { formatDate } from '../../services/internal/utils/formatDates'
 import { formatBytes } from '../../services/internal/utils/formatBytes'
 import { sliceData } from '../../services/internal/utils/sliceData'
-import { setSelections } from '../../services/internal/store/actions/selections'
+import { setSelections, removeSelection } from '../../services/internal/store/actions/selections'
 
 // styles & icons
 import loading from '../../images/loading/tail-spin.2.svg'
@@ -67,7 +62,9 @@ export interface IProps {
   auth?: any
   setSelections?: any
   setItem?: any
+  selection?: any
   image?: any
+  removeSelection?: any
 }
 
 export interface navigateObject {
@@ -208,7 +205,6 @@ class Content extends React.Component<IProps, IState> {
   }
 
   onSort = (sortBy: string, type?: string) => {
-    console.log(sortBy)
     let table = this.state.table
     switch (sortBy) {
       case t`نام`:
@@ -259,8 +255,11 @@ class Content extends React.Component<IProps, IState> {
     })
   }
 
+  //on check all documents and uncheck
   onCheckAll = () => {
-    this.setState({ checkAll: !this.state.checkAll })
+    let ids = this.state.table.map((a: any) => a.id)
+    if (this.props.selection.sort().toString() !== ids.sort().toString()) this.props.setSelections(ids)
+    else this.props.removeSelection()
   }
 
   //switch between grid and list
@@ -372,7 +371,9 @@ class Content extends React.Component<IProps, IState> {
   }
 
   // on item check
-  onCheck = (id: number) => {
+  onCheck = (id: number,e:any) => {
+   console.log(id)
+  
     let { selectedArray } = this.state
     console.log(id)
     if (selectedArray.indexOf(id) === -1) selectedArray.push(id)
@@ -450,7 +451,7 @@ class Content extends React.Component<IProps, IState> {
     const history = [{ title: t`پوشه اصلی`, link: '/fm', active: false }]
     if (this.props.location.pathname !== '/fm')
       history.push({ title: this.props.location.pathname.split('/fm/'), link: this.props.location.pathname.split['/'], active: true })
-    console.log(this.state.filteredTable)
+
     return !this.props.loading && this.state.table && this.state.table.length > 0 ? (
       <React.Fragment>
         <ContentHeader
@@ -513,7 +514,8 @@ const mapDispatchToProps = (dispatch: any) => {
     shareDocuments: () => dispatch(shareDocuments()),
     removeFolder: (value: any) => dispatch(removeFolder(value)),
     setSelections: (value: any) => dispatch(setSelections(value)),
-    setItem: (value: any) => dispatch(setSidebarItems(value))
+    setItem: (value: any) => dispatch(setSidebarItems(value)),
+    removeSelection: () => dispatch(removeSelection())
   }
 }
 

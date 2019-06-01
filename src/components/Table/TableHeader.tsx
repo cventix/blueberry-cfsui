@@ -16,22 +16,22 @@ export default interface Iprops {
   onOpenCFModal?: any
 }
 
-export const TableHeader: React.FunctionComponent<Iprops> = ({ titles,onOpenCFModal, dropdown, onSort, onCheckAll, tabletView }) => {
+export const TableHeader: React.FunctionComponent<Iprops> = ({ titles, onOpenCFModal, dropdown, onSort, onCheckAll, tabletView }) => {
   const altIcon = 'Icon'
+
   return (
     <thead>
       {titles && (
         <tr>
           {titles.map((label: any, i: number) => {
-
             if (label !== 'type' && label !== 'id' && label !== 'fullPath') {
               return (
                 <TableItem
                   key={i}
                   label={label}
-                  checkbox={label === 'name' ? true : false}
+                  checkbox={label === t`نام` ? true : false}
                   onCheckAll={onCheckAll}
-                  sortable={true}
+                  sortable={label !== t`مالک` && true}
                   sortType={label === t`نام` ? 'alphabet' : ' '}
                   onSort={onSort}
                   className={label === t`نام` ? ['header', 'show'] : ['header']}
@@ -42,7 +42,7 @@ export const TableHeader: React.FunctionComponent<Iprops> = ({ titles,onOpenCFMo
 
           {dropdown && tabletView ? (
             <td className={styles.show}>
-              <IconLink className={styles.icn} icon={newFolderIcon} iconAlt={`new-folder ${altIcon}`} label={t`پوشه جدید`} onClick={onOpenCFModal}/>
+              <IconLink className={styles.icn} icon={newFolderIcon} iconAlt={`new-folder ${altIcon}`} label={t`پوشه جدید`} onClick={onOpenCFModal} />
             </td>
           ) : (
             <td />
@@ -52,4 +52,3 @@ export const TableHeader: React.FunctionComponent<Iprops> = ({ titles,onOpenCFMo
     </thead>
   )
 }
-
