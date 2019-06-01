@@ -11,6 +11,10 @@
 	@media(max-width: $tablet - 277) {
 		justify-content: center
 	}
+
+	@media(max-width: $mobile - 1) {
+		margin-right: 0;
+	}
 }
 
 body:lang(en) {

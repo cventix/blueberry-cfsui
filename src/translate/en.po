@@ -45,6 +45,9 @@ msgstr "Disk space"
 msgid "کل هزینه"
 msgstr "Total cost"
 
+msgid "می‌خواهید فایل‌هایتان حذف نشود؟"
+msgstr "Do not want to delete your files?"
+
 msgid "مرحله اول"
 msgstr "First step"
 

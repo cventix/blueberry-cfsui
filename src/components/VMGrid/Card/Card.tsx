@@ -100,7 +100,7 @@ export const Card: React.FunctionComponent<Iprops> = ({ on, off, purchase, invoi
 				</div>
 				<Footer className={payment || invoice ? `${styles.footer} ${styles.twoBtn}` : create || purchase ? `${styles.footer} ${styles.oneBtn}` : styles.footer}>
 					{
-						purchase ? <Link to="/vm/order">
+						purchase ? <Link to={`/vm/order`}>
 							<Button className={['btnSuccess0', 'btnLg']}>
 								<IconLink icon={purchaseIcon} iconAlt="purchase icon" label={t`خرید سرور جدید`}/>
 							</Button>

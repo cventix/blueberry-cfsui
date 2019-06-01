@@ -35,7 +35,7 @@ export const DailySetting: React.FunctionComponent<Iprops> = () => {
 				<SettingBox name={'CPU'} info={'4 core'} basePrice={'۱,۰۰۰ ریال'} minService={'1 core'}/>
 				<SettingBox name={'RAM'} info={'8 GB'} basePrice={'۱,۰۰۰ ریال'} minService={'1 GB'}/>
 				<SettingBox name={'DISK'} info={'30 GB'} basePrice={'۱,۰۰۰ ریال'} minService={'10 GB'}/>
-			<Footer/>
+			<Footer nextStep={`/`} previousStep={`/`}/>
 		</div>
 	)
 }

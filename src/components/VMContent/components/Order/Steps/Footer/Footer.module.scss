@@ -14,13 +14,15 @@
 		}
 
 		.right {
-			> button {
-				margin-left: 20px;
-				color: $lt-gray;
+			a {
+				> button {
+					margin-left: 20px;
+					color: $lt-gray;
 
-				img {
-					margin-left: 9px;
-					@include transform(rotate(180deg));
+					img {
+						margin-left: 9px;
+						@include transform(rotate(180deg));
+					}
 				}
 			}
 		}
@@ -52,12 +54,13 @@
 				}
 			}
 
-			> button {
-				direction: ltr;
+			.wrapper {
+				button {
+					direction: ltr;
 
-				img {
-					margin-right: 6px;
-					margin-left: 6px;
+					img {
+						margin-right: 6px;
+					}
 				}
 			}
 		}
@@ -95,23 +98,40 @@ body:lang(en) {
 	.footer {
 		.btnWrapper {
 			.right {
-				> button {
-					margin-right: 20px;
-					margin-left: 0;
-					direction: rtl;
+				a {
+					> button {
+						margin-right: 20px;
+						margin-left: 0;
+						
+						&:first-child {
+						 	width: 100px;
+						 	direction: ltr;
 
-					&:first-child {
-					 	width: 100px;
-					}
+						 	img {
+								margin-right: 5px;
+								margin-left: 0;
+								@include transform(rotate(0deg));
+							}
+						}
 
-					@media(max-width: $mobile) {
-						margin-right: 10px;
+						@media(max-width: $mobile) {
+							margin-right: 10px;
+						}
 					}
 				}
+			}
 
-				img {
-					margin-right: 9px;
-					margin-left: 0;
+			.left {
+				button {
+					> div {
+						direction: rtl;
+
+						img {
+							margin-left: 4px;
+							margin-right: 0;
+							@include transform(rotate(180deg));
+						}
+					}
 				}
 			}
 		}

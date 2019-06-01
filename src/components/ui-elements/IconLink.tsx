@@ -16,7 +16,7 @@ export const IconLink: React.FunctionComponent<Iprops> = ({ className = 'iconLin
   return (
     <div className={className} {...onClick && { onClick: label ? () => onClick(label) : onClick() }}>
       <Icon src={icon} alt={iconAlt} />
-      <span style={{margin: '0 2px'}}>{label}</span>
+      <span>{label}</span>
     </div>
   )
 }

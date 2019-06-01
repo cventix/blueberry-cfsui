@@ -42,7 +42,7 @@ export const FinalStep: React.FunctionComponent<Iprops> = () => {
 					</div>
 				</ColorfulBox>
 			</div>
-			<Footer finalStep={true}/>
+			<Footer finalStep={true} nextStep={`/`} previousStep={`/`}/>
 		</div>
 	)
 }

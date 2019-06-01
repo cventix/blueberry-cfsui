@@ -187,7 +187,7 @@ export const ChoosePlan: React.FunctionComponent<Iprops> = () => {
 					</div>
 				</Card>
 			</div>
-			<Footer/>
+			<Footer nextStep={`/`} previousStep={`/`}/>
 		</div>
 	)
 }

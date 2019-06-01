@@ -26,39 +26,35 @@ export default class Order extends React.Component<any, any> {
 
     render() {
         const { match } = this.props;
+        console.log(this.props.location);
 
         const history = [{ title: t`لیست سرورها`, link: '/vm', active: false }]
         if (this.props.location.pathname !== '/vm')
             history.push({ title: this.props.location.pathname.split('/'), link: this.props.location.pathname, active: true })
         
-        console.log(this.props.location.pathname)
-        
         return (
             <React.Fragment>
                 <VMContentHeader history={history} handleSearchInput={(e: any) => this.onChangeSearchInput(e)} className={styles.oredrHeader}/>
                     <Switch location={this.props.location}>
-                        <Route 
+                        <Route
                             exact
-                            path={`${match.path}`}
-                            component={FinalStep}
+                            path={`${match.path}/`}
+                            component={SelectOs}
                         />
-                        <Route 
-                            exact
+                        <Route
                             path={`${match.path}/serviceDuration`}
                             component={ServiceDuration}
                         />
-                        <Route 
-                            exact
+                        <Route
                             path={`${match.path}/choosePlan`}
                             component={ChoosePlan}
                         />
-                        <Route 
-                            exact
+                        <Route
                             path={`${match.path}/chooseNetwork`}
                             component={ChooseNetworkCard}
                         />
-                        <Route 
-                            exact
+                        <Route
+                            
                             path={`${match.path}/finalStep`}
                             component={FinalStep}
                         />

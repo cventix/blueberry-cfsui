@@ -49,6 +49,8 @@
 
 	@media(max-width: $mobile - 1) {
 		min-width: 290px;
+		margin-top: 20px;
+		margin-left: 0;
 	}
 
 	.show {
@@ -219,8 +221,12 @@
 			margin: 0 auto;
 		}
 
-		@media(max-width: $tablet - 277) {
+		@media(min-width: $mobile) and (max-width: $tablet - 277) {
 			width: 290px;
+		}
+
+		@media(max-width: $mobile - 1) {
+			width: 265px;
 		}
 
 		&.oneBtn {
@@ -232,10 +238,21 @@
 		}
 
 		&.twoBtn {
-			@media(max-width: $tablet - 277) {
+			@media(min-width: $mobile) and (max-width: $tablet - 277) {
 				button {
 					&:first-child {
 						width: 180px $important;
+					}
+					&:nth-child(2) {
+						width: 100px $important;
+					}
+				}
+			}
+
+			@media(max-width: $mobile - 1) {
+				button {
+					&:first-child {
+						width: 160px $important;
 					}
 					&:nth-child(2) {
 						width: 100px $important;

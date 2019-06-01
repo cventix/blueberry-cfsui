@@ -25,7 +25,7 @@ export default interface Iprops {
 export const VM: React.FunctionComponent<Iprops> = ({ onItemClick }) => {
   return (
     <div className="menu">
-      <Link to="/vm/order">
+      <Link to="/vm/order/SelectOs">
         <Button className={['btnSuccess0', 'btnLg']} style={{ marginBottom: '15px' }}>
           <IconLink icon={purchaseIcon} iconAlt="upload icon" label={t`خرید سرور جدید`}/>
         </Button> 

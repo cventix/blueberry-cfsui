@@ -2,7 +2,7 @@
 
 .VMDetails {
 	@media(max-width: $mobile) {
-		margin-top: -43px;
+		margin-top: -20px;
 
 		> div {
 			margin-left: 0;
@@ -18,7 +18,7 @@
 		margin-top: 65px;
 		margin-bottom: 50px;
 
-		@media(max-width: $mobile) {
+		@media(max-width: $tablet) {
 			margin-top: 20px;
 			margin-bottom: 20px;
 		}
