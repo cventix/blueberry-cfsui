@@ -297,5 +297,23 @@ msgstr "Content"
 msgid "مالک"
 msgstr "Owner"
 
+msgid "دانلود فایل"
+msgstr "Download File"
+
 msgid "نمایش بیشتر"
 msgstr "Show More"
+
+msgid "تغییر نام"
+msgstr "Change Name"
+
+msgid "اشتراک گذاری"
+msgstr "Share File"
+
+msgid "افزودن توضیح"
+msgstr "Add Description"
+
+msgid "دریافت لینک‌ها"
+msgstr "Get Links"
+
+msgid "حذف فایل"
+msgstr "Delete File"
