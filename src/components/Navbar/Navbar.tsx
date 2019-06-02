@@ -2,7 +2,7 @@
 // TODO: current page has current classname
 
 import * as React from 'react'
-import { NavLink } from 'react-router-dom';
+import { NavLink, Link } from 'react-router-dom';
 import { t } from 'ttag'
 
 // ui-elements
@@ -53,7 +53,9 @@ export const Navbar: React.FunctionComponent<Iprops> = ({ toggleHamburgerMenu, t
       <div className="left">
         <div className="nav">
           <IconLink icon={notifIcon} className="iconLink webIcon hasNotif" iconAlt={`Notif ${altIcon}`} />
-          <IconLink icon={financeIcon} className="iconLink webIcon" iconAlt={`Finance ${altIcon}`} />
+          <Link to={`/vm/giftcard`}>
+            <IconLink icon={financeIcon} className="iconLink webIcon" iconAlt={`Finance ${altIcon}`}/>
+          </Link>
           <IconLink icon={statusIcon} className="iconLink status" iconAlt={`Status ${altIcon}`} />
           <Avatar toggleSignout={() => {toggleSignout()}} open={open}/>
         </div>

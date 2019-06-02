@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import { Route, Switch } from 'react-router-dom';
+import { Route, Switch } from 'react-router';
+import { BrowserRouter as Router } from 'react-router-dom';
 import { t } from 'ttag'
 
 // internal components
@@ -35,30 +36,32 @@ export default class Order extends React.Component<any, any> {
         return (
             <React.Fragment>
                 <VMContentHeader history={history} handleSearchInput={(e: any) => this.onChangeSearchInput(e)} className={styles.oredrHeader}/>
-                    <Switch location={this.props.location}>
-                        <Route
-                            exact
-                            path={`${match.path}/`}
-                            component={SelectOs}
-                        />
-                        <Route
-                            path={`${match.path}/serviceDuration`}
-                            component={ServiceDuration}
-                        />
-                        <Route
-                            path={`${match.path}/choosePlan`}
-                            component={ChoosePlan}
-                        />
-                        <Route
-                            path={`${match.path}/chooseNetwork`}
-                            component={ChooseNetworkCard}
-                        />
-                        <Route
-                            
-                            path={`${match.path}/finalStep`}
-                            component={FinalStep}
-                        />
-                    </Switch>
+                    <Router>
+                        <Switch location={this.props.location}>
+                            <Route
+                                exact
+                                path={`${match.path}/`}
+                                component={SelectOs}
+                            />
+                            <Route
+                                path={`${match.path}/serviceDuration`}
+                                component={ServiceDuration}
+                            />
+                            <Route
+                                path={`${match.path}/choosePlan`}
+                                component={ChoosePlan}
+                            />
+                            <Route
+                                path={`${match.path}/chooseNetwork`}
+                                component={ChooseNetworkCard}
+                            />
+                            <Route
+                                
+                                path={`${match.path}/finalStep`}
+                                component={FinalStep}
+                            />
+                        </Switch>
+                    </Router>
             </React.Fragment>
         );
     }

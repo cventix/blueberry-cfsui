@@ -138,6 +138,9 @@ msgstr "Cancellation to non-payment"
 msgid "پرداخت شده"
 msgstr "Paid"
 
+msgid "پرداخت"
+msgstr "Payment"
+
 msgid "نمایش سرورهای فعال"
 msgstr "Show active servers"
 
@@ -338,3 +341,9 @@ msgstr "Owner"
 
 msgid "نمایش بیشتر"
 msgstr "Show More"
+
+msgid "افزودن اعتبار"
+msgstr "Add Credit"
+
+msgid "برای افزایش اعتبار مبلغ مورد نظر را (به ریال) وارد کنید:"
+msgstr "To increase the credit, enter the amount (in Rials):"

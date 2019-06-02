@@ -51,7 +51,7 @@ export const ServiceDuration: React.FunctionComponent<Iprops> = (props) => {
 					<Icon src={hpcIcon} />
 				</Card>
 			</div>
-			<Footer nextStep={`/`} previousStep={`/`}/>
+			<Footer nextStep={`/order/ChoosePlan`} previousStep={`/order/SelectOs`}/>
 		</div>
 	)
 }

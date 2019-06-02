@@ -52,7 +52,7 @@ export const SelectOs: React.FunctionComponent<Iprops> = ({}) => {
 					{GetImgByOs('ubuntu')}
 				</Card>
 			</div>
-			<Footer nextStep={`./serviceDuration`} previousStep={`/`}/>
+			<Footer nextStep={`./serviceDuration`} previousStep={`/vm`}/>
 		</React.Fragment>
 	)
 }

@@ -12,6 +12,7 @@ import styles from '../../components/Content/Content.module.scss'
 import Content from '../../components/Content/Content'
 import VMContent from '../../components/VMContent/VMContent'
 import Order from '../../components/VMContent/components/Order/Order'
+import GiftCard from '../../components/VMContent/components/GiftCard/GiftCard'
 import { Table } from '../../components/Table/Table'
 import { Modal } from '../../components/ui-elements/Modal/Modal'
 import { Preview } from '../../components/ui-elements/Preview/Preview'
@@ -305,6 +306,7 @@ class App extends Component<
             <Route exact path={`/fm`} component={Content} />
             <Route exact path={`/vm`} component={VMContent} />
             <Route exact path={`/vm/order`} component={Order} />
+            <Route exact path={`/vm/giftcard`} component={GiftCard} />
           </Switch>
         </Main>
 
