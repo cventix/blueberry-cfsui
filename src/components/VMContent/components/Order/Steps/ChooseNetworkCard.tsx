@@ -39,7 +39,7 @@ export const ChooseNetworkCard: React.FunctionComponent<Iprops> = () => {
 					</div>
 				</ColorfulBox>
 			</div>
-			<Footer nextStep={`/order/FinalStep`} previousStep={`/order/choosePlan`}/>
+			<Footer nextStep={`vm/order/FinalStep`} previousStep={`vm/order/choosePlan`}/>
 		</div>
 	)
 }

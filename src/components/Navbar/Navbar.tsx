@@ -2,7 +2,7 @@
 // TODO: current page has current classname
 
 import * as React from 'react'
-import { NavLink, Link } from 'react-router-dom';
+import { NavLink, Link } from 'react-router-dom'
 import { t } from 'ttag'
 
 // ui-elements

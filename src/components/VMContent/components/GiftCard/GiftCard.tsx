@@ -29,7 +29,8 @@ export default class GiftCard extends React.Component<any, any> {
 			<div className={styles.giftCard}>
 				<VMContentHeader history={history} handleSearchInput={(e: any) => this.onChangeSearchInput(e)}/>
 				<div className={styles.addCredit}>
-					<span>{t`میزان اعتبار جاری شما ${`۳۴۰,۰۰۰`} ریال می‌باشد.`}</span>
+					<span className={styles.faModeTxt}>میزان اعتبار جاری شما <span className={styles.price}>۳۴۰,۰۰۰ ریال </span>می‌باشد.</span>
+					<span className={styles.enModeTxt}>Your Current Credit Score is: <span className={styles.price}>۳۴۰,۰۰۰ R</span></span>
 					<Button className={['btnDefault0', 'btnLg']}>
 						<IconLink icon={addCreditIcon} label={t`افزودن اعتبار`}/>
 					</Button>

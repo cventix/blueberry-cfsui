@@ -1,4 +1,5 @@
 import React, { FunctionComponent } from 'react'
+import { connect } from 'react-redux'
 import { t } from 'ttag'
 
 // ui-elements
@@ -11,6 +12,9 @@ import { StepDescription } from './StepDescription'
 import { Footer } from './Footer/Footer'
 import Card from './Card/Card'
 
+// services
+import { selectOs, stepForward } from '../../../../../services/internal/store/actions'
+
 // styles & icons
 import monthlyIcon from '../../../../../images/vmIcons/plansIcon/monthly.svg'
 import threeMonthIcon from '../../../../../images/vmIcons/plansIcon/3-month.svg'
@@ -19,13 +23,13 @@ import longIcon from '../../../../../images/vmIcons/plansIcon/long.svg'
 import hpcIcon from '../../../../../images/vmIcons/plansIcon/hpc.svg'
 import styles from '../Order.module.scss'
 
-export default interface Iprops {
+export interface Iprops {
 	history?: object
 }
 
 const steps = [t`انتخاب سیستم عامل`, t`انتخاب مدت سرویس`, t`انتخاب طرح`, t`اطلاعات کارت شبکه`, t`انتخاب نام سرور و ثبت نهایی`];
 
-export const ServiceDuration: React.FunctionComponent<Iprops> = (props) => { 
+const ServiceDuration: React.FunctionComponent<Iprops> = (props) => { 
 	console.log(props.history)
 	return (
 		<div className={styles.serviceDuration}>
@@ -51,7 +55,23 @@ export const ServiceDuration: React.FunctionComponent<Iprops> = (props) => {
 					<Icon src={hpcIcon} />
 				</Card>
 			</div>
-			<Footer nextStep={`/order/ChoosePlan`} previousStep={`/order/SelectOs`}/>
+			<Footer nextStep={`vm/order/ChoosePlan`} previousStep={`vm/order/SelectOs`}/>
 		</div>
 	)
 }
+
+const mapStateToProps = (state: any) => ({
+	selectedOs: state.vm.selectedOs
+})
+
+const mapDispatchToProps = (dispatch: any) => {
+  return {
+    selectOs: (osId: string) => dispatch(selectOs(osId)),
+    stepForward: (stepNumber: number) => dispatch(stepForward(stepNumber))
+  }
+}
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(ServiceDuration)

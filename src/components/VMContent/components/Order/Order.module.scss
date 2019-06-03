@@ -1,9 +1,5 @@
 @import '../../../../styles/global.scss';
 
-.oredrHeader {
-	margin-bottom: 66px;
-}
-
 .cardWrapper {
 	@include flex(row, wrap);
 }
@@ -21,7 +17,12 @@
 
 .stepDescription {
 	@include flex(row, wrap);
+	margin-right: 63px;
 	margin-bottom: 65px;
+
+	@media(max-width: $tablet) {
+		margin-right: 0;
+	}
 
 	@media(max-width: $mobile) {
 		margin-bottom: 20px;
@@ -288,6 +289,13 @@ body:lang(en) {
 	}
 
 	.stepDescription {
+		margin-right: 0;
+		margin-left: 50px;
+
+		@media(max-width: $tablet) {
+			margin-left: 0;
+		}
+
 		.number {
 			margin-right: 9px;
 			margin-left: 0

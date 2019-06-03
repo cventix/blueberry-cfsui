@@ -303,10 +303,8 @@ class App extends Component<
         />
         <Main showModal={this.state.showModal}>
           <Switch>
-            <Route exact path={`/fm`} component={Content} />
-            <Route exact path={`/vm`} component={VMContent} />
-            <Route exact path={`/vm/order`} component={Order} />
-            <Route exact path={`/vm/giftcard`} component={GiftCard} />
+            <Route  path={`/fm`} component={Content} />
+            <Route  path={`/vm`} component={VMContent} />
           </Switch>
         </Main>
 

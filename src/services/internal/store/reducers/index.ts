@@ -6,6 +6,7 @@ import selectReducer from './selectReducer'
 import routerReducer from './routerReducer';
 import sidebarReducer from './sidebarReducer';
 import historyReducer from './historyReducer';
+import vmReducer from './vmReducer';
 
 export default combineReducers({
   auth: authReducer,
@@ -14,5 +15,6 @@ export default combineReducers({
   selection: selectReducer,
   router: routerReducer,
   sidebar: sidebarReducer,
-  history: historyReducer
+  history: historyReducer,
+  vm: vmReducer
 })

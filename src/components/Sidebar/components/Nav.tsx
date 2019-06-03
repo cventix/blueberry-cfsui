@@ -1,4 +1,5 @@
 import * as React from 'react'
+import { Link } from 'react-router-dom'
 import { t } from 'ttag'
 
 // ui-elements
@@ -18,7 +19,9 @@ export const Nav: React.FunctionComponent<Iprops> = () => {
   return (
     <div className="nav">
       <IconLink icon={fileCloudIcon} iconAlt={`content-delivery ${altIcon}`} label={t`شبکه تحویل محتوا`} />
-      <IconLink icon={vpsIcon} iconAlt={`vps ${altIcon}`} label={t`سرور و هاست`} />
+      <Link to={`/vm`}>
+        <IconLink icon={vpsIcon} iconAlt={`vps ${altIcon}`} label={t`سرور و هاست`} />
+      </Link>
       <IconLink icon={internetIcon} iconAlt={`Internet ${altIcon}`} label={t`اینترنت`} />
       <IconLink icon={notifIcon} iconAlt={`notif ${altIcon}`} label={t`تیکت ها`} />
       <IconLink icon={financeIcon} iconAlt={`finance ${altIcon}`} label={t`فاکتور ها`} />
