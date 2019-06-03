@@ -4,8 +4,13 @@ $margin-top: 70px;
 $preview-header-color: #8b8e9b;
 $padding: 30px;
 .image {
+  display: flex;
+  justify-content: center;
+  align-content: center;
   img {
     object-fit: cover;
+    width:95%;
+    margin-top:5px;
   }
 }
 .marginLeft {
@@ -86,7 +91,11 @@ $padding: 30px;
       }
     }
   }
-
+  .previewBody {
+    margin: 2% 10%;
+    box-shadow: 0 5px 15px 0 rgba(0, 0, 0, 0.1);
+    background-color: #ffffff;
+  }
   .bottomBar {
     @include flex(row, wrap);
     justify-content: center;
@@ -96,7 +105,7 @@ $padding: 30px;
   }
   .arrows {
     @include flex(row, unset);
-    margin: 0 30px;
+    margin: 0 -2%;
     height: 60%;
     justify-content: space-between;
     align-items: center;
@@ -128,7 +137,6 @@ $padding: 30px;
 @media (max-width: $tablet +200) {
   .modal {
     .arrows {
-     
       justify-content: center;
       position: relative;
       button {
@@ -140,7 +148,6 @@ $padding: 30px;
       button:last-child {
         left: 0;
       }
-     
     }
   }
 }

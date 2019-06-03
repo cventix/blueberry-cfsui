@@ -11,14 +11,19 @@ import { navigateObject } from '../../../Content/Content'
 import { Breadcrumb } from '../../Breadcrumb/Breadcrumb'
 import { t } from 'ttag'
 import { setHistory } from '../../../../services/internal/store/actions/history'
+import { setModalSelections } from '../../../../services/internal/store/actions/selections'
 
 export interface Iprops {
   showModal?: boolean
   handleClose: () => void
   createFolder?: any
   document?: any
+  modalSelection?: any
   getModalDocuments?: any
   setHistory?: any
+  moveDocuments?: any
+  selection?: any
+  setModalSelections?: any
   modalDocs?: any
 }
 export interface Istate {
@@ -76,13 +81,16 @@ class MoveFile extends React.Component<Iprops, Istate> {
     if (e.target.tagName != 'INPUT') {
       let discriminator = this.props.document.documents.filter((obj: any) => {
         return obj.name == name
-      })[0].discriminator
+      })
+      if (discriminator[0]) discriminator = discriminator[0].discriminator
+      else this.props.setModalSelections(id)
+
       if (discriminator === 'D') {
         this.onGetDocument(true, name)
         this.props.setHistory(this.state.history.push({ title: name, active: true, onClick: this.onGetDocument }))
         console.log(history)
         this.setState({ history })
-      }
+      } else alert('selected')
     }
   }
 
@@ -113,7 +121,12 @@ class MoveFile extends React.Component<Iprops, Istate> {
           />
         </div>
         <div className={styles.submitButton}>
-          <Button className={[this.state.fileId ? 'btnPrimary100' : 'btnPrimaryOutline', 'btnSm']} style={{ marginLeft: 5 }} disabled={true}>
+          <Button
+            className={[this.state.fileId ? 'btnPrimary100' : 'btnPrimaryOutline', 'btnSm']}
+            style={{ marginLeft: 5 }}
+            disabled={!this.props.modalSelection || this.props.modalSelection.length == 0}
+            onClick={()=>this.props.moveDocuments({ targetId:this.props.modalSelection, documentIds:this.props.selection})}
+          >
             {t`انتقال`}
           </Button>
           <Button className={['btnDefault100', 'btnSm']} onClick={handleClose}>
@@ -125,13 +138,20 @@ class MoveFile extends React.Component<Iprops, Istate> {
   }
 }
 
-const mapStateToProps = (state: any) => ({ document: state.document, loading: state.loading.isLoading, modalDocs: state })
+const mapStateToProps = (state: any) => ({
+  document: state.document,
+  loading: state.loading.isLoading,
+  modalDocs: state,
+  modalSelection: state.selection.modalSelect,
+  selection: state.selection.selection
+})
 
 const mapDispatchToProps = (dispatch: any) => {
   return {
     getModalDocuments: (value: any) => dispatch(getModalDocuments(value)),
-    moveDocuments: () => dispatch(moveDocuments()),
-    setHistory: (value: any) => dispatch(setHistory(value))
+    moveDocuments: (value: any) => dispatch(moveDocuments(value)),
+    setHistory: (value: any) => dispatch(setHistory(value)),
+    setModalSelections: (value: any) => dispatch(setModalSelections(value))
   }
 }
 

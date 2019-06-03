@@ -8,6 +8,7 @@ import { EnhanceDropdown as enhancer } from '../ui-elements/Dropdown/EnhanceDrop
 
 import styles from './Table.module.scss'
 import { connect } from 'react-redux'
+import { select } from 'glamor'
 
 const EnhancedDropdown = enhancer(Dropdown)
 
@@ -29,8 +30,10 @@ export interface Iprops {
   checkbox?: boolean
   onCheck?: any
   itemName?: string
+  activeRow?: boolean
   data?: any
   hasHeader?: boolean
+  modalSelection?: any
 }
 const Table: React.FunctionComponent<Iprops> = ({
   table,
@@ -47,11 +50,13 @@ const Table: React.FunctionComponent<Iprops> = ({
   optionSelected,
   checkbox,
   onCheck,
+  modalSelection,
+  activeRow,
   onOpenCFModal,
   hasHeader = true
 }) => {
   const header = [t`نام`, t`تاریخ`, t`مالک`, t`حجم`]
-
+  console.log(modalSelection)
   return (
     <table className={styles.table}>
       {hasHeader && (
@@ -68,7 +73,7 @@ const Table: React.FunctionComponent<Iprops> = ({
         {table &&
           table.map((item: any, index: number) => {
             return (
-              <tr key={item.id}>
+              <tr key={item.id} className={modalSelection === item.id ? styles.activeRow : ''}>
                 {Object.keys(item).map((k, i) => {
                   if (k !== 'type' && k !== 'id' && k !== 'fullPath' && k !== 'discriminator' && k !== 'uuid' && k !== 'item') {
                     return (
@@ -82,7 +87,7 @@ const Table: React.FunctionComponent<Iprops> = ({
                         itemName={item.name}
                         item={item}
                         onCheck={onCheck}
-                        checked={selection[index]}
+                        checked={selection.includes(item.id)}
                         className={k === 'name' ? ['show'] : [' ']}
                         checkbox={checkbox === false ? checkbox : k === 'name' ? true : false}
                         hasType={k === 'name' && item['type']}
@@ -111,6 +116,6 @@ const Table: React.FunctionComponent<Iprops> = ({
     </table>
   )
 }
-const mapStateToProps = (state: any) => ({ selection: state.selection.selection })
+const mapStateToProps = (state: any) => ({ selection: state.selection.selection, modalSelection: state.selection.modalSelect })
 
 export default connect(mapStateToProps)(Table)

@@ -36,13 +36,7 @@ const PreviewSideBarImage: React.FunctionComponent<Iprops> = ({ onItemClick, ite
   return (
     <div className="menu">
       <Button className={['btnSuccess0', 'btnLg']} style={{ marginBottom: '15px' }}>
-        <a
-          href={`http://cdn.persiangig.com/dl/${downloadToken}/${item.uuid}/${item.name}`}
-          style={{ color: 'inherit' }}
-          download
-        >
-          <IconLink icon={uploadIcon} iconAlt="upload icon" label={t`دانلود فایل`} onClick={onItemClick} />
-        </a>
+        <IconLink icon={uploadIcon} iconAlt="upload icon" label={t`دانلود فایل`} onClick={onItemClick} />
       </Button>
       <div className={'downloadBox'}>آمار: {JSON.stringify(item.downloadCount)} دانلود</div>
       <div className={'copyBox'}>

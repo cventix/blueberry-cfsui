@@ -3,7 +3,7 @@ import { css } from 'glamor'
 import 'react-toastify/dist/ReactToastify.css'
 
 toast.configure({
-  autoClose: 10000,
+ 
   draggable: false,
   closeButton: false,
   rtl: true
@@ -13,6 +13,7 @@ export default {
   success(msg: any, options = {}) {
     return toast.success(msg, {
       ...options,
+       autoClose: 10000,
       className: css({
         background: '#21d352 !important',
         fontFamily: 'vazir-regular !important',
@@ -28,6 +29,7 @@ export default {
   error(msg: string, options = {}) {
     return toast.error(msg, {
       ...options,
+       autoClose: 3000,
       className: css({
         height: '35px !important',
         fontFamily: 'vazir-regular !important',

@@ -15,7 +15,7 @@ import { UploadModal } from '../../components/ui-elements/Uploadmodal/Uploadmoda
 import MoveFile from '../../components/ui-elements/Modal/MoveFileModal.tsx/MoveFile'
 import { TextInput } from '../../components/ui-elements/Input/Input'
 import { Button } from '../../components/ui-elements/Button/Button'
-import { downloadDirectory } from '../../services/internal/store/actions'
+import { downloadDirectory, removeMessages } from '../../services/internal/store/actions'
 import { setToggle } from '../../services/internal/store/actions/selections'
 import { ToastUndo } from '../../components/ui-elements/Toast/ToastUndo'
 
@@ -57,8 +57,10 @@ class App extends Component<
     setToggle?: any
     restoreFiles?: any
     setTempDocuments?: any
+    downloadToken?: string
     document?: any
-    match?:any
+    match?: any
+    removeMessages?: any
   },
   {}
 > {
@@ -105,6 +107,7 @@ class App extends Component<
     this.onRemoveDocument()
   }
   onItemClick = async (e: any) => {
+    console.log(this.props.match.params)
     if (!e.target) {
       console.log(e)
       switch (e) {
@@ -163,8 +166,11 @@ class App extends Component<
           break
         case t`دانلود فایل`:
           let uuid = this.props.item.uuid
-
-          this.props.generateDownloadLink(uuid)
+          let result = await this.props.generateDownloadLink(uuid)
+          setTimeout(() => {
+            if (result && this.props.downloadToken && this.props.downloadToken.length > 0)
+              window.location.href = `http://cdn.persiangig.com/dl/${this.props.downloadToken}/${this.props.item.uuid}/${this.props.item.name}`
+          }, 1000)
           break
         default:
           break
@@ -226,7 +232,10 @@ class App extends Component<
     this.props.setRouter(this.props.history)
   }
   componentWillReceiveProps(nextProps: any) {
-    if (nextProps.messages.errors) toast.error(nextProps.messages.errors)
+    if (nextProps.messages.errors.length > 0) {
+      toast.error(nextProps.messages.errors)
+      this.props.removeMessages()
+    }
   }
   render() {
     let modal
@@ -302,7 +311,8 @@ const mapStateToProps = (state: any) => ({
   document: state.document,
   selection: state.selection.selection,
   item: state.sidebar.item,
-  messages: state.messages
+  messages: state.messages,
+  downloadToken: state.sidebar.downloadToken
 })
 
 const mapDispatchToProps = (dispatch: any) => {
@@ -318,7 +328,8 @@ const mapDispatchToProps = (dispatch: any) => {
     setRouter: (value: any) => dispatch(setRouter(value)),
     setPreviewImage: (value: any) => dispatch(setPreviewImage(value)),
     setToggle: (value: any) => dispatch(setToggle(value)),
-    restoreFiles: (value: any) => dispatch(restoreFiles(value))
+    restoreFiles: (value: any) => dispatch(restoreFiles(value)),
+    removeMessages: () => dispatch(removeMessages())
   }
 }
 

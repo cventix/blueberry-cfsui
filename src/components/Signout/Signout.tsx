@@ -26,7 +26,7 @@ const Signout: React.FunctionComponent<Iprops> = ({ username, open, signout }) =
       <li className={styles.item}>
         <IconLink icon={profile} iconAlt="profile" label={t`حساب کاربری`} />
       </li>
-      <li className={styles.item} onClick={()=>{signout;window.location.replace('login');}}>
+      <li className={styles.item} onClick={()=>{signout;window.location.replace('/login');}}>
         <IconLink icon={signOut} iconAlt="logout" label={t`خروج`} />
       </li>
     </ul>

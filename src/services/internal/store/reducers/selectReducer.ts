@@ -6,7 +6,8 @@ export interface PayloadInterface {
 
 export const initialState: any = {
   selection: [],
-  toggle: [false, false]
+  toggle: [false, false],
+  modalSelect: []
 }
 
 const selectReducer = (state: any = initialState, action: any) => {
@@ -23,13 +24,17 @@ const selectReducer = (state: any = initialState, action: any) => {
         ...state,
         toggle: action.payload
       }
-      case actionTypes.REMOVE_SELECTION:
-          return {
-            ...state,
-            selection: []
-          }
-          
-      
+    case actionTypes.SET_MODAL_SELECTIONS:
+      return {
+        ...state,
+        modalSelect: action.payload
+      }
+    case actionTypes.REMOVE_SELECTION:
+      return {
+        ...state,
+        selection: []
+      }
+
     default:
       return state
   }

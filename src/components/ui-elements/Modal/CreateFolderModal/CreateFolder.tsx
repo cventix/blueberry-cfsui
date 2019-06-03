@@ -36,7 +36,7 @@ class CFmodal extends React.Component<Iprops, any> {
   handleSubmit = async (e: any) => {
     if (e) e.preventDefault()
     let parentId, parentName
-    console.log(this.props.document[0].parent)
+  
     if (this.props.document[0].parent) {
       parentId = this.props.document[0].parent.id
       parentName = this.props.document[0].parent.name

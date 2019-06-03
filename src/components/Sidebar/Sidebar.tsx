@@ -6,7 +6,7 @@ import { t } from 'ttag'
 import FM from './components/FM'
 import { VM } from './components/VM'
 import './Sidebar.scss'
-import { PreviewSideBar } from './components/PreviewSideBar'
+import PreviewSideBar  from './components/PreviewSideBar'
 import PreviewSideBarImage from './components/PreviewSideBarImage'
 
 export default interface Iprops {

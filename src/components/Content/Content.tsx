@@ -22,12 +22,15 @@ import {
   removeFolder,
   moveDocuments,
   shareDocuments,
-  setSidebarItems
+  setSidebarItems,
+  getTrashDocuments,
+  getSharedDocuments,
+  generateDownloadLink
 } from '../../services/internal/store/actions'
 import { formatDate } from '../../services/internal/utils/formatDates'
 import { formatBytes } from '../../services/internal/utils/formatBytes'
 import { sliceData } from '../../services/internal/utils/sliceData'
-import { setSelections, removeSelection } from '../../services/internal/store/actions/selections'
+import { setSelections, removeSelection, setToggle } from '../../services/internal/store/actions/selections'
 
 // styles & icons
 import loading from '../../images/loading/tail-spin.2.svg'
@@ -36,6 +39,7 @@ import styles from './Content.module.scss'
 import { Preview } from '../ui-elements/Preview/Preview'
 import image from '../../images/image.jpg'
 import ShareModal from '../ui-elements/Modal/ShareModal.tsx/ShareModal'
+import { IGenerateLinkInput } from '../../services/internal/repositories/documents';
 const sort = (data: object[]) => {
   var sortOrder = ['folder', 'image', 'music']
   data.sort(function(a: any, b: any) {
@@ -65,6 +69,12 @@ export interface IProps {
   selection?: any
   image?: any
   removeSelection?: any
+  getSharedDocuments?: any
+  getTrashDocuments?: any
+  onItemClick?: any
+  setToggle?: any
+  generateDownloadLink?: any
+  downloadToken?: string
 }
 
 export interface navigateObject {
@@ -124,11 +134,18 @@ class Content extends React.Component<IProps, IState> {
     this.updateWindowDimensions()
     window.addEventListener('resize', this.updateWindowDimensions)
 
-    if (this.props.location.pathname === '/fm') {
+    if (this.props.location.pathname === '/fm' || this.props.location.pathname === '/fm/') {
       this.onGetDocument(false)
+      this.props.setToggle([false, false])
       this.setState({ table: this.props.data })
     } else {
-      this.onGetDocument(true, this.props.location.pathname.split('/fm/')[1])
+      if (this.props.location.pathname.split('/fm/')[1].includes('trash')) {
+        this.props.getTrashDocuments()
+        this.props.setToggle([false, true])
+      } else if (this.props.location.pathname.split('/fm/')[1].includes('shared')) {
+        this.props.getSharedDocuments()
+        this.props.setToggle([true, false])
+      } else this.onGetDocument(true, this.props.location.pathname.split('/fm/')[1])
     }
 
     this.setState({ showMore: this.state.table.length > 10 ? true : false })
@@ -136,8 +153,17 @@ class Content extends React.Component<IProps, IState> {
 
   /**back button */
   componentDidUpdate(prevProps: any, prevState: any) {
-    if (this.props.location.pathname !== prevProps.location.pathname && this.props.location.pathname === '/fm') {
-      this.onGetDocument(false)
+    if (
+      this.props.location.pathname !== prevProps.location.pathname &&
+      this.props.location.pathname.includes('/fm') &&
+      !prevProps.location.pathname.includes('/preview') &&
+      !this.props.location.pathname.includes('/preview')
+    ) {
+      if (!this.props.location.pathname.split('/fm')[1] || this.props.location.pathname.split('/fm')[1] == '/') {
+        this.onGetDocument(false)
+        this.props.setToggle([false, false])
+      }
+      this.onGetDocument(true, this.props.location.pathname.split('/fm/')[1])
     }
   }
 
@@ -279,7 +305,7 @@ class Content extends React.Component<IProps, IState> {
       })[0].discriminator
       if (discriminator === 'D') {
         this.props.history.push(`${this.props.history.location.pathname}/${name}`)
-        this.onGetDocument(true, name)
+        this.onGetDocument(true, `${this.props.history.location.pathname.split('fm/')[1]}`)
       } else {
         this.props.history.push(`fm/preview/${item.genericType}${item.genericType === 'image' ? '/' + this.props.image : ''}/${name}`)
         this.props.setItem(item)
@@ -322,6 +348,14 @@ class Content extends React.Component<IProps, IState> {
       [event.target.name]: event.target.value
     })
   }
+  downloadFile = async () => {
+    let uuid = this.props.item.uuid
+    let result = await this.props.generateDownloadLink(uuid)
+    setTimeout(() => {
+      if (result && this.props.downloadToken && this.props.downloadToken.length > 0)
+        window.location.href = `http://cdn.persiangig.com/dl/${this.props.downloadToken}/${this.props.item.uuid}/${this.props.item.name}`
+    }, 1000)
+  }
 
   // rename modal
   openRenameModal = (renameFileId: number) => {
@@ -338,7 +372,7 @@ class Content extends React.Component<IProps, IState> {
   }
 
   handleClose = () => {
-    if (this.props.history.location.pathname.includes('preview')) this.props.history.goBack()
+    if (this.props.history.location.pathname.includes('preview')) this.props.history.push('/fm')
     this.setState({ showModal: false, renameFileId: '', modalView: '' })
   }
 
@@ -371,11 +405,10 @@ class Content extends React.Component<IProps, IState> {
   }
 
   // on item check
-  onCheck = (id: number,e:any) => {
-   console.log(id)
-  
+  onCheck = (id: number, e: any) => {
     let { selectedArray } = this.state
     console.log(id)
+    console.log(selectedArray)
     if (selectedArray.indexOf(id) === -1) selectedArray.push(id)
     else
       selectedArray = selectedArray.filter(function(obj) {
@@ -434,7 +467,13 @@ class Content extends React.Component<IProps, IState> {
       //   break
       case 'previewModal':
         preview = (
-          <Preview show={true} type={'music'} item={this.state[`item${this.state.previewId}`]} handleClose={this.handleClose}>
+          <Preview
+            show={true}
+            type={'music'}
+            item={this.state[`item${this.state.previewId}`]}
+            handleClose={this.handleClose}
+            onItemClick={this.downloadFile}
+          >
             {this.props.item.genericType === 'image' ? (
               <img src={`http://cdn.persiangig.com/preview/${this.props.item.uuid}/${this.props.image}/${this.props.item.name}`} />
             ) : (
@@ -502,12 +541,14 @@ const mapStateToProps = (state: IState) => ({
   auth: state.auth,
   item: state.sidebar.item,
   image: state.sidebar.image,
-  selection: state.selection.selection
+  selection: state.selection.selection,
+  downloadToken: state.sidebar.downloadToken
 })
 
 const mapDispatchToProps = (dispatch: any) => {
   return {
     getDocuments: (value: any) => dispatch(getDocuments(value)),
+    generateDownloadLink: (value: IGenerateLinkInput) => dispatch(generateDownloadLink(value)),
     createFolder: () => dispatch(createFolder()),
     renameFolder: (value: any) => dispatch(renameFolder(value)),
     moveDocuments: () => dispatch(moveDocuments()),
@@ -515,7 +556,10 @@ const mapDispatchToProps = (dispatch: any) => {
     removeFolder: (value: any) => dispatch(removeFolder(value)),
     setSelections: (value: any) => dispatch(setSelections(value)),
     setItem: (value: any) => dispatch(setSidebarItems(value)),
-    removeSelection: () => dispatch(removeSelection())
+    removeSelection: () => dispatch(removeSelection()),
+    getTrashDocuments: () => dispatch(getTrashDocuments()),
+    setToggle: (value: any) => dispatch(setToggle(value)),
+    getSharedDocuments: () => dispatch(getSharedDocuments())
   }
 }
 

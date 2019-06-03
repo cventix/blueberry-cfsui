@@ -65,6 +65,7 @@ class Documents implements DocumentsInterface {
   }
 
   async getDocuments({ isChildren, path, headers }: IGetDocumentsInput = { isChildren: false, path: '', headers: {} }) {
+    console.log(path)
     const url = `/rest/documents${isChildren ? '/children' : ''}?sort=+discriminator,+name${isChildren ? `&path=${path}` : ''}`
     try {
       return await this._rest.get({ url, headers })

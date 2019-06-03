@@ -91,8 +91,10 @@ export function* renameFolder(action: AnyAction) {
   }
 }
 
-export function* moveDocuments(action: AnyAction) {
-  let moveInfo = { targetId: action.targetId, documentIds: action.documentIds }
+export function* moveDocuments(action: any) {
+
+  let moveInfo = { targetId: action.payload.targetId, documentIds: action.payload.documentIds }
+  console.log(moveInfo)
   try {
     yield put(actions.setLoadingState(true))
     yield documents.moveDocuments(moveInfo)

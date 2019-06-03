@@ -16,7 +16,9 @@ $border-bottom: 1.5px solid $border-table;
     border-bottom: $border-bottom;
     color: $dk-gray;
   }
-
+  .activeRow{
+    background-color: #F7F9FA;
+  }
   tr {
     cursor: pointer;
 

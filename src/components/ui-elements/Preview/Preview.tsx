@@ -21,9 +21,10 @@ export default interface Iprops {
   show?: boolean
   item?: any
   type?: string
+  onItemClick?:any
 }
-import Config from '../../../services/internal/config/config'
-import DownlaodBarImage from './DownloadBar/DownlaodBarImage'
+
+import DownloadBarImage from './DownloadBar/DownlaodBarImage'
 
 export const Preview: React.FunctionComponent<Iprops> = props => {
   let content
@@ -51,34 +52,36 @@ export const Preview: React.FunctionComponent<Iprops> = props => {
             <Icon src={closeIcon} className={styles.icon} /> <span className={styles.text}>بستن</span>
           </Button>
         </div>
-        <div className={styles.arrows}>
-          <Button className={['btnControl', 'btnCircle']}>
-            <Icon src={arrowLeft} className={[styles.icon, styles.iconRight].join(' ')} />
-          </Button>
-          <section className={[modalStyles.modalMain, styles.previewMain].join(' ')}>
-            <div className={styles.image}>{props.children}</div>
-          </section>
-          <Button className={['btnControl', 'btnCircle']}>
-            <Icon src={arrowLeft} className={styles.icon} />
-          </Button>
-        </div>
-
-        {content === 'image' && (
-          <div className={styles.bottomBar}>
-            <Button className={['btnControl', 'btnLg', 'btnCircle']} style={{ height: 50 }}>
-              <div className={styles.row}>
-                <Icon src={bigger} className={styles.icon} />
-                تمام صفحه
-                <div className={localStorage.getItem('__language') == 'fa' ? styles.marginRight : styles.marginleft}>
-                  <Icon src={zoomOut} className={styles.icon} />
-                  59%
-                  <Icon src={zoomIn} className={styles.icon} />
-                </div>
-              </div>
+        <div className={styles.previewBody}>
+          <div className={styles.arrows}>
+            <Button className={['btnControl', 'btnCircle']}>
+              <Icon src={arrowLeft} className={[styles.icon, styles.iconRight].join(' ')} />
+            </Button>
+            <section className={[modalStyles.modalMain, styles.previewMain].join(' ')} style={{ width: '100%' }}>
+              <div className={styles.image}  style={{ width: '100%' }} >{props.children}</div>
+            </section>
+            <Button className={['btnControl', 'btnCircle']}>
+              <Icon src={arrowLeft} className={styles.icon} />
             </Button>
           </div>
-        )}
-        <DownlaodBarImage />
+
+          {content === 'image' && (
+            <div className={styles.bottomBar}>
+              <Button className={['btnControl', 'btnLg', 'btnCircle']} style={{ height: 50 }}>
+                <div className={styles.row}>
+                  <Icon src={bigger} className={styles.icon} />
+                  تمام صفحه
+                  <div className={localStorage.getItem('__language') == 'fa' ? styles.marginRight : styles.marginleft}>
+                    <Icon src={zoomOut} className={styles.icon} />
+                    59%
+                    <Icon src={zoomIn} className={styles.icon} />
+                  </div>
+                </div>
+              </Button>
+            </div>
+          )}
+          <DownloadBarImage onItemClick={props.onItemClick}/>
+        </div>
       </div>
     </div>
   )

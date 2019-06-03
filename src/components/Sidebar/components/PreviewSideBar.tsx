@@ -14,24 +14,31 @@ import upFromUrlIcon from '../../../images/sidebarIcons/upfromurl.svg'
 import { ActionNav } from './ActionNav'
 import FileFiltering from './FileFiltering/FileFiltering'
 import { UpgradeAccount } from './UpgradeAccount/UpgradeAccount'
-import { Nav } from './Nav'
 import '../Sidebar.scss'
+import { connect } from 'react-redux'
 
-export default interface Iprops {
+export interface Iprops {
   onItemClick?: (e: any) => void
+  item?: any
+  image?: string
+  downloadToken?: string
 }
 
-export const PreviewSideBar: React.FunctionComponent<Iprops> = ({ onItemClick }) => {
+const PreviewSideBar: React.FunctionComponent<Iprops> = ({ onItemClick, item, image, downloadToken }) => {
   return (
     <div className="menu">
       <Button className={['btnSuccess0', 'btnLg']} style={{ marginBottom: '15px' }}>
-        <IconLink icon={uploadIcon} iconAlt="upload icon" label={t`دانلود فایل`} />
+        <IconLink icon={uploadIcon} iconAlt="upload icon" label={t`دانلود فایل`} onClick={onItemClick} />
       </Button>
       <IconLink icon={upFromUrlIcon} onClick={onItemClick} className="iconLink upFromUrl" iconAlt="upload icon" label={t`آپلود فایل از URL`} />
       <ActionNav onItemClick={onItemClick} hide={true} />
       <Hr />
       <FileFiltering forFM={true} onItemClick={onItemClick} />
-      <UpgradeAccount forPreview={true}/>
+      <UpgradeAccount forPreview={true} />
     </div>
   )
 }
+
+const mapStateToProps = (state: any) => ({ item: state.sidebar.item, image: state.sidebar.image, downloadToken: state.sidebar.downloadToken })
+
+export default connect(mapStateToProps)(PreviewSideBar)

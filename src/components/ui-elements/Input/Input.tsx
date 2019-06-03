@@ -24,6 +24,7 @@ export default interface Iprops {
   name?: string
   type?: string
   value?: string
+  onClick?: any
 }
 
 export const TextInput = ({
@@ -40,6 +41,7 @@ export const TextInput = ({
   success,
   withIcon,
   icon,
+  onClick,
   style
 }: Iprops) => {
   return (
@@ -60,6 +62,7 @@ export const TextInput = ({
         type={type}
         className={withIcon ? styles.textInput : `${styles.textInput} ${styles.reset}`}
         placeholder={placeholder}
+        onClick={onClick}
         value={value}
         name={name}
         disabled={disabled}

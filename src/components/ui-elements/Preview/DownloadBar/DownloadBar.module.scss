@@ -2,13 +2,12 @@
 
 .downloadBar {
   background: white;
-  margin: 0 10%;
+
   display: none;
   flex-direction: column;
   justify-content: center;
   border-radius: 3px;
-  box-shadow: 0 5px 15px 0 rgba(0, 0, 0, 0.1);
-  background-color: #ffffff;
+ 
   align-items: center;
   padding: 20px 0;
   .downloadBox {
