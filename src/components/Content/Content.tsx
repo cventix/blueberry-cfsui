@@ -39,7 +39,7 @@ import styles from './Content.module.scss'
 import { Preview } from '../ui-elements/Preview/Preview'
 import image from '../../images/image.jpg'
 import ShareModal from '../ui-elements/Modal/ShareModal.tsx/ShareModal'
-import { IGenerateLinkInput } from '../../services/internal/repositories/documents';
+import { IGenerateLinkInput } from '../../services/internal/repositories/documents'
 const sort = (data: object[]) => {
   var sortOrder = ['folder', 'image', 'music']
   data.sort(function(a: any, b: any) {
@@ -419,6 +419,21 @@ class Content extends React.Component<IProps, IState> {
     this.setState({ selectedArray })
   }
 
+  goNext = () => {
+    console.log(this.props.item.id)
+    let index = this.props.document.documents.findIndex((p: any) => p.id == this.props.item.id)
+    if (this.props.document.documents[index].discriminator === 'F') {
+      let item = this.props.document.documents[+index + 1]
+      this.props.setItem(item)
+
+    }
+    console.log(index)
+    // this.props.history.push(`fm/preview/${item.genericType}${item.genericType === 'image' ? '/' + this.props.image : ''}/${name}`)
+    // this.props.setItem(item)
+    // console.log('hi')
+    // this.setState({ modalView: 'previewModal', previewId: id, fileName: name, [`item${id}`]: item })
+  }
+
   public render() {
     let dropDownData = [
       { label: t`دانلود فایل` },
@@ -472,7 +487,8 @@ class Content extends React.Component<IProps, IState> {
             type={'music'}
             item={this.state[`item${this.state.previewId}`]}
             handleClose={this.handleClose}
-            onItemClick={this.downloadFile}
+            goNext={this.goNext}
+            onDownloadFile={this.downloadFile}
           >
             {this.props.item.genericType === 'image' ? (
               <img src={`http://cdn.persiangig.com/preview/${this.props.item.uuid}/${this.props.image}/${this.props.item.name}`} />

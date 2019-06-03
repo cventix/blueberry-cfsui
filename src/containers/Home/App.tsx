@@ -107,7 +107,7 @@ class App extends Component<
     this.onRemoveDocument()
   }
   onItemClick = async (e: any) => {
-    console.log(this.props.match.params)
+    console.log(e)
     if (!e.target) {
       console.log(e)
       switch (e) {
