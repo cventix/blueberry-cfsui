@@ -58,6 +58,7 @@ $stepbar-color: #e8eaeb;
 				display: block;
 				width: 160px;
 				text-align: center;
+				cursor: pointer;
 
 				@media(min-width: $web-medium + 1) and (max-width: $web-medium-max + 100) {
 					width: 140px;

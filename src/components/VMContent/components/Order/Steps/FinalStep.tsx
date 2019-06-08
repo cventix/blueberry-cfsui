@@ -1,28 +1,35 @@
 import React, { FunctionComponent } from 'react'
+import { connect } from 'react-redux'
 import { t } from 'ttag'
 
 // ui-elements
 import { ColorfulBox } from '../../../../../components/ui-elements/ColorfulBox/ColorfulBox'
-import { Stepbar } from '../../../../../components/Stepbar/Stepbar'
 import { TextInput } from '../../../../../components/ui-elements/Input/Input'
 import { Button } from '../../../../../components/ui-elements/Button/Button'
+import { Stepbar } from '../../../../../components/Stepbar/Stepbar'
 
 // internal-component
 import { StepDescription } from './StepDescription'
 import { Footer } from './Footer/Footer'
 
+// services
+import { selectOs, goToPreviousStep } from '../../../../../services/internal/store/actions'
+
 // styles
 import styles from '../Order.module.scss'
 
-export default interface Iprops {}
+export interface Iprops {
+	currentStep: number
+	goToPreviousStep?: (e: any) => void
+}
 
 const steps = [t`انتخاب سیستم عامل`, t`انتخاب مدت سرویس`, t`انتخاب طرح`, t`اطلاعات کارت شبکه`, t`انتخاب نام سرور و ثبت نهایی`];
 
-export const FinalStep: React.FunctionComponent<Iprops> = () => { 
+const FinalStep: React.FunctionComponent<Iprops> = (props) => {
 	return (
 		<div className={styles.FinalStep}>
 			<div className={styles.stepbarWrapper}>
-				<Stepbar steps={steps} currentStep={4} />
+				<Stepbar steps={steps} currentStep={props.currentStep} />
 			</div>
 			<StepDescription stepNumber={5} title={[t`مرحله پنجم`, `:`, steps[4]].join(' ')} subTitle={t`نام سرور خود را انتحاب کنید`}/>
 			<ColorfulBox className={['white', 'lg']} margin={"0 0 30px 0"}>
@@ -42,7 +49,26 @@ export const FinalStep: React.FunctionComponent<Iprops> = () => {
 					</div>
 				</ColorfulBox>
 			</div>
-			<Footer finalStep={true} previousStep={`vm/order/chooseNetwork`}/>
+			<Footer 
+			finalStep={true}
+			previousStep={`vm/order/chooseNetwork`}
+			handlePreviousStep={props.goToPreviousStep}
+			/>
 		</div>
 	)
 }
+
+const mapStateToProps = (state: any) => ({
+	currentStep: state.vm.currentStep
+})
+
+const mapDispatchToProps = (dispatch: any) => {
+  return {
+    goToPreviousStep: (stepNumber: number) => dispatch(goToPreviousStep(stepNumber))
+  }
+}
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(FinalStep)

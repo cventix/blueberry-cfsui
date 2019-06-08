@@ -1,17 +1,24 @@
 import { actionTypes } from '../actions/types'
 
-export interface PayloadInterface {
-  data?: object[]
+// Interfaces
+interface StateInterface {
+  os: string
+  currentStep: number
 }
 
-export const initialState: any = {
-  selectedOs: '',
-  steps:[]
+export const initialState: StateInterface = {
+  os: '',
+  currentStep: 0,
 }
 
-const checkStep = (stepNumbers: number[], state: any) => {
-  console.log(state)
-  return 0 
+const goToNextStep = (stepNumbers: number[], state: any) => {
+  state.currentStep = state.currentStep + 1;
+  return state.currentStep
+}
+
+const goToPreviousStep = (stepNumbers: number[], state: any) => {
+  state.currentStep = state.currentStep - 1;
+  return state.currentStep
 }
 
 const vmReducer = (state: any = initialState, action: any) => {
@@ -20,17 +27,17 @@ console.log(action.type)
     case actionTypes.SELECT_OS:
       return {
         ...state,
-        selectedOs: action.payload
+        os: action.payload
       }
     case actionTypes.STEP_FORWARD:
       return {
         ...state,
-        steps: checkStep(action.payload, state)
+        currentStep: goToNextStep(action.payload, state)
       }
     case actionTypes.STEP_BACKWARD:
       return {
         ...state,
-        steps: action.payload
+        currentStep: goToPreviousStep(action.payload, state)
       }
     default:
       return state

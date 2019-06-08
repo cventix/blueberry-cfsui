@@ -13,18 +13,21 @@ import { Footer } from './Footer/Footer'
 import Card from './Card/Card'
 
 // services
-import { selectOs, stepForward } from '../../../../../services/internal/store/actions'
+import { selectOs, goToNextStep, goToPreviousStep } from '../../../../../services/internal/store/actions'
 
 // styles & icons
-import monthlyIcon from '../../../../../images/vmIcons/plansIcon/monthly.svg'
 import threeMonthIcon from '../../../../../images/vmIcons/plansIcon/3-month.svg'
 import sixMonthIcon from '../../../../../images/vmIcons/plansIcon/6-month.svg'
+import monthlyIcon from '../../../../../images/vmIcons/plansIcon/monthly.svg'
 import longIcon from '../../../../../images/vmIcons/plansIcon/long.svg'
 import hpcIcon from '../../../../../images/vmIcons/plansIcon/hpc.svg'
 import styles from '../Order.module.scss'
 
 export interface Iprops {
 	history?: object
+	currentStep: number
+	goToNextStep?: (e: any) => void
+	goToPreviousStep?: (e: any) => void
 }
 
 const steps = [t`انتخاب سیستم عامل`, t`انتخاب مدت سرویس`, t`انتخاب طرح`, t`اطلاعات کارت شبکه`, t`انتخاب نام سرور و ثبت نهایی`];
@@ -35,7 +38,7 @@ const ServiceDuration: React.FunctionComponent<Iprops> = (props) => {
 		<div className={styles.serviceDuration}>
 			<ColorfulBox className={['green', 'lg']} withClose={true} message={t`با خرید پلن روزانه، سرور شما هر روز به صورت خودکار تمدید می شود. هر گاه از تمدید منصرف شدید، می توانید سرور را حذف نمایید.`}/>
 			<div className={styles.stepbarWrapper}>
-				<Stepbar steps={steps} currentStep={1} />
+				<Stepbar steps={steps} currentStep={props.currentStep} />
 			</div>
 			<StepDescription stepNumber={2} title={[t`مرحله دوم`,`:`, steps[1]].join(' ')} subTitle={t`مدت زمانی که قصد دارید سرویس برای شما فعال شود انتخاب کنید.`}/>
 			<div className={styles.cardWrapper}>
@@ -55,19 +58,24 @@ const ServiceDuration: React.FunctionComponent<Iprops> = (props) => {
 					<Icon src={hpcIcon} />
 				</Card>
 			</div>
-			<Footer nextStep={`vm/order/ChoosePlan`} previousStep={`vm/order/SelectOs`}/>
+			<Footer 
+			nextStep={`vm/order/ChoosePlan`} 
+			previousStep={`vm/order/SelectOs`} 
+			handleNextStep={props.goToNextStep}
+			handlePreviousStep={props.goToPreviousStep}
+			/>
 		</div>
 	)
 }
 
 const mapStateToProps = (state: any) => ({
-	selectedOs: state.vm.selectedOs
+	currentStep: state.vm.currentStep
 })
 
 const mapDispatchToProps = (dispatch: any) => {
   return {
-    selectOs: (osId: string) => dispatch(selectOs(osId)),
-    stepForward: (stepNumber: number) => dispatch(stepForward(stepNumber))
+    goToNextStep: (stepNumber: number) => dispatch(goToNextStep(stepNumber)),
+    goToPreviousStep: (stepNumber: number) => dispatch(goToPreviousStep(stepNumber))
   }
 }
 

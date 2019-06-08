@@ -23,7 +23,7 @@ const Card: React.FunctionComponent<Iprops> = (props) => {
 		<div className={props.selected ? [`${styles.item}`, `${styles.selected}`, props.className].join(' ') :
 			props.withoutHover || props.active ? [`${styles.item}`, `${styles.withoutHover}`,`${styles.active}`, props.className].join(' ') : 
 			[`${styles.item}`, props.className].join(' ')} 
-			onClick={ ()=> props.onClickCard && props.onClickCard(props.footerData)}
+			onClick={()=> props.onClickCard && props.onClickCard(props.footerData)}
 		>
 			<div className={styles.top} >
 				{props.children}

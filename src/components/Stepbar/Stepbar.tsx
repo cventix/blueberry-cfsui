@@ -5,10 +5,11 @@ import styles from './Stepbar.module.scss'
 
 export default interface Iprops {
   steps: string[]
-  currentStep: number
+  currentStep: number,
+  onStepClick?: (e: any) => void
 }
 
-const renderSteps = (steps: string[], currentStep: number) => {
+const renderSteps = (steps: string[], currentStep: number, onStepClick: any) => {
   return steps.map((stepTitle, index) => {
     let stepClassName = ''
     currentStep = currentStep || 0
@@ -19,8 +20,8 @@ const renderSteps = (steps: string[], currentStep: number) => {
 
     return (
       <li className={`${styles.step} ${stepClassName}`} key={index}>
-        <a className={styles.item}>
-          <span className={styles.circle} />
+        <a className={styles.item} onClick={() => onStepClick(currentStep)}>
+          <span className={styles.circle}/>
           <span className={styles.caption}>{stepTitle}</span>
         </a>
       </li>
@@ -28,8 +29,8 @@ const renderSteps = (steps: string[], currentStep: number) => {
   })
 }
 
-export const Stepbar = ({ steps, currentStep }: Iprops) => (
+export const Stepbar = ({ steps, currentStep, onStepClick }: Iprops) => (
   <div className={styles.stepbar}>
-    <ul className={styles.stepsWrapper}>{renderSteps(steps, currentStep)}</ul>
+    <ul className={styles.stepsWrapper}>{renderSteps(steps, currentStep, onStepClick)}</ul>
   </div>
 )
