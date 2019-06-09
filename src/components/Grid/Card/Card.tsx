@@ -41,7 +41,7 @@ export const Card: React.FunctionComponent<Iprops> = ({
   return (
     <div className={styles.item}>
       <div
-        {...handleNavigate && { onClick: e => handleNavigate({ e: e, name: item['name'] }) }}
+        {...handleNavigate && { onClick: e => handleNavigate({ e: e, name: item['name'], uuid: item['uuid'], item: item }) }}
         style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}
       >
         <div className={styles.type}>

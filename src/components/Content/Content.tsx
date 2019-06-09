@@ -40,6 +40,7 @@ import { Preview } from '../ui-elements/Preview/Preview'
 import image from '../../images/image.jpg'
 import ShareModal from '../ui-elements/Modal/ShareModal.tsx/ShareModal'
 import { IGenerateLinkInput } from '../../services/internal/repositories/documents'
+import MyVideoPlayer from '../VideoPlayer/VideoPlayer'
 const sort = (data: object[]) => {
   var sortOrder = ['folder', 'image', 'music']
   data.sort(function(a: any, b: any) {
@@ -55,6 +56,7 @@ export interface IProps {
   moveDocuments?: any
   shareDocuments?: any
   removeFolder?: any
+  fullScreen?:any
   data?: any
   history?: any
   location?: any
@@ -98,6 +100,17 @@ export interface IState {
   showMore: boolean
   selectedArray: number[]
   [key: string]: any
+}
+
+const videoJsOptions = {
+  autoplay: true,
+  controls: true,
+  sources: [
+    {
+      src: 'http://vjs.zencdn.net/v/oceans.mp4',
+      type: 'video/mp4'
+    }
+  ]
 }
 
 class Content extends React.Component<IProps, IState> {
@@ -227,7 +240,7 @@ class Content extends React.Component<IProps, IState> {
   }
 
   updateWindowDimensions() {
-    this.setState({ width: window.innerWidth, height: window.innerHeight })
+    if (!this.props.fullScreen) this.setState({ width: window.innerWidth, height: window.innerHeight })
   }
 
   onSort = (sortBy: string, type?: string) => {
@@ -419,13 +432,19 @@ class Content extends React.Component<IProps, IState> {
     this.setState({ selectedArray })
   }
 
-  goNext = () => {
+  goNext = (add: number) => {
     console.log(this.props.item.id)
     let index = this.props.document.documents.findIndex((p: any) => p.id == this.props.item.id)
     if (this.props.document.documents[index].discriminator === 'F') {
-      let item = this.props.document.documents[+index + 1]
-      this.props.setItem(item)
-
+      let item = this.props.document.documents[+index + add]
+      console.log(+index + add, this.props.document.documents.length)
+      if (+index + add > this.props.document.documents.length - 1) item = this.props.document.documents[0]
+      if (+index + add == 0) item = this.props.document.documents[this.props.document.documents.length]
+      if (item) {
+        this.props.history.push(`/fm/preview/${item.genericType}${item.genericType === 'image' ? '/' + this.props.image : ''}/${name}`)
+        this.props.setItem(item)
+        this.setState({ modalView: 'previewModal', previewId: item.id, fileName: name, [`item${item.id}`]: item })
+      }
     }
     console.log(index)
     // this.props.history.push(`fm/preview/${item.genericType}${item.genericType === 'image' ? '/' + this.props.image : ''}/${name}`)
@@ -481,20 +500,33 @@ class Content extends React.Component<IProps, IState> {
       //   )
       //   break
       case 'previewModal':
+        let content
+        switch (this.props.item.genericType) {
+          case 'image':
+            content = (
+              <img
+                className={'cover'}
+                src={`http://cdn.persiangig.com/preview/${this.props.item.uuid}/${this.props.image}/${this.props.item.name}`}
+              />
+            )
+            break
+          case 'video':
+            content = <MyVideoPlayer url={`http://cdn.persiangig.com/preview/${this.props.item.uuid}/${this.props.image}/${this.props.item.name}`} />
+            break
+          default:
+            this.props.item.genericType && <Icon mimetype={this.props.item.genericType} style={{ width: 300 }} />
+            break
+        }
         preview = (
           <Preview
             show={true}
             type={'music'}
             item={this.state[`item${this.state.previewId}`]}
             handleClose={this.handleClose}
-            goNext={this.goNext}
+            goTo={this.goNext}
             onDownloadFile={this.downloadFile}
           >
-            {this.props.item.genericType === 'image' ? (
-              <img src={`http://cdn.persiangig.com/preview/${this.props.item.uuid}/${this.props.image}/${this.props.item.name}`} />
-            ) : (
-              this.props.item.genericType && <Icon mimetype={this.props.item.genericType} style={{ width: 300 }} />
-            )}
+            {content}
           </Preview>
         )
         break
@@ -558,7 +590,8 @@ const mapStateToProps = (state: IState) => ({
   item: state.sidebar.item,
   image: state.sidebar.image,
   selection: state.selection.selection,
-  downloadToken: state.sidebar.downloadToken
+  downloadToken: state.sidebar.downloadToken,
+  fullScreen:state.selection.fullScreen
 })
 
 const mapDispatchToProps = (dispatch: any) => {
@@ -579,7 +612,7 @@ const mapDispatchToProps = (dispatch: any) => {
   }
 }
 
-export default withRouter(connect(
+export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(Content) as any)
+)(Content)

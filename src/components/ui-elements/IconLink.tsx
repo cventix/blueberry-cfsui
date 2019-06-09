@@ -14,7 +14,7 @@ export default interface Iprops {
 
 export const IconLink: React.FunctionComponent<Iprops> = ({ className = 'iconLink', icon, iconAlt, label, onClick }: Iprops) => {
   return (
-    <div className={className} {...onClick && { onClick: label ? () => onClick(label) : onClick() }}>
+    <div className={className} {...onClick && { onClick: label ? () => onClick(label) :   onClick() }}>
       <Icon src={icon} alt={iconAlt} />
       <span>{label}</span>
     </div>

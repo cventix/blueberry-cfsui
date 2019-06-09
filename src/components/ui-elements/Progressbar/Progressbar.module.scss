@@ -1,13 +1,19 @@
-@import "../../../styles/global";
+@import '../../../styles/global';
 $border-rds-size: 40px;
 
 .progressContainer {
   position: relative;
   direction: ltr;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
   progress {
     background-color: #eee;
     width: 100%;
     height: 40px;
+    overflow: hidden;
+
     @include border-radius($border-rds-size);
   }
 
@@ -19,7 +25,9 @@ $border-rds-size: 40px;
   progress::-webkit-progress-value {
     @include border-radius($border-rds-size);
   }
-
+  .blue::-webkit-progress-value {
+    background-color: $lt-blue !important;
+  }
   .red::-webkit-progress-value {
     background-color: $red !important;
   }
@@ -30,5 +38,8 @@ $border-rds-size: 40px;
 
   .yellow::-webkit-progress-value {
     background-color: $yellow !important;
+  }
+  .gray::-webkit-progress-value {
+    background-color: $input-color !important;
   }
 }

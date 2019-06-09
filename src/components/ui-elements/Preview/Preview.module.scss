@@ -4,7 +4,8 @@ $margin-top: 70px;
 $preview-header-color: #8b8e9b;
 $padding: 30px;
 .image {
-  img {
+  height:100%;
+  .cover {
     object-fit: cover;
   }
 }
@@ -141,6 +142,7 @@ $padding: 30px;
     display: flex;
     justify-content: center;
     width: 100%;
+  
     align-content: center;
     img {
       width: 95%;

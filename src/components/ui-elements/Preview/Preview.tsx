@@ -22,8 +22,7 @@ export default interface Iprops {
   item?: any
   type?: string
   onDownloadFile?: any
-  goPrevious?: any
-  goNext?: any
+  goTo: (e: number) => void
 }
 
 import DownloadBarImage from './DownloadBar/DownlaodBarImage'
@@ -56,13 +55,13 @@ export const Preview: React.FunctionComponent<Iprops> = props => {
         </div>
         <div className={styles.previewBody}>
           <div className={styles.arrows}>
-            <Button className={['btnControl', 'btnCircle']} onClick={props.goNext}>
+            <Button className={['btnControl', 'btnCircle']} onClick={() => props.goTo(+1)}>
               <Icon src={arrowLeft} className={[styles.icon, styles.iconRight].join(' ')} />
             </Button>
             <section className={[modalStyles.modalMain, styles.previewMain].join(' ')}>
               <div className={styles.image}>{props.children}</div>
             </section>
-            <Button className={['btnControl', 'btnCircle']} onClick={props.goPrevious}>
+            <Button className={['btnControl', 'btnCircle']} onClick={() => props.goTo(-1)}>
               <Icon src={arrowLeft} className={styles.icon} />
             </Button>
           </div>

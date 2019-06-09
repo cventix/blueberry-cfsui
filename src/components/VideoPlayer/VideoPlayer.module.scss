@@ -1,0 +1,30 @@
+.videoPlayer {
+  background: #ffffff;
+  padding: 30px;
+  height: 100%;
+  .row {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+  }
+  .controlBar {
+    display: flex;
+    border-radius: 3px;
+    border: solid 1px #bbbdbf;
+    background-color: #ffffff;
+
+    margin-bottom: 28px;
+    padding: 8px;
+    justify-content: space-around;
+    button {
+      background-color: #ffffff;
+      border: 0;
+      cursor: pointer;
+    }
+
+    .play {
+      cursor: pointer;
+    }
+  }
+}

@@ -7,7 +7,8 @@ export interface PayloadInterface {
 export const initialState: any = {
   selection: [],
   toggle: [false, false],
-  modalSelect: []
+  modalSelect: [],
+  fullScreen:false
 }
 
 const selectReducer = (state: any = initialState, action: any) => {
@@ -24,6 +25,11 @@ const selectReducer = (state: any = initialState, action: any) => {
         ...state,
         toggle: action.payload
       }
+      case actionTypes.SET_FULLSCREEN:
+        return {
+          ...state,
+          fullScreen: action.payload
+        }
     case actionTypes.SET_MODAL_SELECTIONS:
       return {
         ...state,
