@@ -43,7 +43,7 @@ export const Preview: React.FunctionComponent<Iprops> = props => {
       content = 'video'
       break
   }
-
+ 
   return (
     <div className={props.show ? [styles.modal, styles.displayBlock].join(' ') : [styles.modal, styles.displayNone].join(' ')}>
       <div className={styles.previewBox}>
@@ -55,18 +55,18 @@ export const Preview: React.FunctionComponent<Iprops> = props => {
         </div>
         <div className={styles.previewBody}>
           <div className={styles.arrows}>
-            <Button className={['btnControl', 'btnCircle']} onClick={() => props.goTo(+1)}>
+            <Button className={['btnControl', 'btnCircle','right']} onClick={() => props.goTo(+1)}>
               <Icon src={arrowLeft} className={[styles.icon, styles.iconRight].join(' ')} />
             </Button>
             <section className={[modalStyles.modalMain, styles.previewMain].join(' ')}>
               <div className={styles.image}>{props.children}</div>
             </section>
-            <Button className={['btnControl', 'btnCircle']} onClick={() => props.goTo(-1)}>
+            <Button className={['btnControl', 'btnCircle','left']} onClick={() => props.goTo(-1)}>
               <Icon src={arrowLeft} className={styles.icon} />
             </Button>
           </div>
 
-          {content === 'image' && (
+          {/* {content === 'image' && (
             <div className={styles.bottomBar}>
               <Button className={['btnControl', 'btnLg', 'btnCircle']} style={{ height: 50 }}>
                 <div className={styles.row}>
@@ -80,7 +80,7 @@ export const Preview: React.FunctionComponent<Iprops> = props => {
                 </div>
               </Button>
             </div>
-          )}
+          )} */}
           <DownloadBarImage onItemClick={props.onDownloadFile} />
         </div>
       </div>

@@ -6,8 +6,9 @@ import Signout from '../Signout/Signout'
 
 // icon
 import avatarIcon from '../../images/navbarIcons/avatar.svg'
+import { connect } from 'react-redux';
 
-export default interface Iprops {
+export interface Iprops {
   toggleSignout?: () => void
   profileImg?: string
   alt?: string
@@ -30,3 +31,9 @@ export const Avatar = ({ profileImg, alt, toggleSignout, open }: Iprops) => {
     </div>
   )
 }
+
+const mapStateToProps = (state: any) => ({state:state})
+export default connect(
+  mapStateToProps,
+  null
+)(Avatar)

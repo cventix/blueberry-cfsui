@@ -56,7 +56,7 @@ export interface IProps {
   moveDocuments?: any
   shareDocuments?: any
   removeFolder?: any
-  fullScreen?:any
+  fullScreen?: any
   data?: any
   history?: any
   location?: any
@@ -158,7 +158,7 @@ class Content extends React.Component<IProps, IState> {
       } else if (this.props.location.pathname.split('/fm/')[1].includes('shared')) {
         this.props.getSharedDocuments()
         this.props.setToggle([true, false])
-      } else this.onGetDocument(true, this.props.location.pathname.split('/fm/')[1])
+      } else this.onGetDocument(true, this.props.location.pathname.split('/fm/')[1],this.props.item.id)
     }
 
     this.setState({ showMore: this.state.table.length > 10 ? true : false })
@@ -176,17 +176,18 @@ class Content extends React.Component<IProps, IState> {
         this.onGetDocument(false)
         this.props.setToggle([false, false])
       }
-      this.onGetDocument(true, this.props.location.pathname.split('/fm/')[1])
+      this.onGetDocument(true, this.props.location.pathname.split('/fm/')[1],this.props.item.id)
     }
+
   }
 
   /**
    * gets documnet if children goes inside folder
    */
-  onGetDocument = async (isChildren?: boolean, path?: any) => {
+  onGetDocument = async (isChildren?: boolean, path?: any,parentId?: number) => {
     if (isChildren == true) {
       try {
-        await this.props.getDocuments({ isChildren: true, path })
+        await this.props.getDocuments({ isChildren: true, path ,parentId})
       } catch (error) {
         console.log('E: ', error)
       }
@@ -318,7 +319,7 @@ class Content extends React.Component<IProps, IState> {
       })[0].discriminator
       if (discriminator === 'D') {
         this.props.history.push(`${this.props.history.location.pathname}/${name}`)
-        this.onGetDocument(true, `${this.props.history.location.pathname.split('fm/')[1]}`)
+        this.onGetDocument(true, `${this.props.history.location.pathname.split('fm/')[1]}`,item.id)
       } else {
         this.props.history.push(`fm/preview/${item.genericType}${item.genericType === 'image' ? '/' + this.props.image : ''}/${name}`)
         this.props.setItem(item)
@@ -435,11 +436,21 @@ class Content extends React.Component<IProps, IState> {
   goNext = (add: number) => {
     console.log(this.props.item.id)
     let index = this.props.document.documents.findIndex((p: any) => p.id == this.props.item.id)
+    let firstFileIndex = this.props.document.documents.findIndex((a: any) => a.discriminator === 'F')
     if (this.props.document.documents[index].discriminator === 'F') {
       let item = this.props.document.documents[+index + add]
       console.log(+index + add, this.props.document.documents.length)
-      if (+index + add > this.props.document.documents.length - 1) item = this.props.document.documents[0]
-      if (+index + add == 0) item = this.props.document.documents[this.props.document.documents.length]
+      if (+index + add > this.props.document.documents.length - 1) {
+        let index = firstFileIndex
+        item = this.props.document.documents[index]
+      }
+
+      if (+index + add < firstFileIndex) {
+        let reversed = this.props.document.documents.filter((item: any) => {
+          return item.discriminator === 'F'
+        })
+        item = reversed[reversed.length - 1]
+      }
       if (item) {
         this.props.history.push(`/fm/preview/${item.genericType}${item.genericType === 'image' ? '/' + this.props.image : ''}/${name}`)
         this.props.setItem(item)
@@ -513,8 +524,16 @@ class Content extends React.Component<IProps, IState> {
           case 'video':
             content = <MyVideoPlayer url={`http://cdn.persiangig.com/preview/${this.props.item.uuid}/${this.props.image}/${this.props.item.name}`} />
             break
+          case 'audio':
+            content = (
+              <MyVideoPlayer
+                url={`http://cdn.persiangig.com/preview/${this.props.item.uuid}/${this.props.image}/${this.props.item.name}`}
+                type={'audio'}
+              />
+            )
+            break
           default:
-            this.props.item.genericType && <Icon mimetype={this.props.item.genericType} style={{ width: 300 }} />
+            content = <Icon mimetype={this.props.item.genericType} style={{ width: 300 }} />
             break
         }
         preview = (
@@ -591,7 +610,7 @@ const mapStateToProps = (state: IState) => ({
   image: state.sidebar.image,
   selection: state.selection.selection,
   downloadToken: state.sidebar.downloadToken,
-  fullScreen:state.selection.fullScreen
+  fullScreen: state.selection.fullScreen
 })
 
 const mapDispatchToProps = (dispatch: any) => {

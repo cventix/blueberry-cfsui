@@ -13,6 +13,6 @@ export const formatBytes = ({ bytes, toFixed = 2, lang = 'en' }: { bytes: number
     bytes /= 1024
     unit++
   }
-
+  if (bytes == undefined) return '-'
   return `${parseFloat(bytes.toFixed(toFixed).toString())} ${lang === 'en' ? units[unit] : faUnits[unit]}`
 }

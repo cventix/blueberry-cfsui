@@ -13,7 +13,8 @@ import { IconLink } from '../ui-elements/IconLink'
 import Fullscreen from 'react-full-screen'
 import { connect } from 'react-redux'
 import { setFullScreen } from '../../services/internal/store/actions/selections'
-import { RangeBar } from '../ui-elements/Rangebar/Rangebar'
+import { PlayerRangeBar } from '../ui-elements/Rangebar/PlayerRangeBar/PlayerRangeBar'
+import { formatBytes } from '../../services/internal/utils/formatBytes'
 
 class MyVideoPlayer extends React.Component<any, any> {
   player: any
@@ -21,7 +22,7 @@ class MyVideoPlayer extends React.Component<any, any> {
     super(props)
     this.state = {
       playing: false,
-      volume: 0.8,
+      volume: 0.1,
       isFull: false
     }
   }
@@ -29,27 +30,29 @@ class MyVideoPlayer extends React.Component<any, any> {
     this.setState({ seeking: true })
   }
   onSeekChange = (e: any) => {
+    // console.log(e.target.value)
     this.setState({ played: parseFloat(e.target.value) })
   }
   onSeekMouseUp = (e: any) => {
-    console.log(e.target.value)
+    // console.log(e.target.value)
     this.setState({ seeking: false })
     this.player.seekTo(parseFloat(e.target.value))
   }
   setVolume = (e: any) => {
+    console.log(e.target.value)
     this.setState({ volume: parseFloat(e.target.value) })
   }
   togglePlay = () => {
     this.setState({ playing: !this.state.playing })
   }
   onProgress = (state: any) => {
-    console.log('onProgress', state)
+    // console.log('onProgress', state)
     if (!this.state.seeking) {
       this.setState(state)
     }
   }
   onDuration = (duration: number) => {
-    console.log('onDuration', duration)
+    // console.log('onDuration', duration)
     this.setState({ duration })
   }
   ref = (player: any) => {
@@ -62,7 +65,19 @@ class MyVideoPlayer extends React.Component<any, any> {
 
   render() {
     return (
-      <div className={styles.videoPlayer}>
+      <div className={this.props.type !== 'audio' ? styles.videoPlayer : [styles.videoPlayer, styles.audioPlayer].join(' ')}>
+        {this.props.type == 'audio' && (
+          <div className={[styles.row, styles.details].join(' ')}>
+            <Icon mimetype={'audio'} style={{ width: '93px' }} />
+            <div className={styles.info}>
+              <div>{this.props.item.name}</div>
+              <div className={[styles.row, styles.description].join(' ')}>
+                <div className={styles.marginLittle}> {this.state.duration && formatProgressTime(this.state.duration)} / </div>
+                <div> حجم فایل: {formatBytes({ bytes: this.props.item.size, lang: 'fa' })}</div>
+              </div>
+            </div>
+          </div>
+        )}
         <Fullscreen enabled={this.state.isFull} onChange={isFull => this.setState({ isFull })}>
           <ReactPlayer
             ref={this.ref}
@@ -72,28 +87,33 @@ class MyVideoPlayer extends React.Component<any, any> {
             width={this.state.isFull && '100%'}
             volume={this.state.volume}
             onProgress={this.onProgress}
+            onSeek={e => console.log('onSeek', e)}
             onDuration={this.onDuration}
           />
         </Fullscreen>
         <div className={styles.controlBar}>
-          <div onClick={this.goFull}>
-            <IconLink icon={fullscreen} />
-          </div>
+          {this.props.type !== 'audio' && (
+            <div onClick={this.goFull}>
+              <IconLink icon={fullscreen} />
+            </div>
+          )}
           <div className={styles.row}>
-            <Progressbar max={1} width={62} height={4} value={this.state.volume} color={'gray'} onChange={this.setVolume} />
+            <PlayerRangeBar max={1} width={62} height={4} color={'gray'} value={this.state.volume} step={0.05} updateRange={this.setVolume} />
             <Icon src={volume} />
           </div>
           {this.state.duration && formatProgressTime(this.state.duration)}
 
-          <RangeBar
+          <PlayerRangeBar
             max={1}
-            width={300}
             height={6}
+            color={'blue'}
+            step={0.016}
             value={this.state.played}
             onMouseDown={this.onSeekMouseDown}
             updateRange={this.onSeekChange}
             onMouseUp={this.onSeekMouseUp}
           />
+
           {this.state.duration && formatProgressTime(this.state.duration * (1 - this.state.played))}
           <button onClick={this.togglePlay} className={styles.play} type={'button'}>
             <Icon src={this.state.playing ? pause : play} className={styles.icon} />
@@ -103,6 +123,9 @@ class MyVideoPlayer extends React.Component<any, any> {
     )
   }
 }
+const mapStateToProps = (state: any) => ({
+  item: state.sidebar.item
+})
 
 const mapDispatchToProps = (dispatch: any) => {
   return {
@@ -111,6 +134,6 @@ const mapDispatchToProps = (dispatch: any) => {
 }
 
 export default connect(
-  null,
+  mapStateToProps,
   mapDispatchToProps
 )(MyVideoPlayer)

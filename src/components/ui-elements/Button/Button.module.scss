@@ -238,5 +238,12 @@
   .btnCircle {
     width: 30px !important;
     height: 30px !important;
+    position: absolute;
+  }
+  .left {
+    left: 3px;
+  }
+  .right {
+    right: 3px;
   }
 }

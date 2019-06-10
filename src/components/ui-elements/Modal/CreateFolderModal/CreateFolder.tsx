@@ -13,6 +13,7 @@ export interface Iprops {
   createFolder?: any
   getDocuments: () => void
   document?: any
+  parentId?: number
 }
 //todo
 // validation
@@ -36,12 +37,13 @@ class CFmodal extends React.Component<Iprops, any> {
   handleSubmit = async (e: any) => {
     if (e) e.preventDefault()
     let parentId, parentName
-  
-    if (this.props.document[0].parent) {
+
+    if (this.props.document.length > 0 && this.props.document[0].parent) {
       parentId = this.props.document[0].parent.id
       parentName = this.props.document[0].parent.name
+    } else {
+      parentId = this.props.parentId
     }
-
     // await this.props.getDocuments()
     try {
       let result = await this.props.createFolder({ name: this.state.name, parentId })
@@ -88,7 +90,7 @@ class CFmodal extends React.Component<Iprops, any> {
   }
 }
 
-const mapStateToProps = (state: any) => ({ document: state.document.documents })
+const mapStateToProps = (state: any) => ({ document: state.document.documents, parentId: state.document.parentId })
 
 const mapDispatchToProps = (dispatch: any) => {
   return {

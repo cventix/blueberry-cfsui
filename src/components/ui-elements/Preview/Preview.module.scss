@@ -4,7 +4,7 @@ $margin-top: 70px;
 $preview-header-color: #8b8e9b;
 $padding: 30px;
 .image {
-  height:100%;
+  height: 100%;
   .cover {
     object-fit: cover;
   }
@@ -53,6 +53,12 @@ $padding: 30px;
 }
 .previewBody {
   height: 100%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  overflow: hidden;
 }
 .displayBlock {
   visibility: visible;
@@ -67,17 +73,20 @@ $padding: 30px;
 .previewBox {
   margin-top: $navbar-height;
   margin-right: $sidebar-width;
-  height: 100%;
+  height: calc(100% - 70px);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-direction: column;
+  position: relative;
 
-  .previewMain {
-    left: 41%;
-  }
   .header {
     @include flex(row, wrap);
     justify-content: space-between;
     align-items: center;
     height: $header-height;
     padding: 0 $padding;
+    width: 100%;
     background-color: $preview-header-color;
     .fileName {
       color: white;
@@ -101,12 +110,15 @@ $padding: 30px;
   }
   .arrows {
     @include flex(row, unset);
-    margin: 0 7%;
+    width: 100%;
     height: 60%;
-    justify-content: space-between;
+    justify-content: space-around;
     align-items: center;
     section {
-      top: auto;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 60%;
     }
     .icon {
       margin-bottom: -7px;
@@ -117,13 +129,14 @@ $padding: 30px;
     }
   }
 }
+
 @media (max-width: $tablet) {
   .modal {
     .previewBody {
-      margin: 2% 10%;
       box-shadow: 0 5px 15px 0 rgba(0, 0, 0, 0.1);
       background-color: #ffffff;
-      height: 70%;
+      margin: 10px;
+      width: 80%;
     }
     .previewBox {
       margin-right: 0 !important;
@@ -136,15 +149,18 @@ $padding: 30px;
     }
     .arrows {
       height: auto;
+      section {
+        width: 100%;
+      }
     }
   }
   .image {
     display: flex;
     justify-content: center;
     width: 100%;
-  
+
     align-content: center;
-    img {
+    .cover {
       width: 95%;
       margin-top: 5px;
     }
@@ -153,17 +169,7 @@ $padding: 30px;
 @media (max-width: $tablet +200) {
   .modal {
     .arrows {
-      justify-content: center;
-      position: relative;
-      button {
-        position: absolute;
-      }
-      button:first-child {
-        right: 0;
-      }
-      button:last-child {
-        left: 0;
-      }
+      justify-content: space-evenly;
     }
   }
 }

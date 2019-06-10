@@ -22,6 +22,7 @@ export function* login(action: AnyAction) {
     yield put(actions.setLoadingState(false))
   }
 }
+
 export function* forgetPassword(action: AnyAction) {
   try {
     yield put(actions.setLoadingState(true))

@@ -24,7 +24,8 @@ export interface ActionInterface {
 export const initialState: any = {
   documents: [],
   tem_doucuments: [],
-  modal_documents: []
+  modal_documents: [],
+  parentId: ''
 }
 
 const documentReducer = (state: StateInterface = initialState, action: any) => {
@@ -58,6 +59,11 @@ const documentReducer = (state: StateInterface = initialState, action: any) => {
       return {
         ...state,
         temp_documents: action.payload
+      }
+    case actionTypes.SET_PARENT_ID:
+      return {
+        ...state,
+        parentId: action.payload
       }
     default:
       return state

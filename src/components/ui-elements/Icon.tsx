@@ -33,7 +33,7 @@ const renderIconSrc = (mimetype: string) => {
     case 'image':
       src = image
       break
-    case 'music':
+    case 'audio':
       src = music
       break
     case 'video':

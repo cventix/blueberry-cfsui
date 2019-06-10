@@ -14,6 +14,7 @@ export function* getDocuments(action: AnyAction) {
     let data = yield documents.getDocuments(folderInfo)
     if (folderInfo && folderInfo.isChildren === true) data = data.children
     yield put(actions.setDocuments(data))
+    if (data.length < 1) yield put(actions.setParentId(action.payload.parentId))
     yield put(actions.setLoadingState(false))
   } catch (err) {
     yield put(actions.setLoadingState(false))
@@ -92,7 +93,6 @@ export function* renameFolder(action: AnyAction) {
 }
 
 export function* moveDocuments(action: any) {
-
   let moveInfo = { targetId: action.payload.targetId, documentIds: action.payload.documentIds }
   console.log(moveInfo)
   try {
