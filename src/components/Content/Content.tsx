@@ -33,7 +33,7 @@ import { sliceData } from '../../services/internal/utils/sliceData'
 import { setSelections, removeSelection, setToggle } from '../../services/internal/store/actions/selections'
 
 // styles & icons
-import loading from '../../images/loading/tail-spin.2.svg'
+
 import arrowBottom from '../../images/buttonIcons/icon-btn-arrow-bottom.svg'
 import styles from './Content.module.scss'
 import { Preview } from '../ui-elements/Preview/Preview'
@@ -158,7 +158,7 @@ class Content extends React.Component<IProps, IState> {
       } else if (this.props.location.pathname.split('/fm/')[1].includes('shared')) {
         this.props.getSharedDocuments()
         this.props.setToggle([true, false])
-      } else this.onGetDocument(true, this.props.location.pathname.split('/fm/')[1],this.props.item.id)
+      } else this.onGetDocument(true, this.props.location.pathname.split('/fm/')[1], this.props.item.id)
     }
 
     this.setState({ showMore: this.state.table.length > 10 ? true : false })
@@ -176,18 +176,17 @@ class Content extends React.Component<IProps, IState> {
         this.onGetDocument(false)
         this.props.setToggle([false, false])
       }
-      this.onGetDocument(true, this.props.location.pathname.split('/fm/')[1],this.props.item.id)
+      this.onGetDocument(true, this.props.location.pathname.split('/fm/')[1], this.props.item.id)
     }
-
   }
 
   /**
    * gets documnet if children goes inside folder
    */
-  onGetDocument = async (isChildren?: boolean, path?: any,parentId?: number) => {
+  onGetDocument = async (isChildren?: boolean, path?: any, parentId?: number) => {
     if (isChildren == true) {
       try {
-        await this.props.getDocuments({ isChildren: true, path ,parentId})
+        await this.props.getDocuments({ isChildren: true, path, parentId })
       } catch (error) {
         console.log('E: ', error)
       }
@@ -319,7 +318,7 @@ class Content extends React.Component<IProps, IState> {
       })[0].discriminator
       if (discriminator === 'D') {
         this.props.history.push(`${this.props.history.location.pathname}/${name}`)
-        this.onGetDocument(true, `${this.props.history.location.pathname.split('fm/')[1]}`,item.id)
+        this.onGetDocument(true, `${this.props.history.location.pathname.split('fm/')[1]}`, item.id)
       } else {
         this.props.history.push(`fm/preview/${item.genericType}${item.genericType === 'image' ? '/' + this.props.image : ''}/${name}`)
         this.props.setItem(item)
@@ -554,15 +553,15 @@ class Content extends React.Component<IProps, IState> {
         break
     }
 
-    const history = [{ title: t`پوشه اصلی`, link: '/fm', active: false }]
-    if (this.props.location.pathname !== '/fm')
-      history.push({ title: this.props.location.pathname.split('/fm/'), link: this.props.location.pathname.split['/'], active: true })
+    // const history = [{ title: t`پوشه اصلی`, link: '/fm', active: false }]
+    // if (this.props.location.pathname !== '/fm')
+    //   history.push({ title: this.props.location.pathname.split('/fm/'), link: this.props.location.pathname.split['/'], active: true })
 
-    return !this.props.loading && this.state.table && this.state.table.length > 0 ? (
+    return (
       <React.Fragment>
         <ContentHeader
           view={this.state.view}
-          history={history}
+          history={this.props.history}
           switchView={this.switchView}
           handleSearchInput={(e: any) => this.onChangeSearchInput(e)}
         />
@@ -578,6 +577,8 @@ class Content extends React.Component<IProps, IState> {
           onSelect={this.onSelect}
           onCheckAll={this.onCheckAll}
           onCheck={this.onCheck}
+          loading={this.props.loading}
+          loadingStyle={styles.loading}
           onSort={this.onSort}
           handleNavigate={this.handleNavigate}
           checkAll={this.state.checkAll}
@@ -585,18 +586,18 @@ class Content extends React.Component<IProps, IState> {
         {modal}
         {preview}
         {toaster}
-        <div className={styles.footer}>
-          <Button
-            className={[this.state.showMore ? 'btnDefault0' : 'btnDefault100', 'btnLg']}
-            disabled={!this.state.showMore}
-            onClick={this.showMore}
-          >
-            <IconLink icon={arrowBottom} className={styles.arrow} iconAlt={`new-folder`} label={t`نمایش بیشتر`} />
-          </Button>
-        </div>
+        {!this.props.loading && this.state.table.length > 0   && (
+          <div className={styles.footer}>
+            <Button
+              className={[this.state.showMore ? 'btnDefault0' : 'btnDefault100', 'btnLg']}
+              disabled={!this.state.showMore}
+              onClick={this.showMore}
+            >
+              <IconLink icon={arrowBottom} className={styles.arrow} iconAlt={`new-folder`} label={t`نمایش بیشتر`} />
+            </Button>
+          </div>
+        )}
       </React.Fragment>
-    ) : (
-      <div className={styles.loading}>{this.props.loading ? <Icon src={loading} /> : 'داده ای وجود ندارد'}</div>
     )
   }
 }

@@ -10,6 +10,8 @@ import { formatBytes } from '../../services/internal/utils/formatBytes'
 import { formatType } from '../../services/internal/utils/formatTypes'
 import { sliceData } from '../../services/internal/utils/sliceData'
 import { t } from 'ttag'
+import { Icon } from '../ui-elements/Icon';
+import loadingIcon from '../../images/loading/tail-spin.2.svg'
 
 export default interface Iprops {
   view: string
@@ -29,10 +31,12 @@ export default interface Iprops {
   checkbox?: boolean
   isMoveModal?: boolean
   hasHeader?: boolean
-  username?: string
+  username?: string 
+  loading?: boolean
+  loadingStyle?: any
 }
 
-const makeArray = (array: any, username?: string) => {
+const makeArray = (array: any, username?: string ) => {
   let table: any[] = []
   let lang = localStorage.getItem('__language')
   array.map((each: any) => {
@@ -80,12 +84,14 @@ export const ContentBody: React.FunctionComponent<Iprops> = ({
   isMoveModal,
   onSort,
   onOpenCFModal,
+  loading,
+  loadingStyle,
   ...rest
 }) => {
   table = isMoveModal ? makeSimpleArray(table) : makeArray(table, username)
   table.length < 10 && turnOffbutton && turnOffbutton()
   
-  return view === 'table' && width && width < 768 ? (
+  return !loading && table && table.length > 0 ? (view === 'table' && width && width < 768 ? (
     <Grid sortable={true} dropDownData={dropDownData} onSort={onSort} checkbox={true} table={table} handleNavigate={handleNavigate} {...rest} />
   ) : view === 'table' ? (
     <Grid sortable={true} dropDownData={dropDownData} onSort={onSort} checkbox={true} table={table} handleNavigate={handleNavigate} {...rest} />
@@ -100,5 +106,7 @@ export const ContentBody: React.FunctionComponent<Iprops> = ({
       table={table}
       {...rest}
     />
+  )): (
+    <div className={loadingStyle}>{loading ? <Icon src={loadingIcon} /> : 'داده ای وجود ندارد'}</div>
   )
 }

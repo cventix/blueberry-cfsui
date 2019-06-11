@@ -8,13 +8,13 @@ const auth = bottle.container.Auth
 const storage = bottle.container.Storage
 
 export function* login(action: AnyAction) {
-  
   try {
     yield put(actions.setLoadingState(true))
     const { token, user } = yield auth.login(action.payload.email, action.payload.password)
     yield put(actions.setToken({ token }))
     yield put(actions.setUserCredentials({ username: user.username }))
-    // yield storage.setItem('token', token)
+    yield storage.setItem('token', token)
+    yield storage.setItem('user', user.username)
     yield localStorage.setItem('token', token)
     yield put(actions.setLoadingState(false))
   } catch (err) {
@@ -42,12 +42,8 @@ export function* register(action: AnyAction) {
   console.log(action)
   try {
     yield put(actions.setLoadingState(true))
-
-    let result = yield auth.register(action.email, action.username, action.password)
+    yield auth.register(action.email, action.username, action.password)
     yield put(actions.setLoadingState(false))
-    // yield put(actions.setToken({ token }))
-    // yield put(actions.setUserCredentials({ username: user.username }))
-    // yield storage.setItem('token', token)
   } catch (err) {
     yield put(actions.setLoadingState(false))
   }

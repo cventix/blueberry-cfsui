@@ -12,9 +12,12 @@ export function* getDocuments(action: AnyAction) {
   try {
     yield put(actions.setLoadingState(true))
     let data = yield documents.getDocuments(folderInfo)
-    if (folderInfo && folderInfo.isChildren === true) data = data.children
+    let parent
+    if (folderInfo && folderInfo.isChildren === true) {
+      yield put(actions.setParentId(data.parent.id))
+      data = data.children
+    }
     yield put(actions.setDocuments(data))
-    if (data.length < 1) yield put(actions.setParentId(action.payload.parentId))
     yield put(actions.setLoadingState(false))
   } catch (err) {
     yield put(actions.setLoadingState(false))

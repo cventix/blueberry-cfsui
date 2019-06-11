@@ -6,7 +6,7 @@ import Signout from '../Signout/Signout'
 
 // icon
 import avatarIcon from '../../images/navbarIcons/avatar.svg'
-import { connect } from 'react-redux';
+import { connect } from 'react-redux'
 
 export interface Iprops {
   toggleSignout?: () => void
@@ -16,6 +16,7 @@ export interface Iprops {
 }
 
 export const Avatar = ({ profileImg, alt, toggleSignout, open }: Iprops) => {
+  const user = localStorage.getItem('user')
   return (
     <div
       {...toggleSignout && {
@@ -27,12 +28,12 @@ export const Avatar = ({ profileImg, alt, toggleSignout, open }: Iprops) => {
       style={{ alignItems: 'center', display: 'flex' }}
     >
       <Icon src={profileImg ? profileImg : avatarIcon} alt="Avatar Image" className="avatar" />
-      <Signout username="آرزو علی پناه" open={open} />
+      <Signout username={user ? user : 'unknown'} open={open} />
     </div>
   )
 }
 
-const mapStateToProps = (state: any) => ({state:state})
+const mapStateToProps = (state: any) => ({ state: state })
 export default connect(
   mapStateToProps,
   null

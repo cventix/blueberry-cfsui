@@ -1,6 +1,6 @@
 import React, { FunctionComponent } from 'react'
 import { t } from 'ttag'
-import { Breadcrumb, BreadcrumbItem } from '../ui-elements/Breadcrumb/Breadcrumb'
+import { Breadcrumb } from '../ui-elements/Breadcrumb/Breadcrumb'
 import { SearchInput } from '../ui-elements/SearchInput/SearchInput'
 import { SwitchIcon } from './SwitchIcon'
 
@@ -17,7 +17,7 @@ export default interface Iprops {
   switchView: (e: string) => void
   handleSearchInput: (e: string) => void
   view: string
-  history: BreadcrumbItem[]
+  history:any
 }
 
 export const ContentHeader: React.FunctionComponent<Iprops> = ({ history, switchView, view, handleSearchInput }) => {
