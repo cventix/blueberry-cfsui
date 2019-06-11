@@ -12,9 +12,9 @@ export default interface Iprops {
 
 export const Main: React.FunctionComponent<Iprops> = props => {
   return (
-    <section className={styles.main} {...props.showModal && { style: { zIndex: -2 } }}>
+    <main className={styles.main} {...props.showModal && { style: { zIndex: -2 } }}>
       <section className={styles.contentWrapper}>{props.children}</section>
       <MainFooter />
-    </section>
+    </main>
   )
 }
