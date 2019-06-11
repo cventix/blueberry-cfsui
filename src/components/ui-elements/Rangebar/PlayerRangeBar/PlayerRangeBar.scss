@@ -9,6 +9,7 @@
   outline: none;
   background-color: $disabled-dk-gray;
   border-radius: 5px;
+  margin: 0 4px;
   &::-webkit-slider-thumb {
     width: 0;
     -webkit-appearance: none;

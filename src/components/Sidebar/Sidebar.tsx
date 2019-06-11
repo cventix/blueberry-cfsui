@@ -6,7 +6,7 @@ import { t } from 'ttag'
 import FM from './components/FM'
 import { VM } from './components/VM'
 import './Sidebar.scss'
-import PreviewSideBar  from './components/PreviewSideBar'
+import PreviewSideBar from './components/PreviewSideBar'
 import PreviewSideBarImage from './components/PreviewSideBarImage'
 
 export default interface Iprops {
@@ -37,8 +37,8 @@ export const Sidebar: React.FunctionComponent<Iprops> = ({
       />
       <div className="menuWrapper">
         <Switch>
-        <Route path={`/fm/preview/image/:size/:name`} render={() => <PreviewSideBarImage onItemClick={onItemClick} />} />
-          <Route path={`/fm/preview/:fileType/:name`} render={() => <PreviewSideBar onItemClick={onItemClick} />} />
+          <Route path={`/fm/preview/image`} render={() => <PreviewSideBarImage onItemClick={onItemClick} />} />
+          <Route path={`/fm/preview`} render={() => <PreviewSideBar onItemClick={onItemClick} />} />
           <Route path={`/fm`} render={() => <FM onItemClick={onItemClick} />} />
           <Route exact path={`/vm`} component={VM} />
         </Switch>

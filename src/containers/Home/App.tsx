@@ -106,6 +106,18 @@ class App extends Component<
   cleanCollection = () => {
     this.onRemoveDocument()
   }
+
+  changeSize = (size: string) => {
+    this.props.setPreviewImage(size)
+    let urlSize = this.props.history.length > 0 && this.props.history.location.pathname.split('/')[4]
+    let url
+    const sizes = ['small', 'medium', 'large']
+    if (!sizes.includes(urlSize)) url = this.props.history.location.pathname.replace('image/', `image/${size}/`)
+    else if (size) url = this.props.history.location.pathname.replace(urlSize, size)
+    else url = this.props.history.location.pathname.replace(`/${urlSize}`, size)
+    this.props.history.push(url)
+  }
+  
   onItemClick = async (e: any) => {
     console.log(e)
     if (!e.target) {
@@ -153,16 +165,16 @@ class App extends Component<
         case t`آپلود فایل از URL`:
           this.setState({ modal: 'urlUpload', showModal: true })
         case t`بزرگ`:
+          this.changeSize('large')
+          break;
         case t`سایز اصلی`:
-          this.props.setPreviewImage('large')
+          this.changeSize('')
           break
         case t`متوسط`:
-          this.props.setPreviewImage('medium')
-          console.log(this.props.match)
-          // this.props.history.push(this.props.history.location.pathname.split('/image'))
+          this.changeSize('medium')
           break
         case t`کوچک`:
-          this.props.setPreviewImage('small')
+          this.changeSize('small')
           break
         case t`دانلود فایل`:
           let uuid = this.props.item.uuid

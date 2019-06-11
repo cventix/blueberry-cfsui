@@ -40,7 +40,7 @@ import { Preview } from '../ui-elements/Preview/Preview'
 import image from '../../images/image.jpg'
 import ShareModal from '../ui-elements/Modal/ShareModal.tsx/ShareModal'
 import { IGenerateLinkInput } from '../../services/internal/repositories/documents'
-import MyVideoPlayer from '../VideoPlayer/VideoPlayer'
+import MyVideoPlayer from '../MediaPlayer/MediaPlayer'
 const sort = (data: object[]) => {
   var sortOrder = ['folder', 'image', 'music']
   data.sort(function(a: any, b: any) {
@@ -451,6 +451,7 @@ class Content extends React.Component<IProps, IState> {
         item = reversed[reversed.length - 1]
       }
       if (item) {
+        console.log(item.genericType)
         this.props.history.push(`/fm/preview/${item.genericType}${item.genericType === 'image' ? '/' + this.props.image : ''}/${name}`)
         this.props.setItem(item)
         this.setState({ modalView: 'previewModal', previewId: item.id, fileName: name, [`item${item.id}`]: item })

@@ -1,31 +1,53 @@
 import React from 'react'
 import ReactPlayer from 'react-player'
-import { Progressbar } from '../ui-elements/Progressbar/Progressbar'
-import styles from './VideoPlayer.module.scss'
-import { formatProgressTime } from '../../services/internal/utils/formatProgressTime'
+import Fullscreen from 'react-full-screen'
+import { connect } from 'react-redux'
+
+import { PlayerRangeBar } from '../ui-elements/Rangebar/PlayerRangeBar/PlayerRangeBar'
 import { Icon } from '../ui-elements/Icon'
+import { IconLink } from '../ui-elements/IconLink'
+
+//styles and icons
+import styles from './MediaPlayer.module.scss'
+
 import volume from '../../images/controlcons/icon-volume.svg'
 import play from '../../images/controlcons/icon-play.svg'
 import pause from '../../images/controlcons/icon-pause.svg'
 import fullscreen from '../../images/controlcons/icon-fullscreen.svg'
-import { IconLink } from '../ui-elements/IconLink'
 
-import Fullscreen from 'react-full-screen'
-import { connect } from 'react-redux'
-import { setFullScreen } from '../../services/internal/store/actions/selections'
-import { PlayerRangeBar } from '../ui-elements/Rangebar/PlayerRangeBar/PlayerRangeBar'
+//serviced
 import { formatBytes } from '../../services/internal/utils/formatBytes'
+import { formatProgressTime } from '../../services/internal/utils/formatProgressTime'
+import { setFullScreen } from '../../services/internal/store/actions/selections'
 
-class MyVideoPlayer extends React.Component<any, any> {
+export interface Iprops {
+  setFullScreen: (e: boolean) => void
+  type?: string
+  item: any
+  url: string
+}
+export interface Istate {
+  playing?: boolean
+  volume: number
+  isFull: boolean
+  played: number
+  seeking?: boolean
+  duration?: number
+}
+
+class MediaPlayer extends React.Component<Iprops, Istate> {
   player: any
   constructor(props: any) {
     super(props)
     this.state = {
       playing: false,
       volume: 0.1,
-      isFull: false
+      isFull: false,
+      played: 0
     }
   }
+
+  //seek player
   onSeekMouseDown = (e: any) => {
     this.setState({ seeking: true })
   }
@@ -38,13 +60,16 @@ class MyVideoPlayer extends React.Component<any, any> {
     this.setState({ seeking: false })
     this.player.seekTo(parseFloat(e.target.value))
   }
+
   setVolume = (e: any) => {
     console.log(e.target.value)
     this.setState({ volume: parseFloat(e.target.value) })
   }
+
   togglePlay = () => {
     this.setState({ playing: !this.state.playing })
   }
+
   onProgress = (state: any) => {
     // console.log('onProgress', state)
     if (!this.state.seeking) {
@@ -84,7 +109,8 @@ class MyVideoPlayer extends React.Component<any, any> {
             url={this.props.url}
             playing={this.state.playing}
             height={'100%'}
-            width={this.state.isFull && '100%'}
+            width={'100%'}
+            {...this.state.isFull && { width: '100%' }}
             volume={this.state.volume}
             onProgress={this.onProgress}
             onSeek={e => console.log('onSeek', e)}
@@ -136,4 +162,4 @@ const mapDispatchToProps = (dispatch: any) => {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(MyVideoPlayer)
+)(MediaPlayer)

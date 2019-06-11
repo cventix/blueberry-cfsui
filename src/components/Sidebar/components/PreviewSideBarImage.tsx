@@ -32,7 +32,8 @@ export interface Iprops {
 }
 
 const PreviewSideBarImage: React.FunctionComponent<Iprops> = ({ onItemClick, item, image, generateDownloadLink, downloadToken }) => {
-  console.log(generateDownloadLink)
+  let imageUrl;
+  if (image) imageUrl=`/${image}`
   return (
     <div className="menu">
       <Button className={['btnSuccess0', 'btnLg']} style={{ marginBottom: '15px' }}>
@@ -40,15 +41,15 @@ const PreviewSideBarImage: React.FunctionComponent<Iprops> = ({ onItemClick, ite
       </Button>
       <div className={'downloadBox'}>آمار: {JSON.stringify(item.downloadCount)} دانلود</div>
       <div className={'copyBox'}>
-        <ClipBoard placeholder={`http://cdn.persiangig.com/preview/${item.uuid}/${image}/${item.name}`} onClick={onItemClick} />{' '}
+        <ClipBoard placeholder={`http://cdn.persiangig.com/preview/${item.uuid}${imageUrl}/${item.name}`} onClick={onItemClick} />{' '}
       </div>
       <div className={'buttonGroup'}>
         <ButtonGroup
           list={[
-            { label: `سایز اصلی`, active: true, onClick: onItemClick },
-            { label: `بزرگ`, active: false, onClick: onItemClick },
-            { label: `متوسط`, active: false, onClick: onItemClick },
-            { label: `کوچک`, active: false, onClick: onItemClick }
+            { label: `سایز اصلی`, active: !image , onClick: onItemClick },
+            { label: `بزرگ`, active: image == 'large', onClick: onItemClick },
+            { label: `متوسط`, active: image == 'medium', onClick: onItemClick },
+            { label: `کوچک`, active: image == 'small', onClick: onItemClick }
           ]}
         />
       </div>

@@ -3,7 +3,7 @@ import React from 'react'
 import './PlayerRangeBar.scss'
 
 export default interface Iprops {
-  value?: string
+  value?: string | number
   width?: number
   height?: number
   updateRange?: any
@@ -16,7 +16,7 @@ export default interface Iprops {
 
 export const PlayerRangeBar: React.FunctionComponent<Iprops> = ({
   value,
-  width,
+  width= '100%',
   height,
   updateRange,
   max,
