@@ -1,16 +1,19 @@
 @import '../../../styles/global';
 
+
 @mixin widthShadow {
   @include box-shadow(0 1px 3px 0 rgba(0, 0, 0, 0.15));
 }
 
 .btn {
+
+  
+
   font-family: $medium-font;
   font-size: $font-size;
   cursor: pointer;
-  border: 0;
-  position: relative;
-  @include border-radius($br-radius-sm);
+  @include border-radius($br-radius-sm)
+  @apply .relative .border-0
 
   /* btn tyes */
 

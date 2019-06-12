@@ -1,7 +1,7 @@
 import * as React from 'react'
 
 // styles
-
+import styles from './Button.module.scss'
 
 export default interface Iprops {
   className?: string[]
@@ -20,7 +20,7 @@ export const Button = ({ className, onClick, style, children, disabled }: Iprops
   return (
     <button
       disabled={disabled}
-      className={className ? `btn ${classCreator(className)}` : `btn‍‍‍‍‍`}
+      className={className ? `pg-btn pg-btn-blue ${classCreator(className)}` : `pg-btn`}
       onClick={e => onClick && onClick(e)}
       style={style}
     >

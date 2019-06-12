@@ -1,13 +1,13 @@
 module.exports = {
-  prefix: '',
-  important: false,
+  prefix: 'pg-',
+  important: true,
   separator: ':',
   theme: {
     screens: {
       mobile: '640px',
       tablet: '768px',
-      desktop: '1024px',
-      widescreen: '1280px',
+      laptop: '1024px',
+      desktop: '1280px',
     },
     colors: {
       transparent: 'transparent',
@@ -221,6 +221,13 @@ module.exports = {
       default: '1',
     },
     fontFamily: {
+      vazir: [
+        'vazir-thin',
+        'vazir-regular',
+        'vazir-light',
+        'vazir-medium',
+        'vazir-bold'
+      ],
       sans: [
         '-apple-system',
         'BlinkMacSystemFont',
@@ -487,5 +494,29 @@ module.exports = {
     zIndex: ['responsive'],
   },
   corePlugins: {},
-  plugins: [],
+  plugins: [
+    function({ addComponents }) {
+      const buttons = {
+        '.btn': {
+          padding: '.5rem 1rem',
+          borderRadius: '.25rem',
+          fontWeight: '600',
+        },
+        '.btn-blue': {
+          backgroundColor: '#3490dc',
+          color: '#fff',
+          '&:hover': {
+            backgroundColor: '#2779bd'
+          },
+        },
+        '.btn-red': {
+          backgroundColor: '#e3342f',
+          color: '#fff',
+          '&:hover': {
+            backgroundColor: '#cc1f1a'
+          },
+        },
+      }
+    },
+  ]
 }
