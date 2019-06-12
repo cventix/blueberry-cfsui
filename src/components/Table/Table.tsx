@@ -1,4 +1,6 @@
 import React, { Component } from 'react'
+import { connect } from 'react-redux'
+
 import { t } from 'ttag'
 
 import { TableHeader } from './TableHeader'
@@ -7,11 +9,16 @@ import Dropdown from '../ui-elements/Dropdown/Dropdown'
 import { EnhanceDropdown as enhancer } from '../ui-elements/Dropdown/EnhanceDropdown'
 
 import styles from './Table.module.scss'
-import { connect } from 'react-redux'
-import { select } from 'glamor'
 
 const EnhancedDropdown = enhancer(Dropdown)
-
+export interface Item {
+  id?: number
+  uuid?: string
+  type?: string
+  name?: string
+  discriminator?: string
+  [key: string]: any
+}
 export interface Iprops {
   table?: object[]
   selection?: any
@@ -35,6 +42,7 @@ export interface Iprops {
   hasHeader?: boolean
   modalSelection?: any
 }
+
 const Table: React.FunctionComponent<Iprops> = ({
   table,
   dropdown,
@@ -44,14 +52,12 @@ const Table: React.FunctionComponent<Iprops> = ({
   onSort,
   tabletView,
   onSelect,
-  itemName,
   dropDownData,
   handleNavigate,
   optionSelected,
   checkbox,
   onCheck,
   modalSelection,
-  activeRow,
   onOpenCFModal,
   hasHeader = true
 }) => {
@@ -71,7 +77,7 @@ const Table: React.FunctionComponent<Iprops> = ({
       )}
       <tbody>
         {table &&
-          table.map((item: any, index: number) => {
+          table.map((item: Item) => {
             return (
               <tr key={item.id} className={modalSelection === item.id ? styles.activeRow : ''}>
                 {Object.keys(item).map((k, i) => {
@@ -90,7 +96,7 @@ const Table: React.FunctionComponent<Iprops> = ({
                         checked={selection.includes(item.id)}
                         className={k === 'name' ? ['show'] : [' ']}
                         checkbox={checkbox === false ? checkbox : k === 'name' ? true : false}
-                        hasType={k === 'name' && item['type']}
+                        mimetype={k === 'name' && item.type}
                       />
                     )
                   }

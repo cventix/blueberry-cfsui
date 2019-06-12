@@ -13,6 +13,9 @@ import uploadIcon from '../../../images/upload.svg'
 import refreshIcon from '../../../images/refresh.svg'
 import downloadIcon from '../../../images/download.svg'
 import upFromUrlIcon from '../../../images/sidebarIcons/upfromurl.svg'
+import newFolderIcon from '../../../images/sidebarIcons/newfolder.svg'
+import moveIcon from '../../../images/sidebarIcons/move.svg'
+import deleteIcon from '../../../images/sidebarIcons/delete.1.svg'
 
 // internal components & styles
 import { ActionNav } from './ActionNav'
@@ -28,30 +31,16 @@ export interface Iprops {
   toggle?: any
 }
 
-const FM: React.FunctionComponent<Iprops> = ({ onItemClick, selection, toggle }) => {
-  let data = [
-    { label: `دانلود با فرمت zip`, onClick: onItemClick },
-    { label: `دانلود با فرمت iso`, onClick: onItemClick },
-    { label: `دانلود با فرمت tar`, onClick: onItemClick }
-  ]
+const TrashSideBar: React.FunctionComponent<Iprops> = ({ onItemClick, selection, toggle }) => {
   console.log(selection && selection.length > 0)
   return (
     <div className="menu">
-      <Button className={['btnPrimary0', 'btnLg']} style={{ marginBottom: '15px' }}>
-        <IconLink icon={uploadIcon} iconAlt="upload icon" label={t`آپلود فایل`} />
+      <Button className={['btnDanger0', 'btnLg']} style={{ marginBottom: '15px' }}>
+        <IconLink icon={deleteIcon} iconAlt="upload icon" label={t`حذف دائم`} onClick={onItemClick}/>
       </Button>
-
-      <DropDownButton
-        data={data}
-        className={[selection && selection.length > 0 ? 'btnSuccess0' : 'btnDisabled', 'btnLg']}
-        disabled={!selection || selection.length == 0}
-        style={{ marginBottom: '15px' }}
-      >
-        <IconLink icon={downloadIcon} iconAlt="download icon" label={t` دانلود با فرمت`} />
-      </DropDownButton>
-      <IconLink icon={upFromUrlIcon} onClick={onItemClick} className="iconLink upFromUrl" iconAlt="upload icon" label={t`آپلود فایل از URL`} />
-      <ActionNav onItemClick={onItemClick} />
-      <Hr />
+      <Button className={[selection && selection.length > 0 ? 'btnSuccess0' : 'btnDisabled', 'btnLg']} style={{ marginBottom: '15px' }}>
+        <IconLink onClick={onItemClick} icon={refreshIcon} iconAlt="upload icon" label={t`بازیابی فایل`} />
+      </Button>
       <FileFiltering forFM={true} onItemClick={onItemClick} />
       <UpgradeAccount />
       <Hr />
@@ -61,4 +50,4 @@ const FM: React.FunctionComponent<Iprops> = ({ onItemClick, selection, toggle })
 }
 const mapStateToProps = (state: any) => ({ select: state, selection: state.selection.selection, toggle: state.selection.toggle })
 
-export default connect(mapStateToProps)(FM)
+export default connect(mapStateToProps)(TrashSideBar)

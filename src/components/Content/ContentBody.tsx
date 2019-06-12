@@ -3,14 +3,14 @@ import React, { Component } from 'react'
 // components
 import Grid from '../Grid/Grid'
 import  Table  from '../Table/Table'
-
+import { t } from 'ttag'
+import { Icon } from '../ui-elements/Icon';
 // services
 import { formatDate } from '../../services/internal/utils/formatDates'
 import { formatBytes } from '../../services/internal/utils/formatBytes'
 import { formatType } from '../../services/internal/utils/formatTypes'
-import { sliceData } from '../../services/internal/utils/sliceData'
-import { t } from 'ttag'
-import { Icon } from '../ui-elements/Icon';
+
+//icons
 import loadingIcon from '../../images/loading/tail-spin.2.svg'
 
 export default interface Iprops {

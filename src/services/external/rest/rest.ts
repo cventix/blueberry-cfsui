@@ -27,7 +27,7 @@ class Rest implements RestInterface {
   constructor(config: ConfigInterface, storage: StorageInterface) {
     this._config = config
     this._storage = storage
-    window.document.cookie = `token="${this._storage.getItem('token')}"`
+    window.document.cookie = `token="${localStorage.getItem('token')}"`
     this._headers = {
       'Content-Type': 'application/json',
       Accept: 'application/json',
@@ -45,6 +45,7 @@ class Rest implements RestInterface {
       if (headers) this._headers = { ...this._headers, ...headers }
       console.log(`%c[HEADERS]:`, 'font-weight: bold; color: green;', this._headers)
       console.log(`%c[${method}]: ${url}`, 'font-weight: bold; color: #3e3e3e;')
+
       if (this._headers.token == null) {
         this._headers.token = localStorage.getItem('token')
       }
@@ -57,7 +58,7 @@ class Rest implements RestInterface {
 
       return data ? data : status
     } catch ({ response: { data } }) {
-      // console.log(error.response)
+      if (data.errors[0].code === 403) window.location.replace('/login')
       throw data
     }
   }

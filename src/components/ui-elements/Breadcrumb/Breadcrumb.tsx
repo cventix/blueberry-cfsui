@@ -5,6 +5,7 @@ import bigger from '../../../images/bigger.svg'
 import styles from './Breadcrumb.module.scss'
 import { Link, Route } from 'react-router-dom'
 import { t } from 'ttag'
+import { MemoryRouter } from 'react-router'
 
 export interface BreadcrumbItem {
   title: string
@@ -15,16 +16,30 @@ export interface BreadcrumbItem {
 }
 
 export default interface Iprops {
-  history: any
+  history?: any
   modal?: boolean
   className?: string
 }
 
-export const Breadcrumb: React.FunctionComponent<Iprops> = ({ modal, className }) => (
+export const Breadcrumb: React.FunctionComponent<Iprops> = ({ history, modal, className }) => {
+  console.log(history)
+  return(
   <div className={` ${modal ? [styles.breadcrumb, styles.modalbread, className].join(' ') : styles.breadcrumb}`}>
-    <Route path="/:path" component={BreadcrumbsItem} />
-  </div>
-)
+
+    {history ? (
+      history.map((item: BreadcrumbItem, index: number) => (
+        <React.Fragment key={index}>
+          <span onClick={() => item.onClick()} className={item.active ? [styles.active, styles.item].join(' ') : styles.item}>
+            {item.title}
+          </span>
+          {!item.active && <Icon src={bigger} />}
+        </React.Fragment>
+      ))
+    ) : (
+      <Route path="/:path" component={BreadcrumbsItem} />
+    )}
+  </div>)
+}
 
 const BreadcrumbsItem: React.FunctionComponent<any> = ({ match, ...rest }) => {
   let title = match.params.path === 'fm' ? t`پوشه اصلی` : match.params.path

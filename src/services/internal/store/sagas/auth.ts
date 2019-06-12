@@ -13,7 +13,6 @@ export function* login(action: AnyAction) {
     const { token, user } = yield auth.login(action.payload.email, action.payload.password)
     yield put(actions.setToken({ token }))
     yield put(actions.setUserCredentials({ username: user.username }))
-    yield storage.setItem('token', token)
     yield storage.setItem('user', user.username)
     yield localStorage.setItem('token', token)
     yield put(actions.setLoadingState(false))

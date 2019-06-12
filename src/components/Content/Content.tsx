@@ -438,7 +438,6 @@ class Content extends React.Component<IProps, IState> {
     let firstFileIndex = this.props.document.documents.findIndex((a: any) => a.discriminator === 'F')
     if (this.props.document.documents[index].discriminator === 'F') {
       let item = this.props.document.documents[+index + add]
-      console.log(+index + add, this.props.document.documents.length)
       if (+index + add > this.props.document.documents.length - 1) {
         let index = firstFileIndex
         item = this.props.document.documents[index]
@@ -587,7 +586,7 @@ class Content extends React.Component<IProps, IState> {
         {modal}
         {preview}
         {toaster}
-        {!this.props.loading && this.state.table.length > 0   && (
+        {!this.props.loading && this.state.filteredTable.length > 0   && (
           <div className={styles.footer}>
             <Button
               className={[this.state.showMore ? 'btnDefault0' : 'btnDefault100', 'btnLg']}

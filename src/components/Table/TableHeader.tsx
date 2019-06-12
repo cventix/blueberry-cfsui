@@ -2,6 +2,8 @@ import React, { Component } from 'react'
 import { t } from 'ttag'
 import { TableItem } from './TableItem'
 import { IconLink } from '../ui-elements/IconLink'
+
+//icon
 import newFolderIcon from '../../images/sidebarIcons/newfolder.svg'
 
 import styles from './Table.module.scss'
@@ -18,7 +20,6 @@ export default interface Iprops {
 
 export const TableHeader: React.FunctionComponent<Iprops> = ({ titles, onOpenCFModal, dropdown, onSort, onCheckAll, tabletView }) => {
   const altIcon = 'Icon'
-
   return (
     <thead>
       {titles && (

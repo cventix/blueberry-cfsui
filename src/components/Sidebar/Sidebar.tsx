@@ -8,6 +8,7 @@ import { VM } from './components/VM'
 import './Sidebar.scss'
 import PreviewSideBar from './components/PreviewSideBar'
 import PreviewSideBarImage from './components/PreviewSideBarImage'
+import TrashSideBar from './components/TrashSideBar';
 
 export default interface Iprops {
   createFolderModal?: () => void
@@ -39,6 +40,7 @@ export const Sidebar: React.FunctionComponent<Iprops> = ({
         <Switch>
           <Route path={`/fm/preview/image`} render={() => <PreviewSideBarImage onItemClick={onItemClick} />} />
           <Route path={`/fm/preview`} render={() => <PreviewSideBar onItemClick={onItemClick} />} />
+          <Route path={`/fm/trash`} render={() => <TrashSideBar onItemClick={onItemClick} />} />
           <Route path={`/fm`} render={() => <FM onItemClick={onItemClick} />} />
           <Route exact path={`/vm`} component={VM} />
         </Switch>

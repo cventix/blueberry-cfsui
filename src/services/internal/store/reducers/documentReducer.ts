@@ -25,6 +25,7 @@ export const initialState: any = {
   documents: [],
   tem_doucuments: [],
   modal_documents: [],
+  lastChild: false,
   parentId: ''
 }
 
@@ -48,7 +49,12 @@ const documentReducer = (state: StateInterface = initialState, action: any) => {
     case actionTypes.SET_MODAL_DOCUMENTS:
       return {
         ...state,
-        modal_documents: action.payload
+        modal_documents: action.data
+      }
+    case actionTypes.SET_LAST_CHILD:
+      return {
+        ...state,
+        lastChild: action.lastChild
       }
     case actionTypes.SET_RESPONSE:
       return {

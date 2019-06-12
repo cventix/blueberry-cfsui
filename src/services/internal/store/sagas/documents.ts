@@ -6,12 +6,14 @@ import { bottle } from '../../../index'
 const documents = bottle.container.Documents
 console.log
 export function* getDocuments(action: AnyAction) {
+  let base = { headers: { token: localStorage.getItem('token') } }
   let folderInfo
-  if (action.payload) folderInfo = { isChildren: action.payload.isChildren, path: action.payload.path, headers: action.payload.headers }
+  if (action.payload)
+    folderInfo = { isChildren: action.payload.isChildren, path: action.payload.path, headers: { token: localStorage.getItem('token') } }
   console.log()
   try {
     yield put(actions.setLoadingState(true))
-    let data = yield documents.getDocuments(folderInfo)
+    let data = yield documents.getDocuments(folderInfo ? folderInfo : base)
     let parent
     if (folderInfo && folderInfo.isChildren === true) {
       yield put(actions.setParentId(data.parent.id))
@@ -20,20 +22,29 @@ export function* getDocuments(action: AnyAction) {
     yield put(actions.setDocuments(data))
     yield put(actions.setLoadingState(false))
   } catch (err) {
+    yield put(actions.setError(err.errors[0].msg))
     yield put(actions.setLoadingState(false))
   }
 }
 export function* getModalDocuments(action: AnyAction) {
-  let folderInfo
+  let folderInfo,
+    lastChild = false
   if (action.payload) folderInfo = { isChildren: action.payload.isChildren, path: action.payload.path, headers: action.payload.headers }
   try {
-    yield put(actions.setLoadingState(true))
+    yield put(actions.setModalLoadingState(true))
     let data = yield documents.getDocuments(folderInfo)
-    if (folderInfo && folderInfo.isChildren === true) data = data.children
-    yield put(actions.setModalDocuments(data))
-    yield put(actions.setLoadingState(false))
+    if (folderInfo && folderInfo.isChildren === true) {
+      if (data.children.length < 1) {
+        lastChild = true
+        data = data.parent
+      } else data = data.children
+    }
+
+    lastChild ? yield put(actions.setLastChild(lastChild)) : yield put(actions.setModalDocuments(data))
+    yield put(actions.setModalLoadingState(false))
   } catch (err) {
-    yield put(actions.setLoadingState(false))
+    yield put(actions.setError(err.errors[0].msg))
+    yield put(actions.setModalLoadingState(false))
   }
 }
 export function* getTrashDocuments() {
@@ -43,6 +54,7 @@ export function* getTrashDocuments() {
     yield put(actions.setDocuments(data))
     yield put(actions.setLoadingState(false))
   } catch (err) {
+    yield put(actions.setError(err.errors[0].msg))
     yield put(actions.setLoadingState(false))
   }
 }
@@ -53,6 +65,7 @@ export function* getSharedDocuments() {
     yield put(actions.setDocuments(data))
     yield put(actions.setLoadingState(false))
   } catch (err) {
+    yield put(actions.setError(err.errors[0].msg))
     yield put(actions.setLoadingState(false))
   }
 }
@@ -63,7 +76,16 @@ export function* removeFolder(action: AnyAction) {
     let response = yield documents.removeFolder(folderInfo)
     yield put(actions.setLoadingState(false))
   } catch (err) {
+    yield put(actions.setError(err.errors[0].msg))
     yield put(actions.setLoadingState(false))
+  }
+}
+export function* deleteDocument(action: AnyAction) {
+  let folderInfo = { documentIds: action.payload.folderId }
+  try {
+    yield documents.deleteDocument(folderInfo)
+  } catch (err) {
+    yield put(actions.setError(err.errors[0].msg))
   }
 }
 export function* createFolder(action: AnyAction) {
@@ -79,6 +101,7 @@ export function* createFolder(action: AnyAction) {
     yield put(actions.setResponse(response))
     yield put(actions.setLoadingState(false))
   } catch (err) {
+    yield put(actions.setError(err.errors[0].msg))
     yield put(actions.setLoadingState(false))
   }
 }
@@ -91,18 +114,24 @@ export function* renameFolder(action: AnyAction) {
     let response = yield documents.renameFolder(renameInfo)
     yield put(actions.setLoadingState(false))
   } catch (err) {
+    yield put(actions.setError(err.errors[0].msg))
     yield put(actions.setLoadingState(false))
   }
 }
 
 export function* moveDocuments(action: any) {
   let moveInfo = { targetId: action.payload.targetId, documentIds: action.payload.documentIds }
-  console.log(moveInfo)
+
   try {
     yield put(actions.setLoadingState(true))
     yield documents.moveDocuments(moveInfo)
+    window.location.pathname.split('fm/')[1]
+      ? yield put(actions.getDocuments({ isChildren: true, path: window.location.pathname.split('fm/')[1] }))
+      : yield put(actions.getDocuments())
+    yield put(actions.setMessage('فایل جا به جا شد'))
     yield put(actions.setLoadingState(false))
   } catch (err) {
+    yield put(actions.setError(err.errors[0].msg))
     yield put(actions.setLoadingState(false))
   }
 }
@@ -114,6 +143,7 @@ export function* shareDocuments(action: AnyAction) {
     yield documents.shareDocuments(shareInfo)
     yield put(actions.setLoadingState(false))
   } catch (err) {
+    yield put(actions.setError(err.errors[0].msg))
     yield put(actions.setLoadingState(false))
   }
 }
@@ -124,6 +154,7 @@ export function* generateLink(action: AnyAction) {
     let result = yield documents.generateDownloadLink(uuid)
     yield put(actions.setDownloadToken(result.token))
   } catch (err) {
+    yield put(actions.setError(err.errors[0].msg))
     yield put(actions.setLoadingState(false))
   }
 }
@@ -141,6 +172,7 @@ export function* restoreFiles(action: AnyAction) {
   try {
     yield documents.restoreFiles({ documentIds: action.payload.documentIds })
   } catch (err) {
+    yield put(actions.setError(err.errors[0].msg))
     yield put(actions.setLoadingState(false))
   }
 }

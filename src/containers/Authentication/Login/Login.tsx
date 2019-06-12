@@ -58,7 +58,9 @@ class Login extends React.Component<any, any> {
   render() {
     if (this.state.token) {
       return <Redirect to="/fm" />
-    } else if (!this.state.token)
+    } else if (!this.state.token) {
+      window.document.cookie = 'token=;expires=Thu, 01 Jan 1970 00:00:00 GMT;path=/'
+      localStorage.clear()
       return (
         <Authentication>
           <form className={styles.login} onSubmit={this.handleSubmit}>
@@ -93,6 +95,7 @@ class Login extends React.Component<any, any> {
           </form>
         </Authentication>
       )
+    }
   }
 }
 

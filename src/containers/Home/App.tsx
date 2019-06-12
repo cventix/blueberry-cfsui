@@ -15,7 +15,7 @@ import { UploadModal } from '../../components/ui-elements/Uploadmodal/Uploadmoda
 import MoveFile from '../../components/ui-elements/Modal/MoveFileModal.tsx/MoveFile'
 import { TextInput } from '../../components/ui-elements/Input/Input'
 import { Button } from '../../components/ui-elements/Button/Button'
-import { downloadDirectory, removeMessages } from '../../services/internal/store/actions'
+import { downloadDirectory, removeMessages, deleteDocument } from '../../services/internal/store/actions'
 import { setToggle } from '../../services/internal/store/actions/selections'
 import { ToastUndo } from '../../components/ui-elements/Toast/ToastUndo'
 
@@ -61,6 +61,7 @@ class App extends Component<
     document?: any
     match?: any
     removeMessages?: any
+    deleteDocument?: any
   },
   {}
 > {
@@ -92,7 +93,7 @@ class App extends Component<
     })
   }
 
-  notify = () => {
+  toRemove = () => {
     this.setState({
       toRemove: [...this.state.toRemove, this.props.selection[0]]
     })
@@ -103,6 +104,16 @@ class App extends Component<
       onClose: this.cleanCollection
     })
   }
+
+  toErase = () => {
+    this.setState({
+      toRemove: [...this.state.toRemove, this.props.selection[0]]
+    })
+    let documents = this.props.document.documents.filter((i: any) => i.id !== this.props.selection[0])
+    this.props.setDocuments(documents)
+    this.onEraseDocument()
+  }
+
   cleanCollection = () => {
     this.onRemoveDocument()
   }
@@ -117,7 +128,7 @@ class App extends Component<
     else url = this.props.history.location.pathname.replace(`/${urlSize}`, size)
     this.props.history.push(url)
   }
-  
+
   onItemClick = async (e: any) => {
     console.log(e)
     if (!e.target) {
@@ -148,7 +159,7 @@ class App extends Component<
         case t`حذف`:
           if (this.props.selection && this.props.selection.length > 0) {
             // this.setState({ modal: 'remove', showModal: true })
-            this.notify()
+            this.toRemove()
             this.props.setTempDocuments(this.props.document)
             console.log(this.props.selection[0])
 
@@ -162,11 +173,17 @@ class App extends Component<
             this.setState({ modal: 'noSelection', showModal: true })
           }
           break
+          case t`حذف دائم`:
+            if (this.props.selection && this.props.selection.length > 0) {
+              // this.setState({ modal: 'remove', showModal: true })
+              this.toErase()
+            }
+            break
         case t`آپلود فایل از URL`:
           this.setState({ modal: 'urlUpload', showModal: true })
         case t`بزرگ`:
           this.changeSize('large')
-          break;
+          break
         case t`سایز اصلی`:
           this.changeSize('')
           break
@@ -228,7 +245,14 @@ class App extends Component<
       console.log('E: ', error)
     }
   }
-
+  onEraseDocument = async () => {
+    try {
+      let result = await this.props.deleteDocument({ folderId: this.props.selection })
+      this.setState({ showRemove: false })
+    } catch (error) {
+      console.log('E: ', error)
+    }
+  }
   toggleHamburgerMenu() {
     this.setState({
       isOpenMenu: !this.state.isOpenMenu
@@ -246,6 +270,11 @@ class App extends Component<
   componentWillReceiveProps(nextProps: any) {
     if (nextProps.messages.errors.length > 0) {
       toast.error(nextProps.messages.errors)
+      this.props.removeMessages()
+    }
+
+    if (nextProps.messages.msgs.length > 0) {
+      toast.success(nextProps.messages.msgs)
       this.props.removeMessages()
     }
   }
@@ -330,6 +359,7 @@ const mapStateToProps = (state: any) => ({
 const mapDispatchToProps = (dispatch: any) => {
   return {
     removeFolder: (value: IRemoveFolderInput) => dispatch(removeFolder(value)),
+    deleteDocument: (value: any) => dispatch(deleteDocument(value)),
     generateDownloadLink: (value: IGenerateLinkInput) => dispatch(generateDownloadLink(value)),
     downloadDirectory: (value: IDownloadDirectoryInput) => dispatch(downloadDirectory(value)),
     signout: () => dispatch(signout()),
@@ -342,6 +372,7 @@ const mapDispatchToProps = (dispatch: any) => {
     setToggle: (value: any) => dispatch(setToggle(value)),
     restoreFiles: (value: any) => dispatch(restoreFiles(value)),
     removeMessages: () => dispatch(removeMessages())
+    
   }
 }
 

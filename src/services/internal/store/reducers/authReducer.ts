@@ -39,7 +39,8 @@ const authReducer = (state: StateInterface = initialState, action: any) => {
       return {
         ...state,
         token: '',
-        username: ''
+        username: '',
+      
       }
     default:
       return state

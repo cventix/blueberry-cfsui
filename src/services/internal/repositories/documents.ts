@@ -186,6 +186,17 @@ class Documents implements DocumentsInterface {
       throw error
     }
   }
+  async deleteDocument({ documentIds }: IRestoreFileInput) {
+    console.log(documentIds)
+    let url = `/rest/documents?ids=${documentIds.join()}`
+    try {
+      return await this._rest.delete({ url })
+    } catch (error) {
+      throw error
+    }
+  }
+
+  
 }
 
 export default Documents

@@ -13,10 +13,12 @@ export default {
   success(msg: any, options = {}) {
     return toast.success(msg, {
       ...options,
-       autoClose: 10000,
+       autoClose: 3000,
       className: css({
-        background: '#21d352 !important',
+        height: '35px !important',
         fontFamily: 'vazir-regular !important',
+        padding:'0 !important',
+        minHeight:'35px !important',
         textAlign: 'center !important'
 
       }),

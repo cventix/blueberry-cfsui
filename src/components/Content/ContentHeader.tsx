@@ -23,7 +23,7 @@ export default interface Iprops {
 export const ContentHeader: React.FunctionComponent<Iprops> = ({ history, switchView, view, handleSearchInput }) => {
   return (
     <div className={styles.header}>
-      <Breadcrumb history={history} />
+      <Breadcrumb  />
       <div className={styles.left}>
         <SwitchIcon switchView={switchView} nextView={'table'} icon={grid} activeIcon={gridViewActive} view={view} />
         <SwitchIcon switchView={switchView} nextView={'grid'} icon={list} activeIcon={listViewActive} view={view} />

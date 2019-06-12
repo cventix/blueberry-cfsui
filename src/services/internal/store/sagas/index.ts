@@ -14,7 +14,8 @@ import {
   removeFolder,
   getTrashDocuments,
   getModalDocuments,
-  restoreFiles
+  restoreFiles,
+  deleteDocument
 } from './documents'
 
 // import { getUserInfo } from './user'
@@ -35,7 +36,7 @@ function* watchDocuments() {
 
   yield takeEvery(actionTypes.CREATE_FOLDER, createFolder)
   yield takeEvery(actionTypes.RENAME_FOLDER, renameFolder)
-  yield takeEvery(actionTypes.REMOVE_FOLDER, removeFolder)
+  yield takeLatest(actionTypes.REMOVE_FOLDER, removeFolder)
   yield takeEvery(actionTypes.SHARE_DOCUMENTS, shareDocuments)
   yield takeEvery(actionTypes.MOVE_DOCUMENTS, moveDocuments)
   yield takeEvery(actionTypes.GET_TRASH_DOCUMENTS, getTrashDocuments)
@@ -43,7 +44,8 @@ function* watchDocuments() {
   yield takeEvery(actionTypes.GENERATE_DOWNLOAD_LINK, generateLink)
 
   yield takeEvery(actionTypes.RESTORE_FILES, restoreFiles)
-  yield takeEvery(actionTypes.DOWNLOAD_DIRECTORY, downloadDirectory)
+  yield takeEvery(actionTypes.DELETE_DOCUMENT, deleteDocument)
+  yield takeLatest(actionTypes.DOWNLOAD_DIRECTORY, downloadDirectory)
 }
 
 export function* rootSaga() {
