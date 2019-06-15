@@ -37,9 +37,12 @@ export function* getModalDocuments(action: AnyAction) {
       if (data.children.length < 1) {
         lastChild = true
         data = data.parent
-      } else data = data.children
+      } else {
+        if (data.children.every((each: any) => each.discriminator == 'F')) lastChild = true
+        data = data.children
+      }
     }
-
+    yield put(actions.setLastChild(false))
     lastChild ? yield put(actions.setLastChild(lastChild)) : yield put(actions.setModalDocuments(data))
     yield put(actions.setModalLoadingState(false))
   } catch (err) {
@@ -171,6 +174,15 @@ export function* downloadDirectory(action: AnyAction) {
 export function* restoreFiles(action: AnyAction) {
   try {
     yield documents.restoreFiles({ documentIds: action.payload.documentIds })
+  } catch (err) {
+    yield put(actions.setError(err.errors[0].msg))
+    yield put(actions.setLoadingState(false))
+  }
+}
+export function* uploadDocuments(action: AnyAction) {
+  console.log(action)
+  try {
+    yield documents.uploadDocument({ body: action.payload.file, fileSize: action.payload.fileSize, fileName: action.payload.fileName, pathId: 0 })
   } catch (err) {
     yield put(actions.setError(err.errors[0].msg))
     yield put(actions.setLoadingState(false))

@@ -20,3 +20,4 @@ export const downloadDirectory = actionBuilder(actionTypes.DOWNLOAD_DIRECTORY, '
 export const restoreFiles = actionBuilder(actionTypes.RESTORE_FILES, 'payload')
 export const setLastChild =  actionBuilder(actionTypes.SET_LAST_CHILD, 'lastChild')
 export const deleteDocument =  actionBuilder(actionTypes.DELETE_DOCUMENT, 'payload')
+export const uploadDocument =  actionBuilder(actionTypes.UPLOAD_DOCUMENT, 'payload')

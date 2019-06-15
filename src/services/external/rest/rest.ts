@@ -78,7 +78,7 @@ class Rest implements RestInterface {
       throw error
     }
   }
-
+  
   async put({ url, headers, body }: InputInterface) {
     try {
       return await this._base({ method: 'PUT', url, headers, body })

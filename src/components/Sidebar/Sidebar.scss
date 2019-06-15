@@ -26,7 +26,14 @@
     cursor: pointer;
     z-index: 949;
   }
-
+  .fileUpload {
+    font-size: 30px;
+    position: absolute;
+    left: 0;
+    top: 0;
+    opacity: 0;
+    cursor: pointer;
+  }
   .menuWrapper {
     position: fixed;
     top: $navbar-height;
@@ -103,17 +110,17 @@
         border-radius: 3px;
         border: solid 0.5px #dddddd;
         margin-top: 19px;
-	  }
-	  .row{
-		@include flex(row, unset);
-	  }
+      }
+      .row {
+        @include flex(row, unset);
+      }
       .copyBox {
         margin-top: 37px;
-		margin-bottom: 20px;
-	  }
-	  .buttonGroup{
-		  margin-bottom: 46px;
-	  }
+        margin-bottom: 20px;
+      }
+      .buttonGroup {
+        margin-bottom: 46px;
+      }
     }
   }
 }

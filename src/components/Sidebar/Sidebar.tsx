@@ -8,7 +8,7 @@ import { VM } from './components/VM'
 import './Sidebar.scss'
 import PreviewSideBar from './components/PreviewSideBar'
 import PreviewSideBarImage from './components/PreviewSideBarImage'
-import TrashSideBar from './components/TrashSideBar';
+import TrashSideBar from './components/TrashSideBar'
 
 export default interface Iprops {
   createFolderModal?: () => void
@@ -16,7 +16,7 @@ export default interface Iprops {
   handleCFClose?: any
   showModal?: boolean
   open: boolean
-  onItemClick?: (e: any) => void
+  onItemClick?: (e: any, file?: any) => void
 }
 
 export const Sidebar: React.FunctionComponent<Iprops> = ({

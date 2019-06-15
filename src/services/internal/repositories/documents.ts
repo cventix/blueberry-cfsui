@@ -195,8 +195,14 @@ class Documents implements DocumentsInterface {
       throw error
     }
   }
-
-  
+  async uploadDocument({ body, fileSize, fileName, pathId }: any) {
+    let url = `/rest/upload/binary?name=${fileName}&size=${fileSize}&path-id=${pathId}`
+    try {
+      return await this._rest.post({ url, body })
+    } catch (error) {
+      throw error
+    }
+  }
 }
 
 export default Documents

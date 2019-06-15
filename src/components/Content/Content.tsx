@@ -25,7 +25,8 @@ import {
   setSidebarItems,
   getTrashDocuments,
   getSharedDocuments,
-  generateDownloadLink
+  generateDownloadLink,
+  setParentId
 } from '../../services/internal/store/actions'
 import { formatDate } from '../../services/internal/utils/formatDates'
 import { formatBytes } from '../../services/internal/utils/formatBytes'
@@ -77,6 +78,7 @@ export interface IProps {
   setToggle?: any
   generateDownloadLink?: any
   downloadToken?: string
+  setParentId?: any
 }
 
 export interface navigateObject {
@@ -186,12 +188,14 @@ class Content extends React.Component<IProps, IState> {
   onGetDocument = async (isChildren?: boolean, path?: any, parentId?: number) => {
     if (isChildren == true) {
       try {
+        this.props.setParentId(parentId)
         await this.props.getDocuments({ isChildren: true, path, parentId })
       } catch (error) {
         console.log('E: ', error)
       }
     } else {
       try {
+        this.props.setParentId(1)
         await this.props.getDocuments()
       } catch (error) {
         console.log('E: ', error)
@@ -322,7 +326,6 @@ class Content extends React.Component<IProps, IState> {
       } else {
         this.props.history.push(`fm/preview/${item.genericType}${item.genericType === 'image' ? '/' + this.props.image : ''}/${name}`)
         this.props.setItem(item)
-        console.log('hi')
         this.setState({ modalView: 'previewModal', previewId: id, fileName: name, [`item${id}`]: item })
       }
     }
@@ -586,7 +589,7 @@ class Content extends React.Component<IProps, IState> {
         {modal}
         {preview}
         {toaster}
-        {!this.props.loading && this.state.filteredTable.length > 0   && (
+        {!this.props.loading && this.state.filteredTable.length > 0 && (
           <div className={styles.footer}>
             <Button
               className={[this.state.showMore ? 'btnDefault0' : 'btnDefault100', 'btnLg']}
@@ -628,7 +631,8 @@ const mapDispatchToProps = (dispatch: any) => {
     removeSelection: () => dispatch(removeSelection()),
     getTrashDocuments: () => dispatch(getTrashDocuments()),
     setToggle: (value: any) => dispatch(setToggle(value)),
-    getSharedDocuments: () => dispatch(getSharedDocuments())
+    getSharedDocuments: () => dispatch(getSharedDocuments()),
+    setParentId: (value: any) => dispatch(setParentId(value))
   }
 }
 

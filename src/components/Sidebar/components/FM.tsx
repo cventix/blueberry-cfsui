@@ -23,7 +23,7 @@ import '../Sidebar.scss'
 import { connect } from 'react-redux'
 
 export interface Iprops {
-  onItemClick?: (e: any) => void
+  onItemClick?: (e: any,file?: any) => void
   selection?: number[]
   toggle?: any
 }
@@ -37,8 +37,9 @@ const FM: React.FunctionComponent<Iprops> = ({ onItemClick, selection, toggle })
   console.log(selection && selection.length > 0)
   return (
     <div className="menu">
-      <Button className={['btnPrimary0', 'btnLg']} style={{ marginBottom: '15px' }}>
+      <Button className={['btnPrimary0', 'btnLg']} style={{ marginBottom: '15px',cursor:'pointer' }}>
         <IconLink icon={uploadIcon} iconAlt="upload icon" label={t`آپلود فایل`} />
+        <input className={'fileUpload'} type="file" accept="image/png, image/jpeg" onChange={ (e) => onItemClick && onItemClick('fileUpload', e.target.files) } />
       </Button>
 
       <DropDownButton

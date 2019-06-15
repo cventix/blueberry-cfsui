@@ -13,6 +13,8 @@ export interface BreadcrumbItem {
   active?: boolean
   onClick?: any
   location?: any
+  parent?: boolean
+  id?: number
 }
 
 export default interface Iprops {
@@ -22,23 +24,25 @@ export default interface Iprops {
 }
 
 export const Breadcrumb: React.FunctionComponent<Iprops> = ({ history, modal, className }) => {
-  console.log(history)
-  return(
-  <div className={` ${modal ? [styles.breadcrumb, styles.modalbread, className].join(' ') : styles.breadcrumb}`}>
-
-    {history ? (
-      history.map((item: BreadcrumbItem, index: number) => (
-        <React.Fragment key={index}>
-          <span onClick={() => item.onClick()} className={item.active ? [styles.active, styles.item].join(' ') : styles.item}>
-            {item.title}
-          </span>
-          {!item.active && <Icon src={bigger} />}
-        </React.Fragment>
-      ))
-    ) : (
-      <Route path="/:path" component={BreadcrumbsItem} />
-    )}
-  </div>)
+  return (
+    <div className={` ${modal ? [styles.breadcrumb, styles.modalbread, className].join(' ') : styles.breadcrumb}`}>
+      {history ? (
+        history.map((item: BreadcrumbItem, index: number) => (
+          <React.Fragment key={index}>
+            <span
+              onClick={() => (item.parent ? item.onClick(true, item.title, item.id) : item.onClick())}
+              className={item.active ? [styles.active, styles.item].join(' ') : styles.item}
+            >
+              {item.title}
+            </span>
+            {!item.active && <Icon src={bigger} />}
+          </React.Fragment>
+        ))
+      ) : (
+        <Route path="/:path" component={BreadcrumbsItem} />
+      )}
+    </div>
+  )
 }
 
 const BreadcrumbsItem: React.FunctionComponent<any> = ({ match, ...rest }) => {

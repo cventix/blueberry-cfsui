@@ -15,7 +15,7 @@ import { UploadModal } from '../../components/ui-elements/Uploadmodal/Uploadmoda
 import MoveFile from '../../components/ui-elements/Modal/MoveFileModal.tsx/MoveFile'
 import { TextInput } from '../../components/ui-elements/Input/Input'
 import { Button } from '../../components/ui-elements/Button/Button'
-import { downloadDirectory, removeMessages, deleteDocument } from '../../services/internal/store/actions'
+import { downloadDirectory, removeMessages, deleteDocument, uploadDocument } from '../../services/internal/store/actions'
 import { setToggle } from '../../services/internal/store/actions/selections'
 import { ToastUndo } from '../../components/ui-elements/Toast/ToastUndo'
 
@@ -62,6 +62,7 @@ class App extends Component<
     match?: any
     removeMessages?: any
     deleteDocument?: any
+    uploadDocument?: any
   },
   {}
 > {
@@ -129,11 +130,28 @@ class App extends Component<
     this.props.history.push(url)
   }
 
-  onItemClick = async (e: any) => {
+  onItemClick = async (e: any, file: any) => {
     console.log(e)
     if (!e.target) {
       console.log(e)
       switch (e) {
+        case `fileUpload`:
+          console.log(file)
+          const files = Array.from(file)
+          console.log(files)
+          const formData = new FormData()
+          files.forEach((item: any, index) => {
+            formData.append('file', item)
+            console.log(formData)
+
+            formData.append(`Content-Type`, 'application/x-www-form-urlencoded')
+            formData.append(`Content-length`, file[0].size)
+            formData.append(`token`, localStorage.getItem('token') || '{}')
+            formData.append(`Cookie`, `token="${localStorage.getItem('token') || '{}'}"`)
+          })
+          console.log(file[0].size)
+          this.props.uploadDocument({ file: formData, fileSize: file[0].size, fileName: file[0].name })
+          break
         case `دانلود با فرمت zip`:
           await this.props.downloadDirectory({ documentIds: this.props.selection, downloadType: 'zip' })
           break
@@ -153,7 +171,7 @@ class App extends Component<
           if (this.props.selection && this.props.selection.length > 0) {
             this.setState({ modal: 'moveFile', showModal: true })
           } else {
-            this.setState({ modal: 'noSelection', showModal: true })
+            this.setState({ modal: 'noSelection' })
           }
           break
         case t`حذف`:
@@ -170,15 +188,15 @@ class App extends Component<
               this.timer = 0
             }, this.countDownTime)
           } else {
-            this.setState({ modal: 'noSelection', showModal: true })
+            this.setState({ modal: 'noSelection' })
           }
           break
-          case t`حذف دائم`:
-            if (this.props.selection && this.props.selection.length > 0) {
-              // this.setState({ modal: 'remove', showModal: true })
-              this.toErase()
-            }
-            break
+        case t`حذف دائم`:
+          if (this.props.selection && this.props.selection.length > 0) {
+            // this.setState({ modal: 'remove', showModal: true })
+            this.toErase()
+          }
+          break
         case t`آپلود فایل از URL`:
           this.setState({ modal: 'urlUpload', showModal: true })
         case t`بزرگ`:
@@ -234,6 +252,8 @@ class App extends Component<
         case t`کپی کن`:
           break
       }
+    } else if (e.target.files) {
+      console.log(e.target.files)
     }
   }
 
@@ -304,11 +324,8 @@ class App extends Component<
         )
         break
       case 'noSelection':
-        modal = (
-          <Modal show={this.state.showModal} handleClose={this.handleClose}>
-            You havent selected anything
-          </Modal>
-        )
+        toast.error('You havent selected anything')
+
         break
       default:
         break
@@ -371,8 +388,8 @@ const mapDispatchToProps = (dispatch: any) => {
     setPreviewImage: (value: any) => dispatch(setPreviewImage(value)),
     setToggle: (value: any) => dispatch(setToggle(value)),
     restoreFiles: (value: any) => dispatch(restoreFiles(value)),
-    removeMessages: () => dispatch(removeMessages())
-    
+    removeMessages: () => dispatch(removeMessages()),
+    uploadDocument: (value: any) => dispatch(uploadDocument(value))
   }
 }
 

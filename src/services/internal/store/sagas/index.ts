@@ -15,8 +15,11 @@ import {
   getTrashDocuments,
   getModalDocuments,
   restoreFiles,
-  deleteDocument
+  deleteDocument,
+  uploadDocuments
 } from './documents'
+
+
 
 // import { getUserInfo } from './user'
 
@@ -46,6 +49,7 @@ function* watchDocuments() {
   yield takeEvery(actionTypes.RESTORE_FILES, restoreFiles)
   yield takeEvery(actionTypes.DELETE_DOCUMENT, deleteDocument)
   yield takeLatest(actionTypes.DOWNLOAD_DIRECTORY, downloadDirectory)
+  yield takeEvery(actionTypes.UPLOAD_DOCUMENT, uploadDocuments)
 }
 
 export function* rootSaga() {
