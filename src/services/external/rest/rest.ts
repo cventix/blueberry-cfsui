@@ -3,14 +3,14 @@ import { ConfigInterface } from '../../internal/config/config'
 interface InputInterface {
   url: string
   headers?: object
-  body?: object
+  body?: object | string
 }
 
 interface IBaseInput {
   method?: string
   url: string
   headers?: object
-  body?: object
+  body?: object | string
 }
 
 export interface RestInterface {

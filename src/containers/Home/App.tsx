@@ -11,14 +11,15 @@ import VMContent from '../../components/VMContent/VMContent'
 import Order from '../../components/VMContent/components/Order/Order'
 import { Modal } from '../../components/ui-elements/Modal/Modal'
 import CFModal from '../../components/ui-elements/Modal/CreateFolderModal/CreateFolder'
-import { UploadModal } from '../../components/ui-elements/Uploadmodal/Uploadmodal'
+import { UploadModal } from '../../components/ui-elements/Modal/Uploadmodal/Uploadmodal'
 import MoveFile from '../../components/ui-elements/Modal/MoveFileModal.tsx/MoveFile'
 import { TextInput } from '../../components/ui-elements/Input/Input'
 import { Button } from '../../components/ui-elements/Button/Button'
-import { downloadDirectory, removeMessages, deleteDocument, uploadDocument } from '../../services/internal/store/actions'
+import { downloadDirectory, removeMessages, deleteDocument, uploadDocument, urlUpload } from '../../services/internal/store/actions'
 import { setToggle } from '../../services/internal/store/actions/selections'
 import { ToastUndo } from '../../components/ui-elements/Toast/ToastUndo'
 import toast from '../../components/ui-elements/Toast/Toast'
+import UrlUploadmodal from '../../components/ui-elements/Modal/urlUpload/urlUploadModal'
 // Services
 import { setRouter } from '../../services/internal/store/actions/router'
 
@@ -38,6 +39,7 @@ import {
 import './App.css'
 import styles from '../../components/Content/Content.module.scss'
 import { IRemoveFolderInput, IDownloadDirectoryInput, IGenerateLinkInput } from '../../services/internal/repositories/documents'
+import urlUploadModal from '../../components/ui-elements/Modal/urlUpload/urlUploadModal'
 
 class App extends Component<
   {
@@ -63,6 +65,7 @@ class App extends Component<
     removeMessages?: any
     deleteDocument?: any
     uploadDocument?: any
+    urlUpload?: any
   },
   {}
 > {
@@ -88,19 +91,20 @@ class App extends Component<
     this.setState({ showModal: false, modalView: '' })
   }
 
-  undo = (id: any) => {
+  undo = (ids: any) => {
+    console.log(ids)
     this.setState({
-      toRemove: this.state.toRemove.filter((v: any) => v !== id)
+      toRemove: this.state.toRemove.filter((v: any, index: number) => v[index] !== ids[index])
     })
   }
 
   toRemove = () => {
     this.setState({
-      toRemove: [...this.state.toRemove, this.props.selection[0]]
+      toRemove: [...this.state.toRemove, this.props.selection]
     })
-    let documents = this.props.document.documents.filter((i: any) => i.id !== this.props.selection[0])
+    let documents = this.props.document.documents.filter((i: any, index: number) => i.id !== this.props.selection[index])
     this.props.setDocuments(documents)
-    toast.success(<ToastUndo undo={this.undo} id={this.props.selection[0]} />, {
+    toast.success(<ToastUndo undo={this.undo} id={this.props.selection} />, {
       toRemove: [],
       onClose: this.cleanCollection
     })
@@ -116,6 +120,7 @@ class App extends Component<
   }
 
   cleanCollection = () => {
+    console.log(this.state.toRemove)
     this.onRemoveDocument()
   }
 
@@ -176,17 +181,8 @@ class App extends Component<
           break
         case t`حذف`:
           if (this.props.selection && this.props.selection.length > 0) {
-            // this.setState({ modal: 'remove', showModal: true })
             this.toRemove()
             this.props.setTempDocuments(this.props.document)
-            console.log(this.props.selection[0])
-
-            this.timer = setTimeout(() => {
-              console.log(1)
-              // this.onRemoveDocument()
-              // this.setDocuments({})
-              this.timer = 0
-            }, this.countDownTime)
           } else {
             this.setState({ modal: 'noSelection' })
           }
@@ -258,12 +254,16 @@ class App extends Component<
   }
 
   onRemoveDocument = async () => {
-    try {
-      let result = await this.props.removeFolder({ folderId: this.props.selection })
-      this.setState({ showRemove: false })
-    } catch (error) {
-      console.log('E: ', error)
-    }
+    let table = this.props.document.documents
+    if (this.state.toRemove.length > 0)
+      try {
+        let result = await this.props.removeFolder({ folderId: this.state.toRemove })
+        table = table.filter((x: any, index: number) => x.id !== result.payload.folderId[index])
+        this.props.setDocuments(table)
+        this.setState({ showRemove: false })
+      } catch (error) {
+        console.log('E: ', error)
+      }
   }
   onEraseDocument = async () => {
     try {
@@ -308,20 +308,7 @@ class App extends Component<
         modal = <MoveFile handleClose={this.handleClose} showModal={this.state.showModal} />
         break
       case 'urlUpload':
-        modal = (
-          <UploadModal
-            show={this.state.showModal}
-            width={640}
-            handleClose={this.handleClose}
-            title={t`آپلود از آدرس اینترنتی`}
-            formDescription={t`برای آپلود آدرس اینترنتی خود را در فرم زیر وارد نمایید`}
-          >
-            <div className={styles.row}>
-              <TextInput style={{ width: 300 }} name={'urlInput'} />
-              <Button className={['btnPrimary100', 'btnSm']}>{t`آپلود`}</Button>
-            </div>
-          </UploadModal>
-        )
+        modal = <UrlUploadmodal showModal={this.state.showModal} handleCFClose={this.handleClose} />
         break
       case 'noSelection':
         toast.error('You havent selected anything')
@@ -389,7 +376,8 @@ const mapDispatchToProps = (dispatch: any) => {
     setToggle: (value: any) => dispatch(setToggle(value)),
     restoreFiles: (value: any) => dispatch(restoreFiles(value)),
     removeMessages: () => dispatch(removeMessages()),
-    uploadDocument: (value: any) => dispatch(uploadDocument(value))
+    uploadDocument: (value: any) => dispatch(uploadDocument(value)),
+    urlUpload: (value: any) => dispatch(urlUpload(value))
   }
 }
 

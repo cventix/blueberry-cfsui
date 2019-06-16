@@ -35,11 +35,11 @@ const TrashSideBar: React.FunctionComponent<Iprops> = ({ onItemClick, selection,
   console.log(selection && selection.length > 0)
   return (
     <div className="menu">
-      <Button className={['btnDanger0', 'btnLg']} style={{ marginBottom: '15px' }}>
-        <IconLink icon={deleteIcon} iconAlt="upload icon" label={t`حذف دائم`} onClick={onItemClick}/>
-      </Button>
       <Button className={[selection && selection.length > 0 ? 'btnSuccess0' : 'btnDisabled', 'btnLg']} style={{ marginBottom: '15px' }}>
         <IconLink onClick={onItemClick} icon={refreshIcon} iconAlt="upload icon" label={t`بازیابی فایل`} />
+      </Button>
+      <Button className={[selection && selection.length > 0 ? 'btnDanger0' : 'btnDisabled', 'btnLg']} style={{ marginBottom: '15px' }}>
+        <IconLink icon={deleteIcon} iconAlt="upload icon" label={t`حذف دائم`} onClick={onItemClick} />
       </Button>
       <FileFiltering forFM={true} onItemClick={onItemClick} />
       <UpgradeAccount />

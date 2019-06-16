@@ -1,6 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { UploadModal } from '../../Uploadmodal/Uploadmodal'
+import { UploadModal } from '../Uploadmodal/Uploadmodal'
 import { TextInput } from '../../Input/Input'
 import { Button } from '../../Button/Button'
 import { createFolder, getDocuments } from '../../../../services/internal/store/actions/documents'

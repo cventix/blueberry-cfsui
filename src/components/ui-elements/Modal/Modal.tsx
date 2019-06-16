@@ -1,8 +1,10 @@
 import * as React from 'react'
-import { Icon } from '../Icon'
-import close from '../../../images/buttonIcons/icon-btn-refresh-copy.svg'
 
+import { Icon } from '../Icon'
+
+//styles and icons
 import styles from './Modal.module.scss'
+import close from '../../../images/buttonIcons/icon-btn-refresh-copy.svg'
 
 export const splitter = (className: any) => {
   return className.map((cls: any) => styles[cls]).join(' ')
@@ -24,7 +26,6 @@ export const Modal: React.FunctionComponent<Iprops> = props => {
           <span className={styles.title}>{props.title}</span>
           <button className={styles.close} onClick={props.handleClose}>
             <Icon className={styles.closeIcon} src={close} />
-            {/* <span className={styles.closeIcon}>+</span> */}
           </button>
         </div>
         <div className={styles.body}>

@@ -1,18 +1,19 @@
 import React from 'react'
-import { withRouter } from 'react-router'
 import { connect } from 'react-redux'
 import { t } from 'ttag'
 
 // components
 import { Button } from '../ui-elements/Button/Button'
 import { IconLink } from '../ui-elements/IconLink'
-import { UploadModal } from '../ui-elements/Uploadmodal/Uploadmodal'
+import { UploadModal } from '../ui-elements/Modal/Uploadmodal/Uploadmodal'
 import { RenameFile } from '../ui-elements/Modal/ModalContent/RenameFile'
 import { Icon } from '../ui-elements/Icon'
 import { ContentHeader } from './ContentHeader'
 import { ContentBody } from './ContentBody'
 import CFModal from '../ui-elements/Modal/CreateFolderModal/CreateFolder'
-
+import { Preview } from '../ui-elements/Preview/Preview'
+import MyVideoPlayer from '../MediaPlayer/MediaPlayer'
+import toast from '../../components/ui-elements/Toast/Toast'
 // Services
 
 import {
@@ -26,29 +27,18 @@ import {
   getTrashDocuments,
   getSharedDocuments,
   generateDownloadLink,
-  setParentId
+  setParentId,
+  setDocuments
 } from '../../services/internal/store/actions'
-import { formatDate } from '../../services/internal/utils/formatDates'
-import { formatBytes } from '../../services/internal/utils/formatBytes'
 import { sliceData } from '../../services/internal/utils/sliceData'
 import { setSelections, removeSelection, setToggle } from '../../services/internal/store/actions/selections'
-
-// styles & icons
-
-import arrowBottom from '../../images/buttonIcons/icon-btn-arrow-bottom.svg'
-import styles from './Content.module.scss'
-import { Preview } from '../ui-elements/Preview/Preview'
-import image from '../../images/image.jpg'
 import ShareModal from '../ui-elements/Modal/ShareModal.tsx/ShareModal'
 import { IGenerateLinkInput } from '../../services/internal/repositories/documents'
-import MyVideoPlayer from '../MediaPlayer/MediaPlayer'
-const sort = (data: object[]) => {
-  var sortOrder = ['folder', 'image', 'music']
-  data.sort(function(a: any, b: any) {
-    return sortOrder.indexOf(a.type) - sortOrder.indexOf(b.type)
-  })
-  return data
-}
+
+// styles & icons
+import arrowBottom from '../../images/buttonIcons/icon-btn-arrow-bottom.svg'
+import styles from './Content.module.scss'
+import { ToastUndo } from '../ui-elements/Toast/ToastUndo'
 
 export interface IProps {
   getDocuments?: any
@@ -79,6 +69,7 @@ export interface IProps {
   generateDownloadLink?: any
   downloadToken?: string
   setParentId?: any
+  setDocuments?: any
 }
 
 export interface navigateObject {
@@ -102,17 +93,6 @@ export interface IState {
   showMore: boolean
   selectedArray: number[]
   [key: string]: any
-}
-
-const videoJsOptions = {
-  autoplay: true,
-  controls: true,
-  sources: [
-    {
-      src: 'http://vjs.zencdn.net/v/oceans.mp4',
-      type: 'video/mp4'
-    }
-  ]
 }
 
 class Content extends React.Component<IProps, IState> {
@@ -139,7 +119,8 @@ class Content extends React.Component<IProps, IState> {
       showToaster: false,
       description: '',
       showToast: false,
-      message: ''
+      message: '',
+      toRemove: []
     }
 
     this.updateWindowDimensions = this.updateWindowDimensions.bind(this)
@@ -218,7 +199,6 @@ class Content extends React.Component<IProps, IState> {
     }
 
     if (nextProps.selection.length == 0 || (nextProps.selection.length > 0 && nextProps.document.documents !== this.state.mainTable)) {
-      console.log('aha')
       this.setState({
         table: sliceData({ array: nextProps.document.documents }),
         showMore: nextProps.document.documents.length > 10,
@@ -350,13 +330,14 @@ class Content extends React.Component<IProps, IState> {
 
   onRemoveDocument = async () => {
     let table = this.state.table
-    try {
-      let result = await this.props.removeFolder({ folderId: this.state.isSelected })
-      table = table.filter((x: any) => x.id !== result.payload.folderId)
-      this.setState({ showToaster: false, table })
-    } catch (error) {
-      console.log('E: ', error)
-    }
+    if (this.state.toRemove.length > 0)
+      try {
+        let result = await this.props.removeFolder({ folderId: this.state.toRemove })
+        table = table.filter((x: any) => x.id !== result.payload.folderId)
+        this.setState({ showToaster: false, table })
+      } catch (error) {
+        console.log('E: ', error)
+      }
   }
 
   changeHandler = (event: any) => {
@@ -395,19 +376,26 @@ class Content extends React.Component<IProps, IState> {
 
   // remove modal
   openRemoveModal = (isSelected: number) => {
-    this.setState({ showToaster: true, isSelected, modalView: 'removeFile', countDown: this.countDownTime / 1000 })
-    this.timer = setTimeout(() => {
-      this.onRemoveDocument()
-      this.setState({ showToaster: false, modalView: '' })
-      this.timer = 0
-    }, this.countDownTime)
+    console.log(isSelected)
+    this.setState({
+      toRemove: [...this.state.toRemove, isSelected]
+    })
+    let documents = this.props.document.documents.filter((i: any) => i.id !== isSelected)
+    this.props.setDocuments(documents)
+    toast.success(<ToastUndo undo={this.undo} id={isSelected} />, {
+      onClose: this.cleanCollection
+    })
   }
-
-  onCancle = () => {
-    this.setState({ showToaster: false, modalView: '' })
-    if (this.timer) {
-      clearTimeout(this.timer)
-    }
+  undo = (id: any) => {
+    this.setState({
+      toRemove: this.state.toRemove.filter((v: any) => v !== id)
+    })
+  }
+  cleanCollection = () => {
+    this.onRemoveDocument()
+    this.setState({
+      toRemove: []
+    })
   }
 
   // handle search
@@ -415,7 +403,6 @@ class Content extends React.Component<IProps, IState> {
     let filteredTable = this.state.table.filter((obj: any) => {
       return obj.cfsFullPath.includes(val)
     })
-
     this.setState({
       filteredTable
     })
@@ -424,14 +411,11 @@ class Content extends React.Component<IProps, IState> {
   // on item check
   onCheck = (id: number, e: any) => {
     let { selectedArray } = this.state
-    console.log(id)
-    console.log(selectedArray)
     if (selectedArray.indexOf(id) === -1) selectedArray.push(id)
     else
       selectedArray = selectedArray.filter(function(obj) {
         return obj !== id
       })
-    console.log(selectedArray)
     this.props.setSelections(selectedArray)
     this.setState({ selectedArray })
   }
@@ -454,17 +438,11 @@ class Content extends React.Component<IProps, IState> {
         item = reversed[reversed.length - 1]
       }
       if (item) {
-        console.log(item.genericType)
         this.props.history.push(`/fm/preview/${item.genericType}${item.genericType === 'image' ? '/' + this.props.image : ''}/${name}`)
         this.props.setItem(item)
         this.setState({ modalView: 'previewModal', previewId: item.id, fileName: name, [`item${item.id}`]: item })
       }
     }
-    console.log(index)
-    // this.props.history.push(`fm/preview/${item.genericType}${item.genericType === 'image' ? '/' + this.props.image : ''}/${name}`)
-    // this.props.setItem(item)
-    // console.log('hi')
-    // this.setState({ modalView: 'previewModal', previewId: id, fileName: name, [`item${id}`]: item })
   }
 
   public render() {
@@ -495,24 +473,7 @@ class Content extends React.Component<IProps, IState> {
       case 'shareFile':
         modal = <ShareModal handleCFClose={this.handleClose} showModal={true} />
         break
-      // case 'removeFile':
-      //   toaster = (
-      //     <Toast level={'success'} caret={false}>
-      //       <CountdownTimer startTimeInSeconds={this.state.countDown} />
-      //       پوشه حذف شد
-      //       <div className={styles.undo} onClick={this.onCancle}>
-      //         انصراف
-      //       </div>
-      //     </Toast>
-      //   )
-      //   break
-      // case 'renameDone':
-      //   toaster = (
-      //     <Toast level={'success'} caret={false}>
-      //       نام تغییر یافت
-      //     </Toast>
-      //   )
-      //   break
+
       case 'previewModal':
         let content
         switch (this.props.item.genericType) {
@@ -556,10 +517,6 @@ class Content extends React.Component<IProps, IState> {
         modal = <CFModal handleCFClose={this.handleClose} showModal={this.state.showModal} />
         break
     }
-
-    // const history = [{ title: t`پوشه اصلی`, link: '/fm', active: false }]
-    // if (this.props.location.pathname !== '/fm')
-    //   history.push({ title: this.props.location.pathname.split('/fm/'), link: this.props.location.pathname.split['/'], active: true })
 
     return (
       <React.Fragment>
@@ -633,7 +590,8 @@ const mapDispatchToProps = (dispatch: any) => {
     getTrashDocuments: () => dispatch(getTrashDocuments()),
     setToggle: (value: any) => dispatch(setToggle(value)),
     getSharedDocuments: () => dispatch(getSharedDocuments()),
-    setParentId: (value: any) => dispatch(setParentId(value))
+    setParentId: (value: any) => dispatch(setParentId(value)),
+    setDocuments: (value: any) => dispatch(setDocuments(value))
   }
 }
 

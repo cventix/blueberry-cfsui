@@ -8,13 +8,13 @@ const documents = bottle.container.Documents
 export function* getDocuments(action: AnyAction) {
   let base = { headers: { token: localStorage.getItem('token') } }
   let folderInfo
-  if (action.payload)
+  if (action.payload && action.payload.isChildren)
     folderInfo = { isChildren: action.payload.isChildren, path: action.payload.path, headers: { token: localStorage.getItem('token') } }
-  console.log()
+
   try {
     yield put(actions.setLoadingState(true))
+    console.log(folderInfo)
     let data = yield documents.getDocuments(folderInfo ? folderInfo : base)
-    let parent
     if (folderInfo && folderInfo.isChildren === true) {
       yield put(actions.setParentId(data.parent.id))
       data = data.children
@@ -77,6 +77,7 @@ export function* removeFolder(action: AnyAction) {
   try {
     yield put(actions.setLoadingState(true))
     let response = yield documents.removeFolder(folderInfo)
+    yield put(actions.setSelections([]))
     yield put(actions.setLoadingState(false))
   } catch (err) {
     yield put(actions.setError(err.errors[0].msg))
@@ -132,6 +133,7 @@ export function* moveDocuments(action: any) {
       ? yield put(actions.getDocuments({ isChildren: true, path: window.location.pathname.split('fm/')[1] }))
       : yield put(actions.getDocuments())
     yield put(actions.setMessage('فایل جا به جا شد'))
+    yield put(actions.setSelections([]))
     yield put(actions.setLoadingState(false))
   } catch (err) {
     yield put(actions.setError(err.errors[0].msg))
@@ -181,6 +183,15 @@ export function* uploadDocuments(action: AnyAction) {
   console.log(action)
   try {
     yield documents.uploadDocument({ body: action.payload.file, fileSize: action.payload.fileSize, fileName: action.payload.fileName, pathId: 0 })
+  } catch (err) {
+    yield put(actions.setError(err.errors[0].msg))
+    yield put(actions.setLoadingState(false))
+  }
+}
+export function* urlUpload(action: any) {
+  console.log(action)
+  try {
+    yield documents.urlUpload({ path: action.payload.url, parentId: action.payload.url })
   } catch (err) {
     yield put(actions.setError(err.errors[0].msg))
     yield put(actions.setLoadingState(false))

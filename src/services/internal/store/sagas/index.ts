@@ -17,7 +17,8 @@ import {
   restoreFiles,
   deleteDocument,
   uploadDocuments,
-  changeSharingStatus
+  changeSharingStatus,
+  urlUpload
 } from './documents'
 
 
@@ -37,7 +38,7 @@ function* watchAuth() {
 function* watchDocuments() {
   yield takeEvery(actionTypes.GET_DOCUMENTS, getDocuments)
   yield takeEvery(actionTypes.GET_MODAL_DOCUMENTS, getModalDocuments)
-
+  yield takeEvery(actionTypes.URL_UPLOAD, urlUpload)
   yield takeEvery(actionTypes.CREATE_FOLDER, createFolder)
   yield takeEvery(actionTypes.RENAME_FOLDER, renameFolder)
   yield takeLatest(actionTypes.REMOVE_FOLDER, removeFolder)

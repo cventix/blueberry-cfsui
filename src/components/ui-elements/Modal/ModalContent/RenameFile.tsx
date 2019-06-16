@@ -1,4 +1,5 @@
 import * as React from 'react'
+
 import { TextInput } from '../../Input/Input'
 import { Button } from '../../Button/Button'
 
@@ -6,8 +7,8 @@ import styles from '../CreateFolderModal/CreateFolder.module.scss'
 
 interface Iprops {
   value?: string
-  handleSubmit?: any
-  changeHandler?: any
+  handleSubmit?: (e: any) => void
+  changeHandler?: (e: any) => void
 }
 
 export const RenameFile: React.FunctionComponent<Iprops> = ({ value, handleSubmit, changeHandler }) => {

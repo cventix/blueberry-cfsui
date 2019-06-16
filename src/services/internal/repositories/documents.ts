@@ -5,6 +5,8 @@ export interface IGetDocumentsInput {
   isChildren?: boolean
   path?: string
   headers?: object
+  id?: number
+  modal?: boolean
 }
 export interface IGenerateLinkInput {
   uuid?: string
@@ -48,6 +50,11 @@ export interface IRemoveFolderInput {
   folderId: Array<number>
 }
 
+export interface IShareStatusInput {
+  sharingStatus: string
+  id: number
+}
+
 export interface DocumentsInterface {
   getDocuments(input?: IGetDocumentsInput): Promise<object>
   createFolder(input: ICreateFolderInput): Promise<object>
@@ -56,6 +63,7 @@ export interface DocumentsInterface {
   shareDocuments(input: IShareDocumentsInput): Promise<object>
   downloadDirectory(input: IDownloadDirectoryInput): Promise<object>
   generateDownloadLink(input: IGenerateLinkInput): Promise<object>
+  changeSharingStatus(input: IShareStatusInput): Promise<object>
 }
 
 class Documents implements DocumentsInterface {
@@ -92,8 +100,10 @@ class Documents implements DocumentsInterface {
   }
 
   async urlUpload({ path, parentId = 0 }: IUrlUploadInput) {
+    let headers = { 'Content-Type': 'text/html' }
     const url = `/rest/upload/url`
-    let body = { body: `url=${path}&path-id=${parentId}&token=${localStorage.getItem('token')}&dlc=false&` }
+    let body = `url=${path}&path-id=${parentId}&token=${localStorage.getItem('token')}&dlc=false&` 
+    console.log(body)
     try {
       return await this._rest.post({ url, body })
     } catch (error) {
@@ -204,7 +214,7 @@ class Documents implements DocumentsInterface {
       throw error
     }
   }
-  async changeSharingStatus({ id, sharingStatus }: any) {
+  async changeSharingStatus({ id, sharingStatus }: IShareStatusInput) {
     const url = `/rest/documents/${id}/changeSharingStatus`
     const body = {
       id: id,
