@@ -1,19 +1,21 @@
 import React from 'react'
 import { connect } from 'react-redux'
+import { t } from 'ttag'
 
 import { UploadModal } from '../../Uploadmodal/Uploadmodal'
-import { moveDocuments, getModalDocuments, setParentId } from '../../../../services/internal/store/actions/documents'
 import { ContentBody } from '../../../Content/ContentBody'
-
-import styles from './MoveFile.module.scss'
 import { Button } from '../../Button/Button'
 import { navigateObject } from '../../../Content/Content'
 import { Breadcrumb } from '../../Breadcrumb/Breadcrumb'
-import { t } from 'ttag'
-import { setHistory } from '../../../../services/internal/store/actions/history'
-import { setModalSelections } from '../../../../services/internal/store/actions/selections'
 import { Icon } from '../../Icon'
+
+//styles and icons
 import loadingIcon from '../../../../images/loading/tail-spin.2.svg'
+import styles from './MoveFile.module.scss'
+
+//services
+import { moveDocuments, getModalDocuments, setParentId, setModalSelections, setHistory } from '../../../../services/internal/store/actions'
+
 export interface Iprops {
   showModal?: boolean
   handleClose: () => void
@@ -110,7 +112,7 @@ class MoveFile extends React.Component<Iprops, Istate> {
       console.log(discriminator)
       if (discriminator === 'D') {
         this.onGetDocument(true, path, id)
-        if (parent == 1){
+        if (parent == 1) {
           this.setState({
             history: [
               this.state.history[0],

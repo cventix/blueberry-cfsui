@@ -4,7 +4,7 @@ import { AnyAction } from 'redux'
 import { bottle } from '../../../index'
 
 const documents = bottle.container.Documents
-console.log
+
 export function* getDocuments(action: AnyAction) {
   let base = { headers: { token: localStorage.getItem('token') } }
   let folderInfo
@@ -139,15 +139,13 @@ export function* moveDocuments(action: any) {
   }
 }
 
-export function* shareDocuments(action: AnyAction) {
-  let shareInfo = { userEmails: action.userEmails, documentIds: action.documentIds }
+export function* shareDocuments(action: any) {
+  let shareInfo = { userEmails: action.userEmails, documentIds: [action.documentIds] }
+  console.log(shareInfo)
   try {
-    yield put(actions.setLoadingState(true))
     yield documents.shareDocuments(shareInfo)
-    yield put(actions.setLoadingState(false))
   } catch (err) {
     yield put(actions.setError(err.errors[0].msg))
-    yield put(actions.setLoadingState(false))
   }
 }
 
@@ -183,6 +181,16 @@ export function* uploadDocuments(action: AnyAction) {
   console.log(action)
   try {
     yield documents.uploadDocument({ body: action.payload.file, fileSize: action.payload.fileSize, fileName: action.payload.fileName, pathId: 0 })
+  } catch (err) {
+    yield put(actions.setError(err.errors[0].msg))
+    yield put(actions.setLoadingState(false))
+  }
+}
+
+export function* changeSharingStatus(action: any) {
+  console.log(action)
+  try {
+    yield documents.changeSharingStatus({ id: action.payload.id, sharingStatus: action.payload.sharingStatus })
   } catch (err) {
     yield put(actions.setError(err.errors[0].msg))
     yield put(actions.setLoadingState(false))

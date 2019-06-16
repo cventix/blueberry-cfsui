@@ -18,10 +18,10 @@ import { Button } from '../../components/ui-elements/Button/Button'
 import { downloadDirectory, removeMessages, deleteDocument, uploadDocument } from '../../services/internal/store/actions'
 import { setToggle } from '../../services/internal/store/actions/selections'
 import { ToastUndo } from '../../components/ui-elements/Toast/ToastUndo'
-
+import toast from '../../components/ui-elements/Toast/Toast'
 // Services
 import { setRouter } from '../../services/internal/store/actions/router'
-import toast from '../../components/ui-elements/Toast/Toast'
+
 import {
   removeFolder,
   signout,

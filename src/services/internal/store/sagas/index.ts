@@ -16,7 +16,8 @@ import {
   getModalDocuments,
   restoreFiles,
   deleteDocument,
-  uploadDocuments
+  uploadDocuments,
+  changeSharingStatus
 } from './documents'
 
 
@@ -40,7 +41,7 @@ function* watchDocuments() {
   yield takeEvery(actionTypes.CREATE_FOLDER, createFolder)
   yield takeEvery(actionTypes.RENAME_FOLDER, renameFolder)
   yield takeLatest(actionTypes.REMOVE_FOLDER, removeFolder)
-  yield takeEvery(actionTypes.SHARE_DOCUMENTS, shareDocuments)
+  yield takeLatest(actionTypes.SHARE_DOCUMENTS, shareDocuments)
   yield takeEvery(actionTypes.MOVE_DOCUMENTS, moveDocuments)
   yield takeEvery(actionTypes.GET_TRASH_DOCUMENTS, getTrashDocuments)
   yield takeEvery(actionTypes.GET_SHARED_DOCUMENTS, getSharedDocuments)
@@ -50,6 +51,7 @@ function* watchDocuments() {
   yield takeEvery(actionTypes.DELETE_DOCUMENT, deleteDocument)
   yield takeLatest(actionTypes.DOWNLOAD_DIRECTORY, downloadDirectory)
   yield takeEvery(actionTypes.UPLOAD_DOCUMENT, uploadDocuments)
+  yield takeEvery(actionTypes.CHANGE_SHARING_STATUS, changeSharingStatus)
 }
 
 export function* rootSaga() {

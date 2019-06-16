@@ -381,10 +381,11 @@ class Content extends React.Component<IProps, IState> {
     this.setState({ modalView: 'renameFile', showModal: true, renameInput, renameFileId })
   }
   openShareModal = (id: number) => {
-    let shareInput = this.state.table.filter((obj: any) => {
+    let item = this.props.document.documents.filter((obj: any) => {
       return obj.id === id
-    })[0].uuid
-    this.setState({ modalView: 'shareFile', showModal: true, shareInput })
+    })[0]
+    this.setState({ modalView: 'shareFile', showModal: true })
+    this.props.setItem(item)
   }
 
   handleClose = () => {

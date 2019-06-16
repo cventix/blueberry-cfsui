@@ -1,27 +1,22 @@
 import * as React from 'react'
 import { t } from 'ttag'
+import { connect } from 'react-redux'
 
 // ui-elements
-import { Hr } from '../../ui-elements/Hr'
 import { Button } from '../../ui-elements/Button/Button'
 import { IconLink } from '../../ui-elements/IconLink'
+import { ClipBoard } from '../../ui-elements/Clipboard/Clipboard'
+import { ButtonGroup } from '../../ui-elements/Button/ButtonGroup'
 
 // icons
 import uploadIcon from '../../../images/upload.svg'
-import upFromUrlIcon from '../../../images/sidebarIcons/upfromurl.svg'
 
 // internal components & styles
-import { ActionNav } from './ActionNav'
-import FileFiltering from './FileFiltering/FileFiltering'
-import { UpgradeAccount } from './UpgradeAccount/UpgradeAccount'
-import { Nav } from './Nav'
 import '../Sidebar.scss'
-import { connect } from 'react-redux'
-import { ClipBoard } from '../../ui-elements/Clipboard/Clipboard'
-import { ButtonGroup } from '../../ui-elements/Button/ButtonGroup'
+
+//to be added
 import { Comment } from '../../Comment/Comment'
 import { CommentInput } from '../../Comment/CommentInput'
-import { generateDownloadLink } from '../../../services/internal/store/actions'
 
 export interface Iprops {
   onItemClick?: (e: any) => void
@@ -31,9 +26,9 @@ export interface Iprops {
   downloadToken?: string
 }
 
-const PreviewSideBarImage: React.FunctionComponent<Iprops> = ({ onItemClick, item, image, generateDownloadLink, downloadToken }) => {
+const PreviewSideBarImage: React.FunctionComponent<Iprops> = ({ onItemClick, item, image }) => {
   let imageUrl;
-  if (image) imageUrl=`/${image}`
+  if (image) imageUrl = `/${image}`
   return (
     <div className="menu">
       <Button className={['btnSuccess0', 'btnLg']} style={{ marginBottom: '15px' }}>
@@ -41,12 +36,12 @@ const PreviewSideBarImage: React.FunctionComponent<Iprops> = ({ onItemClick, ite
       </Button>
       <div className={'downloadBox'}>آمار: {JSON.stringify(item.downloadCount)} دانلود</div>
       <div className={'copyBox'}>
-        <ClipBoard placeholder={`http://cdn.persiangig.com/preview/${item.uuid}${imageUrl}/${item.name}`} onClick={onItemClick} />{' '}
+        <ClipBoard placeholder={`http://cdn.persiangig.com/preview/${item.uuid}${imageUrl}/${item.name}`} />
       </div>
       <div className={'buttonGroup'}>
         <ButtonGroup
           list={[
-            { label: `سایز اصلی`, active: !image , onClick: onItemClick },
+            { label: `سایز اصلی`, active: !image, onClick: onItemClick },
             { label: `بزرگ`, active: image == 'large', onClick: onItemClick },
             { label: `متوسط`, active: image == 'medium', onClick: onItemClick },
             { label: `کوچک`, active: image == 'small', onClick: onItemClick }

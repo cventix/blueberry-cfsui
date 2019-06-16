@@ -28,6 +28,22 @@ export default {
       position: toast.POSITION.BOTTOM_LEFT
     })
   },
+  succeed(msg: any, options = {}) {
+    return toast.success(msg, {
+      ...options,
+       autoClose: 3000,
+      className: css({
+        height: '35px !important',
+        fontFamily: 'vazir-regular !important',
+        padding:'0 !important',
+        minHeight:'35px !important',
+        textAlign: 'center !important'
+
+      }),
+      hideProgressBar: true,
+      position: toast.POSITION.BOTTOM_LEFT
+    })
+  },
   error(msg: string, options = {}) {
     return toast.error(msg, {
       ...options,

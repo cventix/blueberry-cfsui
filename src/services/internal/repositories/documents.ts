@@ -150,6 +150,7 @@ class Documents implements DocumentsInterface {
   async shareDocuments({ documentIds, userEmails }: IShareDocumentsInput) {
     const url = `/rest/documents/share?ids=${documentIds.join()}`
     const body = { userEmails }
+    console.log(url)
     try {
       return await this._rest.post({ url, body })
     } catch (error) {
@@ -199,6 +200,18 @@ class Documents implements DocumentsInterface {
     let url = `/rest/upload/binary?name=${fileName}&size=${fileSize}&path-id=${pathId}`
     try {
       return await this._rest.post({ url, body })
+    } catch (error) {
+      throw error
+    }
+  }
+  async changeSharingStatus({ id, sharingStatus }: any) {
+    const url = `/rest/documents/${id}/changeSharingStatus`
+    const body = {
+      id: id,
+      sharingStatus: sharingStatus
+    }
+    try {
+      return await this._rest.put({ url, body })
     } catch (error) {
       throw error
     }
