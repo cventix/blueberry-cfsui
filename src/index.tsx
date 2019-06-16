@@ -2,7 +2,7 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import { Provider } from 'react-redux'
 import store from './services/internal/store/configStore'
-
+import './styles/tailwind.css'
 import App from './containers/Home/App'
 import * as serviceWorker from './serviceWorker'
 import Routes  from './Routes';

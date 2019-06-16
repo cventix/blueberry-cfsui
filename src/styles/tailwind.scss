@@ -1,35 +1,3 @@
 @import "tailwindcss/base";
 @import "tailwindcss/components";
 @import "tailwindcss/utilities";
-
-/* font */
-@font-face {
-  font-family: 'vazir-thin';
-  src: url('/fonts/vazir-thin.woff') format('woff'), url('/fonts/vazir-thin.ttf') format('truetype');
-  font-weight: 100;
-}
-
-@font-face {
-  font-family: 'vazir-regular';
-  src: url('/fonts/vazir.woff') format('woff'), url('/fonts/vazir.ttf') format('truetype');
-  font-weight: normal;
-}
-
-@font-face {
-  font-family: 'vazir-light';
-  src: url('/fonts/vazir-light.woff') format('woff'), url('/fonts/vazir-light.ttf') format('truetype');
-  font-weight: 300;
-}
-
-@font-face {
-  font-family: 'vazir-medium';
-  src: url('/fonts/vazir-medium.woff') format('woff'), url('/fonts/vazir-medium.ttf') format('truetype');
-  font-weight: 500;
-}
-
-@font-face {
-  font-family: 'vazir-bold';
-  src: url('/fonts/vazir-bold.woff') format('woff'), url('/fonts/vazir-bold.ttf') format('truetype');
-  font-weight: bold;
-}
-
