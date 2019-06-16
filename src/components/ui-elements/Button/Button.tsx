@@ -12,7 +12,7 @@ export default interface Iprops {
 }
 
 const classCreator = (className: any) => {
-  return className.map((name: any) => name).join(' ')
+  return className.map((name: any) => styles[name]).join(' ')
 }
 
 export const Button = ({ className, onClick, style, children, disabled }: Iprops) => {
@@ -20,7 +20,7 @@ export const Button = ({ className, onClick, style, children, disabled }: Iprops
   return (
     <button
       disabled={disabled}
-      className={className ? `pg-btn pg-btn-blue ${classCreator(className)}` : `pg-btn`}
+      className={className ? `${styles.btn} ${classCreator(className)}` : `${styles.btn}`}
       onClick={e => onClick && onClick(e)}
       style={style}
     >

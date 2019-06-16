@@ -1,14 +1,17 @@
 @import "tailwindcss/base";
+@import "tailwindcss/components";
+@import "tailwindcss/utilities";
+
 /* font */
 @font-face {
   font-family: 'vazir-thin';
-  src: url(/fonts/vazir-thin.woff) format('woff'), url('/fonts/vazir-thin.ttf') format('truetype');
+  src: url('/fonts/vazir-thin.woff') format('woff'), url('/fonts/vazir-thin.ttf') format('truetype');
   font-weight: 100;
 }
 
 @font-face {
   font-family: 'vazir-regular';
-  src: url(/fonts/vazir.woff) format('woff'), url('/fonts/vazir.ttf') format('truetype');
+  src: url('/fonts/vazir.woff') format('woff'), url('/fonts/vazir.ttf') format('truetype');
   font-weight: normal;
 }
 
@@ -29,6 +32,4 @@
   src: url('/fonts/vazir-bold.woff') format('woff'), url('/fonts/vazir-bold.ttf') format('truetype');
   font-weight: bold;
 }
-@import "tailwindcss/components";
-@import "tailwindcss/utilities";
 

@@ -1,19 +1,16 @@
 @import '../../../styles/global';
 
-
 @mixin widthShadow {
   @include box-shadow(0 1px 3px 0 rgba(0, 0, 0, 0.15));
 }
 
 .btn {
-
-  
-
   font-family: $medium-font;
   font-size: $font-size;
   cursor: pointer;
-  @include border-radius($br-radius-sm)
-  @apply .relative .border-0
+  border: 0;
+  position: relative;
+  @include border-radius($br-radius-sm);
 
   /* btn tyes */
 
@@ -117,6 +114,13 @@
     @include btn-theme(linear-gradient(to top, #f2bf27, #f8cb45), #fff, 0);
     @include widthShadow;
   }
+  &.btnDisabled{
+    border-radius: 3px;
+    border: solid 1px #e5e7e9;
+    background-color: #f1f2f3;
+    color: #b3bcc5;
+  }
+  
 
   /* with extra radius */
   &.btnExtraRadius {
@@ -158,6 +162,7 @@
     height: 50px;
     line-height: 50;
   }
+ 
   &:disabled {
     cursor: auto;
   }
@@ -233,5 +238,12 @@
   .btnCircle {
     width: 30px !important;
     height: 30px !important;
+    position: absolute;
+  }
+  .left {
+    left: 3px;
+  }
+  .right {
+    right: 3px;
   }
 }
