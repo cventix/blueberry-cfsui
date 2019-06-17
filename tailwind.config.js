@@ -1,6 +1,3 @@
-const {path} = require('./src/styles/plugins/button');
-
-
 module.exports = {
   prefix: 'pg-',
   important: true,
@@ -498,6 +495,6 @@ module.exports = {
   },
   corePlugins: {},
   plugins: [
-    path
+    require('./src/styles/plugins/buttons/index.tsx')
   ]
 }
