@@ -6,6 +6,7 @@ import { bottle } from '../../../index'
 const documents = bottle.container.Documents
 
 export function* getDocuments(action: AnyAction) {
+
   let base = { headers: { token: localStorage.getItem('token') } }
   let folderInfo
   if (action.payload && action.payload.isChildren)
@@ -103,6 +104,7 @@ export function* createFolder(action: AnyAction) {
     if (getFolderInfo && getFolderInfo.isChildren == true) data = data.children
     yield put(actions.setDocuments(data))
     yield put(actions.setResponse(response))
+    yield put(actions.setMessage('پوشه ایجاد شد'))
     yield put(actions.setLoadingState(false))
   } catch (err) {
     yield put(actions.setError(err.errors[0].msg))
@@ -202,6 +204,7 @@ export function* changeSharingStatus(action: any) {
   console.log(action)
   try {
     yield documents.changeSharingStatus({ id: action.payload.id, sharingStatus: action.payload.sharingStatus })
+    yield put(actions.setMessage('دسترسی تغییر داده شد.'))
   } catch (err) {
     yield put(actions.setError(err.errors[0].msg))
     yield put(actions.setLoadingState(false))

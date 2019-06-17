@@ -1,6 +1,6 @@
 import * as React from 'react'
 import { Route, Switch } from 'react-router-dom'
-import { t } from 'ttag'
+
 
 // internal components & styles
 import FM from './components/FM'
@@ -11,22 +11,12 @@ import PreviewSideBarImage from './components/PreviewSideBarImage'
 import TrashSideBar from './components/TrashSideBar'
 
 export default interface Iprops {
-  createFolderModal?: () => void
   onClickOverlay: () => void
-  handleCFClose?: any
-  showModal?: boolean
   open: boolean
   onItemClick?: (e: any, file?: any) => void
 }
 
-export const Sidebar: React.FunctionComponent<Iprops> = ({
-  createFolderModal,
-  handleCFClose,
-  showModal,
-  onClickOverlay,
-  open,
-  onItemClick
-}: Iprops) => {
+export const Sidebar: React.FunctionComponent<Iprops> = ({ onClickOverlay, open, onItemClick }: Iprops) => {
   return (
     <aside className={open ? 'sidebar open' : 'sidebar'}>
       <div

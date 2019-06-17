@@ -3,11 +3,15 @@ import { actionTypes } from '../actions/types'
 export interface PayloadInterface {
   data?: object[]
 }
-
-export const initialState: any = {
+export interface StateInterface {
+  item?: any
+  image?: string
+  downloadToken?: string
+}
+export const initialState: StateInterface = {
   item: [],
   image: 'medium',
-  downloadToken:[]
+  downloadToken: ''
 }
 
 const selectReducer = (state: any = initialState, action: any) => {
@@ -22,12 +26,12 @@ const selectReducer = (state: any = initialState, action: any) => {
         ...state,
         image: action.payload
       }
-      case actionTypes.SET_DOWNLOAD_TOKEN:
-        return {
-          ...state,
-          downloadToken: action.payload
-        }
-      
+    case actionTypes.SET_DOWNLOAD_TOKEN:
+      return {
+        ...state,
+        downloadToken: action.payload
+      }
+
     default:
       return state
   }

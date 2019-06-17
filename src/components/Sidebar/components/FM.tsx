@@ -1,5 +1,6 @@
 import * as React from 'react'
 import { t } from 'ttag'
+import { connect } from 'react-redux'
 
 // ui-elements
 import { Hr } from '../../ui-elements/Hr'
@@ -20,7 +21,7 @@ import FileFiltering from './FileFiltering/FileFiltering'
 import { UpgradeAccount } from './UpgradeAccount/UpgradeAccount'
 import { Nav } from './Nav'
 import '../Sidebar.scss'
-import { connect } from 'react-redux'
+
 
 export interface Iprops {
   onItemClick?: (e: any,file?: any) => void
@@ -34,7 +35,7 @@ const FM: React.FunctionComponent<Iprops> = ({ onItemClick, selection, toggle })
     { label: `دانلود با فرمت iso`, onClick: onItemClick },
     { label: `دانلود با فرمت tar`, onClick: onItemClick }
   ]
-  console.log(selection && selection.length > 0)
+
   return (
     <div className="menu">
       <Button className={['btnPrimary0', 'btnLg']} style={{ marginBottom: '15px',cursor:'pointer' }}>

@@ -40,7 +40,23 @@ import './App.css'
 import styles from '../../components/Content/Content.module.scss'
 import { IRemoveFolderInput, IDownloadDirectoryInput, IGenerateLinkInput } from '../../services/internal/repositories/documents'
 import urlUploadModal from '../../components/ui-elements/Modal/urlUpload/urlUploadModal'
+function readFileDataAsBase64(e: any) {
+  const file = e[0]
 
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader()
+
+    reader.onload = (event: any) => {
+      resolve(event.target.result)
+    }
+
+    reader.onerror = err => {
+      reject(err)
+    }
+
+    reader.readAsDataURL(file)
+  })
+}
 class App extends Component<
   {
     login: any
@@ -142,20 +158,20 @@ class App extends Component<
       switch (e) {
         case `fileUpload`:
           console.log(file)
-          const files = Array.from(file)
-          console.log(files)
-          const formData = new FormData()
-          files.forEach((item: any, index) => {
-            formData.append('file', item)
-            console.log(formData)
+          // const files = Array.from(file)
 
-            formData.append(`Content-Type`, 'application/x-www-form-urlencoded')
-            formData.append(`Content-length`, file[0].size)
-            formData.append(`token`, localStorage.getItem('token') || '{}')
-            formData.append(`Cookie`, `token="${localStorage.getItem('token') || '{}'}"`)
-          })
+          const formData = new FormData()
+          // files.forEach((item: any, index) => {
+          // formData.append('file', item)
+          // console.log(formData)
+
+          // formData.append(`Content-Type`, 'application/x-www-form-urlencoded')
+          // formData.append(`Content-length`, file[0].size)
+          // formData.append(`token`, localStorage.getItem('token') || '{}')
+          // formData.append(`Cookie`, `token="${localStorage.getItem('token') || '{}'}"`)
+          // })
           console.log(file[0].size)
-          this.props.uploadDocument({ file: formData, fileSize: file[0].size, fileName: file[0].name })
+          this.props.uploadDocument({ file: readFileDataAsBase64(file), fileSize: file[0].size, fileName: file[0].name })
           break
         case `دانلود با فرمت zip`:
           await this.props.downloadDirectory({ documentIds: this.props.selection, downloadType: 'zip' })
@@ -176,7 +192,7 @@ class App extends Component<
           if (this.props.selection && this.props.selection.length > 0) {
             this.setState({ modal: 'moveFile', showModal: true })
           } else {
-            this.setState({ modal: 'noSelection' })
+            toast.error('You havent selected anything')
           }
           break
         case t`حذف`:
@@ -184,7 +200,7 @@ class App extends Component<
             this.toRemove()
             this.props.setTempDocuments(this.props.document)
           } else {
-            this.setState({ modal: 'noSelection' })
+            toast.error('You havent selected anything')
           }
           break
         case t`حذف دائم`:
@@ -310,10 +326,7 @@ class App extends Component<
       case 'urlUpload':
         modal = <UrlUploadmodal showModal={this.state.showModal} handleCFClose={this.handleClose} />
         break
-      case 'noSelection':
-        toast.error('You havent selected anything')
-
-        break
+      
       default:
         break
     }
@@ -330,9 +343,7 @@ class App extends Component<
           open={this.state.isOpenSignout}
         />
         <Sidebar
-          showModal={this.state.showcFmodal}
           onItemClick={this.onItemClick}
-          handleCFClose={this.handleClose}
           open={this.state.isOpenMenu}
           onClickOverlay={() => {
             this.toggleHamburgerMenu()

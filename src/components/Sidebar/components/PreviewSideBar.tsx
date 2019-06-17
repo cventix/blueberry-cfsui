@@ -1,6 +1,6 @@
 import * as React from 'react'
 import { t } from 'ttag'
-
+import { connect } from 'react-redux'
 // ui-elements
 import { Hr } from '../../ui-elements/Hr'
 import { Button } from '../../ui-elements/Button/Button'
@@ -15,7 +15,7 @@ import { ActionNav } from './ActionNav'
 import FileFiltering from './FileFiltering/FileFiltering'
 import { UpgradeAccount } from './UpgradeAccount/UpgradeAccount'
 import '../Sidebar.scss'
-import { connect } from 'react-redux'
+
 
 export interface Iprops {
   onItemClick?: (e: any) => void

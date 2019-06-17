@@ -76,7 +76,7 @@ class MoveFile extends React.Component<Iprops, Istate> {
       }
     } else {
       try {
-        this.props.setParentId(1)
+        this.props.setParentId(0)
         await this.props.getModalDocuments({ modal: true, id })
       } catch (error) {
         console.log('E: ', error)

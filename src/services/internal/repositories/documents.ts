@@ -206,10 +206,13 @@ class Documents implements DocumentsInterface {
       throw error
     }
   }
+  
   async uploadDocument({ body, fileSize, fileName, pathId }: any) {
     let url = `/rest/upload/binary?name=${fileName}&size=${fileSize}&path-id=${pathId}`
+    let headers=  {  'Content-Type': 'application/octet-stream'};
+    console.log(body)
     try {
-      return await this._rest.post({ url, body })
+      return await this._rest.post({ url, body ,headers})
     } catch (error) {
       throw error
     }

@@ -1,39 +1,33 @@
 import React, { Component } from 'react'
-import { Card } from './Card/Card'
-
-import styles from './Grid.module.scss'
-import { GridHeader } from './GridHeader'
-import { navigateObject } from '../Content/Content'
 import { connect } from 'react-redux'
 
+import { Card } from './Card/Card'
+import { GridHeader } from './GridHeader'
+import { navigateObject } from '../Content/Content'
+
+//styles
+import styles from './Grid.module.scss'
+
+//interface
+import { ITableItem } from '../Content/ContentBody'
+
+//todo check selection (Checked)
 export interface Iprops {
   checkbox?: boolean
-  table: object[]
-  isOpen?: boolean
-  onCheckAll?: () => void
-  onSort?: any
-  checkAll?: boolean
-  dropDownData?: any
-  onCheck?: any
+  table: ITableItem[]
   sortable?: boolean
+  selection: Array<number>
+  dropDownData?: any
+  onCheckAll?: () => void
+  onSort?: (sortBy: string, type?: string | undefined)  => void
+  onCheck?: (id: number, e?: any) => void
   handleNavigate?: (e: navigateObject) => void
-  selection?: any
 }
 
-const Grid: React.FunctionComponent<Iprops> = ({
-  selection,
-  table,
-  onCheckAll,
-  onSort,
-  onCheck,
-  handleNavigate,
-  checkbox,
-  checkAll,
-  dropDownData
-}) => {
+const Grid: React.FunctionComponent<Iprops> = ({ selection, table, onCheckAll, onSort, onCheck, handleNavigate, checkbox, dropDownData }) => {
   return (
     <React.Fragment>
-      <GridHeader onCheckAll={onCheckAll} checkAll={checkAll} sortable={true} onSort={onSort} />
+      <GridHeader onCheckAll={onCheckAll} sortable={true} onSort={onSort} />
       <div className={styles.container}>
         {table.map((item: any, index: number) => {
           return (
@@ -44,9 +38,8 @@ const Grid: React.FunctionComponent<Iprops> = ({
               item={item}
               checkbox={checkbox}
               onCheck={onCheck}
-              checked={selection[index]}
+              checked={selection[index] == item.id}
               dropdown={true}
-              checkAll={checkAll}
             />
           )
         })}

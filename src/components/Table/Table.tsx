@@ -10,7 +10,11 @@ import { EnhanceDropdown as enhancer } from '../ui-elements/Dropdown/EnhanceDrop
 
 import styles from './Table.module.scss'
 
+//interface
+import { ITableItem } from '../Content/ContentBody'
+
 const EnhancedDropdown = enhancer(Dropdown)
+
 export interface Item {
   id?: number
   uuid?: string
@@ -19,28 +23,29 @@ export interface Item {
   discriminator?: string
   [key: string]: any
 }
+
 export interface Iprops {
-  table?: object[]
-  selection?: any
+  table?: ITableItem[]
+  selection: Array<number>
   dropdown?: boolean
-  onCheckAll?: () => void
-  checkAll?: boolean
-  onSort?: any
   tabletView?: boolean
-  onOpenCFModal?: any
-  onSelect?: (option: number) => void
-  onRenameDocument?: (e: any) => void
-  handleNavigate?: any
+  checkAll?: boolean
+  handleNavigate: any
   optionSelected?: number
-  position?: any
+  position?: string
   dropDownData?: any
   checkbox?: boolean
-  onCheck?: any
   itemName?: string
   activeRow?: boolean
   data?: any
   hasHeader?: boolean
-  modalSelection?: any
+  modalSelection?: number
+  onCheckAll?: () => void
+  onSort?: (sortBy: string, type?: string | undefined)  => void
+  onOpenCFModal?: () => void
+  onSelect?: (option: number) => void
+  onRenameDocument?: (e: any) => void
+  onCheck?:(id: number, e?: any)=>void
 }
 
 const Table: React.FunctionComponent<Iprops> = ({
@@ -62,17 +67,17 @@ const Table: React.FunctionComponent<Iprops> = ({
   hasHeader = true
 }) => {
   const header = [t`نام`, t`تاریخ`, t`مالک`, t`حجم`]
-  console.log(modalSelection)
+  const hidden = ['type', 'id', 'fullPath', 'discriminator', 'uuid', 'item']
   return (
     <table className={styles.table}>
       {hasHeader && (
         <TableHeader
           titles={header}
           dropdown={dropdown}
-          {...onCheckAll && { checkAll: checkAll, onCheckAll: onCheckAll }}
           onSort={onSort}
           tabletView={tabletView}
           onOpenCFModal={onOpenCFModal}
+          {...onCheckAll && { checkAll: checkAll, onCheckAll: onCheckAll }}
         />
       )}
       <tbody>
@@ -81,7 +86,7 @@ const Table: React.FunctionComponent<Iprops> = ({
             return (
               <tr key={item.id} className={modalSelection === item.id ? styles.activeRow : ''}>
                 {Object.keys(item).map((k, i) => {
-                  if (k !== 'type' && k !== 'id' && k !== 'fullPath' && k !== 'discriminator' && k !== 'uuid' && k !== 'item') {
+                  if (!hidden.includes(k)) {
                     return (
                       <TableItem
                         name={k}
@@ -93,10 +98,10 @@ const Table: React.FunctionComponent<Iprops> = ({
                         itemName={item.name}
                         item={item}
                         onCheck={onCheck}
-                        checked={selection.includes(item.id)}
+                        checked={typeof item.id != 'undefined' && selection.includes(item.id)}
                         className={k === 'name' ? ['show'] : [' ']}
                         checkbox={checkbox === false ? checkbox : k === 'name' ? true : false}
-                        mimetype={k === 'name' && item.type}
+                        mimetype={k === 'name' ? item.type : ''}
                       />
                     )
                   }

@@ -1,15 +1,44 @@
 import { actionTypes } from '../actions/types'
 
 export interface StateInterface {
-  documents?: any[]
+  documents?: ItemInterface[]
   tem_doucuments: any[]
   modal_documents?: any[]
   value?: any[]
   response?: any[]
 }
 
+export interface ItemInterface {
+  boost?: object
+  cfsFullPath?: string
+  createdAt?: number
+  deleted?: boolean
+  discriminator?: string
+  docLocations?: any
+  downloadCount?: number
+  favourite?: boolean
+  fullPath?: string
+  genericType?: string
+  hasPassword?: boolean
+  id?: number
+  name?: string
+  owner: { displayName: string; id: number; md5: string }
+  preview?: boolean
+  purchased?: boolean
+  shared?: boolean
+  sharingStatus: string
+  subdomain?: boolean
+  treePath?: number
+  updatedAt?: number
+  uuid?: string
+  mimeType?: string
+  properties?: string
+  size?: number
+  
+}
+
 export interface PayloadInterface {
-  documents?: any[]
+  documents?: ItemInterface[]
   tem_doucuments: any[]
   modal_documents?: any[]
   value?: any[]

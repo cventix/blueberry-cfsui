@@ -34,6 +34,7 @@ import { sliceData } from '../../services/internal/utils/sliceData'
 import { setSelections, removeSelection, setToggle } from '../../services/internal/store/actions/selections'
 import ShareModal from '../ui-elements/Modal/ShareModal.tsx/ShareModal'
 import { IGenerateLinkInput } from '../../services/internal/repositories/documents'
+import { sortData } from '../../services/internal/utils/sortData'
 
 // styles & icons
 import arrowBottom from '../../images/buttonIcons/icon-btn-arrow-bottom.svg'
@@ -158,8 +159,7 @@ class Content extends React.Component<IProps, IState> {
       if (!this.props.location.pathname.split('/fm')[1] || this.props.location.pathname.split('/fm')[1] == '/') {
         this.onGetDocument(false)
         this.props.setToggle([false, false])
-      }
-      this.onGetDocument(true, this.props.location.pathname.split('/fm/')[1], this.props.item.id)
+      } else this.onGetDocument(true, this.props.location.pathname.split('/fm/')[1], this.props.item.id)
     }
   }
 
@@ -176,7 +176,7 @@ class Content extends React.Component<IProps, IState> {
       }
     } else {
       try {
-        this.props.setParentId(1)
+        this.props.setParentId(0)
         await this.props.getDocuments()
       } catch (error) {
         console.log('E: ', error)
@@ -227,43 +227,26 @@ class Content extends React.Component<IProps, IState> {
     if (!this.props.fullScreen) this.setState({ width: window.innerWidth, height: window.innerHeight })
   }
 
-  onSort = (sortBy: string, type?: string) => {
+  onSort = (sortBy: string) => {
     let table = this.state.table
     switch (sortBy) {
       case t`نام`:
-        table &&
-          table.sort((a: any, b: any) => {
-            if (this.state.ascendingDate) {
-              if (a.name < b.name) {
-                return -1
-              }
-              if (a.name > b.name) {
-                return 1
-              }
-              return 0
-            } else {
-              if (b.name < a.name) {
-                return -1
-              }
-              if (b.name > a.name) {
-                return 1
-              }
-              return 0
-            }
-          })
-        break
-      case t`حجم`:
-        table.sort((a: any, b: any) => {
-          if (a.size) {
-            if (this.state.ascendingSize) return b.size - a.size
-            else return a.size - b.size
-          }
+        table = sortData(table, sortBy, this.state.ascendingName)
+        this.setState({
+          ascendingName: !this.state.ascendingName
         })
         break
+      case t`حجم`:
+        table = sortData(table, sortBy, this.state.ascendingSize)
+        this.setState({
+          ascendingSize: !this.state.ascendingSize
+        })
+
+        break
       case t`تاریخ`:
-        table.sort((a: any, b: any) => {
-          if (this.state.ascendingDate) return new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime()
-          else return new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
+        table = sortData(table, sortBy, this.state.ascendingDate)
+        this.setState({
+          ascendingDate: !this.state.ascendingDate
         })
         break
     }
@@ -271,10 +254,7 @@ class Content extends React.Component<IProps, IState> {
     this.setState({
       table: sliceData({ array: table }),
       mainTable: table,
-      filteredTable: this.state.table,
-      ascendingSize: !this.state.ascendingSize,
-      ascendingDate: !this.state.ascendingDate,
-      ascendingName: !this.state.ascendingName
+      filteredTable: this.state.table
     })
   }
 
@@ -355,11 +335,12 @@ class Content extends React.Component<IProps, IState> {
   }
 
   // rename modal
-  openRenameModal = (renameFileId: number) => {
+  openRenameModal = (renameFileId: number, modalView?: string) => {
+    console.log(modalView)
     let renameInput = this.state.table.filter((obj: any) => {
       return obj.id === renameFileId
     })[0].name
-    this.setState({ modalView: 'renameFile', showModal: true, renameInput, renameFileId })
+    this.setState({ modalView, showModal: true, renameInput, renameFileId })
   }
   openShareModal = (id: number) => {
     let item = this.props.document.documents.filter((obj: any) => {
@@ -457,7 +438,7 @@ class Content extends React.Component<IProps, IState> {
     let modal, toaster, preview
 
     switch (this.state.modalView) {
-      case 'renameFile':
+      case t`تغییر نام`:
         modal = (
           <UploadModal
             show={this.state.showModal}
@@ -520,29 +501,20 @@ class Content extends React.Component<IProps, IState> {
 
     return (
       <React.Fragment>
-        <ContentHeader
-          view={this.state.view}
-          history={this.props.history}
-          switchView={this.switchView}
-          handleSearchInput={(e: any) => this.onChangeSearchInput(e)}
-        />
+        <ContentHeader view={this.state.view} switchView={this.switchView} handleSearchInput={(e: any) => this.onChangeSearchInput(e)} />
         <ContentBody
           turnOffbutton={this.turnOffbutton}
+          onCheck={this.onCheck}
           view={this.state.view}
           onOpenCFModal={this.onOpenCFModal}
           username={this.props.auth.username}
           width={this.state.width}
           table={this.state.filteredTable}
           dropDownData={dropDownData}
-          optionSelected={this.state.optionSelected}
-          onSelect={this.onSelect}
-          onCheckAll={this.onCheckAll}
-          onCheck={this.onCheck}
           loading={this.props.loading}
           loadingStyle={styles.loading}
           onSort={this.onSort}
           handleNavigate={this.handleNavigate}
-          checkAll={this.state.checkAll}
         />
         {modal}
         {preview}

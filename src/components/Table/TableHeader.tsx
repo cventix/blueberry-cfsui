@@ -6,16 +6,17 @@ import { IconLink } from '../ui-elements/IconLink'
 //icon
 import newFolderIcon from '../../images/sidebarIcons/newfolder.svg'
 
+//styles
 import styles from './Table.module.scss'
 
 export default interface Iprops {
-  titles: any
+  titles: Array<string>
   dropdown?: boolean
-  onSort?: any
-  onCheckAll?: any
   checkAll?: boolean
   tabletView?: boolean
-  onOpenCFModal?: any
+  onSort?: (sortBy: string, type?: string | undefined)  => void
+  onCheckAll?: () => void
+  onOpenCFModal?: () => void
 }
 
 export const TableHeader: React.FunctionComponent<Iprops> = ({ titles, onOpenCFModal, dropdown, onSort, onCheckAll, tabletView }) => {
@@ -24,17 +25,17 @@ export const TableHeader: React.FunctionComponent<Iprops> = ({ titles, onOpenCFM
     <thead>
       {titles && (
         <tr>
-          {titles.map((label: any, i: number) => {
+          {titles.map((label: string, i: number) => {
             if (label !== 'type' && label !== 'id' && label !== 'fullPath') {
               return (
                 <TableItem
                   key={i}
                   label={label}
-                  checkbox={label === t`نام` ? true : false}
                   onCheckAll={onCheckAll}
+                  onSort={onSort}
+                  checkbox={label === t`نام` ? true : false}
                   sortable={label !== t`مالک` && true}
                   sortType={label === t`نام` ? 'alphabet' : ' '}
-                  onSort={onSort}
                   className={label === t`نام` ? ['header', 'show'] : ['header']}
                 />
               )

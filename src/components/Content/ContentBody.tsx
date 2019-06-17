@@ -2,9 +2,9 @@ import React, { Component } from 'react'
 
 // components
 import Grid from '../Grid/Grid'
-import  Table  from '../Table/Table'
+import Table from '../Table/Table'
 import { t } from 'ttag'
-import { Icon } from '../ui-elements/Icon';
+import { Icon } from '../ui-elements/Icon'
 // services
 import { formatDate } from '../../services/internal/utils/formatDates'
 import { formatBytes } from '../../services/internal/utils/formatBytes'
@@ -13,36 +13,49 @@ import { formatType } from '../../services/internal/utils/formatTypes'
 //icons
 import loadingIcon from '../../images/loading/tail-spin.2.svg'
 
+//interface
+import { ItemInterface } from '../../services/internal/store/reducers/documentReducer'
+import { navigateObject } from './Content'
+
 export default interface Iprops {
   view: string
   width?: number
   dropdown?: boolean
   dropDownData?: any
-  handleNavigate?: any
-  table: any
-  optionSelected?: number
-  onSelect?: any
-  onCheckAll?: any
-  onOpenCFModal?: any
-  onSort?: any
-  onCheck?: any
-  checkAll?: any
-  turnOffbutton?: any
+  table: ITableItem[]
   checkbox?: boolean
   isMoveModal?: boolean
   hasHeader?: boolean
-  username?: string 
+  username?: string
   loading?: boolean
-  loadingStyle?: any
+  loadingStyle?: string
+  handleNavigate?: ({ e, name, id, uuid, item }: navigateObject) => void
+  onCheck?: (id: number, e?: any)  => void
+  onOpenCFModal?: () => void
+  onSort?: (sortBy: string, type?: string | undefined) => void
+  turnOffbutton?: () => void
 }
 
-const makeArray = (array: any, username?: string ) => {
-  let table: any[] = []
+export interface ITableItem {
+  id?: number
+  type?: string
+  name?: string
+  discriminator?: string
+  fullPath?: string
+  created_at?: string
+  owner?: any
+  size?: string
+  uuid?: string
+  item?: any
+}
+
+const makeArray = (array: any, username?: string) => {
+  let table: ITableItem[] = []
   let lang = localStorage.getItem('__language')
-  array.map((each: any) => {
+  array.map((each: ItemInterface) => {
     table.push({
       id: each.id,
-      type: formatType(each.genericType, each.discriminator == 'D'),
+      type: each.genericType && formatType(each.genericType, each.discriminator == 'D'),
       name: each.name,
       discriminator: each.discriminator,
       fullPath: each.fullPath,
@@ -57,13 +70,13 @@ const makeArray = (array: any, username?: string ) => {
 }
 
 const makeSimpleArray = (array: any) => {
-  let table: any[] = []
+  let table: ITableItem[] = []
 
-  array.map((each: any) => {
+  array.map((each: ItemInterface) => {
     if (each.discriminator === 'D') {
       table.push({
         id: each.id,
-        type: formatType(each.genericType, each.discriminator == 'D'),
+        type: each.genericType && formatType(each.genericType, each.discriminator == 'D'),
         name: each.name,
         discriminator: each.discriminator,
         fullPath: each.fullPath
@@ -90,23 +103,25 @@ export const ContentBody: React.FunctionComponent<Iprops> = ({
 }) => {
   table = isMoveModal ? makeSimpleArray(table) : makeArray(table, username)
   table.length < 10 && turnOffbutton && turnOffbutton()
-  
-  return !loading && table && table.length > 0 ? (view === 'table' && width && width < 768 ? (
-    <Grid sortable={true} dropDownData={dropDownData} onSort={onSort} checkbox={true} table={table} handleNavigate={handleNavigate} {...rest} />
-  ) : view === 'table' ? (
-    <Grid sortable={true} dropDownData={dropDownData} onSort={onSort} checkbox={true} table={table} handleNavigate={handleNavigate} {...rest} />
+
+  return !loading && table && table.length > 0 ? (
+    view === 'table' && width && width < 768 ? (
+      <Grid sortable={true} dropDownData={dropDownData} onSort={onSort} checkbox={true} table={table} handleNavigate={handleNavigate} {...rest} />
+    ) : view === 'table' ? (
+      <Grid sortable={true} dropDownData={dropDownData} onSort={onSort} checkbox={true} table={table} handleNavigate={handleNavigate} {...rest} />
+    ) : (
+      <Table
+        dropdown={true}
+        tabletView={width && width < 768 ? true : false}
+        onOpenCFModal={onOpenCFModal}
+        dropDownData={dropDownData}
+        onSort={onSort}
+        handleNavigate={handleNavigate}
+        table={table}
+        {...rest}
+      />
+    )
   ) : (
-    <Table
-      dropdown={true}
-      tabletView={width && width < 768 ? true : false}
-      onOpenCFModal={onOpenCFModal}
-      dropDownData={dropDownData}
-      onSort={onSort}
-      handleNavigate={handleNavigate}
-      table={table}
-      {...rest}
-    />
-  )): (
     <div className={loadingStyle}>{loading ? <Icon src={loadingIcon} /> : 'داده ای وجود ندارد'}</div>
   )
 }

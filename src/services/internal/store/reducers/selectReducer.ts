@@ -3,12 +3,18 @@ import { actionTypes } from '../actions/types'
 export interface PayloadInterface {
   data?: object[]
 }
+export interface StateInterface {
+  selection?: Array<number>
+  toggle?: Array<boolean>
+  modalSelect?: Array<number>
+  fullScreen: boolean
+}
 
-export const initialState: any = {
+export const initialState: StateInterface = {
   selection: [],
   toggle: [false, false],
   modalSelect: [],
-  fullScreen:false
+  fullScreen: false
 }
 
 const selectReducer = (state: any = initialState, action: any) => {
@@ -25,11 +31,11 @@ const selectReducer = (state: any = initialState, action: any) => {
         ...state,
         toggle: action.payload
       }
-      case actionTypes.SET_FULLSCREEN:
-        return {
-          ...state,
-          fullScreen: action.payload
-        }
+    case actionTypes.SET_FULLSCREEN:
+      return {
+        ...state,
+        fullScreen: action.payload
+      }
     case actionTypes.SET_MODAL_SELECTIONS:
       return {
         ...state,
