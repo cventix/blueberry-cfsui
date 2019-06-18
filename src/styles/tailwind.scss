@@ -1,3 +1,48 @@
 @import "tailwindcss/base";
 @import "tailwindcss/components";
 @import "tailwindcss/utilities";
+
+/* font */
+@font-face {
+  font-family: 'vazir-thin';
+  font-weight: 100;
+  src: url('/fonts/vazir-thin.woff') format('woff'), url('/fonts/vazir-thin.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'vazir-regular';
+  font-weight: normal;
+  src: url('/fonts/vazir.woff') format('woff'), url('/fonts/vazir.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'vazir-light';
+  font-weight: 300;
+  src: url('/fonts/vazir-light.woff') format('woff'), url('/fonts/vazir-light.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'vazir-medium';
+  font-weight: 500;
+  src: url('/fonts/vazir-medium.woff') format('woff'), url('/fonts/vazir-medium.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'vazir-bold';
+  font-weight: bold;
+  src: url('/fonts/vazir-bold.woff') format('woff'), url('/fonts/vazir-bold.ttf') format('truetype');
+}
+
+/* type of fonts */
+$thin-font: 'vazir-thin';
+$regular-font: 'vazir-regular';
+$light-font: 'vazir-light';
+$medium-font: 'vazir-medium';
+$bold-font: 'vazir-bold';
+
+/* button-theme */
+@mixin btn-theme($background, $btn-color, $border) {
+  background: $background;
+  color: $btn-color;
+  border: $border;
+}

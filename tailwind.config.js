@@ -259,9 +259,9 @@ module.exports = {
       ],
     },
     fontSize: {
-      xs: '0.75rem',
-      sm: '0.875rem',
-      base: '1rem',
+      xs: '0.75rem', // 12px
+      sm: '0.875rem', // 14px
+      base: '1rem', // 16px
       lg: '1.125rem',
       xl: '1.25rem',
       '2xl': '1.5rem',
@@ -495,6 +495,37 @@ module.exports = {
   },
   corePlugins: {},
   plugins: [
-    require('./src/styles/plugins/buttons/index.tsx')
+     function({ addComponents  }) {
+      addComponents({
+        '.btn': {
+          fontFamily: theme.fontFamily.vazir[0];
+
+        },
+        '.btn-blue': {
+          backgroundColor: '#3490dc',
+          color: '#fff',
+          '&:hover': {
+            backgroundColor: '#2779bd'
+          },
+        },
+        '.btn-red': {
+          backgroundColor: '#e3342f',
+          color: '#fff',
+          '&:hover': {
+            backgroundColor: '#cc1f1a'
+          },
+        },
+      })
+    },
+
+    function({ addComponents }) {
+      addComponents({
+        '.carrd': {
+          padding: '.5rem 1rem',
+          borderRadius: '.25rem',
+          fontWeight: '600',
+        },
+      })
+    },
   ]
 }
