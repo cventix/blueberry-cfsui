@@ -2,7 +2,7 @@
 @import "tailwindcss/components";
 @import "tailwindcss/utilities";
 
-/* font */
+/* fonts */
 @font-face {
   font-family: 'vazir-thin';
   font-weight: 100;
@@ -31,18 +31,4 @@
   font-family: 'vazir-bold';
   font-weight: bold;
   src: url('/fonts/vazir-bold.woff') format('woff'), url('/fonts/vazir-bold.ttf') format('truetype');
-}
-
-/* type of fonts */
-$thin-font: 'vazir-thin';
-$regular-font: 'vazir-regular';
-$light-font: 'vazir-light';
-$medium-font: 'vazir-medium';
-$bold-font: 'vazir-bold';
-
-/* button-theme */
-@mixin btn-theme($background, $btn-color, $border) {
-  background: $background;
-  color: $btn-color;
-  border: $border;
 }

@@ -170,7 +170,7 @@ module.exports = {
     }),
     borderRadius: {
       none: '0',
-      sm: '0.125rem',
+      sm: '0.1875rem',
       default: '0.25rem',
       lg: '0.5rem',
       full: '9999px',
@@ -183,7 +183,7 @@ module.exports = {
       '8': '8px',
     },
     boxShadow: {
-      default: '0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06)',
+      default: '0 1px 3px 0 rgba(0, 0, 0, 0.15)',
       md: '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)',
       lg: '0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)',
       xl: '0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)',
@@ -222,11 +222,11 @@ module.exports = {
     },
     fontFamily: {
       vazir: [
-        'vazir-thin',
-        'vazir-regular',
-        'vazir-light',
-        'vazir-medium',
-        'vazir-bold'
+        '"vazir-thin"',
+        '"vazir-regular"',
+        '"vazir-light"',
+        '"vazir-medium"',
+        '"vazir-bold"'
       ],
       sans: [
         '-apple-system',
@@ -495,36 +495,177 @@ module.exports = {
   },
   corePlugins: {},
   plugins: [
-     function({ addComponents  }) {
+    function({ addComponents, theme }) {
       addComponents({
         '.btn': {
-          fontFamily: theme.fontFamily.vazir[0];
+          position: 'relative',
+          fontFamily: theme('fontFamily.vazir[3]'),
+          fontSize: theme('fontSize.sm'),
+          border: 0,
+          cursor: theme('cursor.pointer'),
+          borderRadius: theme('borderRadius.sm'),
 
-        },
-        '.btn-blue': {
-          backgroundColor: '#3490dc',
-          color: '#fff',
-          '&:hover': {
-            backgroundColor: '#2779bd'
-          },
-        },
-        '.btn-red': {
-          backgroundColor: '#e3342f',
-          color: '#fff',
-          '&:hover': {
-            backgroundColor: '#cc1f1a'
-          },
-        },
-      })
-    },
+          /* btn tyes */
 
-    function({ addComponents }) {
-      addComponents({
-        '.carrd': {
-          padding: '.5rem 1rem',
-          borderRadius: '.25rem',
-          fontWeight: '600',
-        },
+          /* default */
+          '&.btnDefault100': {
+            boxShadow: theme('boxShadow.default'),
+            background: '#e0dfdf',
+            color: theme('colors.gray.800')
+          },
+          '&.btnDefault50': {
+            boxShadow: theme('boxShadow.default'),
+            background: 'linear-gradient(to top, #e0dfdf, #f2f0f0)',
+            color: theme('colors.gray.800')    
+          },
+          '&.btnDefault0': {
+            boxShadow: theme('boxShadow.default'),
+            background: 'linear-gradient(to top, #f7f7f7, #fff)',
+            color: theme('colors.gray.800')
+          },
+          '&.btnDefaultOutline': {
+            background: 'rgba(33, 211, 82, 0.1)',
+            color: theme('colors.green.400'),
+            border: '1px solid theme("colors.green.400")'
+          },
+
+          /* primary */
+          '&.btnPrimary100': {
+            boxShadow: theme('boxShadow.default'),
+            background: '#1c7cef',
+            color: theme('colors.white'),
+          },
+          '&.btnPrimary50': {
+            boxShadow: theme('boxShadow.default'),
+            background: 'linear-gradient(to top, #1c7cef, #4192f3)',
+            color: theme('colors.white'),
+          },
+          '&.btnPrimary0': {
+            boxShadow: theme('boxShadow.default'),
+            background: 'linear-gradient(to top, #2686f9, theme("colors.blue.400"))',
+            color: theme('colors.white'),
+          },
+          '&.btnPrimaryOutline': {
+            background: theme('colors.white'),
+            color: '#4a90e2',
+            border: '1px solid theme("colors.blue.400")'
+          },
+
+          /* secondary */
+          '&.btnSecondary': {
+            background: theme('colors.gray.300'),
+            color: '#b3bcc5',
+            border: '1px solid "#e5e7e9"'
+          },
+
+          /* success */
+          '&.btnSuccess100': {
+            background: '#25cc69',
+            color: theme('colors.white'),
+          },
+          '&.btnSuccess50': {
+            boxShadow: theme('boxShadow.default'),
+            background: 'linear-gradient(to top, #25cc69, #30db72)',
+            color: theme('colors.white'),
+          },
+          '&.btnSuccess0': {
+            boxShadow: theme('boxShadow.default'),
+            background: 'linear-gradient(to top, #2fd673, #3ae57c)',
+            color: theme('colors.white'),
+          },
+          '&.btnSuccessOutline': {
+            background: 'rgba(33, 211, 82, 0.1)',
+            color: theme('colors.green.400'),
+            border: '1px solid theme("#colors.green.400")'
+          },
+
+          /* danger */
+          '&.btnDanger100': {
+            boxShadow: theme('boxShadow.default'),
+            background: '#ef3f1c',
+            color: theme('colors.white')
+          },
+          '&.btnDanger50': {
+            boxShadow: theme('boxShadow.default'),
+            background: 'linear-gradient(to top, #ef3f1c, #f36141)',
+            color: theme('colors.white')
+          },
+          '&.btnDanger0': {
+            boxShadow: theme('boxShadow.default'),
+            background: 'linear-gradient(to top, #f94926, #fd6b4b)',
+            color: theme('colors.white')
+          },
+          '&.btnDangerOutline': {
+            background: 'rgba(255, 71, 71, 0.1)',
+            color: theme('colors.red.500'),
+            border: '1px solid theme("colors.red.500")'
+          },
+
+          /* warning */
+          '&.btnWarning100': {
+            boxShadow: theme('boxShadow.default'),
+            background: '#e8b51d',
+            color: theme('colors.white')
+          },
+          '&.btnWarning50': {
+            boxShadow: theme('boxShadow.default'),
+            background: 'linear-gradient(to top, #e8b51d, #eec13b)',
+            color: theme('colors.white')
+          },
+          '&.btnWarning0': {
+            boxShadow: theme('boxShadow.default'),
+            background: 'linear-gradient(to top, #f2bf27, #f8cb45)',
+            color: theme('colors.white')
+          },
+          '&.btnDisabled': {
+            border: '1px solid "#e5e7e9"',
+            background: theme('colors.gray-300'),
+            color: '#b3bcc5'
+          },
+
+          /* with extra radius */
+          '&.btnPill': {
+            borderRadius: theme('borderRadius-full')
+          },
+
+          '&.btnCircle': {
+            width: '50px',
+            height: '50px',
+            borderRadius: theme('borderRadius-full')
+          },
+
+          /* example: next and previous btn */
+          '&.btnControl': {
+            background: '#aeb0ba',
+            color: theme('colors.white')
+          },
+
+          /* btn sizes */
+          '&.btnSm': {
+            width: '70px',
+            height: '35px',
+            lineHeight: '35px'
+          },
+          '&.btnMd': {
+            width: '120px',
+            height: '25px',
+            lineHeight: '25px'
+          },
+          '&.btnLg': {
+            width: '200px',
+            height: '35px',
+            lineHeight: '35px'
+          },
+          '&.btnVlg': {
+            width: '222px',
+            height: '50px',
+            lineHeight: '50px'
+          },
+         
+          '&:disabled': {
+            cursor: theme('cursor.auto')
+          },
+        }
       })
     },
   ]
