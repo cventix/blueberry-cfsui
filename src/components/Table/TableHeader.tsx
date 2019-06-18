@@ -8,18 +8,20 @@ import newFolderIcon from '../../images/sidebarIcons/newfolder.svg'
 
 //styles
 import styles from './Table.module.scss'
+import { connect } from 'react-redux'
 
-export default interface Iprops {
+export interface Iprops {
   titles: Array<string>
   dropdown?: boolean
   checkAll?: boolean
   tabletView?: boolean
-  onSort?: (sortBy: string, type?: string | undefined)  => void
+  selectAll?: boolean
+  onSort?: (sortBy: string, type?: string | undefined) => void
   onCheckAll?: () => void
   onOpenCFModal?: () => void
 }
 
-export const TableHeader: React.FunctionComponent<Iprops> = ({ titles, onOpenCFModal, dropdown, onSort, onCheckAll, tabletView }) => {
+const TableHeader: React.FunctionComponent<Iprops> = ({ titles, onOpenCFModal, dropdown, onSort, selectAll, onCheckAll, tabletView }) => {
   const altIcon = 'Icon'
   return (
     <thead>
@@ -33,6 +35,7 @@ export const TableHeader: React.FunctionComponent<Iprops> = ({ titles, onOpenCFM
                   label={label}
                   onCheckAll={onCheckAll}
                   onSort={onSort}
+                  checked={selectAll}
                   checkbox={label === t`نام` ? true : false}
                   sortable={label !== t`مالک` && true}
                   sortType={label === t`نام` ? 'alphabet' : ' '}
@@ -54,3 +57,6 @@ export const TableHeader: React.FunctionComponent<Iprops> = ({ titles, onOpenCFM
     </thead>
   )
 }
+const mapStateToProps = (state: any) => ({ selectAll: state.selection.selectAll })
+
+export default connect(mapStateToProps)(TableHeader)

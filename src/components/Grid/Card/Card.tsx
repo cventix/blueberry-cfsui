@@ -22,7 +22,7 @@ export default interface Iprops {
   uuid?: string
   checked?: boolean
   onCheckAll?: () => void
-  onCheck?: (id: number, e: any) => void
+  onCheck?: (id: number, e?: any) => void
   handleNavigate?: (e: navigateObject) => void
 }
 
@@ -47,7 +47,7 @@ export const Card: React.FunctionComponent<Iprops> = ({ item, checkbox, handleNa
       {checkbox && (
         <Checkbox
           className={styles.checkbox}
-          onChange={e => (onCheckAll ? onCheckAll() : onCheck && item.id && onCheck(item.id, e))}
+          onChange={() => (onCheckAll ? onCheckAll() : onCheck && item.id && onCheck(item.id))}
           checked={checked}
         />
       )}

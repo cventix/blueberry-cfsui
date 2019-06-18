@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 
 import { Card } from './Card/Card'
-import { GridHeader } from './GridHeader'
+import GridHeader from './GridHeader'
 import { navigateObject } from '../Content/Content'
 
 //styles
@@ -19,7 +19,7 @@ export interface Iprops {
   selection: Array<number>
   dropDownData?: any
   onCheckAll?: () => void
-  onSort?: (sortBy: string, type?: string | undefined)  => void
+  onSort?: (sortBy: string, type?: string | undefined) => void
   onCheck?: (id: number, e?: any) => void
   handleNavigate?: (e: navigateObject) => void
 }
@@ -38,7 +38,7 @@ const Grid: React.FunctionComponent<Iprops> = ({ selection, table, onCheckAll, o
               item={item}
               checkbox={checkbox}
               onCheck={onCheck}
-              checked={selection[index] == item.id}
+              checked={typeof item.id != 'undefined' && selection.includes(item.id)}
               dropdown={true}
             />
           )

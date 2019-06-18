@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { connect } from 'react-redux'
 
 // components
 import Grid from '../Grid/Grid'
@@ -16,8 +17,10 @@ import loadingIcon from '../../images/loading/tail-spin.2.svg'
 //interface
 import { ItemInterface } from '../../services/internal/store/reducers/documentReducer'
 import { navigateObject } from './Content'
+import useWindowDimensions from '../WindowDimensions/WindowDimensions'
 
-export default interface Iprops {
+
+export interface Iprops {
   view: string
   width?: number
   dropdown?: boolean
@@ -30,7 +33,8 @@ export default interface Iprops {
   loading?: boolean
   loadingStyle?: string
   handleNavigate?: ({ e, name, id, uuid, item }: navigateObject) => void
-  onCheck?: (id: number, e?: any)  => void
+  onCheck?: (id: number, e?: any) => void
+  onCheckAll?: () => void
   onOpenCFModal?: () => void
   onSort?: (sortBy: string, type?: string | undefined) => void
   turnOffbutton?: () => void
@@ -89,7 +93,6 @@ const makeSimpleArray = (array: any) => {
 export const ContentBody: React.FunctionComponent<Iprops> = ({
   view,
   turnOffbutton,
-  width,
   dropDownData,
   handleNavigate,
   username,
@@ -101,27 +104,30 @@ export const ContentBody: React.FunctionComponent<Iprops> = ({
   loadingStyle,
   ...rest
 }) => {
+  console.log(username)
   table = isMoveModal ? makeSimpleArray(table) : makeArray(table, username)
   table.length < 10 && turnOffbutton && turnOffbutton()
-
-  return !loading && table && table.length > 0 ? (
-    view === 'table' && width && width < 768 ? (
-      <Grid sortable={true} dropDownData={dropDownData} onSort={onSort} checkbox={true} table={table} handleNavigate={handleNavigate} {...rest} />
-    ) : view === 'table' ? (
-      <Grid sortable={true} dropDownData={dropDownData} onSort={onSort} checkbox={true} table={table} handleNavigate={handleNavigate} {...rest} />
-    ) : (
-      <Table
-        dropdown={true}
-        tabletView={width && width < 768 ? true : false}
-        onOpenCFModal={onOpenCFModal}
-        dropDownData={dropDownData}
-        onSort={onSort}
-        handleNavigate={handleNavigate}
-        table={table}
-        {...rest}
-      />
-    )
+  const { width } = useWindowDimensions()
+  if (loading && table.length < 1) return <div className={loadingStyle}>{loading ? <Icon src={loadingIcon} /> : 'داده ای وجود ندارد'}</div>
+  return view === 'table' ? (
+    <Grid sortable={true} dropDownData={dropDownData} onSort={onSort} checkbox={true} table={table} handleNavigate={handleNavigate} {...rest} />
+  ) : width < 768 ? (
+    <Grid sortable={true} dropDownData={dropDownData} onSort={onSort} checkbox={true} table={table} handleNavigate={handleNavigate} {...rest} />
   ) : (
-    <div className={loadingStyle}>{loading ? <Icon src={loadingIcon} /> : 'داده ای وجود ندارد'}</div>
+    <Table
+      dropdown={true}
+      tabletView={width && width < 768 ? true : false}
+      onOpenCFModal={onOpenCFModal}
+      dropDownData={dropDownData}
+      onSort={onSort}
+      handleNavigate={handleNavigate}
+      table={table}
+      {...rest}
+    />
   )
 }
+
+const mapStateToProps = (state: any) => ({
+  username: state.auth.username
+})
+export default connect(mapStateToProps,null)(ContentBody)

@@ -1,0 +1,34 @@
+.undo {
+  display: flex;
+  justify-content: space-around;
+  .undoButton {
+    border: 0;
+    background: 0;
+    cursor: pointer;
+  }
+}
+#progressInput {
+  margin: 20px auto;
+  width: 30%;
+}
+
+.CircleBackground,
+.circleProgress {
+  fill: none;
+}
+
+.CircleBackground {
+  stroke: linear-gradient(to top, #2fd673, #3ae57c);
+}
+
+.circleProgress {
+  stroke: black;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.circleText {
+  font-size: 9px;
+  font-weight: bold;
+  fill: black;
+}

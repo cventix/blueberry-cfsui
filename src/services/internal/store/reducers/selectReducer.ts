@@ -8,11 +8,13 @@ export interface StateInterface {
   toggle?: Array<boolean>
   modalSelect?: Array<number>
   fullScreen: boolean
+  selectAll?: boolean
 }
 
 export const initialState: StateInterface = {
   selection: [],
   toggle: [false, false],
+  selectAll: false,
   modalSelect: [],
   fullScreen: false
 }
@@ -20,12 +22,11 @@ export const initialState: StateInterface = {
 const selectReducer = (state: any = initialState, action: any) => {
   switch (action.type) {
     case actionTypes.SET_SELECTIONS:
-      return Object.assign(
-        {},
-        state,
-
-        { selection: action.payload }
-      )
+      return {
+        ...state,
+        selection: action.payload,
+        selectAll: false
+      }
     case actionTypes.SET_TOGGLE:
       return {
         ...state,
@@ -44,9 +45,14 @@ const selectReducer = (state: any = initialState, action: any) => {
     case actionTypes.REMOVE_SELECTION:
       return {
         ...state,
-        selection: []
+        selection: [],
+        selectAll: false
       }
-
+    case actionTypes.SELECT_ALL:
+      return {
+        ...state,
+        selectAll: action.payload
+      }
     default:
       return state
   }

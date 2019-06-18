@@ -17,7 +17,7 @@ import { TextInput } from '../../components/ui-elements/Input/Input'
 import { Button } from '../../components/ui-elements/Button/Button'
 import { downloadDirectory, removeMessages, deleteDocument, uploadDocument, urlUpload } from '../../services/internal/store/actions'
 import { setToggle } from '../../services/internal/store/actions/selections'
-import { ToastUndo } from '../../components/ui-elements/Toast/ToastUndo'
+import { ToastUndo } from '../../components/ui-elements/Toast/ToastUndo/ToastUndo'
 import toast from '../../components/ui-elements/Toast/Toast'
 import UrlUploadmodal from '../../components/ui-elements/Modal/urlUpload/urlUploadModal'
 // Services
@@ -326,7 +326,7 @@ class App extends Component<
       case 'urlUpload':
         modal = <UrlUploadmodal showModal={this.state.showModal} handleCFClose={this.handleClose} />
         break
-      
+
       default:
         break
     }

@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 
 import { t } from 'ttag'
 
-import { TableHeader } from './TableHeader'
+import  TableHeader  from './TableHeader'
 import { TableItem } from './TableItem'
 import Dropdown from '../ui-elements/Dropdown/Dropdown'
 import { EnhanceDropdown as enhancer } from '../ui-elements/Dropdown/EnhanceDropdown'
