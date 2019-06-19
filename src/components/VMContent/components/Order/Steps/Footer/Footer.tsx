@@ -35,21 +35,21 @@ export const Footer: React.FunctionComponent<Iprops> = (props) => {
 					onClick={(e: any) => props.handlePreviousStep && props.handlePreviousStep(e)}>
 					<Link to={`/${props.previousStep}`} className={props.firstStep ? 'hide' : ''}>
 						<Button 
-							className={['btnSm']} 
+							className={['pg-btnSm']} 
 							style={{boxShadow: '0 1px 3px 0 rgba(0, 0, 0, 0.15)', border: 'solid 1px #979797'}}
 							>
 							<IconLink icon={arrowLeftGrayIcon} label={t`قبـلی`}/>
 						</Button>
 					</Link>
 					<Link to="/vm">
-						<Button className={['btnDefault0', 'btnSm']}>{t`انصراف`}</Button>
+						<Button className={['pg-btnDefault0', 'pg-btnSm']}>{t`انصراف`}</Button>
 					</Link>
 				</div>
 				<div className={styles.left}>
 					<div className={props.finalStep ? styles.largBtn : styles.wrapper} 
 						onClick={(e: any) => props.handleNextStep && props.handleNextStep(e)}>
 						<Link to={`/${props.nextStep}`} >
-							 <Button className={['btnPrimary0', 'btnSm']} style={props.finalStep ? {width: '159px', direction: 'rtl'} : {}}>
+							 <Button className={['pg-btnPrimary0', 'pg-btnSm']} style={props.finalStep ? {width: '159px', direction: 'rtl'} : {}}>
 								{props.finalStep ? <IconLink icon={invoiceIcon} label={t`صدور صورتحساب`}/> : <IconLink icon={arrowLeftIcon} label={t`بعدی`}/>}
 							 </Button>
 						</Link>

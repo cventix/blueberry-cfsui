@@ -4,10 +4,13 @@ module.exports = {
   separator: ':',
   theme: {
     screens: {
-      mobile: '640px',
-      tablet: '768px',
-      laptop: '1024px',
-      desktop: '1280px',
+      'mobile-max': {'max': '640px'},
+      'tablet-max': {'max': '768px'},
+      'mobile': {'min': '320px', 'max': '639px'},
+      'tablet': {'min': '640px', 'max': '767px'},
+      'laptop': {'min': '768px', 'max': '1023px'},
+      'desktop': {'min': '1024px', 'max': '1279px'},
+      'lgDesktop': {'min': '1280px'},
     },
     colors: {
       transparent: 'transparent',
@@ -128,6 +131,9 @@ module.exports = {
     },
     spacing: {
       px: '1px',
+      sidebar: '260px',
+      '15p': '0.9375rem',
+      '6p': '0.375rem',
       '0': '0',
       '1': '0.25rem',
       '2': '0.5rem',

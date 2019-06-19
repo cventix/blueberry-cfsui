@@ -99,7 +99,7 @@ class Register extends React.Component<any, any> {
                 <span className={styles.link}>{t`ورود`}</span>
               </Link>
             </div>
-            <Button className={['btnPrimary0', 'btnSm']}>{t`ثبت‌نام`}</Button>
+            <Button className={['pg-btnPrimary0', 'pg-btnSm']}>{t`ثبت‌نام`}</Button>
           </div>
           {this.state.error && (
             <div className={styles.wrongVerify}>

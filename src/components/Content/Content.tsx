@@ -468,7 +468,7 @@ class Content extends React.Component<IProps, IState> {
         {toaster}
         <div className={styles.footer}>
           <Button
-            className={[this.state.showMore ? 'btnDefault0' : 'btnDefault100', 'btnLg']}
+            className={[this.state.showMore ? 'pg-btnDefault0' : 'pg-btnDefault100', 'pg-btnLg']}
             disabled={!this.state.showMore}
             onClick={this.showMore}
           >

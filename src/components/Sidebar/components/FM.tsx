@@ -37,17 +37,17 @@ const FM: React.FunctionComponent<Iprops> = ({ onItemClick, selection, toggle })
  console.log(selection && selection.length > 0 )
   return (
     <div className="menu">
-      <Button className={['btnPrimary0', 'btnLg']} style={{ marginBottom: '15px' }}>
+      <Button className={['pg-btnPrimary0', 'pg-btnLg']} style={{ marginBottom: '15px' }}>
         <IconLink icon={uploadIcon} iconAlt="upload icon" label={t`آپلود فایل`} />
       </Button>
       {toggle[1]  ? (
-        <Button   className={[selection && selection.length > 0 ? 'pg-btnSuccess0' : 'btnSuccessOutline', 'btnLg']} style={{ marginBottom: '15px' }}>
+        <Button   className={[selection && selection.length > 0 ? 'pg-btnSuccess0' : 'pg-btnSuccessOutline', 'pg-btnLg']} style={{ marginBottom: '15px' }}>
           <IconLink onClick ={onItemClick} icon={refreshIcon} iconAlt="upload icon" label={t`بازیابی فایل`} />
         </Button>
       ) : (
         <DropDownButton
           data={data}
-          className={[selection && selection.length > 0 ? 'btnSuccess0' : 'btnSuccessOutline', 'btnLg']}
+          className={[selection && selection.length > 0 ? 'pg-btnSuccess0' : 'pg-btnSuccessOutline', 'pg-btnLg']}
           disabled={!selection || selection.length == 0}
           style={{ marginBottom: '15px' }}
         >

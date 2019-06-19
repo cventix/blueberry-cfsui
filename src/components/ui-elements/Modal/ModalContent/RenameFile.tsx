@@ -15,7 +15,7 @@ export const RenameFile: React.FunctionComponent<Iprops> = ({ value, handleSubmi
     <form onSubmit={handleSubmit}>
       <TextInput value={value} style={{ width: 300 }} onChange={changeHandler} name={'renameInput'} />
       <div className={styles.submitButton}>
-        <Button className={['btnPrimary100', 'btnSm']}>تغییر نام</Button>
+        <Button className={['pg-btnPrimary100', 'pg-btnSm']}>تغییر نام</Button>
       </div>
     </form>
   )

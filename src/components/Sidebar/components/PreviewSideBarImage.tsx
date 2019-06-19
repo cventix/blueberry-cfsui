@@ -34,7 +34,7 @@ const PreviewSideBarImage: React.FunctionComponent<Iprops> = ({ onItemClick, ite
   console.log(generateDownloadLink)
   return (
     <div className="menu">
-      <Button className={['btnSuccess0', 'btnLg']} style={{ marginBottom: '15px' }}>
+      <Button className={['pg-btnSuccess0', 'pg-btnLg']} style={{ marginBottom: '15px' }}>
         <a
           href={`http://localhost:3000/rest/publicAccess/KhDNZ5JdtS/generateDownloadLink`}
           style={{ color: 'inherit' }}

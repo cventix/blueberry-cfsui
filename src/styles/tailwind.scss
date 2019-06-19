@@ -32,3 +32,16 @@
   font-weight: bold;
   src: url('/fonts/vazir-bold.woff') format('woff'), url('/fonts/vazir-bold.ttf') format('truetype');
 }
+
+/* components */
+.flex-row-wrap-withspace {
+  @apply .pg-flex .pg-flex-row .pg-flex-wrap .pg-justify-between
+}
+
+.flex-center {
+  @apply .pg-flex .pg-items-center .pg-justify-center
+}
+
+.fixed-on-top {
+  @apply .pg-fixed .pg-top-0 .pg-inset-x-0
+}

@@ -24,7 +24,7 @@ export default interface Iprops {
 export const PreviewSideBar: React.FunctionComponent<Iprops> = ({ onItemClick }) => {
   return (
     <div className="menu">
-      <Button className={['btnSuccess0', 'btnLg']} style={{ marginBottom: '15px' }}>
+      <Button className={['pg-btnSuccess0', 'pg-btnLg']} style={{ marginBottom: '15px' }}>
         <IconLink icon={uploadIcon} iconAlt="upload icon" label={t`دانلود فایل`} />
       </Button>
       <IconLink icon={upFromUrlIcon} onClick={onItemClick} className="iconLink upFromUrl" iconAlt="upload icon" label={t`آپلود فایل از URL`} />
