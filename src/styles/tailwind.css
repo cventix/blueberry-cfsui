@@ -8089,6 +8089,20 @@ video {
   z-index: auto !important;
 }
 
+/* normalize */
+
+* {
+  box-sizing: border-box;
+}
+
+*:focus {
+  outline: none;
+}
+
+img, svg, video, canvas, audio, iframe, embed, object {
+  display: initial;
+}
+
 /* fonts */
 
 @font-face {

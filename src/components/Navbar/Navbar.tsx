@@ -82,7 +82,6 @@ export const Navbar: React.FunctionComponent<Iprops> = ({ toggleHamburgerMenu, t
       <div
         className="pg-flex
         pg-items-center
-        pg-ml-sidebar
         tablet-max:pg-ml-0 
         left"
       >
