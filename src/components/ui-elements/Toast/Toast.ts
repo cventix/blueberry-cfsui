@@ -12,7 +12,7 @@ export default {
   success(msg: any, options = {}) {
     return toast.success(msg, {
       ...options,
-      autoClose: 10000,
+      autoClose: 5000,
       className: css({
         height: '35px !important',
         fontFamily: 'vazir-regular !important',
@@ -58,5 +58,8 @@ export default {
         background: '#007aff'
       })
     })
+  },
+  dismiss() {
+    return toast.dismiss()
   }
 }

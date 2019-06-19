@@ -17,7 +17,8 @@ class ModalContent extends React.Component<any, any> {
     super(props)
     this.state = {
       showModal: true,
-      toRemove: []
+      toRemove: [],
+      removeArray: []
     }
   }
   handleClose = () => {
@@ -27,20 +28,32 @@ class ModalContent extends React.Component<any, any> {
 
   // remove modal
   openRemoveModal = (isSelected: number) => {
-    console.log(isSelected)
+    let removeItem = this.props.document.documents.filter((obj: any, index: number) => {
+      return obj.id == isSelected
+    })[0]
+
+    let removedIndex = this.props.document.documents.indexOf(removeItem)
     this.setState({
-      toRemove: [...this.state.toRemove, isSelected]
+      toRemove: [...this.state.toRemove, isSelected],
+      removeItem,
+      removedIndex
     })
+
     let documents = this.props.document.documents.filter((i: any) => i.id !== isSelected)
     this.props.setDocuments(documents)
     toast.success(<ToastUndo undo={this.undo} id={isSelected} />, {
       onClose: this.cleanCollection
     })
   }
+
   undo = (id: any) => {
+    let documents = this.props.document.documents
     this.setState({
       toRemove: this.state.toRemove.filter((v: any) => v !== id)
     })
+
+    documents.splice(this.state.removedIndex, 0, this.state.removeItem)
+    this.props.setDocuments(documents)
   }
 
   cleanCollection = () => {

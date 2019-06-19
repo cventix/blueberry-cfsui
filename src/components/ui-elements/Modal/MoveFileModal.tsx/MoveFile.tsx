@@ -59,15 +59,16 @@ class MoveFile extends React.Component<Iprops, Istate> {
   }
 
   componentDidMount() {
-    this.onGetDocument(false)
-    this.setState({ table: this.props.document.documents, history: [{ title: `پوشه اصلی`, link: '/', active: false, onClick: this.onGetDocument }] })
+    this.onGetDocument(false, '/')
+    this.setState({ table: this.props.document.documents })
     this.props.setHistory([{ title: `پوشه اصلی`, link: '/', active: false, onClick: this.onGetDocument }])
 
     if (this.props.modalSelection !== 1) this.props.setModalSelections(1)
   }
 
   onGetDocument = async (isChildren?: boolean, path?: any, id?: number) => {
-    if (isChildren == true) {
+    console.log(path)
+    if (path !== '/') {
       try {
         if (id) this.props.setParentId(id)
         await this.props.getModalDocuments({ isChildren: true, path, modal: true, id })
@@ -82,6 +83,16 @@ class MoveFile extends React.Component<Iprops, Istate> {
         console.log('E: ', error)
       }
     }
+    this.setState({
+      history: {
+        title: name,
+        link: path,
+        active: false,
+        onClick: this.onGetDocument,
+        parent: true,
+        id: id
+      }
+    })
   }
   /**
    * gets data and makes an obj
@@ -99,6 +110,7 @@ class MoveFile extends React.Component<Iprops, Istate> {
     let history = this.state.history
     let parent = 1
     let path
+    let item
     if (e.target.tagName != 'INPUT') {
       if (this.props.modalSelection !== id && id) this.props.setModalSelections(id)
       let discriminator = this.props.document.modal_documents.filter((obj: any) => {
@@ -107,26 +119,13 @@ class MoveFile extends React.Component<Iprops, Istate> {
       if (discriminator[0] || !this.state.lastChild) {
         if (discriminator[0].parent) parent = discriminator[0].parent.id
         path = discriminator[0].fullPath
+        item = discriminator[0]
         discriminator = discriminator[0].discriminator
       }
-      console.log(discriminator)
+      console.log(item.parent)
       if (discriminator === 'D') {
         this.onGetDocument(true, path, id)
-        if (parent == 1) {
-          this.setState({
-            history: [
-              this.state.history[0],
-              {
-                title: name,
-                link: path,
-                active: false,
-                onClick: this.onGetDocument,
-                parent: true,
-                id: id
-              }
-            ]
-          })
-        }
+      
       }
     }
   }
@@ -137,8 +136,6 @@ class MoveFile extends React.Component<Iprops, Istate> {
     }
   }
   render() {
-    const history = [{ title: t`پوشه اصلی`, link: '/', active: false, onClick: this.onGetDocument }]
-
     const { showModal, handleClose, loading, modalSelection } = this.props
     return (
       <UploadModal
@@ -177,9 +174,7 @@ class MoveFile extends React.Component<Iprops, Istate> {
         <div className={styles.submitButton}>
           <Button
             className={[
-              !this.props.modalSelection || this.props.modalSelection == this.props.parentId
-                ? 'btnPrimaryOutline'
-                : 'btnPrimary100',
+              !this.props.modalSelection || this.props.modalSelection == this.props.parentId ? 'btnPrimaryOutline' : 'btnPrimary100',
               'btnSm'
             ]}
             style={{ marginLeft: 5 }}

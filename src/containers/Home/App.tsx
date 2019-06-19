@@ -16,7 +16,7 @@ import MoveFile from '../../components/ui-elements/Modal/MoveFileModal.tsx/MoveF
 import { TextInput } from '../../components/ui-elements/Input/Input'
 import { Button } from '../../components/ui-elements/Button/Button'
 import { downloadDirectory, removeMessages, deleteDocument, uploadDocument, urlUpload } from '../../services/internal/store/actions'
-import { setToggle } from '../../services/internal/store/actions/selections'
+import { setToggle, removeSelection } from '../../services/internal/store/actions/selections'
 import { ToastUndo } from '../../components/ui-elements/Toast/ToastUndo/ToastUndo'
 import toast from '../../components/ui-elements/Toast/Toast'
 import UrlUploadmodal from '../../components/ui-elements/Modal/urlUpload/urlUploadModal'
@@ -82,6 +82,7 @@ class App extends Component<
     deleteDocument?: any
     uploadDocument?: any
     urlUpload?: any
+    removeSelection?: any
   },
   {}
 > {
@@ -98,7 +99,9 @@ class App extends Component<
     prevState: '',
     modal: '',
     countDown: 10,
-    toRemove: []
+    toRemove: [],
+    removeItem: [],
+    removedIndex: 0
   }
   timer: any = ''
   countDownTime = 10000
@@ -108,21 +111,45 @@ class App extends Component<
   }
 
   undo = (ids: any) => {
+    let documents = this.props.document.documents
+
     console.log(ids)
     this.setState({
       toRemove: this.state.toRemove.filter((v: any, index: number) => v[index] !== ids[index])
     })
+    this.props.removeSelection()
+    this.state.removeItem.map((each: any, index) => {
+      documents.splice(this.state.removedIndex + index, 0, each)
+    })
+
+    this.props.setDocuments(documents)
   }
 
-  toRemove = () => {
-    this.setState({
-      toRemove: [...this.state.toRemove, this.props.selection]
+  toRemoveFromList = async (type: string) => {
+    let removeItem = this.props.document.documents.filter((obj: any, index: number) => {
+      return this.props.selection.includes(obj.id)
     })
-    let documents = this.props.document.documents.filter((i: any, index: number) => i.id !== this.props.selection[index])
+
+    let removedIndex = this.props.document.documents.indexOf(removeItem[0])
+    this.setState({
+      toRemove: [...this.state.toRemove, this.props.selection],
+      removeItem,
+      removedIndex
+    })
+    let documents = this.props.document.documents.filter((i: any, index: number) => !this.props.selection.includes(i.id))
     this.props.setDocuments(documents)
-    toast.success(<ToastUndo undo={this.undo} id={this.props.selection} />, {
+    console.log(type)
+    let deleteMsg = 'فایل حذف شد'
+    let recoverMsg = 'فایل بازیابی شد'
+    toast.success(<ToastUndo undo={this.undo} id={this.props.selection} msg={type == `بازیابی فایل` ? recoverMsg : deleteMsg} />, {
       toRemove: [],
-      onClose: this.cleanCollection
+      onClose:
+        type == t`حذف`? this.onRemoveDocument
+  : t`حذف دائم`
+          ? this.onEraseDocument
+          : `بازیابی فایل`
+          ? await this.props.restoreFiles({ documentIds: this.props.selection })
+          : ''
     })
   }
 
@@ -183,7 +210,7 @@ class App extends Component<
           await this.props.downloadDirectory({ documentIds: this.props.selection, downloadType: 'iso' })
           break
         case `بازیابی فایل`:
-          await this.props.restoreFiles({ documentIds: this.props.selection })
+          this.toRemoveFromList(e)
           break
         case t`پوشه جدید`:
           this.setState({ modal: 'createFolder', showModal: true })
@@ -197,17 +224,14 @@ class App extends Component<
           break
         case t`حذف`:
           if (this.props.selection && this.props.selection.length > 0) {
-            this.toRemove()
+            this.toRemoveFromList(e)
             this.props.setTempDocuments(this.props.document)
           } else {
             toast.error('You havent selected anything')
           }
           break
         case t`حذف دائم`:
-          if (this.props.selection && this.props.selection.length > 0) {
-            // this.setState({ modal: 'remove', showModal: true })
-            this.toErase()
-          }
+          this.toRemoveFromList(e)
           break
         case t`آپلود فایل از URL`:
           this.setState({ modal: 'urlUpload', showModal: true })
@@ -300,10 +324,10 @@ class App extends Component<
       isOpenSignout: !this.state.isOpenSignout
     })
   }
-  componentDidMount() {
-    this.props.setRouter(this.props.history)
-  }
-  componentWillReceiveProps(nextProps: any) {
+
+  componentWillReceiveProps(nextProps: any, prevProps: any) {
+    console.log(prevProps)
+    console.log(prevProps.history && nextProps.history.location.pathname !== prevProps.history.location.pathname)
     if (nextProps.messages.errors.length > 0) {
       toast.error(nextProps.messages.errors)
       this.props.removeMessages()
@@ -388,7 +412,8 @@ const mapDispatchToProps = (dispatch: any) => {
     restoreFiles: (value: any) => dispatch(restoreFiles(value)),
     removeMessages: () => dispatch(removeMessages()),
     uploadDocument: (value: any) => dispatch(uploadDocument(value)),
-    urlUpload: (value: any) => dispatch(urlUpload(value))
+    urlUpload: (value: any) => dispatch(urlUpload(value)),
+    removeSelection: () => dispatch(removeSelection())
   }
 }
 

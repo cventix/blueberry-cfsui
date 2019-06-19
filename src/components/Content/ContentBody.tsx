@@ -18,7 +18,7 @@ import loadingIcon from '../../images/loading/tail-spin.2.svg'
 import { ItemInterface } from '../../services/internal/store/reducers/documentReducer'
 import { navigateObject } from './Content'
 import useWindowDimensions from '../WindowDimensions/WindowDimensions'
-
+import { setTempDocuments } from '../../services/internal/store/actions'
 
 export interface Iprops {
   view: string
@@ -37,6 +37,7 @@ export interface Iprops {
   onCheckAll?: () => void
   onOpenCFModal?: () => void
   onSort?: (sortBy: string, type?: string | undefined) => void
+  setTempDocuments?: (e: any) => void
   turnOffbutton?: () => void
 }
 
@@ -51,6 +52,7 @@ export interface ITableItem {
   size?: string
   uuid?: string
   item?: any
+
 }
 
 const makeArray = (array: any, username?: string) => {
@@ -102,10 +104,12 @@ export const ContentBody: React.FunctionComponent<Iprops> = ({
   onOpenCFModal,
   loading,
   loadingStyle,
+  setTempDocuments,
   ...rest
 }) => {
   console.log(username)
   table = isMoveModal ? makeSimpleArray(table) : makeArray(table, username)
+  
   table.length < 10 && turnOffbutton && turnOffbutton()
   const { width } = useWindowDimensions()
   if (loading && table.length < 1) return <div className={loadingStyle}>{loading ? <Icon src={loadingIcon} /> : 'داده ای وجود ندارد'}</div>
@@ -130,4 +134,13 @@ export const ContentBody: React.FunctionComponent<Iprops> = ({
 const mapStateToProps = (state: any) => ({
   username: state.auth.username
 })
-export default connect(mapStateToProps,null)(ContentBody)
+const mapDispatchToProps = (dispatch: any) => {
+  return {
+    setTempDocuments: (value: any) => dispatch(setTempDocuments(value))
+  }
+}
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(ContentBody)

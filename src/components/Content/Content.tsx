@@ -153,14 +153,15 @@ class Content extends React.Component<IProps, IState> {
    * @param nextProps
    */
   componentWillReceiveProps(nextProps: any) {
-    console.log(nextProps)
+
     if (nextProps.item) {
       this.setState({
         item: nextProps.item
       })
     }
-
+   console.log(nextProps)
     if (nextProps.selection.length == 0 || (nextProps.selection.length > 0 && nextProps.document.documents !== this.state.mainTable)) {
+      console.log(sliceData({ array: nextProps.document.documents }))
       this.setState({
         table: sliceData({ array: nextProps.document.documents }),
         showMore: nextProps.document.documents.length > 10,

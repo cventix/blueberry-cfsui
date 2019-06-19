@@ -15,6 +15,7 @@ export interface BreadcrumbItem {
   location?: any
   parent?: boolean
   id?: number
+  path?: any
 }
 
 export default interface Iprops {
@@ -24,18 +25,27 @@ export default interface Iprops {
 }
 
 export const Breadcrumb: React.FunctionComponent<Iprops> = ({ history, modal, className }) => {
+  let historyArray = [{ link: '/', name: `پوشه اصلی` }]
+  if (history && history.link) {
+    console.log(history)
+    history.link.split('/').map((item: any, index: number) => {
+      if (index !== 0 && item) historyArray.push({ link: history.link.split(JSON.stringify(item))[0], name: item })
+    })
+  }
+  console.log(historyArray)
+  // return <div>jio</div>
   return (
     <div className={` ${modal ? [styles.breadcrumb, styles.modalbread, className].join(' ') : styles.breadcrumb}`}>
       {history ? (
-        history.map((item: BreadcrumbItem, index: number) => (
+        historyArray.map((item: any, index: number) => (
           <React.Fragment key={index}>
             <span
-              onClick={() => (item.parent ? item.onClick(true, item.title, item.id) : item.onClick())}
-              className={item.active ? [styles.active, styles.item].join(' ') : styles.item}
+              onClick={() => history.onClick(true, item.link, history.id)}
+              className={ (index == historyArray.length - 1)  ? [styles.active, styles.item].join(' ') : styles.item}
             >
-              {item.title}
+              {item.name}
             </span>
-            {!item.active && <Icon src={bigger} />}
+            {index !== (historyArray.length - 1) && <Icon src={bigger} />}
           </React.Fragment>
         ))
       ) : (

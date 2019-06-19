@@ -50,7 +50,7 @@ export const TableItem: React.FunctionComponent<Iprops> = ({
   onCheck,
   uuid
 }) => {
-  let imgSrc = `http://cdn.persiangig.com/preview/${uuid}/medium/${name}`
+  let imgSrc = item && `http://cdn.persiangig.com/preview/${uuid}/medium/${item.name}`
   return (
     <td data-label={name} className={className ? splitter(className) : ' '} {...sortable && { onClick: () => onSort && onSort(label, sortType) }}>
       <div className={'rowItem'}>
