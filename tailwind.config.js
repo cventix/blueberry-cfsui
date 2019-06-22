@@ -1,6 +1,6 @@
 module.exports = {
   prefix: 'pg-',
-  important: true,
+  important: false,
   separator: ':',
   theme: {
     screens: {
@@ -17,6 +17,8 @@ module.exports = {
 
       black: '#000',
       white: '#fff',
+
+      body: 'rgba(248, 248, 248, 0.82)',
 
       gray: {
         100: '#f6f7f8',
@@ -132,8 +134,11 @@ module.exports = {
     spacing: {
       px: '1px',
       sidebar: '260px',
-      '15p': '0.9375rem',
+      '5p': '0.3125rem',
       '6p': '0.375rem',
+      '15p': '0.9375rem',
+      '30p': '1.875rem',
+      '140p': '8.75rem',
       '0': '0',
       '1': '0.25rem',
       '2': '0.5rem',
@@ -227,13 +232,11 @@ module.exports = {
       default: '1',
     },
     fontFamily: {
-      vazir: [
-        '"vazir-thin"',
-        '"vazir-regular"',
-        '"vazir-light"',
-        '"vazir-medium"',
-        '"vazir-bold"'
-      ],
+      vThin: '"vazir-thin"',
+      vRegular: '"vazir-regular"',
+      vLight: '"vazir-light"',
+      vMedium: '"vazir-medium"',
+      vBold: '"vazir-bold"',
       sans: [
         '-apple-system',
         'BlinkMacSystemFont',
@@ -470,7 +473,7 @@ module.exports = {
     lineHeight: ['responsive'],
     listStylePosition: ['responsive'],
     listStyleType: ['responsive'],
-    margin: ['responsive'],
+    margin: ['responsive', 'first-child'],
     maxHeight: ['responsive'],
     maxWidth: ['responsive'],
     minHeight: ['responsive'],
@@ -491,7 +494,7 @@ module.exports = {
     textColor: ['responsive', 'hover', 'focus'],
     textDecoration: ['responsive', 'hover', 'focus'],
     textTransform: ['responsive'],
-    userSelect: ['responsive'],
+    userSelect: ['responsive', 'hover', 'focus', 'first-child'],
     verticalAlign: ['responsive'],
     visibility: ['responsive'],
     whitespace: ['responsive'],
@@ -499,13 +502,22 @@ module.exports = {
     wordBreak: ['responsive'],
     zIndex: ['responsive'],
   },
-  corePlugins: {},
+  corePlugins: {
+     userSelect: false,
+  },
   plugins: [
+    function({ addVariant, e }) {
+      addVariant('first-child', ({ modifySelectors, separator }) => {
+        modifySelectors(({ className }) => {
+          return `.${e(`first-child${separator}${className}`)}:first-child`
+        })
+      })
+    },
     function({ addComponents, theme }) {
       addComponents({
         '.btn': {
           position: 'relative',
-          fontFamily: theme('fontFamily.vazir[3]'),
+          fontFamily: theme('fontFamily.vMedium'),
           fontSize: theme('fontSize.sm'),
           border: 0,
           cursor: theme('cursor.pointer'),

@@ -2,79 +2,12 @@
 $img-size: 30px;
 
 .navbar {
-	@include flex(row, wrap);
-	justify-content: space-between;
-	position: fixed;
-	top: 0;
-	right: 0;
-	left: 0;
-	height: $navbar-height;
-	background-color: #fff;
-	z-index: 1952;
-
-	@include box-shadow(0 2px 0 0 rgba(0, 0, 0, 0.05));
-	@media(max-width: $tablet) {
-		height: $navbar-height + 10;
-		padding: 0 $rsp-padding;
-	}
-
-	.nav {
-		.iconLink {
-		
-			.icon {
-				width: $img-size - 6;
-				height: $img-size - 6;
-			}
-		}
-	}
 
 	.right {
-		@include flex(row, wrap);
-
-		.menuWrapper {
-			display: none;
-			align-items: center;
-			cursor: pointer;
-
-			@media(max-width: $tablet) {
-				display: flex;
-			}
-
-			.menu {
-				margin-left: 6px;
-			}
-		}
-
-		.logoWrapper {
-			display: flex;
-			align-items: center;
-			justify-content: center;
-			width: $sidebar-width;
-
-			@media(max-width: $tablet) {
-				width: auto;
-			}
-			@media(min-width: $tablet + 1) and (max-width: $web-medium) {
-				width: 140px;
-			}
-
-			.logo {
-				width: 62px;
-				height: 31px;
-			}
-		}
-
 		.nav {
-			@include flex(row, wrap);
 			margin: 23px 0;
-			padding: 0;
-
-			@media(max-width: $tablet) {
-				display: none;
-			}
 
 			.item {
-				margin-left: $default-margin;
 
 				.iconLink {
 					span {
@@ -84,7 +17,7 @@ $img-size: 30px;
 				}
 
 				&:first-child {
-					margin-right: $default-margin - 5;
+					
 				}
 
 				&.current {
@@ -97,19 +30,7 @@ $img-size: 30px;
 	}
 
 	.left {
-		display: flex;
-		align-items: center;
-		margin-left: $default-margin;
-
-		@media(max-width: $tablet) {
-			margin-left: 0;
-		}
-
 		.nav {
-			@include flex(row, wrap);
-			overflow: hidden;
-			clear: both;
-
 			.avatar {
 				width: $img-size;
 				height: $img-size;

@@ -13,12 +13,20 @@ export default interface Iprops {
   src?: string
   alt?: string
   className?: string
+  width?: number
+  height?: number
   style?: object
   mimetype?: string
 }
 
-export const Icon = ({ src, alt, className = 'icon', style, mimetype }: Iprops) => (
-  <img src={mimetype ? renderIconSrc(mimetype) : src} alt={alt} className={className} style={style}/>
+export const Icon = ({ src, alt, className = 'icon', width, height, style, mimetype }: Iprops) => (
+  <img src={mimetype ? renderIconSrc(mimetype) : src} 
+    alt={alt}
+    className={className}
+    width={width}
+    height={height}
+    style={style}
+  />
 )
 
 const renderIconSrc = (mimetype: string) => {

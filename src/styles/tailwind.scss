@@ -2,19 +2,6 @@
 @import "tailwindcss/components";
 @import "tailwindcss/utilities";
 
-/* normalize */
-* {
-  box-sizing: border-box;
-}
-
-*:focus {
-  outline: none;
-}
-
-img, svg, video, canvas, audio, iframe, embed, object {
-  display: initial;
-} 
-
 /* fonts */
 @font-face {
   font-family: 'vazir-thin';
@@ -44,6 +31,29 @@ img, svg, video, canvas, audio, iframe, embed, object {
   font-family: 'vazir-bold';
   font-weight: bold;
   src: url('/fonts/vazir-bold.woff') format('woff'), url('/fonts/vazir-bold.ttf') format('truetype');
+}
+
+/* normalize */
+* {
+  box-sizing: border-box;
+}
+
+*:focus {
+  outline: none;
+}
+
+img, svg, video, canvas, audio, iframe, embed, object {
+  display: initial;
+}
+
+body {
+  direction: rtl;
+  @apply .pg-bg-body .pg-text-sm .pg-font-vRegular;
+
+  &:lang(en) {
+    direction: ltr;
+    @apply .pg-font-sans
+  }
 }
 
 /* components */
