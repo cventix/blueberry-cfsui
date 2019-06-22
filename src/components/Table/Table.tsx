@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 
 import { t } from 'ttag'
 
-import  TableHeader  from './TableHeader'
+import TableHeader from './TableHeader'
 import { TableItem } from './TableItem'
 import Dropdown from '../ui-elements/Dropdown/Dropdown'
 import { EnhanceDropdown as enhancer } from '../ui-elements/Dropdown/EnhanceDropdown'
@@ -40,12 +40,13 @@ export interface Iprops {
   data?: any
   hasHeader?: boolean
   modalSelection?: number
+  smPadding?: boolean
   onCheckAll?: () => void
-  onSort?: (sortBy: string, type?: string | undefined)  => void
+  onSort?: (sortBy: string, type?: string | undefined) => void
   onOpenCFModal?: () => void
   onSelect?: (option: number) => void
   onRenameDocument?: (e: any) => void
-  onCheck?:(id: number, e?: any)=>void
+  onCheck?: (id: number, e?: any) => void
 }
 
 const Table: React.FunctionComponent<Iprops> = ({
@@ -63,6 +64,7 @@ const Table: React.FunctionComponent<Iprops> = ({
   checkbox,
   onCheck,
   modalSelection,
+  smPadding = false,
   onOpenCFModal,
   hasHeader = true
 }) => {
@@ -99,7 +101,7 @@ const Table: React.FunctionComponent<Iprops> = ({
                         item={item}
                         onCheck={onCheck}
                         checked={typeof item.id != 'undefined' && selection.includes(item.id)}
-                        className={k === 'name' ? ['show'] : [' ']}
+                        className={k === 'name' ? (smPadding ? ['smPadding', 'show'] : ['show']) : smPadding ? ['smPadding'] : []}
                         checkbox={checkbox === false ? checkbox : k === 'name' ? true : false}
                         mimetype={k === 'name' ? item.type : ''}
                       />

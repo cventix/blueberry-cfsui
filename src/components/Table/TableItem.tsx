@@ -22,6 +22,7 @@ export default interface Iprops {
   checked?: any
   checkAll?: boolean
   id?: number
+  
   onCheckAll?: () => void
   onSort?: (label: string, sortType: string | undefined) => void
   onCheck?: (id: number, e?: any) => void

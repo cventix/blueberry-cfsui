@@ -301,7 +301,7 @@ class Content extends React.Component<IProps, IState> {
 
     return (
       <React.Fragment>
-        <ContentHeader view={this.state.view} switchView={this.switchView} handleSearchInput={(e: any) => this.onChangeSearchInput(e)} />
+        <ContentHeader view={this.state.view} switchView={this.switchView}  table={this.state.filteredTable} handleSearchInput={(e: any) => this.onChangeSearchInput(e)} />
         <ContentBody
           turnOffbutton={this.turnOffbutton}
           onCheckAll={this.onCheckAll}

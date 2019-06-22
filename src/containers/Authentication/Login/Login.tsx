@@ -37,10 +37,11 @@ class Login extends React.Component<any, any> {
   onBlur = async () => {
     await this.props.removeMessages()
   }
+
   componentWillReceiveProps(nextProps: any) {
     this.setState({ token: nextProps.auth.token })
   }
-  handleSubmit = async (e: any) => {
+  handleSubmit = async (e?: any) => {
     const { history } = this.props
 
     if (e) e.preventDefault()

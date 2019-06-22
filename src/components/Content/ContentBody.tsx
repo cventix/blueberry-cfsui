@@ -32,6 +32,7 @@ export interface Iprops {
   username?: string
   loading?: boolean
   loadingStyle?: string
+  smPadding?: boolean
   handleNavigate?: ({ e, name, id, uuid, item }: navigateObject) => void
   onCheck?: (id: number, e?: any) => void
   onCheckAll?: () => void
@@ -52,6 +53,7 @@ export interface ITableItem {
   size?: string
   uuid?: string
   item?: any
+  smPadding?: boolean
 
 }
 
@@ -105,6 +107,7 @@ export const ContentBody: React.FunctionComponent<Iprops> = ({
   loading,
   loadingStyle,
   setTempDocuments,
+
   ...rest
 }) => {
   console.log(username)

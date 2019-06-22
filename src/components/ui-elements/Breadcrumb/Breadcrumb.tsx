@@ -27,9 +27,9 @@ export default interface Iprops {
 export const Breadcrumb: React.FunctionComponent<Iprops> = ({ history, modal, className }) => {
   let historyArray = [{ link: '/', name: `پوشه اصلی` }]
   if (history && history.link) {
-    console.log(history)
     history.link.split('/').map((item: any, index: number) => {
-      if (index !== 0 && item) historyArray.push({ link: history.link.split(JSON.stringify(item))[0], name: item })
+      let slug = history.link.split(item).pop()
+      if (index !== 0 && item) historyArray.push({ link: slug, name: item })
     })
   }
   console.log(historyArray)
@@ -41,11 +41,11 @@ export const Breadcrumb: React.FunctionComponent<Iprops> = ({ history, modal, cl
           <React.Fragment key={index}>
             <span
               onClick={() => history.onClick(true, item.link, history.id)}
-              className={ (index == historyArray.length - 1)  ? [styles.active, styles.item].join(' ') : styles.item}
+              className={index == historyArray.length - 1 ? [styles.active, styles.item].join(' ') : styles.item}
             >
               {item.name}
             </span>
-            {index !== (historyArray.length - 1) && <Icon src={bigger} />}
+            {index !== historyArray.length - 1 && <Icon src={bigger} />}
           </React.Fragment>
         ))
       ) : (

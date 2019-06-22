@@ -83,6 +83,7 @@ class MoveFile extends React.Component<Iprops, Istate> {
         console.log('E: ', error)
       }
     }
+    console.log(path)
     this.setState({
       history: {
         title: name,
