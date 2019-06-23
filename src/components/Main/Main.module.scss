@@ -1,27 +1,5 @@
 @import "../../styles/global";
 
-.main {
-	position: relative;
-	margin-top: $navbar-height;
-	padding-top: $default-padding + 10;
-	padding-bottom: 2 * $default-padding;
-	margin-right: $sidebar-width;
-	padding-right: $default-padding;
-	padding-left: $default-padding;
-
-	@media(max-width: $tablet) {
-		margin-top: $navbar-height + 10;
-		margin-right: 0;
-		padding-top: $default-padding - 10;
-		padding-right: $rsp-padding;
-		padding-left: $rsp-padding;
-	}
-
-	.contentWrapper {
-		min-height: 680px;
-	}
-}
-
 body:lang(en) {
 	.main {
 		margin-right: 0;

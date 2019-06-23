@@ -34,26 +34,17 @@
 }
 
 /* normalize */
-* {
-  box-sizing: border-box;
-}
-
 *:focus {
-  outline: none;
+  outline: none !important;
 }
 
-img, svg, video, canvas, audio, iframe, embed, object {
+img {
   display: initial;
 }
 
 body {
   direction: rtl;
   @apply .pg-bg-body .pg-text-sm .pg-font-vRegular;
-
-  &:lang(en) {
-    direction: ltr;
-    @apply .pg-font-sans
-  }
 }
 
 /* components */
@@ -67,4 +58,10 @@ body {
 
 .fixed-on-top {
   @apply .pg-fixed .pg-top-0 .pg-inset-x-0
+}
+
+/* for en version */
+body:lang(en) {
+  direction: ltr;
+  @apply .pg-font-sans
 }

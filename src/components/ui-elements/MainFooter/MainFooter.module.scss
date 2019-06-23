@@ -1,25 +1,9 @@
 @import '../../../styles/global';
 
 .mainFooter {
-	@include flex(row, wrap);
-	justify-content: space-around;
-	text-align: center;
-	position: absolute;
-	right: 0;
-	left: 0;
 	bottom: 10px;
-	color: $lt-gray;
-	font-size: $font-size - 2;
-
-	.copyRight {
-		> a {
-			color: $lt-blue;
-			font-family: $medium-font;
-		}
-	}
 
 	.switcher {
-		position: absolute;
 		left: 30px;
 		bottom: 2px;
 

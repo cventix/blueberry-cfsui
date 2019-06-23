@@ -136,8 +136,13 @@ module.exports = {
       sidebar: '260px',
       '5p': '0.3125rem',
       '6p': '0.375rem',
+      '10p': '0.625rem',
       '15p': '0.9375rem',
+      '23p': '1.4375rem',
       '30p': '1.875rem',
+      '34p': '2.125rem',
+      '60p': '3.75rem',
+      '70p': '4.375rem',
       '140p': '8.75rem',
       '0': '0',
       '1': '0.25rem',
@@ -473,7 +478,7 @@ module.exports = {
     lineHeight: ['responsive'],
     listStylePosition: ['responsive'],
     listStyleType: ['responsive'],
-    margin: ['responsive', 'first-child'],
+    margin: ['responsive'],
     maxHeight: ['responsive'],
     maxWidth: ['responsive'],
     minHeight: ['responsive'],
@@ -494,7 +499,7 @@ module.exports = {
     textColor: ['responsive', 'hover', 'focus'],
     textDecoration: ['responsive', 'hover', 'focus'],
     textTransform: ['responsive'],
-    userSelect: ['responsive', 'hover', 'focus', 'first-child'],
+    userSelect: ['responsive', 'hover', 'focus'],
     verticalAlign: ['responsive'],
     visibility: ['responsive'],
     whitespace: ['responsive'],
@@ -506,13 +511,6 @@ module.exports = {
      userSelect: false,
   },
   plugins: [
-    function({ addVariant, e }) {
-      addVariant('first-child', ({ modifySelectors, separator }) => {
-        modifySelectors(({ className }) => {
-          return `.${e(`first-child${separator}${className}`)}:first-child`
-        })
-      })
-    },
     function({ addComponents, theme }) {
       addComponents({
         '.btn': {

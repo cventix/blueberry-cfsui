@@ -2,13 +2,9 @@
 $img-size: 30px;
 
 .navbar {
-
 	.right {
 		.nav {
-			margin: 23px 0;
-
 			.item {
-
 				.iconLink {
 					span {
 						color: $dk-gray;
@@ -17,7 +13,7 @@ $img-size: 30px;
 				}
 
 				&:first-child {
-					
+					margin-right: $default-margin - 5;
 				}
 
 				&.current {
@@ -31,71 +27,31 @@ $img-size: 30px;
 
 	.left {
 		.nav {
-			.avatar {
-				width: $img-size;
-				height: $img-size;
-				vertical-align: middle;
-				cursor: pointer;
-
-				@include border-radius(50%);
-				@media(max-width: $tablet) {
-					width: $img-size + 4;
-					height: $img-size + 4;
-				}
-			}
-
 			.iconLink {
-				margin-left: 23px;
-
 				.icon {
 					margin-top: 6px;
 				}
 
-				&.webIcon {
-					@media(max-width: $tablet) {
-						display: none;
-						width: 1502px
-					}
-				}
-
 				&.hasNotif {
-					position: relative;
-
 					&:before {
 						content: '';
 						position: absolute;
 						top: 0;
+						left: 10px;
 						width: 4px;
 						height: 4px;
 						background-color: $red;
-						left: 10px;
+						
 						@include border-radius(50%);
 					}
 				}
 
 				&.status {
-					width: $img-size;
-					height: $img-size;
 					background-color: #f3f7fd;
-					text-align: center;
-					@include border-radius(50%);
 
 					.icon {
 						margin-top: 4px;
 					}
-
-					@media(max-width: $tablet) {
-						width: $img-size + 4;
-						height: $img-size + 4;
-
-						.icon {
-							margin-top: 6px;
-						}
-					}
-				}
-
-				@media(max-width: $tablet) {
-					margin-left: 10px;
 				}
 			}
 		}
@@ -105,10 +61,8 @@ $img-size: 30px;
 body:lang(en) {
 	.navbar {
 		.right {
-			.menuWrapper {
-				.menu {
-					margin-right: 6px;
-				}
+			.menu {
+				margin-right: 6px;
 			}
 
 			.nav {

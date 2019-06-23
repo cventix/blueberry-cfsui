@@ -51,7 +51,7 @@ export const Navbar: React.FunctionComponent<Iprops> = ({ toggleHamburgerMenu, t
           pg-cursor-pointer
           pg-items-center"
         >
-          <Icon src={menu} className="pg-ml-6p" alt={`menu ${altIcon}`}/>
+          <Icon src={menu} className="pg-ml-6p menu" alt={`menu ${altIcon}`}/>
         </a>
         <a href="/" 
           className="flex-center
@@ -66,6 +66,10 @@ export const Navbar: React.FunctionComponent<Iprops> = ({ toggleHamburgerMenu, t
           pg-flex-wrap
           pg-flex-row
           pg-p-0
+          pg-mt-23p
+          pg-mb-23p
+          pg-mr-0
+          pg-ml-0
           nav">
           <NavLink to={`/fm`} className="pg-ml-30p item" activeClassName="current">
             <IconLink icon={fileCloudIcon} iconAlt={`File-cloud ${altIcon}`} iconWidth={24} label={t`میزبانی‌فایل`} />
@@ -74,30 +78,46 @@ export const Navbar: React.FunctionComponent<Iprops> = ({ toggleHamburgerMenu, t
             <IconLink icon={vpsIcon} iconAlt={`vps ${altIcon}`} iconWidth={24} label={t`سرور و هاست`} /> 
           </NavLink>
           <NavLink to={`#`} className="pg-ml-30p item" activeClassName="current">
-            <IconLink icon={internetIcon} iconAlt={`Internet ${altIcon}`} iconWidth={24}
-            label={t`اینترنت`}
-            className="pg-mr-5p pg-text-gray-800"/>
+            <IconLink icon={internetIcon} iconAlt={`Internet ${altIcon}`} iconWidth={24} label={t`اینترنت`}/>
           </NavLink>
         </div>
       </div>
       <div
         className="pg-flex
         pg-items-center
+        pg-ml-30p
         tablet-max:pg-ml-0 
         left"
       >
         <div
-          className="pg-flex
+          className="
+          pg-overflow-hidden
+          pg-flex
           pg-flex-row
           pg-flex-wrap
-          pg-overflow-hidden
           nav"
         >
-          <IconLink icon={notifIcon} className="iconLink webIcon hasNotif" iconAlt={`Notif ${altIcon}`} iconWidth={24}/>
+          <IconLink icon={notifIcon} className="iconLink
+          tablet-max:pg-hidden
+          pg-relative pg-ml-23p
+          hasNotif" iconAlt={`Notif ${altIcon}`} iconWidth={24}/>
           <Link to={`/vm/giftcard`}>
-            <IconLink icon={financeIcon} className="iconLink webIcon" iconAlt={`Finance ${altIcon}`} iconWidth={24}/>
+            <IconLink icon={financeIcon}
+            className="iconLink
+            tablet-max:pg-hidden
+            pg-ml-23p" iconAlt={`Finance ${altIcon}`} iconWidth={24}/>
           </Link>
-          <IconLink icon={statusIcon} className="iconLink status" iconAlt={`Status ${altIcon}`} iconWidth={24}/>
+          <IconLink icon={statusIcon}
+          className="iconLink
+          pg-ml-23p
+          pg-w-30p
+          pg-h-30p
+          pg-text-center
+          pg-rounded-full
+          tablet-max:pg-w-34p
+          tablet-max:pg-h-34p
+          tablet-max:pg-ml-10p
+          status" iconAlt={`Status ${altIcon}`} iconWidth={24}/>
           <Avatar toggleSignout={() => {toggleSignout()}} open={open}/>
         </div>
       </div>

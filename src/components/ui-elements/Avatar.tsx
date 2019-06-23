@@ -23,9 +23,10 @@ export const Avatar = ({ profileImg, alt, toggleSignout, open }: Iprops) => {
           toggleSignout()
         }
       }}
-      style={{ alignItems: 'center', display: 'flex' }}
+      className="pg-flex pg-items-center pg-cursor-pointer"
     >
-      <Icon src={profileImg ? profileImg : avatarIcon} alt="Avatar Image" className="avatar" />
+      <Icon src={profileImg ? profileImg : avatarIcon} alt="Avatar Image"
+      className="pg-rounded-full tablet-max:pg-w-34p tablet-max:pg-h-34p" width={30}/>
       <Signout username="آرزو علی پناه" open={open} />
     </div>
   )
