@@ -34,7 +34,8 @@ export default {
         fontFamily: 'vazir-regular !important',
         padding: '0 !important',
         minHeight: '35px !important',
-        textAlign: 'center !important'
+        textAlign: 'center !important',
+        background: 'linear-gradient(to top, #2fd673, #3ae57c) !important'
       }),
       hideProgressBar: true,
       position: toast.POSITION.BOTTOM_LEFT

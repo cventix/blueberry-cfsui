@@ -317,3 +317,6 @@ msgstr "Get Links"
 
 msgid "حذف فایل"
 msgstr "Delete File"
+
+msgid "نام کاربری باید بین ۵ تا ۴۵ حرف باشد، با عدد شروع نشود و تنها شامل حروف انگلیسی و اعداد باشد."
+msgstr "The username must be between 5-45 characters, cannot begin with a number, and contain only English letters and numbers."

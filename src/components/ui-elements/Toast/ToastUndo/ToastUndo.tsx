@@ -23,7 +23,7 @@ export const ToastUndo = ({ id, undo, closeToast ,msg= 'فایل مورد نظر
     if (currentCount <= 0) {
       return
     }
-    const id = setInterval(timer, 1000)
+    const id = setInterval(timer, 500)
     return () => clearInterval(id)
   }, [currentCount])
   
