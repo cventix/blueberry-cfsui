@@ -7,7 +7,7 @@ export const login = actionBuilder(actionTypes.INIT_LOGIN, 'payload')
 
 export const setToken = actionBuilder(actionTypes.SET_TOKEN, 'payload')
 
-export const register = actionBuilder(actionTypes.REGISTER, 'email', 'username', 'password')
+export const register = actionBuilder(actionTypes.REGISTER, 'email', 'username', 'password','reCaptcha')
 
 export const signout = actionBuilder(actionTypes.SIGNOUT)
 

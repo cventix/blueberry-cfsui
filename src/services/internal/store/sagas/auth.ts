@@ -41,9 +41,11 @@ export function* register(action: AnyAction) {
   console.log(action)
   try {
     yield put(actions.setLoadingState(true))
-    yield auth.register(action.email, action.username, action.password)
+    yield auth.register(action.email, action.username, action.password,action.reCaptcha)
     yield put(actions.setLoadingState(false))
   } catch (err) {
+    console.log(err)
+    yield put(actions.setError(err.errors[0].msg))
     yield put(actions.setLoadingState(false))
   }
 }
