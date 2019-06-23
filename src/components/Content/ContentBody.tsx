@@ -54,7 +54,6 @@ export interface ITableItem {
   uuid?: string
   item?: any
   smPadding?: boolean
-
 }
 
 const makeArray = (array: any, username?: string) => {
@@ -110,12 +109,17 @@ export const ContentBody: React.FunctionComponent<Iprops> = ({
 
   ...rest
 }) => {
-  console.log(username)
-  table = isMoveModal ? makeSimpleArray(table) : makeArray(table, username)
   
+  table = isMoveModal ? makeSimpleArray(table) : makeArray(table, username)
   table.length < 10 && turnOffbutton && turnOffbutton()
   const { width } = useWindowDimensions()
-  if (loading && table.length < 1) return <div className={loadingStyle}>{loading ? <Icon src={loadingIcon} /> : 'داده ای وجود ندارد'}</div>
+  if (loading)
+    return (
+      <div className={loadingStyle}>
+        <Icon src={loadingIcon} />
+      </div>
+    )
+  if (!loading && table.length < 1) return <div className={loadingStyle}>{'داده ای وجود ندارد'}</div>
   return view === 'table' ? (
     <Grid sortable={true} dropDownData={dropDownData} onSort={onSort} checkbox={true} table={table} handleNavigate={handleNavigate} {...rest} />
   ) : width < 768 ? (
@@ -127,6 +131,7 @@ export const ContentBody: React.FunctionComponent<Iprops> = ({
       onOpenCFModal={onOpenCFModal}
       dropDownData={dropDownData}
       onSort={onSort}
+      isMoveModal={isMoveModal}
       handleNavigate={handleNavigate}
       table={table}
       {...rest}

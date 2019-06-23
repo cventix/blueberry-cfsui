@@ -37,6 +37,7 @@ export interface Iprops {
   checkbox?: boolean
   itemName?: string
   activeRow?: boolean
+  isMoveModal?: boolean
   data?: any
   hasHeader?: boolean
   modalSelection?: number
@@ -55,6 +56,7 @@ const Table: React.FunctionComponent<Iprops> = ({
   onCheckAll,
   selection,
   checkAll,
+  isMoveModal,
   onSort,
   tabletView,
   onSelect,
@@ -86,7 +88,7 @@ const Table: React.FunctionComponent<Iprops> = ({
         {table &&
           table.map((item: Item) => {
             return (
-              <tr key={item.id} className={modalSelection === item.id ? styles.activeRow : ''}>
+              <tr key={item.id} className={isMoveModal && modalSelection === item.id ? styles.activeRow : ''}>
                 {Object.keys(item).map((k, i) => {
                   if (!hidden.includes(k)) {
                     return (

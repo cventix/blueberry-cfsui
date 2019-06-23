@@ -89,7 +89,7 @@ class Content extends React.Component<IProps, IState> {
   }
 
   async componentDidMount() {
-    if (this.props.location.pathname === '/fm' || this.props.location.pathname === '/fm/') {
+    if (this.props.location.pathname === '/fm' || this.props.location.pathname === '/fm/' || this.props.location.pathname.includes('preview')) {
       this.onGetDocument(false)
       this.props.setToggle([false, false])
       this.setState({ table: this.props.data })
@@ -117,10 +117,16 @@ class Content extends React.Component<IProps, IState> {
       if (!this.props.location.pathname.split('/fm')[1] || this.props.location.pathname.split('/fm')[1] == '/') {
         this.onGetDocument(false)
         this.props.setToggle([false, false])
-      } else if (this.props.location.pathname.split('/fm')[1] !== '/trash' && this.props.location.pathname.split('/fm')[1] !== '/shared') {
+      } else if (
+        this.props.location.pathname.split('/fm')[1] !== '/trash' &&
+        this.props.location.pathname.split('/fm')[1] !== '/shared' &&
+        this.props.location.pathname.includes('/preview')
+      ) {
         console.log(this.props.location.pathname.split('/fm')[1])
         this.onGetDocument(true, this.props.location.pathname.split('/fm/')[1], this.props.item.id)
       }
+    } else if (this.props.location.pathname.includes('/preview') && this.state.modalView === '') {
+      this.props.history.push('/fm')
     }
   }
 
@@ -153,13 +159,12 @@ class Content extends React.Component<IProps, IState> {
    * @param nextProps
    */
   componentWillReceiveProps(nextProps: any) {
-
     if (nextProps.item) {
       this.setState({
         item: nextProps.item
       })
     }
-   console.log(nextProps)
+    console.log(nextProps)
     if (nextProps.selection.length == 0 || (nextProps.selection.length > 0 && nextProps.document.documents !== this.state.mainTable)) {
       console.log(sliceData({ array: nextProps.document.documents }))
       this.setState({
@@ -301,7 +306,12 @@ class Content extends React.Component<IProps, IState> {
 
     return (
       <React.Fragment>
-        <ContentHeader view={this.state.view} switchView={this.switchView}  table={this.state.filteredTable} handleSearchInput={(e: any) => this.onChangeSearchInput(e)} />
+        <ContentHeader
+          view={this.state.view}
+          switchView={this.switchView}
+          table={this.state.filteredTable}
+          handleSearchInput={(e: any) => this.onChangeSearchInput(e)}
+        />
         <ContentBody
           turnOffbutton={this.turnOffbutton}
           onCheckAll={this.onCheckAll}
@@ -322,7 +332,6 @@ class Content extends React.Component<IProps, IState> {
             modalView={this.state.modalView}
             table={this.state.table}
             updateTable={this.updateTable}
-           
           />
         )}
 
