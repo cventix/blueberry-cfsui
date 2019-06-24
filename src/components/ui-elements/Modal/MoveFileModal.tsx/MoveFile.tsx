@@ -10,7 +10,7 @@ import { Breadcrumb } from '../../Breadcrumb/Breadcrumb'
 import { Icon } from '../../Icon'
 
 //styles and icons
-import loadingIcon from '../../../../images/loading/tail-spin.2.svg'
+import loadingIcon from '../../../../images/loading/tail-spin.svg'
 import styles from './MoveFile.module.scss'
 
 //services
@@ -163,7 +163,7 @@ class MoveFile extends React.Component<Iprops, Istate> {
             <div className={styles.loading}>
               {loading ? (
                 <>
-                  <Icon src={loadingIcon} /> در حال بارگذاری{' '}
+                  <Icon src={loadingIcon} style={{padding:'4px'}} /> در حال بارگذاری{' '}
                 </>
               ) : (
                 'داده ای وجود ندارد'

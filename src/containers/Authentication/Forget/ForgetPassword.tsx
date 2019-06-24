@@ -57,7 +57,7 @@ class ForgetPassword extends React.Component<any, any> {
         <form className={styles.login} onSubmit={this.handleSubmit}>
           <span className={styles.title}>{t`بازیابی رمز عبور`}</span>
           <p className={styles.description}>{t`لطفا ایمیل خود را وارد نمایید تا لینک بازیابی رمز عبور برایتان فرستاده شود`}</p>
-          <TextInput placeholder={t`ایمیل`} name={'email'} onChange={this.handleChange} onBlur={this.onBlur}/>
+          <TextInput placeholder={t`ایمیل`} name={'email'} onChange={this.handleChange} onBlur={this.onBlur} />
           <div className={styles.row}>
             <div className={styles.switch}>
               {t`عضو نیستید؟`}
@@ -66,7 +66,7 @@ class ForgetPassword extends React.Component<any, any> {
               </Link>
             </div>
 
-            <Button className={[this.props.isLoading && !this.state.loading ? 'btnSecondary' : 'btnSuccess0', 'btnSm']}>
+            <Button className={[this.props.isLoading && !this.state.loading ? 'btnSecondary' : 'btnSuccess0', 'btnSm']} style={{ width: '35%' }}>
               {this.props.isLoading && !this.state.loading && (
                 <div className={styles.buttonLoading}>
                   <Icon src={loading} />
@@ -76,12 +76,12 @@ class ForgetPassword extends React.Component<any, any> {
             </Button>
           </div>
           {this.props.messages.errors.length > 0 && this.state.msg && (
-            <div className={[styles.wrongVerify,styles.warn].join(' ')}>
+            <div className={[styles.wrongVerify, styles.warn].join(' ')}>
               <IconLink icon={error} label={t`${this.props.messages.errors}`} />
             </div>
           )}
-           {this.props.messages.msgs.length > 0 && this.state.msg && (
-            <div className={[styles.wrongVerify,styles.success].join(' ')}>
+          {this.props.messages.msgs.length > 0 && this.state.msg && (
+            <div className={[styles.wrongVerify, styles.success].join(' ')}>
               <IconLink icon={success} label={t`${this.props.messages.msgs}`} />
             </div>
           )}

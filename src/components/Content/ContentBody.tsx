@@ -33,12 +33,14 @@ export interface Iprops {
   loading?: boolean
   loadingStyle?: string
   smPadding?: boolean
+  openModal?: any
   handleNavigate?: ({ e, name, id, uuid, item }: navigateObject) => void
   onCheck?: (id: number, e?: any) => void
   onCheckAll?: () => void
   onOpenCFModal?: () => void
   onSort?: (sortBy: string, type?: string | undefined) => void
   setTempDocuments?: (e: any) => void
+  handleChange?: any
   turnOffbutton?: () => void
 }
 
@@ -53,6 +55,7 @@ export interface ITableItem {
   size?: string
   uuid?: string
   item?: any
+
   smPadding?: boolean
 }
 
@@ -106,10 +109,10 @@ export const ContentBody: React.FunctionComponent<Iprops> = ({
   loading,
   loadingStyle,
   setTempDocuments,
-
+  openModal,
+  handleChange,
   ...rest
 }) => {
-  
   table = isMoveModal ? makeSimpleArray(table) : makeArray(table, username)
   table.length < 10 && turnOffbutton && turnOffbutton()
   const { width } = useWindowDimensions()
@@ -127,11 +130,13 @@ export const ContentBody: React.FunctionComponent<Iprops> = ({
   ) : (
     <Table
       dropdown={true}
+      openModal={openModal}
       tabletView={width && width < 768 ? true : false}
       onOpenCFModal={onOpenCFModal}
       dropDownData={dropDownData}
       onSort={onSort}
       isMoveModal={isMoveModal}
+      handleChange={  handleChange}
       handleNavigate={handleNavigate}
       table={table}
       {...rest}

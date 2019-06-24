@@ -9,7 +9,15 @@ import { ContentHeader } from './ContentHeader'
 import ContentBody from './ContentBody'
 
 // Services
-import { getDocuments, setSidebarItems, getTrashDocuments, getSharedDocuments, setParentId } from '../../services/internal/store/actions'
+import {
+  getDocuments,
+  setSidebarItems,
+  getTrashDocuments,
+  getSharedDocuments,
+  setParentId,
+  setEditStatus,
+  setRenameText
+} from '../../services/internal/store/actions'
 import { sliceData } from '../../services/internal/utils/sliceData'
 import { setSelections, removeSelection, setToggle, selectAll } from '../../services/internal/store/actions/selections'
 import { IGenerateLinkInput, IRenameFolderInput, IRemoveFolderInput } from '../../services/internal/repositories/documents'
@@ -26,11 +34,13 @@ export interface IProps {
   getDocuments?: any
   data?: any
   history?: any
+  setEditStatus?: any
   location?: any
   item: ItemInterface
   document?: any
   loading?: boolean
   setSelections: (e: Array<number>) => void
+  setRenameText?: any
   setItem: (e: any) => void
   selection: Array<number>
   image?: string
@@ -215,6 +225,9 @@ class Content extends React.Component<IProps, IState> {
       filteredTable: this.state.table
     })
   }
+  handleChange = (event: any) => {
+    this.props.setRenameText({ [event.target.name]: event.target.value })
+  }
 
   //on check all documents and uncheck
   onCheckAll = () => {
@@ -265,7 +278,9 @@ class Content extends React.Component<IProps, IState> {
       return obj.id === renameFileId
     })[0]
     this.props.setItem(item)
-    this.setState({ modalView, showModal: true })
+    // if (modalView == t`تغییر نام`) this.props.setEditStatus(renameFileId)
+    // else
+     this.setState({ modalView, showModal: true })
   }
 
   // handle search
@@ -298,7 +313,6 @@ class Content extends React.Component<IProps, IState> {
     let dropDownData = [
       { label: t`دانلود فایل` },
       { label: t`تغییر نام`, onClick: this.openModal },
-      { label: t`اشتراک گذاری`, onClick: this.openModal },
       { label: t`افزودن توضیح` },
       { label: t`دریافت لینک‌ها` },
       { label: t`حذف فایل`, onClick: this.openModal }
@@ -320,7 +334,9 @@ class Content extends React.Component<IProps, IState> {
           onOpenCFModal={this.onOpenCFModal}
           table={this.state.filteredTable}
           dropDownData={dropDownData}
+          handleChange={this.handleChange}
           loading={this.props.loading}
+          openModal={this.openModal}
           loadingStyle={styles.loading}
           onSort={this.onSort}
           handleNavigate={this.handleNavigate}
@@ -370,8 +386,9 @@ const mapDispatchToProps = (dispatch: any) => {
     setToggle: (value: any) => dispatch(setToggle(value)),
     getSharedDocuments: () => dispatch(getSharedDocuments()),
     setParentId: (value: any) => dispatch(setParentId(value)),
-
-    selectAll: (value: boolean) => dispatch(selectAll(value))
+    setEditStatus: (value: any) => dispatch(setEditStatus(value)),
+    selectAll: (value: boolean) => dispatch(selectAll(value)),
+    setRenameText: (value: any) => dispatch(setRenameText(value))
   }
 }
 

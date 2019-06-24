@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { t } from 'ttag'
-import { TableItem } from './TableItem'
+import TableItem  from './TableItem'
 import { IconLink } from '../ui-elements/IconLink'
 
 //icon

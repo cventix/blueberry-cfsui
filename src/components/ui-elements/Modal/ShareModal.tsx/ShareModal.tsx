@@ -107,12 +107,14 @@ class ShareModal extends React.Component<Iprops, Istate> {
                 <ul className={styles.listItems}>
                   {dropDownData.map((item: any, i: number) => {
                     return (
-                      <li className={styles.listItem} onClick={() => this.changeSharingStatus(item.label)}>
-                        <p className={styles.label}>
-                          {this.state.selected === item.label ? <span className={styles.checkmark} /> : <span />}
-                          <span className={item.isSelected ? styles.text : ' '}>{item.label}</span>
-                        </p>
-                        <p className={[styles.description, item.isSelected ? styles.text : ' '].join(' ')}>{item.description}</p>
+                      <li style={{ display: 'flex', padding: '0 10px' }}>
+                        <li style={{ width: '10px' }}> {this.state.selected === item.label ? <span className={styles.checkmark} /> : <span />}</li>
+                        <li className={styles.listItem} onClick={() => this.changeSharingStatus(item.label)}>
+                          <p className={styles.label}>
+                            <span className={item.isSelected ? styles.text : ' '}>{item.label}</span>
+                          </p>
+                          <p className={[styles.description, item.isSelected ? styles.text : ' '].join(' ')}>{item.description}</p>
+                        </li>
                       </li>
                     )
                   })}

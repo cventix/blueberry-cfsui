@@ -57,6 +57,7 @@ export const Breadcrumb: React.FunctionComponent<Iprops> = ({ history, modal, cl
 
 const BreadcrumbsItem: React.FunctionComponent<any> = ({ match, ...rest }) => {
   let title = match.params.path === 'fm' ? t`پوشه اصلی` : match.params.path
+console.log(title)
   return (
     <span>
       <Link className={match.isExact ? [styles.active, styles.item].join(' ') : styles.item} to={match.url || ''}>

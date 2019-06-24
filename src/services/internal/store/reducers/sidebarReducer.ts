@@ -7,11 +7,15 @@ export interface StateInterface {
   item?: any
   image?: string
   downloadToken?: string
+  isEditable?: number,
+  renameText?: string
 }
 export const initialState: StateInterface = {
   item: [],
   image: 'medium',
-  downloadToken: ''
+  downloadToken: '',
+  isEditable: 0,
+  renameText:''
 }
 
 const selectReducer = (state: any = initialState, action: any) => {
@@ -31,7 +35,17 @@ const selectReducer = (state: any = initialState, action: any) => {
         ...state,
         downloadToken: action.payload
       }
-
+      case actionTypes.SET_EDIT_STATUS:
+        return {
+          ...state,
+          isEditable: action.payload
+        }
+        case actionTypes.UPDATE_RENAME_TEXT:
+          return {
+            ...state,
+            renameText: action.payload
+          }
+ 
     default:
       return state
   }

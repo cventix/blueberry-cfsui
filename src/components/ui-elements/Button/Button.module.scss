@@ -31,7 +31,7 @@
   }
 
   &.btnDefaultOutline {
-    @include btn-theme(rgba(33, 211, 82, 0.1), $green, 1px solid $green);
+    @include btn-theme(#f7f7f7, $lt-gray, 1px solid $lt-gray);
   }
 
   /* primary */

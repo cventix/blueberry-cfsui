@@ -1,10 +1,10 @@
-import React, { Component } from 'react'
+import React, { Component, useState } from 'react'
 import { connect } from 'react-redux'
 
 import { t } from 'ttag'
 
 import TableHeader from './TableHeader'
-import { TableItem } from './TableItem'
+
 import Dropdown from '../ui-elements/Dropdown/Dropdown'
 import { EnhanceDropdown as enhancer } from '../ui-elements/Dropdown/EnhanceDropdown'
 
@@ -12,6 +12,7 @@ import styles from './Table.module.scss'
 
 //interface
 import { ITableItem } from '../Content/ContentBody'
+import TableRow from './TableRow';
 
 const EnhancedDropdown = enhancer(Dropdown)
 
@@ -42,12 +43,14 @@ export interface Iprops {
   hasHeader?: boolean
   modalSelection?: number
   smPadding?: boolean
+  openModal ?: any 
   onCheckAll?: () => void
   onSort?: (sortBy: string, type?: string | undefined) => void
   onOpenCFModal?: () => void
   onSelect?: (option: number) => void
   onRenameDocument?: (e: any) => void
   onCheck?: (id: number, e?: any) => void
+  handleChange?: any
 }
 
 const Table: React.FunctionComponent<Iprops> = ({
@@ -64,14 +67,18 @@ const Table: React.FunctionComponent<Iprops> = ({
   handleNavigate,
   optionSelected,
   checkbox,
+  openModal,
   onCheck,
   modalSelection,
   smPadding = false,
   onOpenCFModal,
+  handleChange,
   hasHeader = true
 }) => {
   const header = [t`نام`, t`تاریخ`, t`مالک`, t`حجم`]
   const hidden = ['type', 'id', 'fullPath', 'discriminator', 'uuid', 'item']
+  const [hovered, setHovered] = useState(false)
+  const toggleHover = () => setHovered(!hovered)
   return (
     <table className={styles.table}>
       {hasHeader && (
@@ -81,6 +88,7 @@ const Table: React.FunctionComponent<Iprops> = ({
           onSort={onSort}
           tabletView={tabletView}
           onOpenCFModal={onOpenCFModal}
+          
           {...onCheckAll && { checkAll: checkAll, onCheckAll: onCheckAll }}
         />
       )}
@@ -88,29 +96,7 @@ const Table: React.FunctionComponent<Iprops> = ({
         {table &&
           table.map((item: Item) => {
             return (
-              <tr key={item.id} className={isMoveModal && modalSelection === item.id ? styles.activeRow : ''}>
-                {Object.keys(item).map((k, i) => {
-                  if (!hidden.includes(k)) {
-                    return (
-                      <TableItem
-                        name={k}
-                        key={i}
-                        id={item.id}
-                        uuid={item.uuid}
-                        handleNavigate={k === 'name' && handleNavigate}
-                        label={item[k]}
-                        itemName={item.name}
-                        item={item}
-                        onCheck={onCheck}
-                        checked={typeof item.id != 'undefined' && selection.includes(item.id)}
-                        className={k === 'name' ? (smPadding ? ['smPadding', 'show'] : ['show']) : smPadding ? ['smPadding'] : []}
-                        checkbox={checkbox === false ? checkbox : k === 'name' ? true : false}
-                        mimetype={k === 'name' ? item.type : ''}
-                      />
-                    )
-                  }
-                })}
-
+              <TableRow item={item} isMoveModal={isMoveModal}   handleChange={handleChange} checkbox={checkbox} handleNavigate={handleNavigate} onCheck={onCheck} smPadding={smPadding} openModal={openModal}>
                 {dropdown && (
                   <td className={[styles.show, styles.left].join(' ')}>
                     <EnhancedDropdown
@@ -124,7 +110,7 @@ const Table: React.FunctionComponent<Iprops> = ({
                     />
                   </td>
                 )}
-              </tr>
+              </TableRow>
             )
           })}
       </tbody>

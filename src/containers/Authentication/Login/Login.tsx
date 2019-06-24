@@ -76,12 +76,8 @@ class Login extends React.Component<any, any> {
                   <span className={styles.link}>{t`ثبت‌نام`}</span>
                 </Link>
               </div>
-              <Button className={[this.props.isLoading && !this.state.loading ? 'btnSecondary' : 'btnSuccess0', 'btnSm']}>
-                {this.props.isLoading && !this.state.loading && (
-                  <div className={styles.buttonLoading}>
-                    <Icon src={loading} />
-                  </div>
-                )}
+              <Button loading={this.props.isLoading && !this.state.loading } className={[this.props.isLoading && !this.state.loading ? 'btnSecondary' : 'btnSuccess0', 'btnSm']}>
+                
                 {t`ورود`}
               </Button>
             </div>

@@ -16,8 +16,8 @@ $border-bottom: 1.5px solid $border-table;
     border-bottom: $border-bottom;
     color: $dk-gray;
   }
-  .activeRow{
-    background-color: #F7F9FA;
+  .activeRow {
+    background-color: #f7f9fa;
   }
   tr {
     cursor: pointer;
@@ -26,19 +26,29 @@ $border-bottom: 1.5px solid $border-table;
       text-align: left;
 
       > div {
-        @media(max-width: $mobile) {
+        @media (max-width: $mobile) {
           margin-right: -44px;
           width: 87px;
         }
       }
     }
   }
-
+  .invisible {
+    visibility: hidden;
+  }
+  .share {
+    position: absolute;
+    top: 50%;
+    margin: auto;
+    left: 50%;
+    padding: 3px 15px;
+    transform: translate(-50%, -50%);
+  }
   tbody {
     td {
       padding: 19px 0;
 
-      @media(max-width: $tablet) {
+      @media (max-width: $tablet) {
         padding: 16px 0;
       }
     }
@@ -47,12 +57,13 @@ $border-bottom: 1.5px solid $border-table;
     text-align: right;
     height: 23px;
     padding: 20px 3px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
   }
   .header {
     color: $table-header-color;
   }
   .name {
-    max-width: 160px;
     justify-content: center;
     display: flex;
     white-space: nowrap;
@@ -72,7 +83,7 @@ $border-bottom: 1.5px solid $border-table;
   }
 }
 
-@media screen and (max-width: $tablet) {
+@media screen and (max-width: $tablet + 100px) and (min-width: $tablet) {
   .table {
     td {
       display: none;
@@ -86,7 +97,7 @@ $border-bottom: 1.5px solid $border-table;
         padding-bottom: 20px;
 
         &:first-child {
-          font-family: $medium-font
+          font-family: $medium-font;
         }
       }
     }
@@ -117,22 +128,22 @@ $border-bottom: 1.5px solid $border-table;
   }
 }
 
-body:lang(en){
+body:lang(en) {
   .table {
     tr {
       td {
         @media screen and (max-width: $tablet) {
           &:last-child {
-              text-align: right;
+            text-align: right;
 
-              > div {
-                @media(max-width: $mobile) {
-                  width: 108px;
-                  margin-right: 0;
-                  margin-left: -58px;
-                }
+            > div {
+              @media (max-width: $mobile) {
+                width: 108px;
+                margin-right: 0;
+                margin-left: -58px;
               }
-          } 
+            }
+          }
         }
       }
     }
