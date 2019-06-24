@@ -19,13 +19,13 @@ export const ActionNav: React.FunctionComponent<Iprops> = props => {
 
   return (
     <div className="actionNav">
-      <IconLink icon={newFolderIcon} iconAlt={`new-folder ${altIcon}`} label={t`پوشه جدید`} onClick={props.onItemClick} />
+      <IconLink icon={newFolderIcon} className="pg-mb-18p pg-mr-11p iconLink" iconAlt={`new-folder ${altIcon}`} label={t`پوشه جدید`} onClick={props.onItemClick} />
       {props.hide ? (
         ''
       ) : (
         <>
-          <IconLink icon={moveIcon} iconAlt={`move ${altIcon}`} label={t`انتقال`} onClick={props.onItemClick} />
-          <IconLink icon={deleteIcon} iconAlt={`delete ${altIcon}`} label={t`حذف`} onClick={props.onItemClick} />
+          <IconLink icon={moveIcon} className="pg-mb-18p pg-mr-11p iconLink" iconAlt={`move ${altIcon}`} label={t`انتقال`} onClick={props.onItemClick} />
+          <IconLink icon={deleteIcon} className="pg-mb-18p pg-mr-11p iconLink" iconAlt={`delete ${altIcon}`} label={t`حذف`} onClick={props.onItemClick} />
         </>
       )}
     </div>

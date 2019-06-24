@@ -1,19 +1,5 @@
 @import '../../../styles/global';
 
-.mainFooter {
-	bottom: 10px;
-
-	.switcher {
-		left: 30px;
-		bottom: 2px;
-
-		@media(max-width: $mobile + 100) {
-			position: relative;
-			left: 0;
-		}
-	}
-}
-
 body:lang(en) {
 	.mainFooter {
 		.switcher {

@@ -24,13 +24,13 @@ export default interface Iprops {
 
 export const VM: React.FunctionComponent<Iprops> = ({ onItemClick }) => {
   return (
-    <div className="menu">
+    <div className="sidebar-menu">
       <Link to="/vm/order/SelectOs">
         <Button className={['pg-btnSuccess0', 'pg-btnLg']} style={{ marginBottom: '15px' }}>
           <IconLink icon={purchaseIcon} iconAlt="upload icon" label={t`خرید سرور جدید`}/>
         </Button> 
       </Link>
-      <IconLink icon={upFromUrlIcon} className="iconLink upFromUrl" iconAlt="upload icon" label={t`آپلود فایل از URL`}/>
+      <IconLink icon={upFromUrlIcon} className="pg-flex pg-items-center pg-mb-14p pg-bg-gray-0 pg-w-200p pg-h-35p pg-font-vMedium pg-border-0 pg-pr-11p pg-cursor-pointer pg-text-right pg-rounded-br-sm iconLink upFromUrl" iconAlt="upload icon" label={t`آپلود فایل از URL`}/>
       <ActionNav onItemClick={onItemClick}/>
       <Hr />
       <FileFiltering forVM={true}/>

@@ -38,13 +38,13 @@
   outline: none !important;
 }
 
-img {
-  display: initial;
-}
-
 body {
   direction: rtl;
   @apply .pg-bg-body .pg-text-sm .pg-font-vRegular;
+}
+
+img {
+  display: initial;
 }
 
 /* components */
@@ -58,6 +58,15 @@ body {
 
 .fixed-on-top {
   @apply .pg-fixed .pg-top-0 .pg-inset-x-0
+}
+
+.absolute-on-bottom {
+  @apply .pg-absolute .pg-bottom-0 .pg-inset-x-0
+}
+
+/* commons */
+.sidebar-menu {
+  @apply .pg-absolute .pg-top-40p .pg-inset-x-0 .pg-bottom-0 .pg-overflow-auto .pg-pt-0 .pg-pb-0 .pg-pr-30p .pg-pl-30p
 }
 
 /* for en version */

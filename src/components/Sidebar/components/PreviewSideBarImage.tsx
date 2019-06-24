@@ -1,27 +1,29 @@
 import * as React from 'react'
+import { connect } from 'react-redux'
 import { t } from 'ttag'
 
 // ui-elements
-import { Hr } from '../../ui-elements/Hr'
+import { ButtonGroup } from '../../ui-elements/Button/ButtonGroup'
+import { ClipBoard } from '../../ui-elements/Clipboard/Clipboard'
+import { CommentInput } from '../../Comment/CommentInput'
 import { Button } from '../../ui-elements/Button/Button'
 import { IconLink } from '../../ui-elements/IconLink'
+import { Comment } from '../../Comment/Comment'
+import { Hr } from '../../ui-elements/Hr'
 
 // icons
-import uploadIcon from '../../../images/upload.svg'
 import upFromUrlIcon from '../../../images/sidebarIcons/upfromurl.svg'
+import uploadIcon from '../../../images/upload.svg'
+
+// services
+import { generateDownloadLink } from '../../../services/internal/store/actions'
 
 // internal components & styles
-import { ActionNav } from './ActionNav'
-import FileFiltering from './FileFiltering/FileFiltering'
 import { UpgradeAccount } from './UpgradeAccount/UpgradeAccount'
+import FileFiltering from './FileFiltering/FileFiltering'
+import { ActionNav } from './ActionNav'
 import { Nav } from './Nav'
 import '../Sidebar.scss'
-import { connect } from 'react-redux'
-import { ClipBoard } from '../../ui-elements/Clipboard/Clipboard'
-import { ButtonGroup } from '../../ui-elements/Button/ButtonGroup'
-import { Comment } from '../../Comment/Comment'
-import { CommentInput } from '../../Comment/CommentInput'
-import { generateDownloadLink } from '../../../services/internal/store/actions'
 
 export interface Iprops {
   onItemClick?: (e: any) => void
@@ -30,10 +32,10 @@ export interface Iprops {
   generateDownloadLink?: any
 }
 
-const PreviewSideBarImage: React.FunctionComponent<Iprops> = ({ onItemClick, item, image,generateDownloadLink }) => {
+const PreviewSideBarImage: React.FunctionComponent<Iprops> = ({ onItemClick, item, image, generateDownloadLink }) => {
   console.log(generateDownloadLink)
   return (
-    <div className="menu">
+    <div className="sidebar-menu">
       <Button className={['pg-btnSuccess0', 'pg-btnLg']} style={{ marginBottom: '15px' }}>
         <a
           href={`http://localhost:3000/rest/publicAccess/KhDNZ5JdtS/generateDownloadLink`}
@@ -43,11 +45,11 @@ const PreviewSideBarImage: React.FunctionComponent<Iprops> = ({ onItemClick, ite
           <IconLink icon={uploadIcon} iconAlt="upload icon" label={t`دانلود فایل`} onClick={onItemClick}/>
         </a>
       </Button>
-      <div className={'downloadBox'}>آمار: {JSON.stringify(item.downloadCount)} دانلود</div>
-      <div className={'copyBox'}>
+      <div className="pg-flex pg-flex-row pg-flex-wrap pg-justify-center pg-mt-19p pg-rounded-sm pg-text-xs pg-p-8p">آمار: {JSON.stringify(item.downloadCount)} دانلود</div>
+      <div className="pg-mt-37p pg-mb-5">
         <ClipBoard placeholder={`http://cdn.persiangig.com/preview/${item.uuid}/${image}/${item.name}`} onClick={onItemClick} />{' '}
       </div>
-      <div className={'buttonGroup'}>
+      <div className="pg-mb-46p">
         <ButtonGroup
           list={[
             { label: `سایز اصلی`, active: true, onClick: onItemClick },

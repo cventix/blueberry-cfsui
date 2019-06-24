@@ -36,7 +36,7 @@ const FM: React.FunctionComponent<Iprops> = ({ onItemClick, selection, toggle })
   ]
  console.log(selection && selection.length > 0 )
   return (
-    <div className="menu">
+    <div className="sidebar-menu">
       <Button className={['pg-btnPrimary0', 'pg-btnLg']} style={{ marginBottom: '15px' }}>
         <IconLink icon={uploadIcon} iconAlt="upload icon" label={t`آپلود فایل`} />
       </Button>
@@ -54,7 +54,8 @@ const FM: React.FunctionComponent<Iprops> = ({ onItemClick, selection, toggle })
           <IconLink icon={downloadIcon} iconAlt="download icon" label={t` دانلود با فرمت`} />
         </DropDownButton>
       )}
-      <IconLink icon={upFromUrlIcon} onClick={onItemClick} className="iconLink upFromUrl" iconAlt="upload icon" label={t`آپلود فایل از URL`} />
+      <IconLink icon={upFromUrlIcon} onClick={onItemClick}
+      className="pg-flex pg-items-center pg-mb-14p pg-bg-gray-0 pg-w-200p pg-h-35p pg-font-vMedium pg-border-0 pg-pr-11p pg-cursor-pointer pg-text-right pg-rounded-br-sm iconLink upFromUrl" iconAlt="upload icon" label={t`آپلود فایل از URL`} />
       <ActionNav onItemClick={onItemClick} />
       <Hr />
       <FileFiltering forFM={true} onItemClick={onItemClick} />
