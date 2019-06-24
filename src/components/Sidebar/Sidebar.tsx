@@ -3,12 +3,12 @@ import { Route, Switch } from 'react-router-dom';
 import { t } from 'ttag'
 
 // internal components & styles
-import FM  from './components/FM'
-import { VM } from './components/VM'
-import './Sidebar.scss'
-import  {PreviewSideBar}  from './components/PreviewSideBar';
 import PreviewSideBarImage from './components/PreviewSideBarImage';
+import {PreviewSideBar}  from './components/PreviewSideBar';
+import { VM } from './components/VM'
+import FM  from './components/FM'
 
+import './Sidebar.scss'
 
 export default interface Iprops {
   createFolderModal?: () => void

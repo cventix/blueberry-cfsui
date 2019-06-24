@@ -1,26 +1,26 @@
 import * as React from 'react'
+import { connect } from 'react-redux'
 import { t } from 'ttag'
 
 // ui-elements
-import { Hr } from '../../ui-elements/Hr'
-import { Button } from '../../ui-elements/Button/Button'
 import { DropDownButton } from '../../ui-elements/Button/DropDownButton'
+import { Button } from '../../ui-elements/Button/Button'
+import { Hr } from '../../ui-elements/Hr'
 
 import { IconLink } from '../../ui-elements/IconLink'
 
 // icons
-import uploadIcon from '../../../images/upload.svg'
-import refreshIcon from '../../../images/refresh.svg'
-import downloadIcon from '../../../images/download.svg'
 import upFromUrlIcon from '../../../images/sidebarIcons/upfromurl.svg'
+import downloadIcon from '../../../images/download.svg'
+import refreshIcon from '../../../images/refresh.svg'
+import uploadIcon from '../../../images/upload.svg'
 
 // internal components & styles
-import { ActionNav } from './ActionNav'
-import FileFiltering from './FileFiltering/FileFiltering'
 import { UpgradeAccount } from './UpgradeAccount/UpgradeAccount'
+import FileFiltering from './FileFiltering/FileFiltering'
+import { ActionNav } from './ActionNav'
 import { Nav } from './Nav'
 import '../Sidebar.scss'
-import { connect } from 'react-redux'
 
 export interface Iprops {
   onItemClick?: (e: any) => void

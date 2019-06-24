@@ -1,5 +1,6 @@
 import * as React from 'react'
 
+// ui-elements
 import { MainFooter } from '../ui-elements/MainFooter/MainFooter'
 
 // styles

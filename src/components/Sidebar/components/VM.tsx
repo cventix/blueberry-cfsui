@@ -3,18 +3,18 @@ import { Link } from 'react-router-dom';
 import { t } from 'ttag'
 
 // ui-elements
-import { Hr } from '../../ui-elements/Hr'
 import { Button } from '../../ui-elements/Button/Button'
 import { IconLink } from '../../ui-elements/IconLink'
+import { Hr } from '../../ui-elements/Hr'
 
 // icons
-import purchaseIcon from '../../../images/vmIcons/purchase.svg'
 import upFromUrlIcon from '../../../images/sidebarIcons/upfromurl.svg'
+import purchaseIcon from '../../../images/vmIcons/purchase.svg'
 
 // internal components & styles
-import { ActionNav } from './ActionNav'
-import FileFiltering  from './FileFiltering/FileFiltering'
 import { UpgradeAccount } from './UpgradeAccount/UpgradeAccount'
+import FileFiltering  from './FileFiltering/FileFiltering'
+import { ActionNav } from './ActionNav'
 import { Nav } from './Nav'
 import '../Sidebar.scss'
 

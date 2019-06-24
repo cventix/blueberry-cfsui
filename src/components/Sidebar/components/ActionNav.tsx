@@ -6,8 +6,8 @@ import { IconLink } from '../../ui-elements/IconLink'
 
 // icons
 import newFolderIcon from '../../../images/sidebarIcons/newfolder.svg'
-import moveIcon from '../../../images/sidebarIcons/move.svg'
 import deleteIcon from '../../../images/sidebarIcons/delete.svg'
+import moveIcon from '../../../images/sidebarIcons/move.svg'
 
 export default interface Iprops {
   onItemClick?: any
