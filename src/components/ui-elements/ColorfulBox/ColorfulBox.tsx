@@ -32,9 +32,9 @@ export const ColorfulBox = ({ className, width, fontSize, height, margin, messag
 	style={{width: width, margin: margin, height: height, fontSize: fontSize}}>
 		<div className={styles.message}>{message}</div>
 		{withClose ? 
-			<Button onClick={handleClose}>
+			<a onClick={handleClose} className={styles.close}>
 				<Icon className={styles.closeIcon} src={cancelIcon} />
-			</Button> : ''}
+			</a> : ''}
 		{children}
 	</div>
 )

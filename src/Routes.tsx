@@ -18,8 +18,6 @@ class Routes extends React.Component<any> {
           <Route path="/login" component={Login} />
           <Route path="/register" component={Register} />
           <PrivateRoute isAuthenticated={this.props.isAuth ? true : false} path="/" component={App} />
-          <PrivateRoute isAuthenticated={this.props.isAuth ? true : false} path="/vm" component={App} />
-          <PrivateRoute isAuthenticated={this.props.isAuth ? true : false} path="/vm/order" component={Order} />
           <PrivateRoute isAuthenticated={this.props.isAuth ? true : false} path="/fm/:foldername" component={App} />
         </Switch>
       </Router>

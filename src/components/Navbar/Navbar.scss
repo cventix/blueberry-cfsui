@@ -2,80 +2,9 @@
 $img-size: 30px;
 
 .navbar {
-	@include flex(row, wrap);
-	justify-content: space-between;
-	position: fixed;
-	top: 0;
-	right: 0;
-	left: 0;
-	height: $navbar-height;
-	background-color: #fff;
-	z-index: 1952;
-
-	@include box-shadow(0 2px 0 0 rgba(0, 0, 0, 0.05));
-	@media(max-width: $tablet) {
-		height: $navbar-height + 10;
-		padding: 0 $rsp-padding;
-	}
-
-	.nav {
-		.iconLink {
-		
-			.icon {
-				width: $img-size - 6;
-				height: $img-size - 6;
-			}
-		}
-	}
-
 	.right {
-		@include flex(row, wrap);
-
-		.menuWrapper {
-			display: none;
-			align-items: center;
-			cursor: pointer;
-
-			@media(max-width: $tablet) {
-				display: flex;
-			}
-
-			.menu {
-				margin-left: 6px;
-			}
-		}
-
-		.logoWrapper {
-			display: flex;
-			align-items: center;
-			justify-content: center;
-			width: $sidebar-width;
-
-			@media(max-width: $tablet) {
-				width: auto;
-			}
-			@media(min-width: $tablet + 1) and (max-width: $web-medium) {
-				width: 140px;
-			}
-
-			.logo {
-				width: 62px;
-				height: 31px;
-			}
-		}
-
 		.nav {
-			@include flex(row, wrap);
-			margin: 23px 0;
-			padding: 0;
-
-			@media(max-width: $tablet) {
-				display: none;
-			}
-
 			.item {
-				margin-left: $default-margin;
-
 				.iconLink {
 					span {
 						color: $dk-gray;
@@ -97,84 +26,32 @@ $img-size: 30px;
 	}
 
 	.left {
-		display: flex;
-		align-items: center;
-		margin-left: $default-margin;
-
-		@media(max-width: $tablet) {
-			margin-left: 0;
-		}
-
 		.nav {
-			@include flex(row, wrap);
-			overflow: hidden;
-			clear: both;
-
-			.avatar {
-				width: $img-size;
-				height: $img-size;
-				vertical-align: middle;
-				cursor: pointer;
-
-				@include border-radius(50%);
-				@media(max-width: $tablet) {
-					width: $img-size + 4;
-					height: $img-size + 4;
-				}
-			}
-
 			.iconLink {
-				margin-left: 23px;
-
 				.icon {
 					margin-top: 6px;
 				}
 
-				&.webIcon {
-					@media(max-width: $tablet) {
-						display: none;
-						width: 1502px
-					}
-				}
-
 				&.hasNotif {
-					position: relative;
-
 					&:before {
 						content: '';
 						position: absolute;
 						top: 0;
+						left: 10px;
 						width: 4px;
 						height: 4px;
 						background-color: $red;
-						left: 10px;
+						
 						@include border-radius(50%);
 					}
 				}
 
 				&.status {
-					width: $img-size;
-					height: $img-size;
 					background-color: #f3f7fd;
-					text-align: center;
-					@include border-radius(50%);
 
 					.icon {
 						margin-top: 4px;
 					}
-
-					@media(max-width: $tablet) {
-						width: $img-size + 4;
-						height: $img-size + 4;
-
-						.icon {
-							margin-top: 6px;
-						}
-					}
-				}
-
-				@media(max-width: $tablet) {
-					margin-left: 10px;
 				}
 			}
 		}
@@ -184,10 +61,8 @@ $img-size: 30px;
 body:lang(en) {
 	.navbar {
 		.right {
-			.menuWrapper {
-				.menu {
-					margin-right: 6px;
-				}
+			.menu {
+				margin-right: 6px;
 			}
 
 			.nav {
@@ -203,7 +78,7 @@ body:lang(en) {
 					}
 					
 					&:first-child {
-						margin-left: $default-margin - 10;
+						margin-left: $default-margin - 12;
 					}
 				}
 			}	 

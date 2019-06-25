@@ -35,7 +35,8 @@
 		margin-left: 7px;
 		flex-basis: calc(50% - 7px);
 	}
-	@media(max-width: $tablet - 277) {
+	
+	@media(min-width: $mobile) and (max-width: $tablet - 277) {
 		min-width: 320px;
 		margin-top: 20px;
 		margin-left: 0;
@@ -46,33 +47,69 @@
 		}
 	}
 
+	@media(max-width: $mobile - 1) {
+		min-width: 290px;
+		margin-top: 20px;
+		margin-left: 0;
+	}
+
 	.show {
 		display: block;
 	}
 
+
 	.showDetails {
 		@include flex(row, wrap);
 		justify-content: space-between;
+		margin-top: 20px;
 
-		@media(max-width: $mobile + 20) {
-			@include flex(column, wrap);
-		}
+		@media(max-width: $mobile + 130) {
+		 	flex-direction: column-reverse;
+	 	}
 
 		.multipleCtrWrapper {
-			margin-top: 18px;
-			margin: 0 auto;
+			margin: 0;
+
+			@media(min-width: $mobile) and (max-width: $mobile + 130) {
+				margin: 18px auto 0 auto;
+
+				> div {
+					width: 323px $important;
+				}
+			}
+
+			@media(max-width: $mobile - 1) {
+				margin: 18px auto 0 auto;
+
+				> div {
+					width: 267px $important;
+
+					> div {
+						button {
+							width: 40px;
+						}
+					}
+				}
+			}
 		}
 
 		.center {
-			flex-basis: calc(100% - 240px);
-			margin-top: 5px;
-		    
+			margin: 0;
+
+			@media(max-width: $mobile + 130) {
+				justify-content: normal;
+			}
+		
+			.right, .left {
+				flex-basis: auto
+			}
+
 			.right {
-				flex-basis: 75%;
+				width: 58px
 			}
 
 			.left {
-				flex-basis: 25%;
+				width: 120px
 			}
 		}
 	}
@@ -184,8 +221,12 @@
 			margin: 0 auto;
 		}
 
-		@media(max-width: $tablet - 277) {
+		@media(min-width: $mobile) and (max-width: $tablet - 277) {
 			width: 290px;
+		}
+
+		@media(max-width: $mobile - 1) {
+			width: 265px;
 		}
 
 		&.oneBtn {
@@ -197,10 +238,21 @@
 		}
 
 		&.twoBtn {
-			@media(max-width: $tablet - 277) {
+			@media(min-width: $mobile) and (max-width: $tablet - 277) {
 				button {
 					&:first-child {
 						width: 180px $important;
+					}
+					&:nth-child(2) {
+						width: 100px $important;
+					}
+				}
+			}
+
+			@media(max-width: $mobile - 1) {
+				button {
+					&:first-child {
+						width: 160px $important;
 					}
 					&:nth-child(2) {
 						width: 100px $important;

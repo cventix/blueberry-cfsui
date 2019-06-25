@@ -1,12 +1,28 @@
 @import '../../../../styles/global.scss';
 
-.oredrHeader {
-	margin-bottom: 66px;
+.cardWrapper {
+	@include flex(row, wrap);
+}
+
+.stepbarWrapper {
+	height: 45px;
+	margin-top: 66px;
+	margin-bottom: 52px;
+
+	@media(max-width: $mobile) {
+		margin-top: 25px;
+		margin-bottom: -5px;
+	}
 }
 
 .stepDescription {
 	@include flex(row, wrap);
+	margin-right: 63px;
 	margin-bottom: 65px;
+
+	@media(max-width: $tablet) {
+		margin-right: 0;
+	}
 
 	@media(max-width: $mobile) {
 		margin-bottom: 20px;
@@ -54,22 +70,6 @@
 			}
 		}
 	}
-	
-}
-
-.stepbarWrapper {
-	height: 45px;
-	margin-top: 66px;
-	margin-bottom: 52px;
-
-	@media(max-width: $mobile) {
-		margin-top: 25px;
-		margin-bottom: -5px;
-	}
-}
-
-.cardWrapper {
-	@include flex(row, wrap);
 }
 
 .serviceDuration {
@@ -85,7 +85,132 @@
 	.choosePlanCard {
 		@include choosePlanCard;
 	}
-  }
+}
+
+.chooseNetworkCard {
+	.wrapper {
+		margin: 0 0 145px;
+
+		@media(max-width: $tablet) {
+			margin: 0 0 30px;
+		}
+	}
+}
+
+.settingBox {
+	@include flex(row, wrap);
+	justify-content: space-between;
+	align-items: center;
+	width: 650px;
+	height: $navbar-height;
+	margin: 0 auto 30px auto;
+	padding: 0 20px;
+	background-color: #fff;
+	border: solid 1px #dbdbdb;
+	@include border-radius($br-radius-sm);
+
+	.right {
+		@media(max-width: 570px) {
+			> div {
+				display: inline-block;
+			}
+
+			.name {
+				margin-left: 8px;
+			}
+		}
+
+		.name {
+			color: $dk-gray;
+			font-size: $font-size + 2;
+			font-family: $medium-font;
+		}
+
+		.info {
+			color: $dk-blue
+		}
+	}	
+
+	.center {
+		margin: 0 34px;
+		flex-grow: 1;
+
+		> div {
+			padding-bottom: 10px;
+
+			@media(max-width: 570px) {
+				margin-top: 39px;
+				margin-left: -119px;
+			}
+		}
+	}	
+
+	.left {
+		font-size: $font-size - 2;
+		color: $lt-gray;
+	}
+
+	@media (min-width: $tablet + 1) and (max-width: $web-medium) {
+		width: 450px;
+
+		.center {
+			margin: 0 7px;
+			> div {
+				> input {
+					width: 270px $important;
+				}
+			}
+		}
+	}
+
+	@media (min-width: 641px) and (max-width: $tablet) {
+		width: 600px;
+
+		.center {
+			margin: 0 16px;
+		}
+	}	
+
+	@media (min-width: 571px) and (max-width: 640px) {
+		width: 500px;
+
+		.center {
+			> div {
+				> input {
+					width: 260px $important;
+				}
+			}
+		}
+	}	
+
+	@media (max-width: 570px) {
+		padding-bottom: 15px;
+	}
+
+	@media (min-width: $mobile) and (max-width: 570px) {
+		width: 345px;
+
+		.center {
+			> div {
+				> input {
+					width: 300px $important;
+				}
+			}
+		}
+	}
+
+	@media (max-width: $mobile - 1) {
+		width: 290px;
+
+		.center {
+			> div {
+				> input {
+					width: 244px $important;
+				}
+			}
+		}
+	}
+}
 
 .FinalStep {
 	.wrapper {
@@ -148,91 +273,33 @@
 	}
 }
 
-.chooseNetworkCard {
-	.wrapper {
-		margin: 0 0 145px;
+body:lang(en) {
+	
+	.settingBox {
+		@media (max-width: 570px) {
+			flex-direction: row-reverse;
+		}
+		.right {
+			@media(max-width: 570px) {
+				.name {
+					margin-right: 8px;
+				}
+			}
+		}
+	}
+
+	.stepDescription {
+		margin-right: 0;
+		margin-left: 50px;
 
 		@media(max-width: $tablet) {
-			margin: 0 0 30px;
-		}
-	}
-}
-
-.settingBox {
-	@include flex(row, wrap);
-	justify-content: space-between;
-	align-items: center;
-	width: 650px;
-	height: $navbar-height;
-	margin: 0 auto 30px auto;
-	padding: 0 20px;
-	background-color: #fff;
-	border: solid 1px #dbdbdb;
-	@include border-radius($br-radius-sm);
-
-	@media (min-width: $tablet + 1) and (max-width: $web-medium) {
-		width: 450px;
-
-		.center {
-			> div {
-				> input {
-					width: 280px $important;
-				}
-			}
-		}
-	}
-
-	@media (min-width: 641px) and (max-width: $tablet) {
-		width: 600px;
-	}	
-
-	@media (min-width: 571px) and (max-width: 640px) {
-		width: 500px;
-
-		.center {
-			> div {
-				> input {
-					width: 260px $important;
-				}
-			}
-		}
-	}	
-
-	@media (min-width: $mobile) and (max-width: 570px) {
-		width: 345px;
-	}
-
-	.right {
-		.name {
-			color: $dk-gray;
-			font-size: $font-size + 2;
-			font-family: $medium-font;
+			margin-left: 0;
 		}
 
-		.info {
-			color: $dk-blue
+		.number {
+			margin-right: 9px;
+			margin-left: 0
 		}
-	}	
-
-	.center {
-		margin: 0 34px;
-		flex-grow: 1;
-
-		> div {
-			padding-bottom: 10px;
-		}
-	}	
-
-	.left {
-		font-size: $font-size - 2;
-		color: $lt-gray;
-	}
-}
-
-body:lang(en) {
-	.number {
-		margin-right: 9px;
-		margin-left: 0
 	}
 
 	.FinalStep {

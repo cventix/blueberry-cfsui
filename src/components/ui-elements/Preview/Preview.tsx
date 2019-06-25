@@ -47,25 +47,25 @@ export const Preview: React.FunctionComponent<Iprops> = props => {
       <div className={styles.previewBox}>
         <div className={styles.header}>
           <span className={styles.fileName}>{props.item.name}</span>
-          <Button className={['btnControl', 'btnSm']} onClick={props.handleClose}>
+          <Button className={['pg-btnControl', 'pg-btnSm']} onClick={props.handleClose}>
             <Icon src={closeIcon} className={styles.icon} /> <span className={styles.text}>بستن</span>
           </Button>
         </div>
         <div className={styles.arrows}>
-          <Button className={['btnControl', 'btnCircle']}>
+          <Button className={['pg-btnControl', 'pg-btnCircle']}>
             <Icon src={arrowLeft} className={[styles.icon, styles.iconRight].join(' ')} />
           </Button>
           <section className={[modalStyles.modalMain, styles.previewMain].join(' ')}>
             <div className={styles.image}>{props.children}</div>
           </section>
-          <Button className={['btnControl', 'btnCircle']}>
+          <Button className={['pg-btnControl', 'pg-btnCircle']}>
             <Icon src={arrowLeft} className={styles.icon} />
           </Button>
         </div>
 
         {content === 'image' && (
           <div className={styles.bottomBar}>
-            <Button className={['btnControl', 'btnLg', 'btnCircle']} style={{ height: 50 }}>
+            <Button className={['pg-btnControl', 'pg-btnLg', 'pg-btnCircle']} style={{ height: 50 }}>
               <div className={styles.row}>
                 <Icon src={bigger} className={styles.icon} />
                 تمام صفحه

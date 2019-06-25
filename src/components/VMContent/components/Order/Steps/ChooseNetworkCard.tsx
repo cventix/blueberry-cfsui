@@ -1,4 +1,5 @@
 import React, { FunctionComponent } from 'react'
+import { connect } from 'react-redux'
 import { t } from 'ttag'
 
 // ui-elements
@@ -10,18 +11,25 @@ import { Hr } from '../../../../../components/ui-elements/Hr'
 import { StepDescription } from './StepDescription'
 import { Footer } from './Footer/Footer'
 
+// services
+import { selectOs, goToNextStep, goToPreviousStep } from '../../../../../services/internal/store/actions'
+
 // styles
 import styles from '../Order.module.scss'
 
-export default interface Iprops {}
+export interface Iprops {
+	currentStep: number
+	goToNextStep?: (e: any) => void
+	goToPreviousStep?: (e: any) => void
+}
 
 const steps = [t`انتخاب سیستم عامل`, t`انتخاب مدت سرویس`, t`انتخاب طرح`, t`اطلاعات کارت شبکه`, t`انتخاب نام سرور و ثبت نهایی`];
 
-export const ChooseNetworkCard: React.FunctionComponent<Iprops> = () => { 
+const ChooseNetworkCard: React.FunctionComponent<Iprops> = (props) => { 
 	return (
 		<div className={styles.chooseNetworkCard}>
 			<div className={styles.stepbarWrapper}>
-				<Stepbar steps={steps} currentStep={3} />
+				<Stepbar steps={steps} currentStep={props.currentStep} />
 			</div>
 			<StepDescription stepNumber={4} title={[t`مرحله چهارم`, `:`, steps[3]].join(' ')} subTitle={t`اطلاعات کارت شبکه شما در زیر نمایش داده شده است.`}/>
 			<div className={styles.wrapper}>
@@ -39,7 +47,28 @@ export const ChooseNetworkCard: React.FunctionComponent<Iprops> = () => {
 					</div>
 				</ColorfulBox>
 			</div>
-			<Footer/>
+			<Footer
+			nextStep={`vm/order/finalStep`}
+			previousStep={`vm/order/choosePlan`}
+			handleNextStep={props.goToNextStep}
+			handlePreviousStep={props.goToPreviousStep}
+			/>
 		</div>
 	)
 }
+
+const mapStateToProps = (state: any) => ({
+	currentStep: state.vm.currentStep
+})
+
+const mapDispatchToProps = (dispatch: any) => {
+  return {
+    goToNextStep: (stepNumber: number) => dispatch(goToNextStep(stepNumber)),
+    goToPreviousStep: (stepNumber: number) => dispatch(goToPreviousStep(stepNumber))
+  }
+}
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(ChooseNetworkCard)

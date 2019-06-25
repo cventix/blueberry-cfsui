@@ -45,6 +45,9 @@ msgstr "Disk space"
 msgid "کل هزینه"
 msgstr "Total cost"
 
+msgid "می‌خواهید فایل‌هایتان حذف نشود؟"
+msgstr "Do not want to delete your files?"
+
 msgid "مرحله اول"
 msgstr "First step"
 
@@ -135,6 +138,9 @@ msgstr "Cancellation to non-payment"
 msgid "پرداخت شده"
 msgstr "Paid"
 
+msgid "پرداخت"
+msgstr "Payment"
+
 msgid "نمایش سرورهای فعال"
 msgstr "Show active servers"
 
@@ -185,6 +191,39 @@ msgstr "You can choose the server profile for your daily requirement."
 
 msgid "بررسی"
 msgstr "Check"
+
+msgid "اتصال به سرور از طریق SSH"
+msgstr "Connect to server via SSH"
+
+msgid "* رمز عبور به ایمیل شما فرستاده شده است."
+msgstr "* The password has been sent to your email."
+
+msgid "حذف سرور مجازی برای همیشه"
+msgstr "Delete the virtual server forever"
+
+msgid "توجه داشته باشید با حذف سرور اطلاعات شما پاک می شود."
+msgstr "Note: Removing the server will erase your information."
+
+msgid "ابتدا سرور را خاموش کنید"
+msgstr "Turn off the server first"
+
+msgid "هزینه استرداد"
+msgstr "Refund cost"
+
+msgid "۱ ماهه"
+msgstr "1 month"
+
+msgid "۳ ماهه"
+msgstr "3 months"
+
+msgid "۶ ماهه"
+msgstr "6 months"
+
+msgid "یکساله"
+msgstr "one year"
+
+msgid "اعمال ارتقاء"
+msgstr "Apply upgrade"
 
 msgid "جستجو"
 msgstr "Search"
@@ -291,9 +330,6 @@ msgstr "new"
 msgid "پوشه اصلی"
 msgstr "Main Folder"
 
-msgid "نام"
-msgstr "Name"
-
 msgid "تاریخ"
 msgstr "Date"
 
@@ -305,3 +341,9 @@ msgstr "Owner"
 
 msgid "نمایش بیشتر"
 msgstr "Show More"
+
+msgid "افزودن اعتبار"
+msgstr "Add Credit"
+
+msgid "برای افزایش اعتبار مبلغ مورد نظر را (به ریال) وارد کنید:"
+msgstr "To increase the credit, enter the amount (in Rials):"

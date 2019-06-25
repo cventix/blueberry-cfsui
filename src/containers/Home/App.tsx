@@ -12,6 +12,7 @@ import styles from '../../components/Content/Content.module.scss'
 import Content from '../../components/Content/Content'
 import VMContent from '../../components/VMContent/VMContent'
 import Order from '../../components/VMContent/components/Order/Order'
+import GiftCard from '../../components/VMContent/components/GiftCard/GiftCard'
 import { Table } from '../../components/Table/Table'
 import { Modal } from '../../components/ui-elements/Modal/Modal'
 import { Preview } from '../../components/ui-elements/Preview/Preview'
@@ -280,7 +281,7 @@ class App extends Component<
           >
             <div className={styles.row}>
               <TextInput style={{ width: 300 }} name={'urlInput'} />
-              <Button className={['btnPrimary100', 'btnSm']}>{t`آپلود`}</Button>
+              <Button className={['pg-btnPrimary100', 'pg-btnSm']}>{t`آپلود`}</Button>
             </div>
           </UploadModal>
         )

@@ -100,20 +100,20 @@ export const Card: React.FunctionComponent<Iprops> = ({ on, off, purchase, invoi
 				</div>
 				<Footer className={payment || invoice ? `${styles.footer} ${styles.twoBtn}` : create || purchase ? `${styles.footer} ${styles.oneBtn}` : styles.footer}>
 					{
-						purchase ? <Link to="/vm/order">
-							<Button className={['btnSuccess0', 'btnLg']}>
+						purchase ? <Link to={`/vm/order`}>
+							<Button className={['pg-btnSuccess0', 'pg-btnLg']}>
 								<IconLink icon={purchaseIcon} iconAlt="purchase icon" label={t`خرید سرور جدید`}/>
 							</Button>
 						</Link>
 						: invoice ? <>
-							<Button className={['btnSecondary', 'btnSm']} style={{width: '115px'}}>{t`مشاهده صورتحساب`}</Button>
-							<Button className={['btnDanger0', 'btnSm']} style={{width: '75px'}}>{t`حذف سرور`}</Button>
+							<Button className={['pg-btnSecondary', 'pg-btnSm']} style={{width: '115px'}}>{t`مشاهده صورتحساب`}</Button>
+							<Button className={['pg-btnDanger0', 'pg-btnSm']} style={{width: '75px'}}>{t`حذف سرور`}</Button>
 						</>
 						: payment ? <>
-							<Button className={['btnPrimary0', 'btnSm']} style={{width: '115px'}}>{t`پرداخت صورتحساب`}</Button>
-							<Button className={['btnDefault0', 'btnSm']} style={{width: '75px'}}>{t`حذف سرور`}</Button>
+							<Button className={['pg-btnPrimary0', 'pg-btnSm']} style={{width: '115px'}}>{t`پرداخت صورتحساب`}</Button>
+							<Button className={['pg-btnDefault0', 'pg-btnSm']} style={{width: '75px'}}>{t`حذف سرور`}</Button>
 						</>
-						: create ? <Button className={['btnWarning0', 'btnLg']}>
+						: create ? <Button className={['pg-btnWarning0', 'pg-btnLg']}>
 							<IconLink icon={purchaseIcon} iconAlt="create icon" label={t`ایجاد سرور`}/>
 						</Button>
 						: defined ? <>

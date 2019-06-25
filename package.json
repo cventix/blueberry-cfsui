@@ -21,6 +21,7 @@
     "glamor": "^2.20.40",
     "moment": "^2.24.0",
     "node-sass": "^4.11.0",
+    "postcss-import": "^12.0.1",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
     "react-moment": "^0.9.2",
@@ -34,15 +35,18 @@
     "redux-devtools-extension": "^2.13.8",
     "redux-logger": "^3.0.6",
     "redux-saga": "^1.0.2",
+    "tailwindcss": "^1.0.3",
     "ttag": "^1.7.8",
     "typescript": "3.4.2"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
+    "start": "npm run watch:css & react-scripts start",
+    "build": "npm run build:css && react-scripts build",
+    "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
-    "prettier": "prettier --print-width 150 --no-semi --single-quote --trailing-comma es5 --write src/**/*.tsx"
+    "prettier": "prettier --print-width 150 --no-semi --single-quote --trailing-comma es5 --write src/**/*.tsx",
+    "build:css": "postcss src/styles/tailwind.scss -o src/styles/tailwind.css",
+    "watch:css": "postcss src/styles/tailwind.scss -o src/styles/tailwind.css -w"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -54,7 +58,9 @@
     "not op_mini all"
   ],
   "devDependencies": {
+    "autoprefixer": "^9.6.0",
     "babel-plugin-module-resolver": "^3.2.0",
+    "postcss-cli": "^6.1.2",
     "prettier": "^1.17.0",
     "ttag-cli": "^1.7.8"
   }

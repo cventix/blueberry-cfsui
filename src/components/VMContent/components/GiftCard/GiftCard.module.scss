@@ -1,0 +1,90 @@
+@import '../../../../styles/global.scss';
+
+.giftCard {
+	.addCredit {
+		@include flex(row, wrap);
+		align-items: center;
+		justify-content: space-between;
+		margin-top: 66px;
+		margin-bottom: 66px;
+		padding: 0 27px 0 21px;
+		min-height: 64px;
+		background-color: #fff;
+		@include border-radius($br-radius-sm);
+		@include box-shadow(0 1px 3px 0 rgba(0, 0, 0, 0.15));
+
+		@media(max-width: $mobile + 142) {
+			padding: 8px;
+			justify-content: center;
+			margin-top: 20px;
+			margin-bottom: 30px;
+		}
+
+		button {
+			div {
+				img {
+					margin-left: 9px;
+				}
+			}
+
+			@media(min-width: $tablet + 1) and (max-width: $tablet + 42) {
+				width: 150px
+			}
+			
+			@media(max-width: $mobile + 142) {
+				margin-top: 10px;
+			}
+		}
+
+		.enModeTxt {
+			display: none;
+		}
+
+		.price {
+			color: #4a90e2;
+		}
+	}
+
+	.payment {
+		@include flex(row, wrap);
+		align-items: center;
+		margin-top: 26px;
+		margin-bottom: 184px;
+
+		input {
+			width: 174px;
+			margin-left: 10px;
+			text-align: left;
+		}
+	}
+}
+
+body:lang(en) {
+	.addCredit {
+		button {
+			div {
+				img {
+					margin-right: 9px;
+					margin-left: 0
+				}
+			}
+		}
+
+		.faModeTxt {
+			display: none;
+		}
+
+		.enModeTxt {
+			display: block;
+		}
+	}
+
+	.giftCard {
+		.payment {
+			input {
+				margin-right: 10px;
+				margin-left: 0;
+			}
+		}
+	}
+}

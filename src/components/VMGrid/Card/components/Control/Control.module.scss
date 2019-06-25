@@ -11,8 +11,12 @@
 		background-image: linear-gradient(to top, #f7f7f7, #ffffff);
 		border: solid 1px #e6e6e6;
 
-		@media(max-width: $tablet - 277) {
+		@media(min-width: $mobile) and (max-width: $tablet - 277) {
 			width: 53px;
+		}
+
+		@media(max-width: $mobile - 1) {
+			width: 50px;
 		}
 	}
 
@@ -29,15 +33,31 @@
 	@include flex(row, wrap);
 	justify-content: space-around;
 
-	@media(max-width: $tablet - 277) {
+	@media(min-width: $mobile) and (max-width: $tablet - 277) {
 		width: 298px $important;
+	}
+
+	@media(max-width: $mobile - 1) {
+		width: 265px $important;
 	}
 }
 
 .multiplePlan {
+	width: 213px;
 	button {
 		font-size: $font-size - 2;
 		width: 50px;
-		padding: 0 5px;
+
+		@media(max-width: $mobile + 115) {
+			width: 60px;
+		}
+	}
+}
+
+body:lang(en) {
+	.multiplePlan {
+		button {
+			font-size: $font-size - 4;
+		}
 	}
 }

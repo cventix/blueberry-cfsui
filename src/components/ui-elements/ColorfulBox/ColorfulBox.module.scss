@@ -17,7 +17,7 @@
 		flex-basis: calc(100% - 29px)
 	}
 	
-	> button {
+	.close {
 		position: absolute;
 		display: flex;
 		align-items: center;
@@ -78,7 +78,7 @@ body:lang(en) {
 	.colorfulBox {
 		padding: 10px 10px 10px 12px;
 
-		> button {
+		.close {
 			position: absolute;
 			right: 2px;
 			left: auto;

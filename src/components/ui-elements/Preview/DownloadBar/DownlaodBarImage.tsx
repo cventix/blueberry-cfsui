@@ -25,7 +25,7 @@ const DownlaodBarImage: React.FunctionComponent<Iprops> = ({ onItemClick, item }
   return (
     <div className={styles.downloadBar}>
       <div className={styles.downloadBox}>آمار: {JSON.stringify(item.downloadCount)} دانلود</div>
-      <Button className={['btnSuccess0', 'btnLg']} style={{ marginBottom: '15px' }}>
+      <Button className={['pg-btnSuccess0', 'pg-btnLg']} style={{ marginBottom: '15px' }}>
         <a
           href={`http://cdn.persiangig.com/preview/${item.uuid}/medium/${item.name}`}
           style={{ color: 'inherit' }}
