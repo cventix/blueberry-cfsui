@@ -1,26 +1,33 @@
 import React, { Component } from 'react'
-import { Card } from './Card/Card'
+import { connect } from 'react-redux'
 
-import styles from './Grid.module.scss'
-import { GridHeader } from './GridHeader'
+import { Card } from './Card/Card'
+import GridHeader from './GridHeader'
 import { navigateObject } from '../Content/Content'
 
-export default interface Iprops {
+//styles
+import styles from './Grid.module.scss'
+
+//interface
+import { ITableItem } from '../Content/ContentBody'
+
+//todo check selection (Checked)
+export interface Iprops {
   checkbox?: boolean
-  table: object[]
-  isOpen?: boolean
-  onCheckAll?: () => void
-  onSort?: any
-  checkAll?: boolean
-  dropDownData?: any
+  table: ITableItem[]
   sortable?: boolean
+  selection: Array<number>
+  dropDownData?: any
+  onCheckAll?: () => void
+  onSort?: (sortBy: string, type?: string | undefined) => void
+  onCheck?: (id: number, e?: any) => void
   handleNavigate?: (e: navigateObject) => void
 }
 
-export const Grid: React.FunctionComponent<Iprops> = ({ table, onCheckAll, onSort, handleNavigate, checkbox, checkAll, dropDownData }) => {
+const Grid: React.FunctionComponent<Iprops> = ({ selection, table, onCheckAll, onSort, onCheck, handleNavigate, checkbox, dropDownData }) => {
   return (
     <React.Fragment>
-      <GridHeader onCheckAll={onCheckAll} checkAll={checkAll} sortable={true} onSort={onSort} />
+      <GridHeader onCheckAll={onCheckAll} sortable={true} onSort={onSort} />
       <div className={styles.container}>
         {table.map((item: any, index: number) => {
           return (
@@ -30,8 +37,9 @@ export const Grid: React.FunctionComponent<Iprops> = ({ table, onCheckAll, onSor
               dropDownData={dropDownData}
               item={item}
               checkbox={checkbox}
+              onCheck={onCheck}
+              checked={typeof item.id != 'undefined' && selection.includes(item.id)}
               dropdown={true}
-              checkAll={checkAll}
             />
           )
         })}
@@ -39,3 +47,6 @@ export const Grid: React.FunctionComponent<Iprops> = ({ table, onCheckAll, onSor
     </React.Fragment>
   )
 }
+const mapStateToProps = (state: any) => ({ selection: state.selection.selection })
+
+export default connect(mapStateToProps)(Grid)

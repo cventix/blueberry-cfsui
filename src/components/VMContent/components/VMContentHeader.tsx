@@ -12,7 +12,7 @@ import styles from '../VMContent.module.scss';
 
 export default interface Iprops {
   handleSearchInput: (e: string) => void
-  history: BreadcrumbItem[]
+  history: any
   className?: string
 }
 

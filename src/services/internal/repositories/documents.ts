@@ -1,9 +1,12 @@
 import { RestInterface } from '../../external/rest/rest'
+import { removeFolder } from '../store/sagas/documents'
 
 export interface IGetDocumentsInput {
   isChildren?: boolean
   path?: string
   headers?: object
+  id?: number
+  modal?: boolean
 }
 export interface IGenerateLinkInput {
   uuid?: string
@@ -41,7 +44,15 @@ export interface IDownloadDirectoryInput {
 
 export interface IRestoreFileInput {
   documentIds: Array<number>
-  
+}
+
+export interface IRemoveFolderInput {
+  folderId: Array<number>
+}
+
+export interface IShareStatusInput {
+  sharingStatus: string
+  id: number
 }
 
 export interface DocumentsInterface {
@@ -51,6 +62,8 @@ export interface DocumentsInterface {
   moveDocuments(input: IMoveDocumentsInput): Promise<object>
   shareDocuments(input: IShareDocumentsInput): Promise<object>
   downloadDirectory(input: IDownloadDirectoryInput): Promise<object>
+  generateDownloadLink(input: IGenerateLinkInput): Promise<object>
+  changeSharingStatus(input: IShareStatusInput): Promise<object>
 }
 
 class Documents implements DocumentsInterface {
@@ -60,6 +73,7 @@ class Documents implements DocumentsInterface {
   }
 
   async getDocuments({ isChildren, path, headers }: IGetDocumentsInput = { isChildren: false, path: '', headers: {} }) {
+    console.log(path)
     const url = `/rest/documents${isChildren ? '/children' : ''}?sort=+discriminator,+name${isChildren ? `&path=${path}` : ''}`
     try {
       return await this._rest.get({ url, headers })
@@ -86,8 +100,10 @@ class Documents implements DocumentsInterface {
   }
 
   async urlUpload({ path, parentId = 0 }: IUrlUploadInput) {
+    let headers = { 'Content-Type': 'text/html' }
     const url = `/rest/upload/url`
-    let body = { body: `url=${path}&path-id=${parentId}&token=${localStorage.getItem('token')}&dlc=false&` }
+    let body = `url=${path}&path-id=${parentId}&token=${localStorage.getItem('token')}&dlc=false&` 
+    console.log(body)
     try {
       return await this._rest.post({ url, body })
     } catch (error) {
@@ -124,7 +140,7 @@ class Documents implements DocumentsInterface {
       throw error
     }
   }
-  async removeFolder({ folderId, name }: any) {
+  async removeFolder({ folderId }: any) {
     const url = `/rest/documents/trash?sort=+discriminator,+name&ids=${folderId}`
     try {
       return await this._rest.put({ url })
@@ -144,6 +160,7 @@ class Documents implements DocumentsInterface {
   async shareDocuments({ documentIds, userEmails }: IShareDocumentsInput) {
     const url = `/rest/documents/share?ids=${documentIds.join()}`
     const body = { userEmails }
+    console.log(url)
     try {
       return await this._rest.post({ url, body })
     } catch (error) {
@@ -173,9 +190,41 @@ class Documents implements DocumentsInterface {
   async restoreFiles({ documentIds }: IRestoreFileInput) {
     console.log(documentIds)
     let url = `/rest/documents/restore?ids=${documentIds.join()}`
-  
+
     try {
       return await this._rest.put({ url })
+    } catch (error) {
+      throw error
+    }
+  }
+  async deleteDocument({ documentIds }: IRestoreFileInput) {
+    console.log(documentIds)
+    let url = `/rest/documents?ids=${documentIds.join()}`
+    try {
+      return await this._rest.delete({ url })
+    } catch (error) {
+      throw error
+    }
+  }
+  
+  async uploadDocument({ body, fileSize, fileName, pathId }: any) {
+    let url = `/rest/upload/binary?name=${fileName}&size=${fileSize}&path-id=${pathId}`
+    let headers=  {  'Content-Type': 'application/octet-stream'};
+    console.log(body)
+    try {
+      return await this._rest.post({ url, body ,headers})
+    } catch (error) {
+      throw error
+    }
+  }
+  async changeSharingStatus({ id, sharingStatus }: IShareStatusInput) {
+    const url = `/rest/documents/${id}/changeSharingStatus`
+    const body = {
+      id: id,
+      sharingStatus: sharingStatus
+    }
+    try {
+      return await this._rest.put({ url, body })
     } catch (error) {
       throw error
     }

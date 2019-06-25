@@ -3,10 +3,11 @@ import loadingReducer from './loadingReducer'
 import authReducer from './authReducer'
 import documentReducer from './documentReducer'
 import selectReducer from './selectReducer'
-import routerReducer from './routerReducer';
-import sidebarReducer from './sidebarReducer';
-import historyReducer from './historyReducer';
-import vmReducer from './vmReducer';
+import routerReducer from './routerReducer'
+import sidebarReducer from './sidebarReducer'
+import historyReducer from './historyReducer'
+import vmReducer from './vmReducer'
+import messagesReducer from './messagesReducer'
 
 export default combineReducers({
   auth: authReducer,
@@ -16,5 +17,6 @@ export default combineReducers({
   router: routerReducer,
   sidebar: sidebarReducer,
   history: historyReducer,
-  vm: vmReducer
+  vm: vmReducer,
+  messages: messagesReducer
 })

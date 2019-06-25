@@ -12,6 +12,7 @@ import settingIcon from '../../../images/setting.svg'
 
 // styles
 import styles from './SearchInput.module.scss'
+import { SuggestionBox } from './SuggestionBox';
 
 // interface
 export default interface Iprops {
@@ -23,9 +24,9 @@ export default interface Iprops {
 export const SearchInput = ({ withSetting = false, placeHolder, handleInputChange }: Iprops) => {
   return (
     <div className={styles.searchInput}>
-      <TextInput placeholder={placeHolder} onChange={(e: any) => handleInputChange(e.target.value)}/>
+      <TextInput placeholder={placeHolder} onChange={(e: any) => handleInputChange(e.target.value)} />
       <div className={styles.btnWrapper}>
-        <Button style={{ backgroundColor: '#fff'}}>
+        <Button style={{ backgroundColor: '#fff' }}>
           <Icon src={searchIcon} />
         </Button>
       </div>

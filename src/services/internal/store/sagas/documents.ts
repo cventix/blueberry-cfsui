@@ -1,71 +1,99 @@
 import { put } from 'redux-saga/effects'
 import * as actions from '../actions'
-
+import { AnyAction } from 'redux'
 import { bottle } from '../../../index'
-import { formatDate } from '../../utils/formatDates'
 
 const documents = bottle.container.Documents
 
-export function* getDocuments(action: any) {
+export function* getDocuments(action: AnyAction) {
+
+  let base = { headers: { token: localStorage.getItem('token') } }
   let folderInfo
-  if (action.payload) folderInfo = { isChildren: action.payload.isChildren, path: action.payload.path, headers: action.payload.headers }
-  console.log()
+  if (action.payload && action.payload.isChildren)
+    folderInfo = { isChildren: action.payload.isChildren, path: action.payload.path, headers: { token: localStorage.getItem('token') } }
+
   try {
     yield put(actions.setLoadingState(true))
-    let data = yield documents.getDocuments(folderInfo)
-    if (folderInfo && folderInfo.isChildren === true) data = data.children
+    console.log(folderInfo)
+    let data = yield documents.getDocuments(folderInfo ? folderInfo : base)
+    if (folderInfo && folderInfo.isChildren === true) {
+      yield put(actions.setParentId(data.parent.id))
+      data = data.children
+    }
     yield put(actions.setDocuments(data))
     yield put(actions.setLoadingState(false))
   } catch (err) {
+    yield put(actions.setError(err.errors[0].msg))
     yield put(actions.setLoadingState(false))
   }
 }
-export function* getModalDocuments(action: any) {
-  console.log('jo')
-  let folderInfo
+export function* getModalDocuments(action: AnyAction) {
+  let folderInfo,
+    lastChild = false
   if (action.payload) folderInfo = { isChildren: action.payload.isChildren, path: action.payload.path, headers: action.payload.headers }
   try {
-    yield put(actions.setLoadingState(true))
+    yield put(actions.setModalLoadingState(true))
     let data = yield documents.getDocuments(folderInfo)
-    if (folderInfo && folderInfo.isChildren === true) data = data.children
-    yield put(actions.setModalDocuments(data))
-    yield put(actions.setLoadingState(false))
+    if (folderInfo && folderInfo.isChildren === true) {
+      if (data.children.length < 1) {
+        lastChild = true
+        data = data.parent
+      } else {
+        if (data.children.every((each: any) => each.discriminator == 'F')) lastChild = true
+        data = data.children
+      }
+    }
+    yield put(actions.setLastChild(false))
+    lastChild ? yield put(actions.setLastChild(lastChild)) : yield put(actions.setModalDocuments(data))
+    yield put(actions.setModalLoadingState(false))
   } catch (err) {
-    yield put(actions.setLoadingState(false))
+    yield put(actions.setError(err.errors[0].msg))
+    yield put(actions.setModalLoadingState(false))
   }
 }
-export function* getTrashDocuments(action: any) {
+export function* getTrashDocuments() {
   try {
     yield put(actions.setLoadingState(true))
     let data = yield documents.getTrashDocuments()
     yield put(actions.setDocuments(data))
     yield put(actions.setLoadingState(false))
   } catch (err) {
+    yield put(actions.setError(err.errors[0].msg))
     yield put(actions.setLoadingState(false))
   }
 }
-export function* getSharedDocuments(action: any) {
+export function* getSharedDocuments() {
   try {
     yield put(actions.setLoadingState(true))
     let data = yield documents.getSharedDocuments()
     yield put(actions.setDocuments(data))
     yield put(actions.setLoadingState(false))
   } catch (err) {
+    yield put(actions.setError(err.errors[0].msg))
     yield put(actions.setLoadingState(false))
   }
 }
-export function* removeFolder(action: any) {
+export function* removeFolder(action: AnyAction) {
   let folderInfo = { folderId: action.payload.folderId }
   try {
     yield put(actions.setLoadingState(true))
     let response = yield documents.removeFolder(folderInfo)
-
+    yield put(actions.setSelections([]))
     yield put(actions.setLoadingState(false))
   } catch (err) {
+    yield put(actions.setError(err.errors[0].msg))
     yield put(actions.setLoadingState(false))
   }
 }
-export function* createFolder(action: any) {
+export function* deleteDocument(action: AnyAction) {
+  let folderInfo = { documentIds: action.payload.folderId }
+  try {
+    yield documents.deleteDocument(folderInfo)
+  } catch (err) {
+    yield put(actions.setError(err.errors[0].msg))
+  }
+}
+export function* createFolder(action: AnyAction) {
   let getFolderInfo
   let folderInfo = { name: action.payload.name, description: action.payload.description, parentId: action.payload.parentId }
   if (action.payload.parentId) getFolderInfo = { isChildren: true, path: action.payload.parentName }
@@ -76,14 +104,15 @@ export function* createFolder(action: any) {
     if (getFolderInfo && getFolderInfo.isChildren == true) data = data.children
     yield put(actions.setDocuments(data))
     yield put(actions.setResponse(response))
+    yield put(actions.setMessage('پوشه ایجاد شد'))
     yield put(actions.setLoadingState(false))
   } catch (err) {
+    yield put(actions.setError(err.errors[0].msg))
     yield put(actions.setLoadingState(false))
   }
 }
 
-export function* renameFolder(action: any) {
-  console.log(action)
+export function* renameFolder(action: AnyAction) {
   let renameInfo = { name: action.payload.name, folderId: action.payload.folderId }
   try {
     yield put(actions.setLoadingState(true))
@@ -91,59 +120,93 @@ export function* renameFolder(action: any) {
     let response = yield documents.renameFolder(renameInfo)
     yield put(actions.setLoadingState(false))
   } catch (err) {
+    yield put(actions.setError(err.errors[0].msg))
     yield put(actions.setLoadingState(false))
   }
 }
 
 export function* moveDocuments(action: any) {
-  let moveInfo = { targetId: action.targetId, documentIds: action.documentIds }
+  let moveInfo = { targetId: action.payload.targetId, documentIds: action.payload.documentIds }
+
   try {
     yield put(actions.setLoadingState(true))
     yield documents.moveDocuments(moveInfo)
+    window.location.pathname.split('fm/')[1]
+      ? yield put(actions.getDocuments({ isChildren: true, path: window.location.pathname.split('fm/')[1] }))
+      : yield put(actions.getDocuments())
+    yield put(actions.setMessage('فایل جا به جا شد'))
+    yield put(actions.setSelections([]))
     yield put(actions.setLoadingState(false))
   } catch (err) {
+    yield put(actions.setError(err.errors[0].msg))
     yield put(actions.setLoadingState(false))
   }
 }
 
 export function* shareDocuments(action: any) {
-  let shareInfo = { userEmails: action.userEmails, documentIds: action.documentIds }
+  let shareInfo = { userEmails: action.userEmails, documentIds: [action.documentIds] }
+  console.log(shareInfo)
   try {
-    yield put(actions.setLoadingState(true))
     yield documents.shareDocuments(shareInfo)
-    yield put(actions.setLoadingState(false))
   } catch (err) {
-    yield put(actions.setLoadingState(false))
+    yield put(actions.setError(err.errors[0].msg))
   }
 }
 
-export function* generateLink(action: any) {
-  console.log(action.payload)
+export function* generateLink(action: AnyAction) {
   let uuid = { uuid: action.payload }
-  console.log(uuid)
   try {
-    yield put(actions.setLoadingState(true))
-    yield documents.generateDownloadLink(uuid)
-    yield put(actions.setLoadingState(false))
+    let result = yield documents.generateDownloadLink(uuid)
+    yield put(actions.setDownloadToken(result.token))
   } catch (err) {
+    yield put(actions.setError(err.errors[0].msg))
     yield put(actions.setLoadingState(false))
   }
 }
 
-export function* downloadDirectory(action: any) {
+export function* downloadDirectory(action: AnyAction) {
   let info = { type: action.payload.downloadType, documentIds: action.payload.documentIds }
-
   try {
     yield documents.downloadDirectory(info)
   } catch (err) {
+    yield put(actions.setError(err.errors[0].msg))
     yield put(actions.setLoadingState(false))
   }
 }
-export function* restoreFiles(action: any) {
+export function* restoreFiles(action: AnyAction) {
+  try {
+    yield documents.restoreFiles({ documentIds: action.payload.documentIds })
+  } catch (err) {
+    yield put(actions.setError(err.errors[0].msg))
+    yield put(actions.setLoadingState(false))
+  }
+}
+export function* uploadDocuments(action: AnyAction) {
   console.log(action)
   try {
-    yield documents.restoreFiles({documentIds : action.payload.documentIds})
+    yield documents.uploadDocument({ body: action.payload.file, fileSize: action.payload.fileSize, fileName: action.payload.fileName, pathId: 0 })
   } catch (err) {
+    yield put(actions.setError(err.errors[0].msg))
+    yield put(actions.setLoadingState(false))
+  }
+}
+export function* urlUpload(action: any) {
+  console.log(action)
+  try {
+    yield documents.urlUpload({ path: action.payload.url, parentId: action.payload.url })
+  } catch (err) {
+    yield put(actions.setError(err.errors[0].msg))
+    yield put(actions.setLoadingState(false))
+  }
+}
+
+export function* changeSharingStatus(action: any) {
+  console.log(action)
+  try {
+    yield documents.changeSharingStatus({ id: action.payload.id, sharingStatus: action.payload.sharingStatus })
+    yield put(actions.setMessage('دسترسی تغییر داده شد.'))
+  } catch (err) {
+    yield put(actions.setError(err.errors[0].msg))
     yield put(actions.setLoadingState(false))
   }
 }

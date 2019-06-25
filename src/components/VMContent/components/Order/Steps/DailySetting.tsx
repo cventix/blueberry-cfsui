@@ -4,7 +4,7 @@ import { t } from 'ttag'
 // ui-elements
 import { ColorfulBox } from '../../../../../components/ui-elements/ColorfulBox/ColorfulBox'
 import { Stepbar } from '../../../../../components/Stepbar/Stepbar'
-import { RangeBar } from '../../../../../components/ui-elements/Rangebar/Rangebar'
+
 
 // internal-component
 import { StepDescription } from './StepDescription'
@@ -12,6 +12,8 @@ import { Footer } from './Footer/Footer'
 
 // styles
 import styles from '../Order.module.scss'
+import { RangeBar } from '../../../../ui-elements/Rangebar/RangeBar';
+
 
 export default interface Iprops {}
 export interface STBprops {

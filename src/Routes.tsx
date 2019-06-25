@@ -2,15 +2,19 @@ import React from 'react'
 import { Route, BrowserRouter as Router, Switch } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { PrivateRoute } from './components/PrivateRoute/PrivateRoute'
+
 import App from './containers/Home/App'
 import Order from './components/VMContent/components/Order/Order'
 import Login from './containers/Authentication/Login/Login'
 import Register from './containers/Authentication/Register/Register'
+import ForgetPassword from './containers/Authentication/Forget/ForgetPassword'
+import toast from '../src/components/ui-elements/Toast/Toast'
 
 class Routes extends React.Component<any> {
   state = {
     isAuth: false
   }
+
   render() {
     return (
       <Router>
@@ -19,6 +23,16 @@ class Routes extends React.Component<any> {
           <Route path="/register" component={Register} />
           <PrivateRoute isAuthenticated={this.props.isAuth ? true : false} path="/" component={App} />
           <PrivateRoute isAuthenticated={this.props.isAuth ? true : false} path="/fm/:foldername" component={App} />
+          <Route path="/forgetpassword" component={ForgetPassword} />
+          <PrivateRoute isAuthenticated={this.props.isAuth ? true : false} path="/fm" component={App} {...this.props} />
+          <PrivateRoute isAuthenticated={this.props.isAuth ? true : false} path="/vm" component={App} />
+          <PrivateRoute isAuthenticated={this.props.isAuth ? true : false} path="/vm/order" component={Order} />
+          <Router>
+            <Switch>
+              <PrivateRoute isAuthenticated={this.props.isAuth ? true : false} path="/fm/preview/image/:size/:name" component={App} />
+            </Switch>
+          </Router>
+          <PrivateRoute component={App} />
         </Switch>
       </Router>
     )

@@ -339,6 +339,9 @@ msgstr "Content"
 msgid "مالک"
 msgstr "Owner"
 
+msgid "دانلود فایل"
+msgstr "Download File"
+
 msgid "نمایش بیشتر"
 msgstr "Show More"
 
@@ -347,3 +350,20 @@ msgstr "Add Credit"
 
 msgid "برای افزایش اعتبار مبلغ مورد نظر را (به ریال) وارد کنید:"
 msgstr "To increase the credit, enter the amount (in Rials):"
+msgid "تغییر نام"
+msgstr "Change Name"
+
+msgid "اشتراک گذاری"
+msgstr "Share File"
+
+msgid "افزودن توضیح"
+msgstr "Add Description"
+
+msgid "دریافت لینک‌ها"
+msgstr "Get Links"
+
+msgid "حذف فایل"
+msgstr "Delete File"
+
+msgid "نام کاربری باید بین ۵ تا ۴۵ حرف باشد، با عدد شروع نشود و تنها شامل حروف انگلیسی و اعداد باشد."
+msgstr "The username must be between 5-45 characters, cannot begin with a number, and contain only English letters and numbers."

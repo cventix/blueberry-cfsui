@@ -23,7 +23,7 @@ import { Nav } from './Nav'
 import '../Sidebar.scss'
 
 export interface Iprops {
-  onItemClick?: (e: any) => void
+  onItemClick?: (e: any, file?: any) => void
   selection?: number[]
   toggle?: any
 }
@@ -34,28 +34,34 @@ const FM: React.FunctionComponent<Iprops> = ({ onItemClick, selection, toggle })
     { label: `دانلود با فرمت iso`, onClick: onItemClick },
     { label: `دانلود با فرمت tar`, onClick: onItemClick }
   ]
- console.log(selection && selection.length > 0 )
+
   return (
     <div className="sidebar-menu">
-      <Button className={['pg-btnPrimary0', 'pg-btnLg']} style={{ marginBottom: '15px' }}>
+      <Button className={['pg-btnPrimary0', 'pg-btnLg']} style={{ marginBottom: '15px', cursor: 'pointer' }}>
         <IconLink icon={uploadIcon} iconAlt="upload icon" label={t`آپلود فایل`} />
+        <input
+          className={'fileUpload'}
+          type="file"
+          accept="image/png, image/jpeg"
+          onChange={e => onItemClick && onItemClick('fileUpload', e.target.files)}
+        />
       </Button>
-      {toggle[1]  ? (
-        <Button   className={[selection && selection.length > 0 ? 'pg-btnSuccess0' : 'pg-btnSuccessOutline', 'pg-btnLg']} style={{ marginBottom: '15px' }}>
-          <IconLink onClick ={onItemClick} icon={refreshIcon} iconAlt="upload icon" label={t`بازیابی فایل`} />
-        </Button>
-      ) : (
-        <DropDownButton
-          data={data}
-          className={[selection && selection.length > 0 ? 'pg-btnSuccess0' : 'pg-btnSuccessOutline', 'pg-btnLg']}
-          disabled={!selection || selection.length == 0}
-          style={{ marginBottom: '15px' }}
-        >
-          <IconLink icon={downloadIcon} iconAlt="download icon" label={t` دانلود با فرمت`} />
-        </DropDownButton>
-      )}
-      <IconLink icon={upFromUrlIcon} onClick={onItemClick}
-      className="pg-flex pg-items-center pg-mb-14p pg-bg-gray-0 pg-w-200p pg-h-35p pg-font-vMedium pg-border-0 pg-pr-11p pg-cursor-pointer pg-text-right pg-rounded-br-sm iconLink upFromUrl" iconAlt="upload icon" label={t`آپلود فایل از URL`} />
+
+      <DropDownButton
+        data={data}
+        className={[selection && selection.length > 0 ? 'pg-btnSuccess0' : 'pg-btnSuccessOutline', 'pg-btnLg']}
+        disabled={!selection || selection.length == 0}
+        style={{ marginBottom: '15px' }}
+      >
+        <IconLink icon={downloadIcon} iconAlt="download icon" label={t` دانلود با فرمت`} />
+      </DropDownButton>
+      <IconLink
+        icon={upFromUrlIcon}
+        onClick={onItemClick}
+        className="pg-flex pg-items-center pg-mb-14p pg-bg-gray-0 pg-w-200p pg-h-35p pg-font-vMedium pg-border-0 pg-pr-11p pg-cursor-pointer pg-text-right pg-rounded-br-sm iconLink upFromUrl"
+        iconAlt="upload icon"
+        label={t`آپلود فایل از URL`}
+      />
       <ActionNav onItemClick={onItemClick} />
       <Hr />
       <FileFiltering forFM={true} onItemClick={onItemClick} />
@@ -65,6 +71,6 @@ const FM: React.FunctionComponent<Iprops> = ({ onItemClick, selection, toggle })
     </div>
   )
 }
-const mapStateToProps = (state: any) => ({ select:state,selection: state.selection.selection, toggle: state.selection.toggle})
+const mapStateToProps = (state: any) => ({ select: state, selection: state.selection.selection, toggle: state.selection.toggle })
 
 export default connect(mapStateToProps)(FM)

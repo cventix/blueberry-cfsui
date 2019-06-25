@@ -11,7 +11,7 @@ interface Iprops {
   onClickdescription?: string
   selectable?: boolean
   bordered?: boolean
-  onClick?: (id: any) => void
+  onClick?: (id: any, label?: string) => void
   description?: string
   id?: number
 }
@@ -35,12 +35,15 @@ export const DropdownItem: React.FunctionComponent<Iprops> = ({
   if (isSelected === index) {
     liClassName += ' ' + styles.selected
   }
-console.log(id)
+
   return (
-    <li className={liClassName} onClick={() => (onClick ?( id && label ? onClick(id) : label && onClick(label) ): onSelect && onSelect(index))}>
+    <li
+      className={liClassName}
+      onClick={() => (onClick ? (id && label ? onClick(id, label) : label && onClick(label)) : onSelect && onSelect(index))}
+    >
       <a href={link}>
         <p className={styles.label}>
-          {selectable && isSelected === index && <span className={styles.checkmark} />}
+          {selectable && isSelected == index && <span className={styles.checkmark} />}
           <span className={selectable ? styles.text : ' '}>{label}</span>
         </p>
         <p className={[styles.description, selectable ? styles.text : ' '].join(' ')}>{description}</p>

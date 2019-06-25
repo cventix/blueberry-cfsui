@@ -24,11 +24,14 @@ export default interface Iprops {
   name?: string
   type?: string
   value?: string
+  onClick?: any
+  wrapperRef?: any
 }
 
 export const TextInput = ({
   placeholder,
   onChange,
+  wrapperRef,
   name,
   label,
   value,
@@ -40,10 +43,12 @@ export const TextInput = ({
   success,
   withIcon,
   icon,
+  onClick,
   style
 }: Iprops) => {
   return (
     <div
+   
       className={
         error
           ? `${styles.inputWrapper} ${styles.error}`
@@ -58,8 +63,10 @@ export const TextInput = ({
       <label className={styles.label}>{label}</label>
       <input
         type={type}
+        ref={wrapperRef}
         className={withIcon ? styles.textInput : `${styles.textInput} ${styles.reset}`}
         placeholder={placeholder}
+        onClick={onClick}
         value={value}
         name={name}
         disabled={disabled}

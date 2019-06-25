@@ -1,25 +1,35 @@
 import React from 'react'
 import { connect } from 'react-redux'
+import { t } from 'ttag'
 
-import { UploadModal } from '../../Uploadmodal/Uploadmodal'
-import { moveDocuments, getModalDocuments } from '../../../../services/internal/store/actions/documents'
+import { UploadModal } from '../Uploadmodal/Uploadmodal'
 import { ContentBody } from '../../../Content/ContentBody'
-
-import styles from './MoveFile.module.scss'
 import { Button } from '../../Button/Button'
 import { navigateObject } from '../../../Content/Content'
 import { Breadcrumb } from '../../Breadcrumb/Breadcrumb'
-import { t } from 'ttag'
-import { setHistory } from '../../../../services/internal/store/actions/history'
+import { Icon } from '../../Icon'
+
+//styles and icons
+import loadingIcon from '../../../../images/loading/tail-spin.svg'
+import styles from './MoveFile.module.scss'
+
+//services
+import { moveDocuments, getModalDocuments, setParentId, setModalSelections, setHistory } from '../../../../services/internal/store/actions'
+import { IGetDocumentsInput, IMoveDocumentsInput, DocumentsInterface } from '../../../../services/internal/repositories/documents'
 
 export interface Iprops {
   showModal?: boolean
   handleClose: () => void
-  createFolder?: any
   document?: any
-  getModalDocuments?: any
+  modalSelection?: number
+  getModalDocuments: (getInput: IGetDocumentsInput) => void
   setHistory?: any
-  modalDocs?: any
+  loading?: boolean
+  moveDocuments: (moveInput: IMoveDocumentsInput) => void
+  selection?: Array<number>
+  setModalSelections: any
+  parentId?: number
+  setParentId: (parentId: number) => void
 }
 export interface Istate {
   name: string
@@ -28,7 +38,9 @@ export interface Istate {
   message: string
   fileId: number
   table: any
+  lastChild: boolean
   history: any
+  id: any
 }
 class MoveFile extends React.Component<Iprops, Istate> {
   constructor(props: Iprops) {
@@ -40,28 +52,48 @@ class MoveFile extends React.Component<Iprops, Istate> {
       message: '',
       fileId: 0,
       table: [],
-      history: []
+      history: [],
+      lastChild: false,
+      id: 0
     }
   }
 
   componentDidMount() {
-    this.setState({ table: this.props.document.documents, history: [{ title: `پوشه اصلی`, link: '/', active: false, onClick: this.onGetDocument }] })
+    this.onGetDocument(false, '/')
+    this.setState({ table: this.props.document.documents })
     this.props.setHistory([{ title: `پوشه اصلی`, link: '/', active: false, onClick: this.onGetDocument }])
+
+    if (this.props.modalSelection !== 1) this.props.setModalSelections(1)
   }
-  onGetDocument = async (isChildren?: boolean, path?: any) => {
-    if (isChildren == true) {
+
+  onGetDocument = async (isChildren?: boolean, path?: any, id?: number) => {
+    console.log(path)
+    if (path !== '/') {
       try {
-        await this.props.getModalDocuments({ isChildren: true, path, modal: true })
+        if (id) this.props.setParentId(id)
+        await this.props.getModalDocuments({ isChildren: true, path, modal: true, id })
       } catch (error) {
         console.log('E: ', error)
       }
     } else {
       try {
-        await this.props.getModalDocuments({ modal: true })
+        this.props.setParentId(0)
+        await this.props.getModalDocuments({ modal: true, id })
       } catch (error) {
         console.log('E: ', error)
       }
     }
+    console.log(path)
+    this.setState({
+      history: {
+        title: name,
+        link: path,
+        active: false,
+        onClick: this.onGetDocument,
+        parent: true,
+        id: id
+      }
+    })
   }
   /**
    * gets data and makes an obj
@@ -69,28 +101,42 @@ class MoveFile extends React.Component<Iprops, Istate> {
    */
   componentWillReceiveProps(nextProps: any) {
     if (nextProps.document.modal_documents.length > 0) this.setState({ table: nextProps.document.modal_documents })
-  }
-
-  handleNavigate = ({ e, name, id }: navigateObject) => {
-    let history = this.state.history
-    if (e.target.tagName != 'INPUT') {
-      let discriminator = this.props.document.documents.filter((obj: any) => {
-        return obj.name == name
-      })[0].discriminator
-      if (discriminator === 'D') {
-        this.onGetDocument(true, name)
-        this.props.setHistory(this.state.history.push({ title: name, active: true, onClick: this.onGetDocument }))
-        console.log(history)
-        this.setState({ history })
-      }
+    if (nextProps.document.lastChild) {
+      if (this.props.modalSelection !== this.state.id) this.props.setModalSelections(this.state.id)
     }
   }
 
+  handleNavigate = ({ e, name, id }: navigateObject) => {
+    this.setState({ id })
+    let history = this.state.history
+    let parent = 1
+    let path
+    let item
+    if (e.target.tagName != 'INPUT') {
+      if (this.props.modalSelection !== id && id) this.props.setModalSelections(id)
+      let discriminator = this.props.document.modal_documents.filter((obj: any) => {
+        return obj.name == name
+      })
+      if (discriminator[0] || !this.state.lastChild) {
+        if (discriminator[0].parent) parent = discriminator[0].parent.id
+        path = discriminator[0].fullPath
+        item = discriminator[0]
+        discriminator = discriminator[0].discriminator
+      }
+      console.log(item.parent)
+      if (discriminator === 'D') {
+        this.onGetDocument(true, path, id)
+      }
+    }
+  }
+  moveDocument = () => {
+    if (this.state.id && this.props.selection) {
+      this.props.moveDocuments({ targetId: this.state.id, documentIds: this.props.selection })
+      this.props.handleClose()
+    }
+  }
   render() {
-    const history = [{ title: t`پوشه اصلی`, link: '/', active: false, onClick: this.onGetDocument }]
-
-    console.log(this.props.modalDocs)
-    const { showModal, handleClose } = this.props
+    const { showModal, handleClose, loading, modalSelection } = this.props
     return (
       <UploadModal
         show={showModal}
@@ -101,19 +147,40 @@ class MoveFile extends React.Component<Iprops, Istate> {
         formDescription={t`پوشه مقصد را انتخاب کنید`}
       >
         <Breadcrumb history={this.state.history} modal={true} />
-        <div className={styles.move}>
-          <ContentBody
-            view={'grid'}
-            table={this.state.table}
-            isMoveModal={true}
-            dropdown={false}
-            checkbox={false}
-            hasHeader={false}
-            handleNavigate={this.handleNavigate}
-          />
+        <div className={[styles.move, modalSelection && styles.selected].join(' ')}>
+          {!loading ? (
+            <ContentBody
+              view={'grid'}
+              table={this.state.table}
+              isMoveModal={true}
+              dropdown={false}
+              checkbox={false}
+              hasHeader={false}
+              handleNavigate={this.handleNavigate}
+            />
+          ) : (
+            <div className={styles.loading}>
+              {loading ? (
+                <>
+                  <Icon src={loadingIcon} style={{ padding: '4px' }} /> در حال بارگذاری{' '}
+                </>
+              ) : (
+                'داده ای وجود ندارد'
+              )}
+            </div>
+          )}
         </div>
+
         <div className={styles.submitButton}>
-          <Button className={[this.state.fileId ? 'pg-btnPrimary100' : 'pg-btnPrimaryOutline', 'pg-btnSm']} style={{ marginLeft: 5 }} disabled={true}>
+          <Button
+            className={[
+              !this.props.modalSelection || this.props.modalSelection == this.props.parentId ? 'pg-btnPrimaryOutline' : 'pg-btnPrimary100',
+              'pg-btnSm'
+            ]}
+            style={{ marginLeft: 5 }}
+            disabled={!this.props.modalSelection || this.props.modalSelection == this.props.parentId}
+            onClick={this.moveDocument}
+          >
             {t`انتقال`}
           </Button>
           <Button className={['pg-btnDefault100', 'pg-btnSm']} onClick={handleClose}>
@@ -125,13 +192,21 @@ class MoveFile extends React.Component<Iprops, Istate> {
   }
 }
 
-const mapStateToProps = (state: any) => ({ document: state.document, loading: state.loading.isLoading, modalDocs: state })
+const mapStateToProps = (state: any) => ({
+  document: state.document,
+  loading: state.loading.modalLoading,
+  modalSelection: state.selection.modalSelect,
+  selection: state.selection.selection,
+  parentId: state.document.parentId
+})
 
 const mapDispatchToProps = (dispatch: any) => {
   return {
-    getModalDocuments: (value: any) => dispatch(getModalDocuments(value)),
-    moveDocuments: () => dispatch(moveDocuments()),
-    setHistory: (value: any) => dispatch(setHistory(value))
+    getModalDocuments: (value: IGetDocumentsInput) => dispatch(getModalDocuments(value)),
+    moveDocuments: (value: IMoveDocumentsInput) => dispatch(moveDocuments(value)),
+    setHistory: (value: any) => dispatch(setHistory(value)),
+    setModalSelections: (value: Array<number>) => dispatch(setModalSelections(value)),
+    setParentId: (value: number) => dispatch(setParentId(value))
   }
 }
 

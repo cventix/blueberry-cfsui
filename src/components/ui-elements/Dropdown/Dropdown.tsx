@@ -23,6 +23,7 @@ interface Iprops {
   fileType?: string
   buttonDropDown?: boolean
   marginLeft?: number
+  bordered?: boolean
 }
 
 export const Dropdown: React.FunctionComponent<Iprops> = ({
@@ -36,6 +37,7 @@ export const Dropdown: React.FunctionComponent<Iprops> = ({
   fileType,
   selectable,
   id,
+  bordered,
   children,
   marginLeft,
   buttonDropDown,
@@ -70,7 +72,7 @@ export const Dropdown: React.FunctionComponent<Iprops> = ({
                     selectable={selectable}
                     key={i}
                     id={id}
-                    bordered={false}
+                    bordered={bordered}
                     isSelected={isSelected}
                     onSelect={onSelect}
                     onClick={item.onClick}

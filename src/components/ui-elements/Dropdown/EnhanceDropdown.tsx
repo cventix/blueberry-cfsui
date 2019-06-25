@@ -1,5 +1,5 @@
 import * as React from 'react'
-import ReactDOM from 'react-dom';
+import ReactDOM from 'react-dom'
 
 interface IProps {
   data: any
@@ -11,7 +11,11 @@ interface IProps {
   id?: number
   fileType?: string
   noButton?: boolean
+  bordered?: boolean
+  isOpen?: boolean
   buttonDropDown?: boolean
+  selectable?: boolean
+  alwaysOpen?: boolean
 }
 
 interface IState {
@@ -22,7 +26,7 @@ export const EnhanceDropdown = (ComposedComponent: any) =>
   class extends React.Component<IProps, IState> {
     constructor(props: IProps) {
       super(props)
-      this.state = { isOpen: false }
+      this.state = { isOpen: props.isOpen ? props.isOpen : false }
       this.onToggle = this.onToggle.bind(this)
       this.handleDocumentClick = this.handleDocumentClick.bind(this)
       this.onSelect = this.onSelect.bind(this)
@@ -30,21 +34,20 @@ export const EnhanceDropdown = (ComposedComponent: any) =>
 
     componentDidMount() {
       window.addEventListener('click', this.handleDocumentClick)
-      document.addEventListener('click', this.handleClickOutside, true);
+      document.addEventListener('click', this.handleClickOutside, true)
     }
     componentWillUnmount() {
       window.removeEventListener('click', this.handleDocumentClick)
-      document.removeEventListener('click', this.handleClickOutside, true);
+     document.removeEventListener('click', this.handleClickOutside, true)
     }
-    handleClickOutside = (event:any) => {
-      const domNode = ReactDOM.findDOMNode(this);
-  
+    handleClickOutside = (event: any) => {
+      const domNode = ReactDOM.findDOMNode(this)
       if (!domNode || !domNode.contains(event.target)) {
-        this.setState({ isOpen: false })
+        this.setState({ isOpen:  false  })
       }
-  }
+    }
     handleDocumentClick() {
-      if (this.state.isOpen) {
+      if (this.state.isOpen && this.props.alwaysOpen) {
         this.onToggle()
       }
     }
@@ -68,8 +71,9 @@ export const EnhanceDropdown = (ComposedComponent: any) =>
             noButton={this.props.noButton}
             buttonDropDown={this.props.buttonDropDown}
             id={this.props.id}
-            selectable={false}
+            selectable={this.props.selectable}
             data={this.props.data}
+            bordered={this.props.bordered}
             isSelected={this.props.optionSelected}
             onSelect={this.onSelect}
           />

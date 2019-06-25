@@ -1,0 +1,91 @@
+@import '../../../../styles/global';
+
+/* CHROME */
+#range {
+  -webkit-appearance: none;
+  cursor: pointer;
+  direction: ltr;
+  overflow: hidden;
+  outline: none;
+  background-color: $disabled-dk-gray;
+  border-radius: 5px;
+  margin: 0 4px;
+  &::-webkit-slider-thumb {
+    width: 0;
+    -webkit-appearance: none;
+    height: 22px;
+    cursor: pointer;
+  }
+
+  &::-webkit-slider-runnable-track {
+    height: 0px;
+    -webkit-appearance: none;
+    margin-top: -6px;
+  }
+}
+.blue::-webkit-slider-thumb {
+  background: $lt-blue;
+  box-shadow: -100vw 0 0 calc(100vw + 2px) $lt-blue;
+}
+.blue::-webkit-slider-runnable-track {
+  color: $lt-blue;
+}
+.gray::-webkit-slider-thumb {
+  background: $input-color;
+  box-shadow: -100vw 0 0 calc(100vw + 2px) $input-color;
+}
+.gray::-webkit-slider-runnable-track {
+  color: $input-color;
+}
+
+/* FIREFOX */
+#range {
+  &::-moz-range-thumb {
+    border: none;
+    height: 14px;
+    width: 14px;
+    border-radius: 50%;
+    background-color: $disabled-dk-gray;
+    cursor: pointer;
+  }
+
+  &::-moz-range-track {
+    width: 100%;
+    height: 3px;
+    cursor: pointer;
+
+    border-radius: 5px;
+  }
+}
+.blue::-moz-range-thumb {
+  background: $lt-blue;
+  box-shadow: -100vw 0 0 calc(100vw + 2px) $lt-blue;
+}
+.blue::-moz-range-track {
+  color: $lt-blue;
+}
+.gray::-moz-range-thumb {
+  background: $input-color;
+  box-shadow: -100vw 0 0 calc(100vw + 2px) $input-color;
+}
+.gray::-moz-range-track {
+  color: $input-color;
+}
+
+/* IE*/
+.blue {
+  &::-ms-fill-lower {
+    background-color: $lt-blue;
+  }
+  &::-ms-fill-upper {
+    background-color: $lt-blue;
+  }
+}
+.gray {
+  &::-ms-fill-lower {
+    background-color: $input-color;
+  }
+  &::-ms-fill-upper {
+    background-color: $input-color;
+  }
+}

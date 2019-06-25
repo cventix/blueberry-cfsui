@@ -1,34 +1,29 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Route, Switch } from 'react-router-dom'
+import { t } from 'ttag'
 
 import { Navbar } from '../../components/Navbar/Navbar'
 import { Sidebar } from '../../components/Sidebar/Sidebar'
-
 import { Main } from '../../components/Main/Main'
-import './App.css'
-import styles from '../../components/Content/Content.module.scss'
-
 import Content from '../../components/Content/Content'
 import VMContent from '../../components/VMContent/VMContent'
 import Order from '../../components/VMContent/components/Order/Order'
-import GiftCard from '../../components/VMContent/components/GiftCard/GiftCard'
-import { Table } from '../../components/Table/Table'
 import { Modal } from '../../components/ui-elements/Modal/Modal'
-import { Preview } from '../../components/ui-elements/Preview/Preview'
-import icon from '../../images/buttonIcons/icon-btn-arrow-bottom.svg'
 import CFModal from '../../components/ui-elements/Modal/CreateFolderModal/CreateFolder'
+import { UploadModal } from '../../components/ui-elements/Modal/Uploadmodal/Uploadmodal'
+import MoveFile from '../../components/ui-elements/Modal/MoveFileModal.tsx/MoveFile'
+import { TextInput } from '../../components/ui-elements/Input/Input'
+import { Button } from '../../components/ui-elements/Button/Button'
+import { downloadDirectory, removeMessages, deleteDocument, uploadDocument, urlUpload } from '../../services/internal/store/actions'
+import { setToggle, removeSelection } from '../../services/internal/store/actions/selections'
+import { ToastUndo } from '../../components/ui-elements/Toast/ToastUndo/ToastUndo'
+import toast from '../../components/ui-elements/Toast/Toast'
+import UrlUploadmodal from '../../components/ui-elements/Modal/urlUpload/urlUploadModal'
 // Services
-import { bottle } from '../../services'
-import { PayloadInterface } from '../../services/internal/store/reducers/authReducer'
 import { setRouter } from '../../services/internal/store/actions/router'
 
-import toast from '../../components/ui-elements/Toast/Toast'
-
 import {
-  setUserCredentials,
-  setToken,
-  login,
   removeFolder,
   signout,
   getTrashDocuments,
@@ -39,21 +34,29 @@ import {
   setDocuments,
   setTempDocuments
 } from '../../services/internal/store/actions'
-import { DocumentsInterface } from '../../services/internal/repositories/documents'
 
-import Toast from '../../components/ui-elements/Toast/Toast'
-import { CountdownTimer } from '../../components/ui-elements/CountdownTimer/CountdownTimer'
-import { UploadModal } from '../../components/ui-elements/Uploadmodal/Uploadmodal'
-import MoveFile from '../../components/ui-elements/Modal/MoveFileModal.tsx/MoveFile'
-import { TextInput } from '../../components/ui-elements/Input/Input'
-import { Button } from '../../components/ui-elements/Button/Button'
-import { t } from 'ttag'
-import { downloadDirectory } from '../../services/internal/store/actions'
-import { setToggle } from '../../services/internal/store/actions/selections'
-import { ToastUndo } from '../../components/ui-elements/Toast/ToastUndo'
-const steps = ['انتخاب سیستم عامل', 'انتخاب مدت سرویس', 'انتخاب طرح', 'اطلاعات کارت شبکه', 'انتخاب نام سرور و ثبت نهایی']
-const options = [{ value: 'chocolate', label: 'Chocolate' }, { value: 'strawberry', label: 'Strawberry' }, { value: 'vanilla', label: 'Vanilla' }]
+//styles
+import './App.css'
+import styles from '../../components/Content/Content.module.scss'
+import { IRemoveFolderInput, IDownloadDirectoryInput, IGenerateLinkInput } from '../../services/internal/repositories/documents'
+import urlUploadModal from '../../components/ui-elements/Modal/urlUpload/urlUploadModal'
+function readFileDataAsBase64(e: any) {
+  const file = e[0]
 
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader()
+
+    reader.onload = (event: any) => {
+      resolve(event.target.result)
+    }
+
+    reader.onerror = err => {
+      reject(err)
+    }
+
+    reader.readAsDataURL(file)
+  })
+}
 class App extends Component<
   {
     login: any
@@ -72,14 +75,19 @@ class App extends Component<
     setToggle?: any
     restoreFiles?: any
     setTempDocuments?: any
+    downloadToken?: string
     document?: any
+    match?: any
+    removeMessages?: any
+    deleteDocument?: any
+    uploadDocument?: any
+    urlUpload?: any
+    removeSelection?: any
   },
   {}
 > {
-  private _documents: DocumentsInterface
   constructor(props: any) {
     super(props)
-    this._documents = bottle.container.Documents
   }
 
   state = {
@@ -91,7 +99,9 @@ class App extends Component<
     prevState: '',
     modal: '',
     countDown: 10,
-    toRemove: []
+    toRemove: [],
+    removeItem: [],
+    removedIndex: 0
   }
   timer: any = ''
   countDownTime = 10000
@@ -100,30 +110,97 @@ class App extends Component<
     this.setState({ showModal: false, modalView: '' })
   }
 
-  undo = (id: any) => {
+  undo = (ids: any) => {
+    let documents = this.props.document.documents
+
+    console.log(ids)
     this.setState({
-      toRemove: this.state.toRemove.filter((v: any) => v !== id)
+      toRemove: this.state.toRemove.filter((v: any, index: number) => v[index] !== ids[index])
+    })
+    this.props.removeSelection()
+    this.state.removeItem.map((each: any, index) => {
+      documents.splice(this.state.removedIndex + index, 0, each)
+    })
+
+    this.props.setDocuments(documents)
+  }
+
+  toRemoveFromList = async (type: string) => {
+    let removeItem = this.props.document.documents.filter((obj: any, index: number) => {
+      return this.props.selection.includes(obj.id)
+    })
+
+    let removedIndex = this.props.document.documents.indexOf(removeItem[0])
+    this.setState({
+      toRemove: [...this.state.toRemove, this.props.selection],
+      removeItem,
+      removedIndex
+    })
+    let documents = this.props.document.documents.filter((i: any, index: number) => !this.props.selection.includes(i.id))
+    this.props.setDocuments(documents)
+    console.log(type)
+    let deleteMsg = 'فایل حذف شد'
+    let recoverMsg = 'فایل بازیابی شد'
+    toast.success(<ToastUndo undo={this.undo} id={this.props.selection} msg={type == `بازیابی فایل` ? recoverMsg : deleteMsg} />, {
+      toRemove: [],
+      onClose:
+        type == t`حذف`
+          ? this.onRemoveDocument
+          : t`حذف دائم`
+          ? this.onEraseDocument
+          : `بازیابی فایل`
+          ? await this.props.restoreFiles({ documentIds: this.props.selection })
+          : ''
     })
   }
 
-  notify = () => {
+  toErase = () => {
     this.setState({
       toRemove: [...this.state.toRemove, this.props.selection[0]]
     })
     let documents = this.props.document.documents.filter((i: any) => i.id !== this.props.selection[0])
     this.props.setDocuments(documents)
-    toast.success(<ToastUndo undo={this.undo} id={this.props.selection[0]} />, {
-      toRemove: [],
-      onClose: this.cleanCollection
-    })
+    this.onEraseDocument()
   }
+
   cleanCollection = () => {
+    console.log(this.state.toRemove)
     this.onRemoveDocument()
   }
-  onItemClick = async (e: any) => {
+
+  changeSize = (size: string) => {
+    this.props.setPreviewImage(size)
+    let urlSize = this.props.history.length > 0 && this.props.history.location.pathname.split('/')[4]
+    let url
+    const sizes = ['small', 'medium', 'large']
+    if (!sizes.includes(urlSize)) url = this.props.history.location.pathname.replace('image/', `image/${size}/`)
+    else if (size) url = this.props.history.location.pathname.replace(urlSize, size)
+    else url = this.props.history.location.pathname.replace(`/${urlSize}`, size)
+    this.props.history.push(url)
+  }
+
+  onItemClick = async (e: any, file: any) => {
+    console.log(e)
     if (!e.target) {
       console.log(e)
       switch (e) {
+        case `fileUpload`:
+          console.log(file)
+          // const files = Array.from(file)
+
+          const formData = new FormData()
+          // files.forEach((item: any, index) => {
+          // formData.append('file', item)
+          // console.log(formData)
+
+          // formData.append(`Content-Type`, 'application/x-www-form-urlencoded')
+          // formData.append(`Content-length`, file[0].size)
+          // formData.append(`token`, localStorage.getItem('token') || '{}')
+          // formData.append(`Cookie`, `token="${localStorage.getItem('token') || '{}'}"`)
+          // })
+          console.log(file[0].size)
+          this.props.uploadDocument({ file: readFileDataAsBase64(file), fileSize: file[0].size, fileName: file[0].name })
+          break
         case `دانلود با فرمت zip`:
           await this.props.downloadDirectory({ documentIds: this.props.selection, downloadType: 'zip' })
           break
@@ -134,10 +211,7 @@ class App extends Component<
           await this.props.downloadDirectory({ documentIds: this.props.selection, downloadType: 'iso' })
           break
         case `بازیابی فایل`:
-          await this.props.restoreFiles({ documentIds: this.props.selection })
-          break
-        case t`پوشه جدید`:
-          this.setState({ modal: 'createFolder', showModal: true })
+          this.toRemoveFromList(e)
           break
         case t`پوشه جدید`:
           this.setState({ modal: 'createFolder', showModal: true })
@@ -146,42 +220,41 @@ class App extends Component<
           if (this.props.selection && this.props.selection.length > 0) {
             this.setState({ modal: 'moveFile', showModal: true })
           } else {
-            this.setState({ modal: 'noSelection', showModal: true })
+            toast.error('You havent selected anything')
           }
           break
         case t`حذف`:
           if (this.props.selection && this.props.selection.length > 0) {
-            // this.setState({ modal: 'remove', showModal: true })
-            this.notify()
+            this.toRemoveFromList(e)
             this.props.setTempDocuments(this.props.document)
-            console.log(this.props.selection[0])
-
-            this.timer = setTimeout(() => {
-              console.log(1)
-              // this.onRemoveDocument()
-              // this.setDocuments({})
-              this.timer = 0
-            }, this.countDownTime)
           } else {
-            this.setState({ modal: 'noSelection', showModal: true })
+            toast.error('You havent selected anything')
           }
+          break
+        case t`حذف دائم`:
+          this.toRemoveFromList(e)
           break
         case t`آپلود فایل از URL`:
           this.setState({ modal: 'urlUpload', showModal: true })
         case t`بزرگ`:
+          this.changeSize('large')
+          break
         case t`سایز اصلی`:
-          this.props.setPreviewImage('large')
+          this.changeSize('')
           break
         case t`متوسط`:
-          this.props.setPreviewImage('medium')
+          this.changeSize('medium')
           break
         case t`کوچک`:
-          this.props.setPreviewImage('small')
+          this.changeSize('small')
           break
         case t`دانلود فایل`:
           let uuid = this.props.item.uuid
-
-          this.props.generateDownloadLink(uuid)
+          let result = await this.props.generateDownloadLink(uuid)
+          setTimeout(() => {
+            if (result && this.props.downloadToken && this.props.downloadToken.length > 0)
+              window.location.href = `http://cdn.persiangig.com/dl/${this.props.downloadToken}/${this.props.item.uuid}/${this.props.item.name}`
+          }, 1000)
           break
         default:
           break
@@ -216,25 +289,31 @@ class App extends Component<
         case t`کپی کن`:
           break
       }
-    }
-  }
-
-  onCancle = () => {
-    this.setState({ modal: '', countDownTime: 10000 })
-    if (this.timer) {
-      clearTimeout(this.timer)
+    } else if (e.target.files) {
+      console.log(e.target.files)
     }
   }
 
   onRemoveDocument = async () => {
+    let table = this.props.document.documents
+    if (this.state.toRemove.length > 0)
+      try {
+        let result = await this.props.removeFolder({ folderId: this.state.toRemove })
+        table = table.filter((x: any, index: number) => x.id !== result.payload.folderId[index])
+        this.props.setDocuments(table)
+        this.setState({ showRemove: false })
+      } catch (error) {
+        console.log('E: ', error)
+      }
+  }
+  onEraseDocument = async () => {
     try {
-      let result = await this.props.removeFolder({ folderId: this.props.selection })
+      let result = await this.props.deleteDocument({ folderId: this.props.selection })
       this.setState({ showRemove: false })
     } catch (error) {
       console.log('E: ', error)
     }
   }
-
   toggleHamburgerMenu() {
     this.setState({
       isOpenMenu: !this.state.isOpenMenu
@@ -246,53 +325,33 @@ class App extends Component<
       isOpenSignout: !this.state.isOpenSignout
     })
   }
-  componentDidMount() {
-    this.props.setRouter(this.props.history)
-  }
 
+  componentWillReceiveProps(nextProps: any, prevProps: any) {
+    console.log(prevProps)
+    console.log(prevProps.history && nextProps.history.location.pathname !== prevProps.history.location.pathname)
+    if (nextProps.messages.errors.length > 0) {
+      toast.error(nextProps.messages.errors)
+      this.props.removeMessages()
+    }
+
+    if (nextProps.messages.msgs.length > 0) {
+      toast.success(nextProps.messages.msgs)
+      this.props.removeMessages()
+    }
+  }
   render() {
     let modal
     switch (this.state.modal) {
       case 'createFolder':
         modal = <CFModal handleCFClose={this.handleClose} showModal={this.state.showModal} />
         break
-      // case 'remove':
-      //   modal = (
-      //     // <Toast level={'success'} caret={false}>
-      //     //   <CountdownTimer startTimeInSeconds={this.state.countDown} />
-      //     //   {t`پوشه حذف شد`}
-      //     //   <div className={styles.undo} onClick={this.onCancle}>
-      //     //     {t`انصراف`}
-      //     //   </div>
-      //     // </Toast>
-      //   )
-      // break
       case 'moveFile':
         modal = <MoveFile handleClose={this.handleClose} showModal={this.state.showModal} />
         break
       case 'urlUpload':
-        modal = (
-          <UploadModal
-            show={this.state.showModal}
-            width={640}
-            handleClose={this.handleClose}
-            title={t`آپلود از آدرس اینترنتی`}
-            formDescription={t`برای آپلود آدرس اینترنتی خود را در فرم زیر وارد نمایید`}
-          >
-            <div className={styles.row}>
-              <TextInput style={{ width: 300 }} name={'urlInput'} />
-              <Button className={['pg-btnPrimary100', 'pg-btnSm']}>{t`آپلود`}</Button>
-            </div>
-          </UploadModal>
-        )
+        modal = <UrlUploadmodal showModal={this.state.showModal} handleCFClose={this.handleClose} />
         break
-      case 'noSelection':
-        modal = (
-          <Modal show={this.state.showModal} handleClose={this.handleClose}>
-            You havent selected anything
-          </Modal>
-        )
-        break
+
       default:
         break
     }
@@ -309,9 +368,7 @@ class App extends Component<
           open={this.state.isOpenSignout}
         />
         <Sidebar
-          showModal={this.state.showcFmodal}
           onItemClick={this.onItemClick}
-          handleCFClose={this.handleClose}
           open={this.state.isOpenMenu}
           onClickOverlay={() => {
             this.toggleHamburgerMenu()
@@ -331,11 +388,20 @@ class App extends Component<
   }
 }
 
-const mapStateToProps = (state: any) => ({ document: state.document, selection: state.selection.selection, item: state.sidebar.item })
+const mapStateToProps = (state: any) => ({
+  document: state.document,
+  selection: state.selection.selection,
+  item: state.sidebar.item,
+  messages: state.messages,
+  downloadToken: state.sidebar.downloadToken
+})
 
 const mapDispatchToProps = (dispatch: any) => {
   return {
-    removeFolder: (value: any) => dispatch(removeFolder(value)),
+    removeFolder: (value: IRemoveFolderInput) => dispatch(removeFolder(value)),
+    deleteDocument: (value: any) => dispatch(deleteDocument(value)),
+    generateDownloadLink: (value: IGenerateLinkInput) => dispatch(generateDownloadLink(value)),
+    downloadDirectory: (value: IDownloadDirectoryInput) => dispatch(downloadDirectory(value)),
     signout: () => dispatch(signout()),
     getTrashDocuments: () => dispatch(getTrashDocuments()),
     getSharedDocuments: () => dispatch(getSharedDocuments()),
@@ -343,10 +409,12 @@ const mapDispatchToProps = (dispatch: any) => {
     setTempDocuments: (value: any) => dispatch(setTempDocuments(value)),
     setRouter: (value: any) => dispatch(setRouter(value)),
     setPreviewImage: (value: any) => dispatch(setPreviewImage(value)),
-    generateDownloadLink: (value: any) => dispatch(generateDownloadLink(value)),
-    downloadDirectory: (value: any) => dispatch(downloadDirectory(value)),
     setToggle: (value: any) => dispatch(setToggle(value)),
-    restoreFiles: (value: any) => dispatch(restoreFiles(value))
+    restoreFiles: (value: any) => dispatch(restoreFiles(value)),
+    removeMessages: () => dispatch(removeMessages()),
+    uploadDocument: (value: any) => dispatch(uploadDocument(value)),
+    urlUpload: (value: any) => dispatch(urlUpload(value)),
+    removeSelection: () => dispatch(removeSelection())
   }
 }
 

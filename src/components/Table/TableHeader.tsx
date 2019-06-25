@@ -1,39 +1,44 @@
 import React, { Component } from 'react'
 import { t } from 'ttag'
-import { TableItem } from './TableItem'
+import TableItem  from './TableItem'
 import { IconLink } from '../ui-elements/IconLink'
+
+//icon
 import newFolderIcon from '../../images/sidebarIcons/newfolder.svg'
 
+//styles
 import styles from './Table.module.scss'
+import { connect } from 'react-redux'
 
-export default interface Iprops {
-  titles: any
+export interface Iprops {
+  titles: Array<string>
   dropdown?: boolean
-  onSort?: any
-  onCheckAll?: any
   checkAll?: boolean
   tabletView?: boolean
-  onOpenCFModal?: any
+  selectAll?: boolean
+  onSort?: (sortBy: string, type?: string | undefined) => void
+  onCheckAll?: () => void
+  onOpenCFModal?: () => void
 }
 
-export const TableHeader: React.FunctionComponent<Iprops> = ({ titles,onOpenCFModal, dropdown, onSort, onCheckAll, tabletView }) => {
+const TableHeader: React.FunctionComponent<Iprops> = ({ titles, onOpenCFModal, dropdown, onSort, selectAll, onCheckAll, tabletView }) => {
   const altIcon = 'Icon'
   return (
     <thead>
       {titles && (
         <tr>
-          {titles.map((label: any, i: number) => {
-
+          {titles.map((label: string, i: number) => {
             if (label !== 'type' && label !== 'id' && label !== 'fullPath') {
               return (
                 <TableItem
                   key={i}
                   label={label}
-                  checkbox={label === 'name' ? true : false}
                   onCheckAll={onCheckAll}
-                  sortable={true}
-                  sortType={label === t`نام` ? 'alphabet' : ' '}
                   onSort={onSort}
+                  checked={selectAll}
+                  checkbox={label === t`نام` ? true : false}
+                  sortable={label !== t`مالک` && true}
+                  sortType={label === t`نام` ? 'alphabet' : ' '}
                   className={label === t`نام` ? ['header', 'show'] : ['header']}
                 />
               )
@@ -42,7 +47,7 @@ export const TableHeader: React.FunctionComponent<Iprops> = ({ titles,onOpenCFMo
 
           {dropdown && tabletView ? (
             <td className={styles.show}>
-              <IconLink className={styles.icn} icon={newFolderIcon} iconAlt={`new-folder ${altIcon}`} label={t`پوشه جدید`} onClick={onOpenCFModal}/>
+              <IconLink className={styles.icn} icon={newFolderIcon} iconAlt={`new-folder ${altIcon}`} label={t`پوشه جدید`} onClick={onOpenCFModal} />
             </td>
           ) : (
             <td />
@@ -52,4 +57,6 @@ export const TableHeader: React.FunctionComponent<Iprops> = ({ titles,onOpenCFMo
     </thead>
   )
 }
+const mapStateToProps = (state: any) => ({ selectAll: state.selection.selectAll })
 
+export default connect(mapStateToProps)(TableHeader)

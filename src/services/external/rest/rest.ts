@@ -3,14 +3,14 @@ import { ConfigInterface } from '../../internal/config/config'
 interface InputInterface {
   url: string
   headers?: object
-  body?: object
+  body?: object | string
 }
 
 interface IBaseInput {
   method?: string
   url: string
   headers?: object
-  body?: object
+  body?: object | string
 }
 
 export interface RestInterface {
@@ -27,7 +27,7 @@ class Rest implements RestInterface {
   constructor(config: ConfigInterface, storage: StorageInterface) {
     this._config = config
     this._storage = storage
-    window.document.cookie = `token="${this._storage.getItem('token')}"`
+    window.document.cookie = `token="${localStorage.getItem('token')}"`
     this._headers = {
       'Content-Type': 'application/json',
       Accept: 'application/json',
@@ -45,6 +45,7 @@ class Rest implements RestInterface {
       if (headers) this._headers = { ...this._headers, ...headers }
       console.log(`%c[HEADERS]:`, 'font-weight: bold; color: green;', this._headers)
       console.log(`%c[${method}]: ${url}`, 'font-weight: bold; color: #3e3e3e;')
+
       if (this._headers.token == null) {
         this._headers.token = localStorage.getItem('token')
       }
@@ -53,10 +54,11 @@ class Rest implements RestInterface {
         ;(httpInput as any).data = body
       }
       console.log('httpInput', httpInput)
-      const { data } = await this._http(httpInput)
-      return data
+      const { data, status } = await this._http(httpInput)
+
+      return data ? data : status
     } catch ({ response: { data } }) {
-      // console.log(error.response)
+      if (data.errors[0].code === 403) window.location.replace('/login')
       throw data
     }
   }
@@ -76,7 +78,7 @@ class Rest implements RestInterface {
       throw error
     }
   }
-
+  
   async put({ url, headers, body }: InputInterface) {
     try {
       return await this._base({ method: 'PUT', url, headers, body })

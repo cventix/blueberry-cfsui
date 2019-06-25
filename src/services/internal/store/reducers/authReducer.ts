@@ -3,12 +3,13 @@ import { actionTypes } from '../actions/types'
 // Interfaces
 export interface StateInterface {
   token: string
-  username: string
+  username: string | null
 }
 
 export interface PayloadInterface {
   token?: string
   username?: string
+  email?: string
 }
 
 export interface ActionInterface {
@@ -18,7 +19,7 @@ export interface ActionInterface {
 
 export const initialState: StateInterface = {
   token: '',
-  username: ''
+  username: localStorage.getItem('user') || '{}'
 }
 
 const authReducer = (state: StateInterface = initialState, action: any) => {
@@ -38,7 +39,8 @@ const authReducer = (state: StateInterface = initialState, action: any) => {
       return {
         ...state,
         token: '',
-        username: ''
+        username: '',
+      
       }
     default:
       return state

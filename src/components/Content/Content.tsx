@@ -1,72 +1,55 @@
 import React from 'react'
-import { withRouter } from 'react-router'
 import { connect } from 'react-redux'
 import { t } from 'ttag'
 
 // components
-import { Table } from '../Table/Table'
-import { Grid } from '../Grid/Grid'
 import { Button } from '../ui-elements/Button/Button'
 import { IconLink } from '../ui-elements/IconLink'
-import { UploadModal } from '../ui-elements/Uploadmodal/Uploadmodal'
-import { RenameFile } from '../ui-elements/Modal/ModalContent/RenameFile'
-import { Icon } from '../ui-elements/Icon'
-import { CountdownTimer } from '../ui-elements/CountdownTimer/CountdownTimer'
-import Toast from '../ui-elements/Toast/Toast'
 import { ContentHeader } from './ContentHeader'
-import { ContentBody } from './ContentBody'
-import CFModal from '../ui-elements/Modal/CreateFolderModal/CreateFolder'
-import Config from '../../services/internal/config/config'
+import ContentBody from './ContentBody'
 
 // Services
-import { bottle } from '../../services'
 import {
   getDocuments,
-  createFolder,
-  renameFolder,
-  removeFolder,
-  moveDocuments,
-  shareDocuments,
-  setSidebarItems
+  setSidebarItems,
+  getTrashDocuments,
+  getSharedDocuments,
+  setParentId,
+  setEditStatus,
+  setRenameText
 } from '../../services/internal/store/actions'
-import { formatDate } from '../../services/internal/utils/formatDates'
-import { formatBytes } from '../../services/internal/utils/formatBytes'
 import { sliceData } from '../../services/internal/utils/sliceData'
-import { setSelections } from '../../services/internal/store/actions/selections'
+import { setSelections, removeSelection, setToggle, selectAll } from '../../services/internal/store/actions/selections'
+import { IGenerateLinkInput, IRenameFolderInput, IRemoveFolderInput } from '../../services/internal/repositories/documents'
+import { sortData } from '../../services/internal/utils/sortData'
 
 // styles & icons
-import loading from '../../images/loading/tail-spin.2.svg'
 import arrowBottom from '../../images/buttonIcons/icon-btn-arrow-bottom.svg'
 import styles from './Content.module.scss'
-import { Preview } from '../ui-elements/Preview/Preview'
-import image from '../../images/image.jpg'
-const sort = (data: object[]) => {
-  var sortOrder = ['folder', 'image', 'music']
-  data.sort(function(a: any, b: any) {
-    return sortOrder.indexOf(a.type) - sortOrder.indexOf(b.type)
-  })
-  return data
-}
+
+import ModalContent from './SubContent/ModalContent'
+import { ItemInterface } from '../../services/internal/store/reducers/documentReducer'
 
 export interface IProps {
   getDocuments?: any
-  createFolder?: any
-  renameFolder?: any
-  moveDocuments?: any
-  shareDocuments?: any
-  removeFolder?: any
   data?: any
   history?: any
+  setEditStatus?: any
   location?: any
-  prevProps?: any
-  item?: any
-  prevState?: any
+  item: ItemInterface
   document?: any
   loading?: boolean
-  auth?: any
-  setSelections?: any
-  setItem?: any
-  image?: any
+  setSelections: (e: Array<number>) => void
+  setRenameText?: any
+  setItem: (e: any) => void
+  selection: Array<number>
+  image?: string
+  removeSelection?: any
+  getSharedDocuments?: any
+  getTrashDocuments?: any
+  setToggle?: any
+  setParentId?: any
+  selectAll?: any
 }
 
 export interface navigateObject {
@@ -81,9 +64,6 @@ export interface IState {
   table: any
   checkAll: boolean
   view: string
-  width: number
-  height: number
-  optionSelected?: number
   ascendingSize: boolean
   ascendingDate: boolean
   ascendingName: boolean
@@ -94,8 +74,7 @@ export interface IState {
 
 class Content extends React.Component<IProps, IState> {
   step = 10
-  timer: any = 0
-  countDownTime = 3000
+
   constructor(props: any) {
     super(props)
     this.state = {
@@ -104,8 +83,6 @@ class Content extends React.Component<IProps, IState> {
       checkAll: false,
       selectedArray: [],
       view: 'grid',
-      width: 0,
-      height: 0,
       showMore: false,
       modalView: '',
       ascendingSize: false,
@@ -116,51 +93,74 @@ class Content extends React.Component<IProps, IState> {
       showToaster: false,
       description: '',
       showToast: false,
-      message: ''
+      message: '',
+      toRemove: []
     }
-
-    this.updateWindowDimensions = this.updateWindowDimensions.bind(this)
   }
 
   async componentDidMount() {
-    this.updateWindowDimensions()
-    window.addEventListener('resize', this.updateWindowDimensions)
-
-    if (this.props.location.pathname === '/fm') {
+    if (this.props.location.pathname === '/fm' || this.props.location.pathname === '/fm/' || this.props.location.pathname.includes('preview')) {
       this.onGetDocument(false)
+      this.props.setToggle([false, false])
       this.setState({ table: this.props.data })
     } else {
-      this.onGetDocument(true, this.props.location.pathname.split('/fm/')[1])
+      if (this.props.location.pathname.split('/fm/')[1].includes('trash')) {
+        this.props.getTrashDocuments()
+        this.props.setToggle([false, true])
+      } else if (this.props.location.pathname.split('/fm/')[1].includes('shared')) {
+        this.props.getSharedDocuments()
+        this.props.setToggle([true, false])
+      } else this.onGetDocument(true, this.props.location.pathname.split('/fm/')[1], this.props.item.id)
     }
 
     this.setState({ showMore: this.state.table.length > 10 ? true : false })
   }
 
   /**back button */
-  componentDidUpdate(prevProps: any, prevState: any) {
-    if (this.props.location.pathname !== prevProps.location.pathname && this.props.location.pathname === '/fm') {
-      this.onGetDocument(false)
+  componentDidUpdate(prevProps: any) {
+    if (
+      this.props.location.pathname !== prevProps.location.pathname &&
+      this.props.location.pathname.includes('/fm') &&
+      !prevProps.location.pathname.includes('/preview') &&
+      !this.props.location.pathname.includes('/preview')
+    ) {
+      if (!this.props.location.pathname.split('/fm')[1] || this.props.location.pathname.split('/fm')[1] == '/') {
+        this.onGetDocument(false)
+        this.props.setToggle([false, false])
+      } else if (
+        this.props.location.pathname.split('/fm')[1] !== '/trash' &&
+        this.props.location.pathname.split('/fm')[1] !== '/shared' &&
+        this.props.location.pathname.includes('/preview')
+      ) {
+        console.log(this.props.location.pathname.split('/fm')[1])
+        this.onGetDocument(true, this.props.location.pathname.split('/fm/')[1], this.props.item.id)
+      }
+    } else if (this.props.location.pathname.includes('/preview') && this.state.modalView === '') {
+      this.props.history.push('/fm')
     }
   }
 
   /**
    * gets documnet if children goes inside folder
    */
-  onGetDocument = async (isChildren?: boolean, path?: any) => {
+  onGetDocument = async (isChildren?: boolean, path?: any, parentId?: number) => {
     if (isChildren == true) {
       try {
-        await this.props.getDocuments({ isChildren: true, path })
+        this.props.setParentId(parentId)
+        await this.props.getDocuments({ isChildren: true, path, parentId })
       } catch (error) {
         console.log('E: ', error)
       }
     } else {
       try {
+        this.props.setParentId(0)
         await this.props.getDocuments()
       } catch (error) {
         console.log('E: ', error)
       }
     }
   }
+
   turnOffbutton = () => {
     if (this.state.showMore !== false) this.setState({ showMore: false })
   }
@@ -169,15 +169,14 @@ class Content extends React.Component<IProps, IState> {
    * @param nextProps
    */
   componentWillReceiveProps(nextProps: any) {
-    console.log(nextProps)
     if (nextProps.item) {
       this.setState({
         item: nextProps.item
       })
     }
-
+    console.log(nextProps)
     if (nextProps.selection.length == 0 || (nextProps.selection.length > 0 && nextProps.document.documents !== this.state.mainTable)) {
-      console.log('aha')
+      console.log(sliceData({ array: nextProps.document.documents }))
       this.setState({
         table: sliceData({ array: nextProps.document.documents }),
         showMore: nextProps.document.documents.length > 10,
@@ -195,55 +194,27 @@ class Content extends React.Component<IProps, IState> {
     })
   }
 
-  /**
-   * set view according to viewport
-   */
-  componentWillUnmount() {
-    window.removeEventListener('resize', this.updateWindowDimensions)
-  }
-
-  updateWindowDimensions() {
-    this.setState({ width: window.innerWidth, height: window.innerHeight })
-  }
-
-  onSort = (sortBy: string, type?: string) => {
-    console.log(sortBy)
+  //sort types
+  onSort = (sortBy: string) => {
     let table = this.state.table
     switch (sortBy) {
       case t`نام`:
-        table &&
-          table.sort((a: any, b: any) => {
-            if (this.state.ascendingDate) {
-              if (a.name < b.name) {
-                return -1
-              }
-              if (a.name > b.name) {
-                return 1
-              }
-              return 0
-            } else {
-              if (b.name < a.name) {
-                return -1
-              }
-              if (b.name > a.name) {
-                return 1
-              }
-              return 0
-            }
-          })
-        break
-      case t`حجم`:
-        table.sort((a: any, b: any) => {
-          if (a.size) {
-            if (this.state.ascendingSize) return b.size - a.size
-            else return a.size - b.size
-          }
+        table = sortData(table, sortBy, this.state.ascendingName)
+        this.setState({
+          ascendingName: !this.state.ascendingName
         })
         break
+      case t`حجم`:
+        table = sortData(table, sortBy, this.state.ascendingSize)
+        this.setState({
+          ascendingSize: !this.state.ascendingSize
+        })
+
+        break
       case t`تاریخ`:
-        table.sort((a: any, b: any) => {
-          if (this.state.ascendingDate) return new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime()
-          else return new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
+        table = sortData(table, sortBy, this.state.ascendingDate)
+        this.setState({
+          ascendingDate: !this.state.ascendingDate
         })
         break
     }
@@ -251,15 +222,23 @@ class Content extends React.Component<IProps, IState> {
     this.setState({
       table: sliceData({ array: table }),
       mainTable: table,
-      filteredTable: this.state.table,
-      ascendingSize: !this.state.ascendingSize,
-      ascendingDate: !this.state.ascendingDate,
-      ascendingName: !this.state.ascendingName
+      filteredTable: this.state.table
     })
   }
+  handleChange = (event: any) => {
+    this.props.setRenameText({ [event.target.name]: event.target.value })
+  }
 
+  //on check all documents and uncheck
   onCheckAll = () => {
-    this.setState({ checkAll: !this.state.checkAll })
+    let ids = this.state.table.map((a: any) => a.id)
+    if (this.props.selection.sort().toString() !== ids.sort().toString()) {
+      this.props.setSelections(ids)
+      this.props.selectAll(true)
+    } else {
+      this.props.removeSelection()
+      this.props.selectAll(false)
+    }
   }
 
   //switch between grid and list
@@ -267,90 +246,41 @@ class Content extends React.Component<IProps, IState> {
     this.setState({ view })
   }
 
-  onSelect = (optionSelected: number) => {
-    this.setState({ optionSelected })
-  }
-
   // navigate to directories
-  handleNavigate = ({ e, name, id, uuid, item }: navigateObject) => {
+  handleNavigate = ({ e, name, id, item }: navigateObject) => {
     if (e.target.tagName != 'INPUT') {
       let discriminator = this.state.table.filter((obj: any) => {
         return obj.name == name
       })[0].discriminator
       if (discriminator === 'D') {
         this.props.history.push(`${this.props.history.location.pathname}/${name}`)
-        this.onGetDocument(true, name)
+        this.onGetDocument(true, `${this.props.history.location.pathname.split('fm/')[1]}`, item.id)
       } else {
         this.props.history.push(`fm/preview/${item.genericType}${item.genericType === 'image' ? '/' + this.props.image : ''}/${name}`)
         this.props.setItem(item)
-        console.log('hi')
         this.setState({ modalView: 'previewModal', previewId: id, fileName: name, [`item${id}`]: item })
       }
     }
   }
+
   onOpenCFModal = () => {
     this.setState({ modalView: 'createFolder', showModal: true })
   }
 
-  onRenameDocument = async (e: any) => {
-    if (e) e.preventDefault()
-    let table = this.state.table
-    try {
-      let result = await this.props.renameFolder({ folderId: this.state.renameFileId, name: this.state.renameInput })
-      table.map((each: any) => {
-        if (each.id === this.state.renameFileId) each.name = result.payload.name
-      })
-      this.setState({ showModal: false, modalView: 'modalView', table, showToaster: true })
-    } catch (error) {
-      console.log('E: ', error)
-    }
+  updateTable = (table: any) => {
+    if (this.state.table !== table) this.setState({ table })
+    this.closeModal()
   }
 
-  onRemoveDocument = async () => {
-    let table = this.state.table
-    try {
-      let result = await this.props.removeFolder({ folderId: this.state.isSelected })
-      table = table.filter((x: any) => x.id !== result.payload.folderId)
-      this.setState({ showToaster: false, table })
-    } catch (error) {
-      console.log('E: ', error)
-    }
-  }
-
-  changeHandler = (event: any) => {
-    this.setState({
-      [event.target.name]: event.target.value
-    })
-  }
-
-  // rename modal
-  openRenameModal = (renameFileId: number) => {
-    let renameInput = this.state.table.filter((obj: any) => {
+  // open modal
+  openModal = (renameFileId: number, modalView?: string) => {
+    let item = this.state.table.filter((obj: any) => {
       return obj.id === renameFileId
-    })[0].name
-    this.setState({ modalView: 'renameFile', showModal: true, renameInput, renameFileId })
-  }
-
-  handleClose = () => {
-    if (this.props.history.location.pathname.includes('preview')) this.props.history.goBack()
-    this.setState({ showModal: false, renameFileId: '', modalView: '' })
-  }
-
-  // remove modal
-  openRemoveModal = (isSelected: number) => {
-    this.setState({ showToaster: true, isSelected, modalView: 'removeFile', countDown: this.countDownTime / 1000 })
-    this.timer = setTimeout(() => {
-      this.onRemoveDocument()
-      this.setState({ showToaster: false, modalView: '' })
-      this.timer = 0
-    }, this.countDownTime)
-  }
-
-  onCancle = () => {
-    this.setState({ showToaster: false, modalView: '' })
-    if (this.timer) {
-      clearTimeout(this.timer)
-    }
+    })[0]
+    this.props.setItem(item)
+    // if (modalView == t`تغییر نام`) this.props.setEditStatus(renameFileId)
+    // else
+     this.setState({ modalView, showModal: true })
   }
 
   // handle search
@@ -358,7 +288,6 @@ class Content extends React.Component<IProps, IState> {
     let filteredTable = this.state.table.filter((obj: any) => {
       return obj.cfsFullPath.includes(val)
     })
-
     this.setState({
       filteredTable
     })
@@ -366,147 +295,104 @@ class Content extends React.Component<IProps, IState> {
 
   // on item check
   onCheck = (id: number) => {
-    let { selectedArray } = this.state
-    console.log(id)
+    let selectedArray = this.props.selection
     if (selectedArray.indexOf(id) === -1) selectedArray.push(id)
     else
-      selectedArray = selectedArray.filter(function(obj) {
+      selectedArray = selectedArray.filter((obj: any) => {
         return obj !== id
       })
-    console.log(selectedArray)
     this.props.setSelections(selectedArray)
     this.setState({ selectedArray })
+  }
+
+  closeModal = () => {
+    if (this.state.modalView) this.setState({ modalView: '' })
   }
 
   public render() {
     let dropDownData = [
       { label: t`دانلود فایل` },
-      { label: t`تغییر نام`, onClick: this.openRenameModal },
-      { label: t`اشتراک گذاری` },
+      { label: t`تغییر نام`, onClick: this.openModal },
       { label: t`افزودن توضیح` },
       { label: t`دریافت لینک‌ها` },
-      { label: t`حذف فایل`, onClick: this.openRemoveModal }
+      { label: t`حذف فایل`, onClick: this.openModal }
     ]
-    let modal, toaster, preview
 
-    switch (this.state.modalView) {
-      case 'renameFile':
-        modal = (
-          <UploadModal
-            show={this.state.showModal}
-            width={640}
-            title={'تغییر نام'}
-            formDescription={' نام جدید را در فرم زیر وارد نمایید'}
-            handleClose={this.handleClose}
-          >
-            <RenameFile value={this.state.renameInput} changeHandler={this.changeHandler} handleSubmit={this.onRenameDocument} />
-          </UploadModal>
-        )
-        break
-      // case 'removeFile':
-      //   toaster = (
-      //     <Toast level={'success'} caret={false}>
-      //       <CountdownTimer startTimeInSeconds={this.state.countDown} />
-      //       پوشه حذف شد
-      //       <div className={styles.undo} onClick={this.onCancle}>
-      //         انصراف
-      //       </div>
-      //     </Toast>
-      //   )
-      //   break
-      // case 'renameDone':
-      //   toaster = (
-      //     <Toast level={'success'} caret={false}>
-      //       نام تغییر یافت
-      //     </Toast>
-      //   )
-      //   break
-      case 'previewModal':
-        preview = (
-          <Preview show={true} type={'music'} item={this.state[`item${this.state.previewId}`]} handleClose={this.handleClose}>
-            {this.props.item.genericType === 'image' ? (
-              <img src={`http://cdn.persiangig.com/preview/${this.props.item.uuid}/${this.props.image}/${this.props.item.name}`} />
-            ) : (
-              this.props.item.genericType && <Icon mimetype={this.props.item.genericType} style={{ width: 300 }} />
-            )}
-          </Preview>
-        )
-        break
-      case 'createFolder':
-        modal = <CFModal handleCFClose={this.handleClose} showModal={this.state.showModal} />
-        break
-    }
-    const history = [{ title: t`پوشه اصلی`, link: '/fm', active: false }]
-    if (this.props.location.pathname !== '/fm')
-      history.push({ title: this.props.location.pathname.split('/fm/'), link: this.props.location.pathname.split['/'], active: true })
-    console.log(this.state.filteredTable)
-    return !this.props.loading && this.state.table && this.state.table.length > 0 ? (
+    return (
       <React.Fragment>
         <ContentHeader
           view={this.state.view}
-          history={history}
           switchView={this.switchView}
+          table={this.state.filteredTable}
           handleSearchInput={(e: any) => this.onChangeSearchInput(e)}
         />
         <ContentBody
           turnOffbutton={this.turnOffbutton}
-          view={this.state.view}
-          onOpenCFModal={this.onOpenCFModal}
-          username={this.props.auth.username}
-          width={this.state.width}
-          table={this.state.filteredTable}
-          dropDownData={dropDownData}
-          optionSelected={this.state.optionSelected}
-          onSelect={this.onSelect}
           onCheckAll={this.onCheckAll}
           onCheck={this.onCheck}
+          view={this.state.view}
+          onOpenCFModal={this.onOpenCFModal}
+          table={this.state.filteredTable}
+          dropDownData={dropDownData}
+          handleChange={this.handleChange}
+          loading={this.props.loading}
+          openModal={this.openModal}
+          loadingStyle={styles.loading}
           onSort={this.onSort}
           handleNavigate={this.handleNavigate}
-          checkAll={this.state.checkAll}
         />
-        {modal}
-        {preview}
-        {toaster}
-        <div className={styles.footer}>
-          <Button
-            className={[this.state.showMore ? 'pg-btnDefault0' : 'pg-btnDefault100', 'pg-btnLg']}
-            disabled={!this.state.showMore}
-            onClick={this.showMore}
-          >
-            <IconLink icon={arrowBottom} className={styles.arrow} iconAlt={`new-folder`} label={t`نمایش بیشتر`} />
-          </Button>
-        </div>
+        {this.state.modalView && (
+          <ModalContent
+            history={this.props.history}
+            closeModal={this.closeModal}
+            modalView={this.state.modalView}
+            table={this.state.table}
+            updateTable={this.updateTable}
+          />
+        )}
+
+        {!this.props.loading && this.state.filteredTable.length > 0 && (
+          <div className={styles.footer}>
+            <Button
+              className={[this.state.showMore ? 'pg-btnDefault0' : 'pg-btnDefault100', 'pg-btnLg']}
+              disabled={!this.state.showMore}
+              onClick={this.showMore}
+            >
+              <IconLink icon={arrowBottom} className={styles.arrow} iconAlt={`new-folder`} label={t`نمایش بیشتر`} />
+            </Button>
+          </div>
+        )}
       </React.Fragment>
-    ) : (
-      <div className={styles.loading}>{this.props.loading ? <Icon src={loading} /> : 'داده ای وجود ندارد'}</div>
     )
   }
 }
 
 const mapStateToProps = (state: IState) => ({
-  state: state,
   document: state.document,
   loading: state.loading.isLoading,
-  auth: state.auth,
   item: state.sidebar.item,
   image: state.sidebar.image,
-  selection: state.selection.selection
+  selection: state.selection.selection,
+  fullScreen: state.selection.fullScreen
 })
 
 const mapDispatchToProps = (dispatch: any) => {
   return {
-    getDocuments: (value: any) => dispatch(getDocuments(value)),
-    createFolder: () => dispatch(createFolder()),
-    renameFolder: (value: any) => dispatch(renameFolder(value)),
-    moveDocuments: () => dispatch(moveDocuments()),
-    shareDocuments: () => dispatch(shareDocuments()),
-    removeFolder: (value: any) => dispatch(removeFolder(value)),
-    setSelections: (value: any) => dispatch(setSelections(value)),
-    setItem: (value: any) => dispatch(setSidebarItems(value))
+    getDocuments: (value: IGenerateLinkInput) => dispatch(getDocuments(value)),
+    setSelections: (value: Array<number>) => dispatch(setSelections(value)),
+    setItem: (value: any) => dispatch(setSidebarItems(value)),
+    removeSelection: () => dispatch(removeSelection()),
+    getTrashDocuments: () => dispatch(getTrashDocuments()),
+    setToggle: (value: any) => dispatch(setToggle(value)),
+    getSharedDocuments: () => dispatch(getSharedDocuments()),
+    setParentId: (value: any) => dispatch(setParentId(value)),
+    setEditStatus: (value: any) => dispatch(setEditStatus(value)),
+    selectAll: (value: boolean) => dispatch(selectAll(value)),
+    setRenameText: (value: any) => dispatch(setRenameText(value))
   }
 }
 
-export default withRouter(connect(
+export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(Content) as any)
+)(Content)

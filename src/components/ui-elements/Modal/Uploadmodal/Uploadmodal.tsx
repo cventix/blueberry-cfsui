@@ -1,7 +1,7 @@
 import * as React from 'react'
-import { Modal } from '../Modal/Modal'
-import { TextInput } from '../Input/Input'
-import { Button } from '../Button/Button'
+import { Modal } from '../Modal'
+import { TextInput } from '../../Input/Input'
+import { Button } from '../../Button/Button'
 
 import styles from './Uploadmodal.module.scss'
 

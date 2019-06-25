@@ -7,12 +7,11 @@ export const login = actionBuilder(actionTypes.INIT_LOGIN, 'payload')
 
 export const setToken = actionBuilder(actionTypes.SET_TOKEN, 'payload')
 
-export const register = actionBuilder(actionTypes.REGISTER, 'email', 'username', 'password')
+export const register = actionBuilder(actionTypes.REGISTER, 'email', 'username', 'password','reCaptcha')
 
 export const signout = actionBuilder(actionTypes.SIGNOUT)
 
-
-// export const forgetPassword = actionBuilder(actionTypes.FORGET_PASSWORD, 'mobile')
+export const forgetPassword = actionBuilder(actionTypes.FORGET_PASSWORD, 'email')
 
 // export const changePassword = actionBuilder(actionTypes.CHANGE_PASSWORD, 'mobile', 'resetCode', 'password', 'callback')
 

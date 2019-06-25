@@ -22,7 +22,7 @@ moment.defineLocale('fa', {
 export const formatDate = (date: any) => {
   let lang = localStorage.getItem("__language")
   return moment(date)
-    .locale(lang === 'fa' ? 'fa' : 'en')
+    .locale(lang === 'en' ? 'en' : 'fa')
     .fromNow()
   //   return `${new Date(date)}`
 }

@@ -12,11 +12,12 @@ import { IconLink } from '../../../components/ui-elements/IconLink'
 
 // services
 import { PayloadInterface } from '../../../services/internal/store/reducers/authReducer'
-import { setUserCredentials, setToken, login, register } from '../../../services/internal/store/actions'
+import { setUserCredentials, setToken, login, register, removeMessages } from '../../../services/internal/store/actions'
 
 // icons & styles
 import error from '../../../images/error.svg'
 import styles from '../Authentication.module.scss'
+import { ReCaptcha } from '../ReCaptcha/ReCaptcha'
 
 function validate(email: string, password: string) {
   return {
@@ -31,7 +32,8 @@ class Register extends React.Component<any, any> {
     email: '',
     password: '',
     passwordRepeat: '',
-    error: ''
+    error: '',
+    token: undefined
   }
 
   handleChange = (e: any) => {
@@ -44,10 +46,18 @@ class Register extends React.Component<any, any> {
     if (this.state.password !== this.state.passwordRepeat) {
       this.setState({ error: 'تکرار رمز عبور مطابق نمی‌باشد' })
     }
-    if (!/^[a-zA-Z0-9]+@[a-zA-Z0-9]+\.[A-Za-z]+$/.test(this.state.email)) {
+    if (this.state.password.length < 3) {
+      this.setState({ error: `رمز عبور باید دست کم سه حرف باشد.` })
+    }
+
+    if (
+      !/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(
+        this.state.email
+      )
+    ) {
       this.setState({ error: `ایمیل صحیح نمی باشد` })
     }
-    if (!/^(?=.{5,45}$)(?![_.])(?!.*[_.]{2})[a-zA-Z0-9._]+(?<![_.])$/.test(this.state.username)) {
+    if (!/^(?=.{5,45}$)(?![0-9])^[a-zA-Z0-9]/.test(this.state.username)) {
       this.setState({
         error: ` نام کاربری باید بین ۵ تا ۴۵ حرف باشد، با عدد شروع نشود و تنها شامل حروف انگلیسی و اعداد باشد.`
       })
@@ -56,6 +66,7 @@ class Register extends React.Component<any, any> {
   handleSubmit = async (e: any) => {
     const { history } = this.props
     if (e) e.preventDefault()
+    await this.props.removeMessages()
     if (!this.state.password) {
       this.setState({ error: `لطفا رمزعبور خود را وارد نمایید.` })
     }
@@ -68,12 +79,17 @@ class Register extends React.Component<any, any> {
     if (!this.state.username) {
       this.setState({ error: `لطفا نام کاربری خود را وارد نمایید.` })
     }
-    if (!this.state.error)
+    if (!this.state.error && this.state.token)
       try {
-        await this.props.register(this.state.email, this.state.username, this.state.password)
+        await this.props.register(this.state.email, this.state.username, this.state.password, this.state.token)
       } catch (error) {
         console.log('E: ', error)
       }
+  }
+  handleClick = async (e: React.MouseEvent<HTMLButtonElement>, execute: () => Promise<string>) => {
+    const token = await execute()
+    this.setState({ token })
+    console.log(token)
   }
 
   render() {
@@ -99,11 +115,28 @@ class Register extends React.Component<any, any> {
                 <span className={styles.link}>{t`ورود`}</span>
               </Link>
             </div>
-            <Button className={['pg-btnPrimary0', 'pg-btnSm']}>{t`ثبت‌نام`}</Button>
+            <ReCaptcha action="test">
+              {captcha => (
+                <div>
+                  <Button
+                    className={['pg-btnPrimary0', 'pg-btnSm']}
+                    onClick={(e: any) => this.handleClick(e, captcha.execute)}
+                    disabled={!captcha.isReady}
+                  >
+                    {t`ثبت‌نام`}
+                  </Button>
+                </div>
+              )}
+            </ReCaptcha>
           </div>
           {this.state.error && (
-            <div className={styles.wrongVerify}>
+            <div className={[styles.wrongVerify, styles.warn].join(' ')}>
               <IconLink icon={error} label={t`${this.state.error}`} />
+            </div>
+          )}
+          {this.props.messages.errors.length > 0 && (
+            <div className={[styles.wrongVerify, styles.warn].join(' ')}>
+              <IconLink icon={error} label={t`${this.props.messages.errors}`} />
             </div>
           )}
         </form>
@@ -114,11 +147,14 @@ class Register extends React.Component<any, any> {
 
 const mapDispatchToProps = (dispatch: any) => {
   return {
-    register: (email: string, username: string, password: String) => dispatch(register(email, username, password))
+    register: (email: string, username: string, password: string, reCaptcha: string) => dispatch(register(email, username, password, reCaptcha)),
+    removeMessages: (payload: PayloadInterface) => dispatch(removeMessages(payload))
   }
 }
 
+const mapStateToProps = (state: any) => ({ isLoading: state.loading.isLoading, auth: state.auth, messages: state.messages })
+
 export default connect(
-  null,
+  mapStateToProps,
   mapDispatchToProps
 )(Register)

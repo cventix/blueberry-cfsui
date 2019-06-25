@@ -18,7 +18,7 @@ class Config implements ConfigInterface {
       appLanguage: 'fa',
       storage: localStorage,
       httpClient: axios,
-      fetchTimeout: 15000
+      fetchTimeout: 150000
     }
   }
 

@@ -1,96 +1,135 @@
 @import '../../../styles/global';
 
 .searchInput {
-	@include flex(row, wrap);
-	justify-content: flex-end;
-	align-items: center;
-	position: relative;
+  @include flex(row, wrap);
+  justify-content: flex-end;
+  align-items: center;
+  position: relative;
 
-	> div:first-child {
-		width: 204px;
-		height: $default-height;
+  > div:first-child {
+    width: 204px;
+    height: $default-height;
 
-		label {
-			display: none;
-		}
+    label {
+      display: none;
+    }
 
-		input {
-			@include input-placeholder(true);
-			border-bottom-left-radius: 0;
-			border-top-left-radius: 0;
-		}
-	}
+    input {
+      @include input-placeholder(true);
+      border-bottom-left-radius: 0;
+      border-top-left-radius: 0;
+    }
+  }
 
-	.btnWrapper {
-		@include flex(column, wrap);
-		justify-content: center;
-		align-items: center;
-		position: relative;
+  .btnWrapper {
+    @include flex(column, wrap);
+    justify-content: center;
+    align-items: center;
+    position: relative;
 
-		> button {
-			@include flex(column, wrap);
-			justify-content: center;
-			position: absolute;
-			right: -27.7px;
-			height: 33px;
+    > button {
+      @include flex(column, wrap);
+      justify-content: center;
+      position: absolute;
+      right: -27.7px;
+      height: 33px;
 
-			> img {
-				width: 12px;
-				height: 12px;
-				margin-top: 2px;
-			}
-		}
-	}
-	.setting {
-		display: flex;
-		justify-content: center;
-		align-items: center;
-		width: 36px;
-		height: $default-height;
-		border-top-left-radius: $br-radius-sm;
-		border-bottom-left-radius: $br-radius-sm;
-		background: #f5f5fe;
-		border-top-width: 1px;
-		border-right-width: 0;
-		border-bottom-width: 1px;
-		border-left-width: 1px;
-		border-style: solid;
-		border-color: $input-border;
-		cursor: pointer;
-		z-index: 10;
-    
-		> img {
-			width: 12px;
-			height: 12px;
-		}
-	}
+      > img {
+        width: 12px;
+        height: 12px;
+        margin-top: 2px;
+      }
+    }
+  }
+  .setting {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 36px;
+    height: $default-height;
+    border-top-left-radius: $br-radius-sm;
+    border-bottom-left-radius: $br-radius-sm;
+    background: #f5f5fe;
+    border-top-width: 1px;
+    border-right-width: 0;
+    border-bottom-width: 1px;
+    border-left-width: 1px;
+    border-style: solid;
+    border-color: $input-border;
+    text-align: center;
+    cursor: pointer;
+    z-index: 10;
+
+    > img {
+      width: 12px;
+      height: 12px;
+    }
+  }
 }
 
 body:lang(en) {
-	.searchInput {
-		> div:first-child {
-			input {
-				border-bottom-right-radius: 0;
-				border-bottom-left-radius: $br-radius-sm;
-				border-top-right-radius: 0;
-				border-top-left-radius: $br-radius-sm;
-			}
-		}
+  .searchInput {
+    > div:first-child {
+      input {
+        border-bottom-right-radius: 0;
+        border-bottom-left-radius: $br-radius-sm;
+        border-top-right-radius: 0;
+        border-top-left-radius: $br-radius-sm;
+      }
+    }
 
-		.btnWrapper {
-			> button {
-				left: -27.7px;
-				right: 0;
-			}
-		}
+    .btnWrapper {
+      > button {
+        left: -27.7px;
+        right: 0;
+      }
+    }
 
-		.setting {
-			border-right-width: 1px;
-			border-left-width: 0;
-			border-top-right-radius: $br-radius-sm;
-			border-top-left-radius: 0;
-			border-bottom-right-radius: $br-radius-sm;
-			border-bottom-left-radius: 0;
-		}
-	}
+    .setting {
+      border-right-width: 1px;
+      border-left-width: 0;
+      border-top-right-radius: $br-radius-sm;
+      border-top-left-radius: 0;
+      border-bottom-right-radius: $br-radius-sm;
+      border-bottom-left-radius: 0;
+    }
+  }
+}
+
+.suggestionBox {
+  position: absolute;
+  display: none;
+  width: 100%;
+  border-radius: 3px;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.05);
+  border: solid 1px #e5e5e5;
+  background-color: #ffffff;
+  right: 0;
+  margin-top: 8px;
+  .header {
+    font-size: 14px;
+    padding: 3px;
+    display: flex;
+    justify-content: space-between;
+    box-shadow: 0 1px 0 0 #e5e5e5;
+    background-color: #f6f7f8;
+
+    .close {
+      cursor: pointer;
+      border: 0;
+      background: 0;
+      margin: 5px;
+      justify-self: flex-end;
+    }
+    .closeIcon {
+      width: 10px;
+    }
+  }
+  .forMore {
+    display: flex;
+    justify-content: center;
+    color: #4b9cfd;
+    cursor: pointer;
+    padding: 11px;
+  }
 }

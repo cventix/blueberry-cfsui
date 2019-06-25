@@ -1,0 +1,49 @@
+@import '../../styles/global';
+
+.videoPlayer {
+  background: #ffffff;
+  padding: 30px;
+  height: 100%;
+  border-radius: 3px;
+  .row {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    margin: 0 4px;
+  }
+  .controlBar {
+    display: flex;
+    border-radius: 3px;
+    border: solid 1px #bbbdbf;
+    background-color: #ffffff;
+    align-items: center;
+    padding: 8px;
+    justify-content: space-around;
+    button {
+      background-color: #ffffff;
+      border: 0;
+      cursor: pointer;
+    }
+
+    .play {
+      cursor: pointer;
+    }
+  }
+}
+
+.audioPlayer {
+  .details {
+    margin: 60px 10px;
+
+  }
+  .info{
+    margin: 0 20px;
+  }
+  .marginLittle {
+    margin: 0 2px;
+  }
+  .description{
+    color:$lt-gray;
+  }
+}

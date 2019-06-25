@@ -20,19 +20,13 @@ export interface Iprops {
   item?: any
 }
 
-const DownlaodBarImage: React.FunctionComponent<Iprops> = ({ onItemClick, item }) => {
+const DownloadBarImage: React.FunctionComponent<Iprops> = ({ onItemClick, item }) => {
   console.log(item.downloadCount)
   return (
     <div className={styles.downloadBar}>
       <div className={styles.downloadBox}>آمار: {JSON.stringify(item.downloadCount)} دانلود</div>
       <Button className={['pg-btnSuccess0', 'pg-btnLg']} style={{ marginBottom: '15px' }}>
-        <a
-          href={`http://cdn.persiangig.com/preview/${item.uuid}/medium/${item.name}`}
-          style={{ color: 'inherit' }}
-          download={`http://cdn.persiangig.com/preview/${item.uuid}/medium/${item.name}`}
-        >
-          <IconLink icon={uploadIcon} iconAlt="upload icon" label={t`دانلود فایل`} />
-        </a>
+        <IconLink icon={uploadIcon} iconAlt="upload icon" label={t`دانلود فایل`} onClick={onItemClick} />
       </Button>
       <div className={styles.sizeBox}> حجم فایل: ۱.۲۹ مگابایت</div>
     </div>
@@ -40,4 +34,4 @@ const DownlaodBarImage: React.FunctionComponent<Iprops> = ({ onItemClick, item }
 }
 const mapStateToProps = (state: any) => ({ item: state.sidebar.item })
 
-export default connect(mapStateToProps)(DownlaodBarImage)
+export default connect(mapStateToProps)(DownloadBarImage)

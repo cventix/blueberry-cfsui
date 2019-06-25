@@ -3,7 +3,7 @@ import { RestInterface } from '../../external/rest/rest'
 
 export interface AuthInterface {
   login(email: string, password: string): Promise<object>
-  register(email: string, username: string, password: string): Promise<object>
+  register(email: string, username: string, password: string,reCaptcha:string): Promise<object>
   signout(): Promise<object>
 }
 
@@ -22,17 +22,26 @@ class Auth implements AuthInterface {
     }
   }
 
-  async register(email: string, username: string, password: string) {
-    console.log('hi')
+  async register(email: string, username: string, password: string,reCaptcha:string) {
     const url = '/rest/users/signup'
-    console.log('hi')
+
     const body = {
       email,
       username,
-      password: SHA1(password).toString()
+      password: SHA1(password).toString(),
+      reCaptcha
     }
     try {
       return await this._rest.post({ url, body })
+    } catch (error) {
+      throw error
+    }
+  }
+
+  async forgetPassword(email: string) {
+    const url = `/rest/users/resetPassword?email=${email}`
+    try {
+      return await this._rest.get({ url })
     } catch (error) {
       throw error
     }
