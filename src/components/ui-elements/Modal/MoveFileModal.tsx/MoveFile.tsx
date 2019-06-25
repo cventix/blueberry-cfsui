@@ -113,10 +113,10 @@ class MoveFile extends React.Component<Iprops, Istate> {
           />
         </div>
         <div className={styles.submitButton}>
-          <Button className={[this.state.fileId ? 'btnPrimary100' : 'btnPrimaryOutline', 'btnSm']} style={{ marginLeft: 5 }} disabled={true}>
+          <Button className={[this.state.fileId ? 'pg-btnPrimary100' : 'pg-btnPrimaryOutline', 'pg-btnSm']} style={{ marginLeft: 5 }} disabled={true}>
             {t`انتقال`}
           </Button>
-          <Button className={['btnDefault100', 'btnSm']} onClick={handleClose}>
+          <Button className={['pg-btnDefault100', 'pg-btnSm']} onClick={handleClose}>
             {t`انصراف`}
           </Button>
         </div>

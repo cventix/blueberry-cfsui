@@ -11,15 +11,9 @@ export const initialState: StateInterface = {
   currentStep: 0,
 }
 
-const goToNextStep = (stepNumbers: number[], state: any) => {
-  state.currentStep = state.currentStep + 1;
-  return state.currentStep
-}
+const goToNextStep = () => ({type: 'STEP_FORWARD'})
 
-const goToPreviousStep = (stepNumbers: number[], state: any) => {
-  state.currentStep = state.currentStep - 1;
-  return state.currentStep
-}
+const goToPreviousStep = () => ({type: 'STEP_BACKWARD'})
 
 const vmReducer = (state: any = initialState, action: any) => {
 console.log(action.type)
@@ -32,12 +26,12 @@ console.log(action.type)
     case actionTypes.STEP_FORWARD:
       return {
         ...state,
-        currentStep: goToNextStep(action.payload, state)
+        currentStep: state.currentStep + 1
       }
     case actionTypes.STEP_BACKWARD:
       return {
         ...state,
-        currentStep: goToPreviousStep(action.payload, state)
+        currentStep: state.currentStep - 1
       }
     default:
       return state

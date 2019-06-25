@@ -22,42 +22,15 @@
 		}
 	}
 
-	.percent, .deleteQus {
-		font-family: $light-font;
-	}
-
-	.deleteQus {
-		padding-bottom: 13px;
-		font-size: $font-size - 2;
-		color: $dk-gray;
-	}
-
-	.progressbar{
-		margin :0 6px 2px 6px;
-	}
-
 	.bottom {
-		position: absolute;
-		bottom: 0;
-		right: 0;
-		left: 0;
-		padding: 8px 24px;
-		height: 40px;
-		line-height: 24px;
-		background-color: #fae68e;
-		color: $dk-gray;
-		font-family: $medium-font;
-		cursor: pointer;
-		
 		span {
-			float: right;
 			margin-left: 8px;
 		}
 
 		img {
 			width: 12px;
 			height: 10px;
-			margin-bottom: -3px;
+			order: 1;
 		}
 	}
 }

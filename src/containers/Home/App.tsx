@@ -265,7 +265,7 @@ class App extends Component<
           >
             <div className={styles.row}>
               <TextInput style={{ width: 300 }} name={'urlInput'} />
-              <Button className={['btnPrimary100', 'btnSm']}>{t`آپلود`}</Button>
+              <Button className={['pg-btnPrimary100', 'pg-btnSm']}>{t`آپلود`}</Button>
             </div>
           </UploadModal>
         )

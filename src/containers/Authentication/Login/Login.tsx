@@ -70,7 +70,7 @@ class Login extends React.Component<any, any> {
                   <span className={styles.link}>{t`ثبت‌نام`}</span>
                 </Link>
               </div>
-              <Button className={[this.props.isLoading && !this.state.loading ? 'btnSecondary' : 'btnSuccess0', 'btnSm']}>
+              <Button className={[this.props.isLoading && !this.state.loading ? 'pg-btnSecondary' : 'pg-btnSuccess0', 'pg-btnSm']}>
                 {this.props.isLoading && !this.state.loading && (
                   <div className={styles.buttonLoading}>
                     <Icon src={loading} />
