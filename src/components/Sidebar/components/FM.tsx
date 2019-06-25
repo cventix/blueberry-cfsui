@@ -58,7 +58,7 @@ const FM: React.FunctionComponent<Iprops> = ({ onItemClick, selection, toggle })
       <IconLink
         icon={upFromUrlIcon}
         onClick={onItemClick}
-        className="pg-flex pg-items-center pg-mb-14p pg-bg-gray-0 pg-w-200p pg-h-35p pg-font-vMedium pg-border-0 pg-pr-11p pg-cursor-pointer pg-text-right pg-rounded-br-sm iconLink upFromUrl"
+        className="pg-flex pg-items-center pg-mb-14p pg-w-200p pg-h-35p pg-font-vMedium pg-border-0 pg-pr-11p pg-cursor-pointer pg-text-right pg-rounded-br-sm iconLink upFromUrl"
         iconAlt="upload icon"
         label={t`آپلود فایل از URL`}
       />

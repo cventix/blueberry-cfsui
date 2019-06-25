@@ -39,7 +39,14 @@
     }
   }
 }
-
+.fileUpload {
+  font-size: 30px;
+  position: absolute;
+  left: 0;
+  top: 0;
+  opacity: 0;
+  cursor: pointer;
+}
 body:lang(en) {
   .sidebar {
     &.open {

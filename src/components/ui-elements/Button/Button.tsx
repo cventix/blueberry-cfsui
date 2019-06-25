@@ -17,7 +17,7 @@ export default interface Iprops {
 }
 
 const classCreator = (className: any, extraClassName?: any) => {
-  let cls = className.map((name: any) => styles[name]).join(' ')
+  let cls = className.map((name: any) => name).join(' ')
   return [cls, extraClassName && extraClassName.join(' ')].join(' ')
 }
 

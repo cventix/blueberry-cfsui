@@ -40,6 +40,7 @@ import './App.css'
 import styles from '../../components/Content/Content.module.scss'
 import { IRemoveFolderInput, IDownloadDirectoryInput, IGenerateLinkInput } from '../../services/internal/repositories/documents'
 import urlUploadModal from '../../components/ui-elements/Modal/urlUpload/urlUploadModal'
+import { Account } from '../Account/Account';
 function readFileDataAsBase64(e: any) {
   const file = e[0]
 
@@ -376,6 +377,7 @@ class App extends Component<
         />
         <Main showModal={this.state.showModal}>
           <Switch>
+          <Route path={`/account`} component={Account} />
             <Route path={`/fm`} component={Content} />
             <Route exact path={`/vm`} component={VMContent} />
             <Route exact path={`/vm/order`} component={Order} />

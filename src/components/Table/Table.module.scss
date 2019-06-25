@@ -64,6 +64,7 @@ $border-bottom: 1.5px solid $border-table;
     color: $table-header-color;
   }
   .name {
+    max-width: 300px;
     justify-content: center;
     display: flex;
     white-space: nowrap;
