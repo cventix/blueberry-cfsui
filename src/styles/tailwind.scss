@@ -48,6 +48,10 @@ img {
 }
 
 /* components */
+.flex-row-nowrap {
+  @apply .pg-flex .pg-flex-row .pg-flex-no-wrap
+}
+
 .flex-row-wrap-withspace {
   @apply .pg-flex .pg-flex-row .pg-flex-wrap .pg-justify-between
 }

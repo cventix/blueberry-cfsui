@@ -1,17 +1,18 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 
-import { Card } from './Card/Card'
-import GridHeader from './GridHeader'
+// components
 import { navigateObject } from '../Content/Content'
-
-//styles
-import styles from './Grid.module.scss'
+import GridHeader from './GridHeader'
+import { Card } from './Card/Card'
 
 //interface
 import { ITableItem } from '../Content/ContentBody'
 
-//todo check selection (Checked)
+//styles
+import styles from './Grid.module.scss'
+
+// todo check selection (Checked)
 export interface Iprops {
   checkbox?: boolean
   table: ITableItem[]
@@ -28,7 +29,7 @@ const Grid: React.FunctionComponent<Iprops> = ({ selection, table, onCheckAll, o
   return (
     <React.Fragment>
       <GridHeader onCheckAll={onCheckAll} sortable={true} onSort={onSort} />
-      <div className={styles.container}>
+      <div className="pg-flex pg-flex-wrap pg-relative mobile-max:pg-justify-center" >
         {table.map((item: any, index: number) => {
           return (
             <Card

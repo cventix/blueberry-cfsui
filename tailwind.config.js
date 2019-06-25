@@ -136,6 +136,7 @@ module.exports = {
       px: '1px',
       sidebar: '260px',
       '2p': '0.125rem',
+      '3p': '0.1875rem',
       '5p': '0.3125rem',
       '6p': '0.375rem',
       '8p': '0.5rem',
@@ -149,16 +150,20 @@ module.exports = {
       '21p': '1.3125rem',
       '22p': '1.375rem',
       '23p': '1.4375rem',
+      '26p': '1.625rem',
       '30p': '1.875rem',
       '34p': '2.125rem',
       '35p': '2.1875rem',
       '37p': '2.3125rem',
       '46p': '2.875rem',
+      '50p': '3.125rem',
       '60p': '3.75rem',
       '70p': '4.375rem',
       '72p': '4.5rem',
+      '100p': '6.25rem',
       '140p': '8.75rem',
       '200p': '12.5rem',
+      '210p': '13.125rem',
       'full': '100%',
       '0': '0',
       '1': '0.25rem',
@@ -202,6 +207,7 @@ module.exports = {
     }),
     borderRadius: {
       none: '0',
+      vsm: '0.1625rem',
       sm: '0.1875rem',
       default: '0.25rem',
       lg: '0.5rem',
@@ -216,8 +222,8 @@ module.exports = {
     },
     boxShadow: {
       default: '0 1px 3px 0 rgba(0, 0, 0, 0.15)',
-      md: '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)',
-      lg: '0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)',
+      md: '0 1px 2px 0 rgba(0, 0, 0, 0.1)',
+      lg: '0px 8px 16px 0px rgba(0,0,0,0.2)',
       xl: '0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)',
       '2xl': '0 25px 50px -12px rgba(0, 0, 0, 0.25)',
       inner: 'inset 0 2px 4px 0 rgba(0, 0, 0, 0.06)',
@@ -289,6 +295,8 @@ module.exports = {
       ],
     },
     fontSize: {
+      px: '1px',
+      '10p': '0.625rem', // 10px
       xs: '0.75rem', // 12px
       sm: '0.875rem', // 14px
       base: '1rem', // 16px
@@ -345,6 +353,7 @@ module.exports = {
       normal: '1.5',
       relaxed: '1.625',
       loose: '2',
+      '6p': '0.375'
     },
     listStyleType: {
       none: 'none',
@@ -377,10 +386,12 @@ module.exports = {
       '0': '0',
       full: '100%',
       screen: '100vh',
+      '10p': '10rem',
     },
     minWidth: {
       '0': '0',
       full: '100%',
+      '10p': '10rem',
     },
     objectPosition: {
       bottom: 'bottom',

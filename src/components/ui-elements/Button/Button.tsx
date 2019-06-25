@@ -17,8 +17,8 @@ export default interface Iprops {
 }
 
 const classCreator = (className: any, extraClassName?: any) => {
-  let cls = className.map((name: any) => styles[name]).join(' ')
-  return [cls, extraClassName && extraClassName.join(' ')].join(' ')
+  let cls = className.map((name: any) => name).join(' ')
+    return [cls, extraClassName && extraClassName.join(' ')].join(' ')
 }
 
 export const Button = ({ className, onClick, style, children, loading, extraClassName, disabled }: Iprops) => {

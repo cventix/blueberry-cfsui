@@ -1,23 +1,7 @@
 @import '../../../styles/global.scss';
-
-$box-length: 160px;
 $icon-length: 60px;
-$margin: 13px;
-$side-length: 10px;
 
 .item {
-  @include flex(column, nowrap);
-  justify-content: center;
-  align-items: center;
-  position: relative;
-  min-width: 160px;
-  height: $box-length;
-  margin: 32px 0 0 32px;
-  background-color: #fff;
-  cursor: pointer;
-  @include box-shadow(0 1px 2px 0 rgba(0, 0, 0, 0.1));
-  @include border-radius(2.6px);
-
   @media(max-width: $mobile - 20) {
     min-width: 139px;
     height: 150px;
@@ -45,43 +29,6 @@ $side-length: 10px;
 
   @media (min-width: $web-medium-max + 1) and (max-width: $web-medium-max + 300) {
     margin: 24px 0 0 24px;
-  }
-
-  .checkbox {
-    position: absolute;
-    bottom: $side-length;
-    right: $side-length;
-  }
-
-  .dropdown {
-    position: absolute;
-    bottom: $side-length;
-    left: $side-length;
-  }
-
-  .info {
-    @include flex(column, wrap);
-    justify-content: center;
-    align-items: center;
-    margin-top: $margin;
-
-    .date {
-      font-family: $light-font;
-      font-size: $font-size - 4;
-      color: $lt-gray;
-      margin-bottom: $margin/4;
-    }
-  }
-
-  .name {
-    @include flex(row, nowrap);
-    justify-content: center;
-    width: 100px;
-    direction: ltr;
-    text-overflow: ellipsis;
-    overflow: hidden;
-    white-space: nowrap;
-    color: $dk-gray;
   }
 
   .type,

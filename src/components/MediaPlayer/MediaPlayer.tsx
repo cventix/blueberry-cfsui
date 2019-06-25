@@ -1,24 +1,24 @@
 import React from 'react'
-import ReactPlayer from 'react-player'
 import Fullscreen from 'react-full-screen'
+import ReactPlayer from 'react-player'
 import { connect } from 'react-redux'
 
-import { PlayerRangeBar } from '../ui-elements/Rangebar/PlayerRangeBar/PlayerRangeBar'
-import { Icon } from '../ui-elements/Icon'
+// ui-elements
+import { PlayerRangeBar } from '../ui-elements/RangeBar/PlayerRangeBar/PlayerRangeBar'
 import { IconLink } from '../ui-elements/IconLink'
+import { Icon } from '../ui-elements/Icon'
 
 //styles and icons
+import fullscreen from '../../images/controlcons/icon-fullscreen.svg'
+import volume from '../../images/controlcons/icon-volume.svg'
+import pause from '../../images/controlcons/icon-pause.svg'
+import play from '../../images/controlcons/icon-play.svg'
 import styles from './MediaPlayer.module.scss'
 
-import volume from '../../images/controlcons/icon-volume.svg'
-import play from '../../images/controlcons/icon-play.svg'
-import pause from '../../images/controlcons/icon-pause.svg'
-import fullscreen from '../../images/controlcons/icon-fullscreen.svg'
-
-//serviced
-import { formatBytes } from '../../services/internal/utils/formatBytes'
+//services
 import { formatProgressTime } from '../../services/internal/utils/formatProgressTime'
 import { setFullScreen } from '../../services/internal/store/actions/selections'
+import { formatBytes } from '../../services/internal/utils/formatBytes'
 
 export interface Iprops {
   setFullScreen: (e: boolean) => void
@@ -51,10 +51,12 @@ class MediaPlayer extends React.Component<Iprops, Istate> {
   onSeekMouseDown = (e: any) => {
     this.setState({ seeking: true })
   }
+
   onSeekChange = (e: any) => {
     // console.log(e.target.value)
     this.setState({ played: parseFloat(e.target.value) })
   }
+
   onSeekMouseUp = (e: any) => {
     // console.log(e.target.value)
     this.setState({ seeking: false })
@@ -76,13 +78,16 @@ class MediaPlayer extends React.Component<Iprops, Istate> {
       this.setState(state)
     }
   }
+
   onDuration = (duration: number) => {
     // console.log('onDuration', duration)
     this.setState({ duration })
   }
+
   ref = (player: any) => {
     this.player = player
   }
+
   goFull = () => {
     this.props.setFullScreen(true)
     this.setState({ isFull: true })
@@ -94,10 +99,10 @@ class MediaPlayer extends React.Component<Iprops, Istate> {
         {this.props.type == 'audio' && (
           <div className={[styles.row, styles.details].join(' ')}>
             <Icon mimetype={'audio'} style={{ width: '93px' }} />
-            <div className={styles.info}>
+            <div className='pg-mt-0 pg-mb-0 pg-mr-5 pg-ml-5'>
               <div>{this.props.item.name}</div>
               <div className={[styles.row, styles.description].join(' ')}>
-                <div className={styles.marginLittle}> {this.state.duration && formatProgressTime(this.state.duration)} / </div>
+                <div className='pg-mt-0 pg-mb-0 pg-mr-2p pg-ml-2p'> {this.state.duration && formatProgressTime(this.state.duration)} / </div>
                 <div> حجم فایل: {formatBytes({ bytes: this.props.item.size, lang: 'fa' })}</div>
               </div>
             </div>
@@ -117,7 +122,7 @@ class MediaPlayer extends React.Component<Iprops, Istate> {
             onDuration={this.onDuration}
           />
         </Fullscreen>
-        <div className={styles.controlBar}>
+        <div className={`pg-p-8p pg-bg-white pg-rounded-sm pg-flex pg-items-center pg-justify-around ${styles.controlBar}`}>
           {this.props.type !== 'audio' && (
             <div onClick={this.goFull}>
               <IconLink icon={fullscreen} />
@@ -141,7 +146,7 @@ class MediaPlayer extends React.Component<Iprops, Istate> {
           />
 
           {this.state.duration && formatProgressTime(this.state.duration * (1 - this.state.played))}
-          <button onClick={this.togglePlay} className={styles.play} type={'button'}>
+          <button onClick={this.togglePlay} className='pg-cursor-pointer' type={'button'}>
             <Icon src={this.state.playing ? pause : play} className={styles.icon} />
           </button>
         </div>
@@ -149,6 +154,7 @@ class MediaPlayer extends React.Component<Iprops, Istate> {
     )
   }
 }
+
 const mapStateToProps = (state: any) => ({
   item: state.sidebar.item
 })

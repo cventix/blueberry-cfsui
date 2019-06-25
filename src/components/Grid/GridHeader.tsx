@@ -1,12 +1,13 @@
 import React from 'react'
+import { connect } from 'react-redux'
 import { t } from 'ttag'
 
-import { Hr } from '../ui-elements/Hr'
+// ui-elements
 import { Checkbox } from '../ui-elements/Checkbox/Checkbox'
+import { Hr } from '../ui-elements/Hr'
 
 //styles
 import styles from './Grid.module.scss'
-import { connect } from 'react-redux'
 
 export interface Iprops {
   onCheckAll?: () => void
@@ -17,14 +18,14 @@ export interface Iprops {
 
 export const GridHeader: React.FunctionComponent<Iprops> = ({ onCheckAll, sortable, selectAll, onSort }) => {
   return (
-    <div className={styles.header} {...onSort && { onClick: () => onSort(t`نام`) }}>
-      <div className={styles.title + ' rowItem'}>
+    <div className={`pg-pt-26p ${styles.header}`} {...onSort && { onClick: () => onSort(t`نام`) }}>
+      <div className="pg-flex pg-flex-wrap pg-items-center pg-text-gray-600 pg-mb-5p rowItem">
         <Checkbox onChange={() => onCheckAll && onCheckAll()} checked={selectAll} />
-        <span className={styles.label}>{t`نام`}</span>
+        <span className="pg-mr-10p pg-font-vMedium">{t`نام`}</span>
         {sortable && (
-          <div className={styles.sort}>
-            <span>▲</span>
-            <span>▼</span>
+          <div className="pg-flex pg-flex-col pg-mt-0 pg-mb-0 pg-mr-3p pg-ml-3p pg-w-10p">
+            <span className="pg-leading-6p pg-text-px">▲</span>
+            <span className="pg-leading-6p pg-text-px">▼</span>
           </div>
         )}
       </div>

@@ -18,7 +18,7 @@ export const Main: React.FunctionComponent<Iprops> = props => {
     pg-pr-30p pg-pl-30p tablet-max:pg-mt-20
     tablet-max:pg-mr-0 tablet-max:pg-pt-5
     tablet-max:pg-pr-15p tablet-max:pg-pl-15p ${styles.main}`} {...props.showModal && { style: { zIndex: -2 } }}>
-      <section className="pg-min-h-screen">{props.children}</section>
+      <section className="pg-min-h-screen pg-mb-50p">{props.children}</section>
       <MainFooter />
     </main>
   )
