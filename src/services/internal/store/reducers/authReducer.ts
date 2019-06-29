@@ -23,13 +23,18 @@ export const initialState: StateInterface = {
 }
 
 const authReducer = (state: StateInterface = initialState, action: any) => {
-
   switch (action.type) {
     case actionTypes.SET_TOKEN:
       return {
         ...state,
         token: action.payload.token
       }
+    case actionTypes.SET_USER_INFO:
+      return {
+        ...state,
+        info: action.info
+      }
+
     case actionTypes.SET_USER_CREDENTIALS:
       return {
         ...state,
@@ -39,8 +44,7 @@ const authReducer = (state: StateInterface = initialState, action: any) => {
       return {
         ...state,
         token: '',
-        username: '',
-      
+        username: ''
       }
     default:
       return state

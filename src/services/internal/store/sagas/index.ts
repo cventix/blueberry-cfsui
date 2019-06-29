@@ -1,7 +1,7 @@
 import { takeEvery, all, takeLatest } from 'redux-saga/effects'
 
 import { actionTypes } from '../actions/types'
-import { login, register, signout, forgetPassword } from './auth'
+import { login, register, signout, forgetPassword, getUserInfo, changePassword } from './auth'
 import {
   getDocuments,
   getSharedDocuments,
@@ -21,8 +21,6 @@ import {
   urlUpload
 } from './documents'
 
-
-
 // import { getUserInfo } from './user'
 
 function* watchAuth() {
@@ -30,7 +28,8 @@ function* watchAuth() {
   yield takeEvery(actionTypes.REGISTER, register)
   yield takeEvery(actionTypes.SIGNOUT, signout)
   yield takeEvery(actionTypes.FORGET_PASSWORD, forgetPassword)
-  //   yield takeEvery(actionTypes.CHANGE_PASSWORD, resetPassword)
+  yield takeEvery(actionTypes.GET_USER_INFO, getUserInfo)
+  yield takeEvery(actionTypes.CHANGE_PASSWORD, changePassword)
   //   yield takeEvery(actionTypes.VERIFY_MOBILE, verifyMobile)
   //   yield takeEvery(actionTypes.LOGOUT, logout)
   //   yield takeEvery(actionTypes.GET_USER_INFO, getUserInfo)

@@ -26,6 +26,7 @@ export default interface Iprops {
   value?: string
   onClick?: any
   wrapperRef?: any
+  className?: string
 }
 
 export const TextInput = ({
@@ -44,19 +45,20 @@ export const TextInput = ({
   withIcon,
   icon,
   onClick,
+  className,
   style
 }: Iprops) => {
+  
   return (
     <div
-   
       className={
         error
-          ? `${styles.inputWrapper} ${styles.error}`
+          ? `${styles.inputWrapper} ${styles.error} ${className}`
           : success
-          ? `${styles.inputWrapper} ${styles.success}`
+          ? `${styles.inputWrapper} ${styles.success} ${className}`
           : disabled
-          ? `${styles.inputWrapper} ${styles.disabled}`
-          : `${styles.inputWrapper}`
+          ? `${styles.inputWrapper} ${styles.disabled} ${className}`
+          : `${styles.inputWrapper} ${className}`
       }
       style={style}
     >

@@ -11,9 +11,13 @@ export const register = actionBuilder(actionTypes.REGISTER, 'email', 'username',
 
 export const signout = actionBuilder(actionTypes.SIGNOUT)
 
+export const getUserInfo = actionBuilder(actionTypes.GET_USER_INFO)
+
+export const setUserInfo = actionBuilder(actionTypes.SET_USER_INFO,'info')
+
 export const forgetPassword = actionBuilder(actionTypes.FORGET_PASSWORD, 'email')
 
-// export const changePassword = actionBuilder(actionTypes.CHANGE_PASSWORD, 'mobile', 'resetCode', 'password', 'callback')
+export const changePassword = actionBuilder(actionTypes.CHANGE_PASSWORD, 'currentPassword', 'newPassword')
 
 // export const verifyMobile = actionBuilder(actionTypes.VERIFY_MOBILE, 'mobile', 'password', 'verifyCode')
 

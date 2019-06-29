@@ -6,5 +6,6 @@ export const setPreviewImage = actionBuilder(actionTypes.SET_PREVIEW_IMAGE, 'pay
 export const setDownloadToken = actionBuilder(actionTypes.SET_DOWNLOAD_TOKEN, 'payload')
 export const setEditStatus = actionBuilder(actionTypes.SET_EDIT_STATUS, 'payload')
 export const setRenameText = actionBuilder(actionTypes.UPDATE_RENAME_TEXT, 'payload')
+export const setProfileTab = actionBuilder(actionTypes.SET_PROFILE_TAB, 'payload')
 
 

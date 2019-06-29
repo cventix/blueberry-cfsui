@@ -60,3 +60,27 @@ export function* signout() {
   }
   location.reload()
 }
+
+export function* getUserInfo() {
+  try {
+    yield put(actions.setLoadingState(true))
+    let result = yield auth.getUserInfo()
+    yield put(actions.setUserInfo(result))
+    yield put(actions.setLoadingState(false))
+  } catch (err) {
+    yield put(actions.setError(err.errors[0].msg))
+    yield put(actions.setLoadingState(false))
+  }
+
+}
+export function* changePassword(action: AnyAction) {
+  try {
+    yield put(actions.setLoadingState(true))
+    yield auth.changePassword(action.currentPassword, action.newPassword)
+    yield put(actions.setLoadingState(false))
+  } catch (err) {
+    yield put(actions.setError(err.errors[0].msg))
+    yield put(actions.setLoadingState(false))
+  }
+
+}

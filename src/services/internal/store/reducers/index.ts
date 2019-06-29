@@ -8,6 +8,7 @@ import sidebarReducer from './sidebarReducer'
 import historyReducer from './historyReducer'
 import vmReducer from './vmReducer'
 import messagesReducer from './messagesReducer'
+import accountReducer from './accountReducer'
 
 export default combineReducers({
   auth: authReducer,
@@ -18,5 +19,6 @@ export default combineReducers({
   sidebar: sidebarReducer,
   history: historyReducer,
   vm: vmReducer,
-  messages: messagesReducer
+  messages: messagesReducer,
+  account:accountReducer
 })
