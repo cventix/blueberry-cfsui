@@ -68,6 +68,15 @@ class Auth implements AuthInterface {
       throw error
     }
   }
+  async getProducts() {
+    const url = '/rest/products/user/products?category=CFS'
+    try {
+      return await this._rest.get({ url })
+    } catch (error) {
+      throw error
+    }
+  }
+
   async signout() {
     const url = `rest/users/signout`
     try {

@@ -84,3 +84,15 @@ export function* changePassword(action: AnyAction) {
   }
 
 }
+export function* getProducts() {
+  try {
+    yield put(actions.setLoadingState(true))
+    let result = yield auth.getProducts()
+    yield put(actions.setProducts(result))
+    yield put(actions.setLoadingState(false))
+  } catch (err) {
+    yield put(actions.setError(err.errors[0].msg))
+    yield put(actions.setLoadingState(false))
+  }
+
+}

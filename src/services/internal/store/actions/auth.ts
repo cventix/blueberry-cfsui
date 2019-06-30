@@ -7,13 +7,17 @@ export const login = actionBuilder(actionTypes.INIT_LOGIN, 'payload')
 
 export const setToken = actionBuilder(actionTypes.SET_TOKEN, 'payload')
 
-export const register = actionBuilder(actionTypes.REGISTER, 'email', 'username', 'password','reCaptcha')
+export const register = actionBuilder(actionTypes.REGISTER, 'email', 'username', 'password', 'reCaptcha')
 
 export const signout = actionBuilder(actionTypes.SIGNOUT)
 
 export const getUserInfo = actionBuilder(actionTypes.GET_USER_INFO)
 
-export const setUserInfo = actionBuilder(actionTypes.SET_USER_INFO,'info')
+export const setUserInfo = actionBuilder(actionTypes.SET_USER_INFO, 'info')
+
+export const getProducts = actionBuilder(actionTypes.GET_PRODUCTS)
+
+export const setProducts = actionBuilder(actionTypes.SET_PRODUCTS, 'products')
 
 export const forgetPassword = actionBuilder(actionTypes.FORGET_PASSWORD, 'email')
 
@@ -28,4 +32,3 @@ export const changePassword = actionBuilder(actionTypes.CHANGE_PASSWORD, 'curren
 // export const setCity = actionBuilder(actionTypes.SET_CITY, 'city')
 
 // export const logout = actionBuilder(actionTypes.LOGOUT)
-

@@ -2,10 +2,10 @@ import * as React from 'react'
 import { SwitchBar } from '../../components/SwitchBar/SwitchBar'
 import ProfileEdit from './Profile/ProfileEdit'
 import { Security } from '../../components/Security/Security'
-import { getUserInfo, setProfileTab, changePassword, setFormState } from '../../services/internal/store/actions'
+import { getUserInfo, setProfileTab, changePassword, setFormState, getProducts } from '../../services/internal/store/actions'
 import { connect } from 'react-redux'
 import { t } from 'ttag'
-import Plans from './Plans/Plans';
+import Plans from './Plans/Plans'
 
 export interface Iprops {
   getUserInfo: any
@@ -14,6 +14,7 @@ export interface Iprops {
   editableForm: boolean
   profileView: string
   info: any
+  getProducts: any
 }
 export interface Istate {
   selected: string
@@ -30,6 +31,7 @@ class Account extends React.Component<Iprops, any> {
   }
   componentDidMount = () => {
     this.props.getUserInfo()
+    this.props.getProducts()
   }
   componentWillReceiveProps(nextProps: any) {
     if (nextProps.info) {
@@ -43,7 +45,8 @@ class Account extends React.Component<Iprops, any> {
         nationalId: info.profile.nationalId,
         province: info.profile.province,
         city: info.profile.city,
-        postalCode: info.profile.postalCode
+        postalCode: info.profile.postalCode,
+        planId: info.plan.id,
       })
     }
   }
@@ -82,6 +85,7 @@ class Account extends React.Component<Iprops, any> {
         { label: 'کدپستی', value: this.state.postalCode, name: 'postalCode' }
       ]
     }
+    const plans = [{ name: 'رایگان' }]
     let view
     switch (this.props.profileView) {
       case t`اطلاعات کاربری`:
@@ -90,7 +94,7 @@ class Account extends React.Component<Iprops, any> {
         )
         break
       case t`پلن`:
-        view = <Plans/>;
+        view = <Plans planId={this.state.planId}/>
         break
       case t`امنیت`:
         view = <Security changePassword={this.changePassword} updateChange={this.updateChange} />
@@ -98,8 +102,6 @@ class Account extends React.Component<Iprops, any> {
     }
     return (
       <div className={'pg-w-3/4'}>
-      
-
         {/* <SwitchBar options={options} onSwitch={this.switchView} selected={this.state.selected} /> */}
         <div className={'pg-py-4'}> {view}</div>
       </div>
@@ -110,6 +112,7 @@ class Account extends React.Component<Iprops, any> {
 const mapDispatchToProps = (dispatch: any) => {
   return {
     getUserInfo: () => dispatch(getUserInfo()),
+    getProducts: () => dispatch(getProducts()),
     setProfileTab: (value: any) => dispatch(setProfileTab(value)),
     changePassword: (currentPassword: string, newPassword: string) => dispatch(changePassword(currentPassword, newPassword)),
     setFormState: (value: any) => dispatch(setFormState(value))

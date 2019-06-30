@@ -18,7 +18,7 @@ export const initialState: StateInterface = {
   downloadToken: '',
   isEditable: 0,
   renameText: '',
-  profileTab: t`اطلاعات کاربری`
+  profileTab: t`پلن`
 }
 
 const selectReducer = (state: any = initialState, action: any) => {

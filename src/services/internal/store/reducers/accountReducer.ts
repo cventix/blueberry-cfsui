@@ -6,7 +6,7 @@ export interface PayloadInterface {
 
 export const initialState: any = {
   editableForm: false,
-  msgs: []
+  products: []
 }
 
 const accountReducer = (state: any = initialState, action: any) => {
@@ -16,7 +16,11 @@ const accountReducer = (state: any = initialState, action: any) => {
         ...state,
         editableForm: action.payload
       }
-
+      case actionTypes.SET_PRODUCTS:
+        return {
+          ...state,
+          products: action.products
+        }
     default:
       return state
   }
