@@ -59,15 +59,9 @@
 					font-size: $font-size - 2;
 				}
 			}
-
-			&:hover {
-				background: $hover-gray;
-			}
 		}
 
 		&:first-child {
-			margin-bottom: 1px;
-			background: $modal-header;
 			@include box-shadow(0 1px 0 0 #e5e5e5);
 		}
 	}

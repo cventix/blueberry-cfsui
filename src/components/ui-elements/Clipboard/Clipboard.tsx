@@ -26,7 +26,7 @@ export const ClipBoard = ({ placeholder }: Iprops) => {
     <div className={styles.clipboard}>
       <TextInput value={placeholder} onClick={copyToClipboard} />
       <Button onClick={copyToClipboard}>
-        <span className={styles.copy}>کپی کن</span>
+        <span className='pg-font-vMedium pg-text-xs pg-text-gray-700 hover:pg-text-blue-500'>کپی کن</span>
       </Button>
     </div>
   )

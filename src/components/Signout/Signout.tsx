@@ -22,13 +22,13 @@ export interface Iprops {
 const Signout: React.FunctionComponent<Iprops> = ({ username, open, signout }) => {
   return (
     <ul className={open ? `${styles.signout} ${styles.open}` : styles.signout}>
-      <li className='pg-pt-8p pg-pb-8p pg-pr-15p pg-pl-15p'>
+      <li className='pg-pt-8p pg-pb-8p pg-pr-15p pg-pl-15p pg-mb-px pg-bg-gray-100'>
         <span>{username}</span>
       </li>
-      <li className='pg-pt-8p pg-pb-8p pg-pr-15p pg-pl-15p ${styles.item}'>
+      <li className={`pg-pt-8p pg-pb-8p pg-pr-15p pg-pl-15p hover:pg-bg-gray-200 ${styles.item}`}>
         <IconLink icon={profile} iconAlt="profile" label={t`حساب کاربری`}/>
       </li>
-      <li className='pg-pt-8p pg-pb-8p pg-pr-15p pg-pl-15p' onClick={()=>{ signout; window.location.replace('/login')} }>
+      <li className={`pg-pt-8p pg-pb-8p pg-pr-15p pg-pl-15p hover:pg-bg-gray-200 ${styles.item}`} onClick={()=>{ signout; window.location.replace('/login')} }>
         <IconLink icon={signOut} iconAlt="logout" label={t`خروج`} />
       </li>
     </ul>

@@ -6,10 +6,10 @@ import { navigateObject } from '../Content/Content'
 import GridHeader from './GridHeader'
 import { Card } from './Card/Card'
 
-//interface
+// interface
 import { ITableItem } from '../Content/ContentBody'
 
-//styles
+// styles
 import styles from './Grid.module.scss'
 
 // todo check selection (Checked)

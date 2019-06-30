@@ -8,17 +8,17 @@ import { PlayerRangeBar } from '../ui-elements/RangeBar/PlayerRangeBar/PlayerRan
 import { IconLink } from '../ui-elements/IconLink'
 import { Icon } from '../ui-elements/Icon'
 
-//styles and icons
+//services
+import { formatProgressTime } from '../../services/internal/utils/formatProgressTime'
+import { setFullScreen } from '../../services/internal/store/actions/selections'
+import { formatBytes } from '../../services/internal/utils/formatBytes'
+
+// styles and icons
 import fullscreen from '../../images/controlcons/icon-fullscreen.svg'
 import volume from '../../images/controlcons/icon-volume.svg'
 import pause from '../../images/controlcons/icon-pause.svg'
 import play from '../../images/controlcons/icon-play.svg'
 import styles from './MediaPlayer.module.scss'
-
-//services
-import { formatProgressTime } from '../../services/internal/utils/formatProgressTime'
-import { setFullScreen } from '../../services/internal/store/actions/selections'
-import { formatBytes } from '../../services/internal/utils/formatBytes'
 
 export interface Iprops {
   setFullScreen: (e: boolean) => void

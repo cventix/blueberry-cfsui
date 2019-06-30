@@ -1,10 +1,11 @@
 import * as React from 'react'
 
-// styles
-import styles from './Button.module.scss'
+// ui-elements
 import { Icon } from '../Icon'
 
+// styles
 import loadingIcon from '../../../images/loading/tail-spin.svg'
+import styles from './Button.module.scss'
 
 export default interface Iprops {
   className?: string[]

@@ -2,7 +2,6 @@
 
 .checkbox {
 	@include checkbox-radio-theme(checkbox, null);
-    display: flex;
 	&.disableWithChecked {
 		@include checkbox-radio-theme(checkbox, disableWithChecked);
 	}

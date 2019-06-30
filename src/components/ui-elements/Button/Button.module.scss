@@ -5,38 +5,40 @@
 }
 
 .row {
-  display: flex;
-  flex-direction: row;
   background-image: linear-gradient(to top, #f7f7f7, #ffffff);
-  width: 100%;
-  border-radius: 3px;
   @include widthShadow;
+
   button {
     min-width: 46px;
     height: 35px;
     font-size: 11px;
     cursor: pointer;
   }
+
   .btnGroup {
     background: 0;
     font-family: 'vazir-medium';
     border: 0;
     border-left: solid 0.5px #dfdfdf;
     color: #737373;
+
+    &:last-child {
+      border-left: 0;
+    }
   }
+
   .active {
     background-color: $lt-blue;
     color: white;
     border-left: $lt-blue;
     border-radius: 0 2px 2px 0;
   }
-  .btnGroup:last-child {
-    border-left: 0;
-  }
 }
+
 .dropdown {
   display: flex;
   padding: 0 10% 0 0;
+
   &.btnSuccess0 {
     .caretSpan {
       width: 35px;
@@ -50,36 +52,40 @@
     position: absolute;
     left: 0;
     width: 35px;
-
     height: 33px;
+    
     img {
       transform: rotate(-90deg);
       margin-top: 12px;
     }
   }
 }
+
 .leftie {
   position: absolute;
   left: 0;
   width: 35px;
-
   height: 33px;
   ul {
     margin-top: 35px;
   }
 }
+
 .disable {
   pointer-events: none;
 }
+
 @media (max-width: $tablet) {
   .btnCircle {
     width: 30px !important;
     height: 30px !important;
     position: absolute;
   }
+
   .left {
     left: 3px;
   }
+
   .right {
     right: 3px;
   }

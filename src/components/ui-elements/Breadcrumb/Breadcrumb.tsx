@@ -1,11 +1,14 @@
 import React from 'react'
-import { Icon } from '../Icon'
-import bigger from '../../../images/bigger.svg'
-
-import styles from './Breadcrumb.module.scss'
 import { Link, Route } from 'react-router-dom'
-import { t } from 'ttag'
 import { MemoryRouter } from 'react-router'
+import { t } from 'ttag'
+
+// ui-elements
+import { Icon } from '../Icon'
+
+// icons & styles
+import bigger from '../../../images/bigger.svg'
+import styles from './Breadcrumb.module.scss'
 
 export interface BreadcrumbItem {
   title: string

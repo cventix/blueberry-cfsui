@@ -1,14 +1,15 @@
 import * as React from 'react'
 
-// styles
-import styles from './Button.module.scss'
+// ui-elements
+import { EnhanceDropdown as enhancer } from '../../ui-elements/Dropdown/EnhanceDropdown'
+import Dropdown from '../Dropdown/Dropdown'
 import { Icon } from '../Icon'
 
+// styles
 import bigger from '../../../images/bigger.1.svg'
-import Dropdown from '../Dropdown/Dropdown'
+import styles from './Button.module.scss'
 
 const EnhancedDropdown = enhancer(Dropdown)
-import { EnhanceDropdown as enhancer } from '../../ui-elements/Dropdown/EnhanceDropdown'
 
 export default interface Iprops {
   className?: string[]
@@ -27,7 +28,7 @@ export const DropDownButton = ({ className, onClick, style, data, children, disa
   return (
     <button
       disabled={disabled}
-      className={className ? `${styles.btn} ${styles.dropdown} ${classCreator(className)}` : `${styles.dropdown} ${styles.btn}`}
+      className={className ? `pg-btn ${styles.dropdown} ${classCreator(className)}` : `${styles.dropdown} pg-btn`}
       {...onClick && { onClick: e => onClick(e) }}
       style={style}
     >
