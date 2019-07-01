@@ -50,11 +50,11 @@ export const VMDetailsSetting: React.FunctionComponent<Iprops> = () => {
 				</div>
 				<div className={styles.left}>
 					<Tooltip text={t`ابتدا سرور را خاموش کنید`} width={135} height={27} position={'bottom'}>
-						<Button className={['pg-btnSecondary', 'pg-btnSm']} style={{width: '135px'}}>
+						<Button className={['pg-btnDisabled', 'pg-btnSm']} style={{width: '135px'}}>
 							<IconLink icon={grayDeleteIcon} label={t`حذف سرور`}/>
 						</Button>
 					</Tooltip>
-					<Button className={['pg-btnDanger0', 'pg-btnSm']} style={{width: '135px', marginRight: '32px'}}>
+					<Button className={['pg-btnDanger', 'pg-btnSm']} style={{width: '135px', marginRight: '32px'}}>
 						<IconLink icon={whiteDeleteIcon} label={t`حذف سرور`}/>
 					</Button>
 				</div>

@@ -42,14 +42,14 @@ export const Footer: React.FunctionComponent<Iprops> = (props) => {
 						</Button>
 					</Link>
 					<Link to="/vm">
-						<Button className={['pg-btnDefault0', 'pg-btnSm']}>{t`انصراف`}</Button>
+						<Button className={['pg-btnDefault', 'pg-btnSm']}>{t`انصراف`}</Button>
 					</Link>
 				</div>
 				<div className={styles.left}>
 					<div className={props.finalStep ? styles.largBtn : styles.wrapper} 
 						onClick={(e: any) => props.handleNextStep && props.handleNextStep(e)}>
 						<Link to={`/${props.nextStep}`} >
-							 <Button className={['pg-btnPrimary0', 'pg-btnSm']} style={props.finalStep ? {width: '159px', direction: 'rtl'} : {}}>
+							 <Button className={['pg-btnPrimary', 'pg-btnSm']} style={props.finalStep ? {width: '159px', direction: 'rtl'} : {}}>
 								{props.finalStep ? <IconLink icon={invoiceIcon} label={t`صدور صورتحساب`}/> : <IconLink icon={arrowLeftIcon} label={t`بعدی`}/>}
 							 </Button>
 						</Link>

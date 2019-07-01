@@ -60,7 +60,7 @@ export const TextInput = ({
       }
       style={style}
     >
-      <label className={styles.label}>{label}</label>
+      <label className='pg-block pg-text-gray-800 pg-mb-7p pg-text-xs pg-font-vMedium'>{label}</label>
       <input
         type={type}
         ref={wrapperRef}
@@ -73,7 +73,7 @@ export const TextInput = ({
         onChange={(e: any) => onChange && onChange(e)}
         onBlur={() => onBlur && onBlur()}
       />
-      <Icon className={withIcon ? styles.withIcon : `hide`} src={icon} />
+      <Icon className={withIcon ? `pg-absolute pg-top-10p pg-right-10p pg-w-1 ${styles.withIcon}` : `hide`} src={icon} />
       <span className={error ? styles.shoowErorrMsg : `hide`}>
         <Icon src={errorIcon} />
         <span>{message}</span>
@@ -81,3 +81,4 @@ export const TextInput = ({
     </div>
   )
 }
+

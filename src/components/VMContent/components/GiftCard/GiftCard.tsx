@@ -31,14 +31,14 @@ export default class GiftCard extends React.Component<any, any> {
 				<div className={styles.addCredit}>
 					<span className={styles.faModeTxt}>میزان اعتبار جاری شما <span className={styles.price}>۳۴۰,۰۰۰ ریال </span>می‌باشد.</span>
 					<span className={styles.enModeTxt}>Your Current Credit Score is: <span className={styles.price}>۳۴۰,۰۰۰ R</span></span>
-					<Button className={['btnDefault0', 'btnLg']}>
+					<Button className={['pg-btnDefault', 'pg-btnLg']}>
 						<IconLink icon={addCreditIcon} label={t`افزودن اعتبار`}/>
 					</Button>
 				</div>
 				<Caption label={t`برای افزایش اعتبار مبلغ مورد نظر را (به ریال) وارد کنید:`}/>
 				<div className={styles.payment}>
 					<TextInput placeholder={`120,000`}/>
-					<Button className={['btnPrimary0', 'btnSm']}>{t`پرداخت`}</Button>
+					<Button className={['pg-btnPrimary', 'pg-btnSm']}>{t`پرداخت`}</Button>
 				</div>
 			</div>
 		)

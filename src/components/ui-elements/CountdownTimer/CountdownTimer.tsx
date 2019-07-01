@@ -1,6 +1,4 @@
 import React from 'react'
-//styles
-import styles from './CountdownTimer.module.scss';
 
 export interface IProps {
   startTimeInSeconds: number
@@ -36,7 +34,11 @@ export class CountdownTimer extends React.Component<IProps, IState> {
   }
 
   render() {
-    return <div className={styles.counter}>
+    return <div className='flex-center pg-ml-10p pg-text-10p pg-w-23p pg-h-23p pg-rounded-full' style={{border: '1px solid #8dff46'
+}}>
     {this.state.timeRemainingInSeconds}</div>
   }
 }
+
+
+

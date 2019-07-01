@@ -37,7 +37,7 @@ const FM: React.FunctionComponent<Iprops> = ({ onItemClick, selection, toggle })
 
   return (
     <div className="sidebar-menu">
-      <Button className={['pg-btnPrimary0', 'pg-btnLg']} style={{ marginBottom: '15px', cursor: 'pointer' }}>
+      <Button className={['pg-btnPrimary', 'pg-btnLg']} style={{ marginBottom: '15px', cursor: 'pointer' }}>
         <IconLink icon={uploadIcon} iconAlt="upload icon" label={t`آپلود فایل`} />
         <input
           className={'fileUpload'}
@@ -49,7 +49,7 @@ const FM: React.FunctionComponent<Iprops> = ({ onItemClick, selection, toggle })
 
       <DropDownButton
         data={data}
-        className={[selection && selection.length > 0 ? 'pg-btnSuccess0' : 'pg-btnSuccessOutline', 'pg-btnLg']}
+        className={[selection && selection.length > 0 ? 'pg-btnSuccess' : 'pg-btnSuccessOutline', 'pg-btnLg']}
         disabled={!selection || selection.length == 0}
         style={{ marginBottom: '15px' }}
       >

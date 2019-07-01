@@ -66,7 +66,7 @@ class ForgetPassword extends React.Component<any, any> {
               </Link>
             </div>
 
-            <Button className={[this.props.isLoading && !this.state.loading ? 'btnSecondary' : 'btnSuccess0', 'btnSm']} style={{ width: '35%' }}>
+            <Button className={[this.props.isLoading && !this.state.loading ? 'pg-btnDisabled' : 'pg-btnSuccess', 'pg-btnSm']} style={{ width: '35%' }}>
               {this.props.isLoading && !this.state.loading && (
                 <div className={styles.buttonLoading}>
                   <Icon src={loading} />

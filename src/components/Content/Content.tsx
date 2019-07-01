@@ -354,7 +354,7 @@ class Content extends React.Component<IProps, IState> {
         {!this.props.loading && this.state.filteredTable.length > 0 && (
           <div className={styles.footer}>
             <Button
-              className={[this.state.showMore ? 'pg-btnDefault0' : 'pg-btnDefault100', 'pg-btnLg']}
+              className={[this.state.showMore ? 'pg-btnDefault' : 'pg-btnDefault', 'pg-btnLg']}
               disabled={!this.state.showMore}
               onClick={this.showMore}
             >

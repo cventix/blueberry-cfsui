@@ -35,7 +35,7 @@ export class CircularProgressBar extends React.Component<any, any> {
             strokeDashoffset: dashOffset
           }}
         />
-        <text className={styles.circleText} x="50%" y="50%" dy=".3em" textAnchor="middle">
+        <text className='pg-text-9p pg-fill-white pg-font-vBold' x="50%" y="50%" dy=".3em" textAnchor="middle">
           {`${this.props.percentage}`}
         </text>
       </svg>

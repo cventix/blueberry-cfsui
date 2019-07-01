@@ -57,7 +57,7 @@ const plans = [t`۱ ماهه`, t`۳ ماهه`, t`۶ ماهه`, t`یکساله`];
 export const MultiplePlan: React.FunctionComponent<MPprops> = ({ activePlanNum }) => (
 	<div className={`${styles.multiplePlan} ${styles.control}`}>
 		{
-			plans.map((item, i) => <Button className={activePlanNum == i ? ['btnSuccess0'] : activePlanNum > i  ? ['btnSecondary'] :[]}>{item}</Button>)
+			plans.map((item, i) => <Button className={activePlanNum == i ? ['pg-btnSuccess'] : activePlanNum > i  ? ['pg-btnDisabled'] :[]}>{item}</Button>)
 		}
 	</div>
 )

@@ -146,7 +146,7 @@ class ShareModal extends React.Component<Iprops, Istate> {
               </div>
               <div className={styles.socialRow} style={{ marginBottom: 45 }}>
                 <TextInput style={{ width: 174 }} name={'userEmail'} placeholder={'email@example.com'} onChange={this.handleChange} />
-                <Button className={['btnPrimary100', 'btnSm']} style={{ marginRight: 10 }} onClick={this.shareDocument}>{t`اشتراک`}</Button>
+                <Button className={['pg-btnPrimary', 'pg-btnSm']} style={{ marginRight: 10 }} onClick={this.shareDocument}>{t`اشتراک`}</Button>
               </div>
             </div>
           </div>

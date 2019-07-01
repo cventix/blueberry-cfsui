@@ -20,14 +20,6 @@
 .inputWrapper {
 	position: relative;
 
-	.label {
-		display: block;
-		color: $dk-gray;
-		font-size: $font-size - 2;
-		font-family: $medium-font;
-		margin-bottom: 7px;
-	}
-
 	.textInput {
 		@include input-theme;
 		@include input-placeholder(false);
@@ -79,13 +71,6 @@
 			color: $red;
 			font-size: $font-size - 4;
 		}
-	}
-
-	.withIcon {
-		position: absolute;
-		top: 10px;
-		right: 10px;
-		width: 16px;
 	}
 }
 

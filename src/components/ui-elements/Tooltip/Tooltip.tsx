@@ -18,7 +18,7 @@ export const Tooltip: React.FunctionComponent<Iprops> = props => {
     && styles.top, props.position === 'left' 
     && styles.left, props.position === 'right' 
     && styles.right].join(' ')}>
-      <div className={styles.hasTooltip}>{props.children}</div>
+      <div className='pg-flex pg-items-center'>{props.children}</div>
       <div style={{ width: props.width, height: props.height, lineHeight: props.lineHeight}} 
         className={[styles.text, props.position && styles[props.position]].join(' ')}>
         {props.text}

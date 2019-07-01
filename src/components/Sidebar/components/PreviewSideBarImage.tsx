@@ -31,7 +31,7 @@ const PreviewSideBarImage: React.FunctionComponent<Iprops> = ({ onItemClick, ite
   if (image) imageUrl = `/${image}`
   return (
     <div className="sidebar-menu">
-      <Button className={['pg-btnSuccess0', 'pg-btnLg']} style={{ marginBottom: '15px' }}>
+      <Button className={['pg-btnSuccess', 'pg-btnLg']} style={{ marginBottom: '15px' }}>
         <IconLink icon={uploadIcon} iconAlt="upload icon" label={t`دانلود فایل`} onClick={onItemClick} />
       </Button>
       <div className="pg-flex pg-flex-row pg-flex-wrap pg-justify-center pg-mt-19p pg-rounded-sm pg-text-xs pg-p-8p">

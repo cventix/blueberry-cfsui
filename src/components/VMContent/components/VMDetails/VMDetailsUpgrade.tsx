@@ -179,7 +179,7 @@ export const VMDetailsUpgrade: React.FunctionComponent<Iprops> = () => {
 						<div><span className={styles.label}>{t`هزینه سرویس`}:  </span><span className={styles.value}>۲۷۰,۰۰۰ ریال</span></div>
 						<div><span className={styles.value}>{t`کل هزینه`}:  </span><span className={styles.value}>۲۷۰,۰۰۰ ریال</span></div>
 					</div>
-					<Button className={['pg-btnPrimary0', 'pg-btnSm']} style={{width: '150px'}}>
+					<Button className={['pg-btnPrimary', 'pg-btnSm']} style={{width: '150px'}}>
 						<IconLink icon={upgradeIcon} label={t`اعمال ارتقاء`} className={`iconLink ${styles.inBtn}`}/>
 					</Button>
 				</ColorfulBox>

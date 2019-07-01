@@ -139,6 +139,7 @@ module.exports = {
       '3p': '0.1875rem',
       '5p': '0.3125rem',
       '6p': '0.375rem',
+      '7p': '0.4375rem',
       '8p': '0.5rem',
       '10p': '0.625rem',
       '11p': '0.6875rem',
@@ -151,10 +152,12 @@ module.exports = {
       '22p': '1.375rem',
       '23p': '1.4375rem',
       '26p': '1.625rem',
+      '29p': '1.8125rem',
       '30p': '1.875rem',
       '33p': '2.0625rem',
       '34p': '2.125rem',
       '35p': '2.1875rem',
+      '36p': '2.25rem',
       '37p': '2.3125rem',
       '46p': '2.875rem',
       '50p': '3.125rem',
@@ -223,6 +226,7 @@ module.exports = {
     },
     boxShadow: {
       default: '0 1px 3px 0 rgba(0, 0, 0, 0.15)',
+      sm: '0 1px 3px 0 rgba(0, 0, 0, 0.05)',
       md: '0 1px 2px 0 rgba(0, 0, 0, 0.1)',
       lg: '0px 8px 16px 0px rgba(0,0,0,0.2)',
       xl: '0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)',
@@ -243,6 +247,7 @@ module.exports = {
       'not-allowed': 'not-allowed',
     },
     fill: {
+      white: 'fff',
       current: 'currentColor',
     },
     flex: {
@@ -297,6 +302,7 @@ module.exports = {
     },
     fontSize: {
       px: '1px',
+      '9p': '0.5625rem', // 9px
       '10p': '0.625rem', // 10px
       xs: '0.75rem', // 12px
       sm: '0.875rem', // 14px
@@ -560,119 +566,106 @@ module.exports = {
           /* btn tyes */
 
           /* default */
-          '&.btnDefault100': {
-            boxShadow: theme('boxShadow.default'),
-            background: '#e0dfdf',
-            color: theme('colors.gray.800')
-          },
-          '&.btnDefault50': {
-            boxShadow: theme('boxShadow.default'),
-            background: 'linear-gradient(to top, #e0dfdf, #f2f0f0)',
-            color: theme('colors.gray.800')    
-          },
-          '&.btnDefault0': {
+          '&.btnDefault': {
             boxShadow: theme('boxShadow.default'),
             background: 'linear-gradient(to top, #f7f7f7, #fff)',
-            color: theme('colors.gray.800')
-          },
-          '&.btnDefaultOutline': {
-            background: 'rgba(33, 211, 82, 0.1)',
-            color: theme('colors.green.400'),
-            border: '1px solid theme("colors.green.400")'
+            color: theme('colors.gray.800'),
+
+            '&:hover': {
+              background: 'linear-gradient(to top, #e0dfdf, #f2f0f0)'
+            },
+
+            '&:focus': {
+              background: '#e0dfdf',
+            }
           },
 
           /* primary */
-          '&.btnPrimary100': {
-            boxShadow: theme('boxShadow.default'),
-            background: '#1c7cef',
-            color: theme('colors.white'),
-          },
-          '&.btnPrimary50': {
-            boxShadow: theme('boxShadow.default'),
-            background: 'linear-gradient(to top, #1c7cef, #4192f3)',
-            color: theme('colors.white'),
-          },
-          '&.btnPrimary0': {
+          '&.btnPrimary': {
             boxShadow: theme('boxShadow.default'),
             background: 'linear-gradient(to top, #2686f9, theme("colors.blue.400"))',
             color: theme('colors.white'),
-          },
-          '&.btnPrimaryOutline': {
-            background: theme('colors.white'),
-            color: '#4a90e2',
-            border: '1px solid theme("colors.blue.400")'
-          },
 
-          /* secondary */
-          '&.btnSecondary': {
-            background: theme('colors.gray.300'),
-            color: '#b3bcc5',
-            border: '1px solid "#e5e7e9"'
+            '&:hover': {
+              background: 'linear-gradient(to top, #1c7cef, #4192f3)',
+            },
+
+            '&:focus': {
+              background: '#1c7cef',
+            },
+          
+            '&.btnPrimaryOutline': {
+              background: theme('colors.white'),
+              color: '#4a90e2',
+              border: '1px solid theme("colors.blue.400")'
+            },
           },
 
           /* success */
-          '&.btnSuccess100': {
-            background: '#25cc69',
-            color: theme('colors.white'),
-          },
-          '&.btnSuccess50': {
-            boxShadow: theme('boxShadow.default'),
-            background: 'linear-gradient(to top, #25cc69, #30db72)',
-            color: theme('colors.white'),
-          },
-          '&.btnSuccess0': {
+          '&.btnSuccess': {
             boxShadow: theme('boxShadow.default'),
             background: 'linear-gradient(to top, #2fd673, #3ae57c)',
             color: theme('colors.white'),
+
+            '&:hover': {
+              background: 'linear-gradient(to top, #25cc69, #30db72)',
+            },
+
+            '&:focus': {
+              background: '#25cc69',
+            },
+
+            '&.btnSuccessOutline': {
+              background: 'rgba(33, 211, 82, 0.1)',
+              color: theme('colors.green.400'),
+              border: '1px solid theme("#colors.green.400")'
+            },
           },
-          '&.btnSuccessOutline': {
-            background: 'rgba(33, 211, 82, 0.1)',
-            color: theme('colors.green.400'),
-            border: '1px solid theme("#colors.green.400")'
-          },
+          
 
           /* danger */
-          '&.btnDanger100': {
-            boxShadow: theme('boxShadow.default'),
-            background: '#ef3f1c',
-            color: theme('colors.white')
-          },
-          '&.btnDanger50': {
-            boxShadow: theme('boxShadow.default'),
-            background: 'linear-gradient(to top, #ef3f1c, #f36141)',
-            color: theme('colors.white')
-          },
-          '&.btnDanger0': {
+          '&.btnDanger': {
             boxShadow: theme('boxShadow.default'),
             background: 'linear-gradient(to top, #f94926, #fd6b4b)',
-            color: theme('colors.white')
-          },
-          '&.btnDangerOutline': {
-            background: 'rgba(255, 71, 71, 0.1)',
-            color: theme('colors.red.500'),
-            border: '1px solid theme("colors.red.500")'
+            color: theme('colors.white'),
+
+            '&:hover': {
+              background: 'linear-gradient(to top, #ef3f1c, #f36141)',
+            },
+
+            '&:focus': {
+              background: '#ef3f1c',
+            },
+
+            '&.btnDangerOutline': {
+              background: 'rgba(255, 71, 71, 0.1)',
+              color: theme('colors.red.500'),
+              border: '1px solid theme("colors.red.500")'
+            },
           },
 
+
           /* warning */
-          '&.btnWarning100': {
-            boxShadow: theme('boxShadow.default'),
-            background: '#e8b51d',
-            color: theme('colors.white')
-          },
-          '&.btnWarning50': {
-            boxShadow: theme('boxShadow.default'),
-            background: 'linear-gradient(to top, #e8b51d, #eec13b)',
-            color: theme('colors.white')
-          },
-          '&.btnWarning0': {
+          '&.btnWarning': {
             boxShadow: theme('boxShadow.default'),
             background: 'linear-gradient(to top, #f2bf27, #f8cb45)',
-            color: theme('colors.white')
+            color: theme('colors.white'),
+
+            '&:hover': {
+              background: 'linear-gradient(to top, #e8b51d, #eec13b)',
+            },
+
+            '&:focus': {
+              background: '#e8b51d',
+            }
           },
+
+          /* disabled */
           '&.btnDisabled': {
-            border: '1px solid "#e5e7e9"',
-            background: theme('colors.gray-300'),
-            color: '#b3bcc5'
+            border: '1px solid #e5e7e9',
+            background: theme('colors.gray.300'),
+            color: '#b3bcc5',
+            cursor: theme('cursor.auto')
           },
 
           /* with extra radius */
@@ -712,11 +705,7 @@ module.exports = {
             width: '222px',
             height: '50px',
             lineHeight: '50px'
-          },
-         
-          '&:disabled': {
-            cursor: theme('cursor.auto')
-          },
+          }
         }
       })
     },

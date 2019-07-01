@@ -72,10 +72,11 @@ export const SelectInput = ({ options, onChange, selected, placeholder }: Iprops
     isMulti
     options={options}
     styles={styles}
-    className={style.selectInput}
+    className={`pg-text-xs pg-font-vRegular ${style.selectInput}`}
     onChange={onChange}
     value={selected}
     placeholder={placeholder}
     noOptionsMessage={() => t`آیتمی وجود ندارد`}
   />
 )
+

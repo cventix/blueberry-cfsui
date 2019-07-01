@@ -1,18 +1,18 @@
 import * as React from 'react'
 
 // ui-elements
+import { SuggestionBox } from './SuggestionBox';
 import { TextInput } from '../Input/Input'
 import { Button } from '../Button/Button'
-import { Icon } from '../Icon'
 import { IconLink } from '../IconLink'
+import { Icon } from '../Icon'
 
 // icons
-import searchIcon from '../../../images/search.svg'
 import settingIcon from '../../../images/setting.svg'
+import searchIcon from '../../../images/search.svg'
 
 // styles
 import styles from './SearchInput.module.scss'
-import { SuggestionBox } from './SuggestionBox';
 
 // interface
 export default interface Iprops {
@@ -23,14 +23,15 @@ export default interface Iprops {
 
 export const SearchInput = ({ withSetting = false, placeHolder, handleInputChange }: Iprops) => {
   return (
-    <div className={styles.searchInput}>
+    <div className={`pg-relative pg-flex pg-flex-row pg-flex-wrap pg-justify-end pg-items-center ${styles.searchInput}`}>
       <TextInput placeholder={placeHolder} onChange={(e: any) => handleInputChange(e.target.value)} />
-      <div className={styles.btnWrapper}>
+      <div className={`pg-relative flex-center pg-flex-col pg-flex-wrap ${styles.btnWrapper}`}>
         <Button style={{ backgroundColor: '#fff' }}>
           <Icon src={searchIcon} />
         </Button>
       </div>
-      <IconLink icon={settingIcon} className={withSetting ? `${styles.setting}` : `${styles.hide}`} />
+      <IconLink icon={settingIcon} className={withSetting ? `flex-center pg-h-35p pg-cursor-pointer pg-border-solid pg-z-10 pg-text-center pg-w-36p ${styles.setting}` : `${styles.hide}`} />
     </div>
   )
 }
+

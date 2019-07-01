@@ -119,7 +119,7 @@ class Register extends React.Component<any, any> {
               {captcha => (
                 <div>
                   <Button
-                    className={['pg-btnPrimary0', 'pg-btnSm']}
+                    className={['pg-btnPrimary', 'pg-btnSm']}
                     onClick={(e: any) => this.handleClick(e, captcha.execute)}
                     disabled={!captcha.isReady}
                   >

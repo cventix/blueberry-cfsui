@@ -45,7 +45,7 @@ const FinalStep: React.FunctionComponent<Iprops> = (props) => {
 						<span className={styles.caption}>{t`کد تخفیف را وارد کنید`}:</span>
 						<p className={styles.dscp}>{t`در صورتیکه کد تخفیف دارید آن را جهت بررسی و اعمال وارد کنید.`}</p>
 						<TextInput style={{ display: 'inline-block'}}/>
-						<Button className={['pg-btnDefault0', 'pg-btnSm']}>{t`بررسی`}</Button>
+						<Button className={['pg-btnDefault', 'pg-btnSm']}>{t`بررسی`}</Button>
 					</div>
 				</ColorfulBox>
 			</div>

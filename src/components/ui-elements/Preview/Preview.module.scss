@@ -3,12 +3,14 @@ $header-height: 83px;
 $margin-top: 70px;
 $preview-header-color: #8b8e9b;
 $padding: 30px;
+
 .image {
   height: 100%;
   .cover {
     object-fit: cover;
   }
 }
+
 .marginLeft {
   margin-left: 23px;
 }

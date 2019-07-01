@@ -1,11 +1,6 @@
 @import '../../../styles/global';
 
 .searchInput {
-  @include flex(row, wrap);
-  justify-content: flex-end;
-  align-items: center;
-  position: relative;
-
   > div:first-child {
     width: 204px;
     height: $default-height;
@@ -22,11 +17,6 @@
   }
 
   .btnWrapper {
-    @include flex(column, wrap);
-    justify-content: center;
-    align-items: center;
-    position: relative;
-
     > button {
       @include flex(column, wrap);
       justify-content: center;
@@ -42,11 +32,6 @@
     }
   }
   .setting {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 36px;
-    height: $default-height;
     border-top-left-radius: $br-radius-sm;
     border-bottom-left-radius: $br-radius-sm;
     background: #f5f5fe;
@@ -54,11 +39,7 @@
     border-right-width: 0;
     border-bottom-width: 1px;
     border-left-width: 1px;
-    border-style: solid;
     border-color: $input-border;
-    text-align: center;
-    cursor: pointer;
-    z-index: 10;
 
     > img {
       width: 12px;
@@ -66,6 +47,25 @@
     }
   }
 }
+
+.suggestionBox {
+  border: solid 1px #e5e5e5;
+
+  .header {
+    box-shadow: 0 1px 0 0 #e5e5e5;
+    background-color: #f6f7f8;
+
+    .close {
+      border: 0;
+      background: 0;
+      justify-self: flex-end;
+    }
+  }
+  .forMore {
+    color: #4b9cfd;
+  }
+}
+
 
 body:lang(en) {
   .searchInput {
@@ -93,43 +93,5 @@ body:lang(en) {
       border-bottom-right-radius: $br-radius-sm;
       border-bottom-left-radius: 0;
     }
-  }
-}
-
-.suggestionBox {
-  position: absolute;
-  display: none;
-  width: 100%;
-  border-radius: 3px;
-  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.05);
-  border: solid 1px #e5e5e5;
-  background-color: #ffffff;
-  right: 0;
-  margin-top: 8px;
-  .header {
-    font-size: 14px;
-    padding: 3px;
-    display: flex;
-    justify-content: space-between;
-    box-shadow: 0 1px 0 0 #e5e5e5;
-    background-color: #f6f7f8;
-
-    .close {
-      cursor: pointer;
-      border: 0;
-      background: 0;
-      margin: 5px;
-      justify-self: flex-end;
-    }
-    .closeIcon {
-      width: 10px;
-    }
-  }
-  .forMore {
-    display: flex;
-    justify-content: center;
-    color: #4b9cfd;
-    cursor: pointer;
-    padding: 11px;
   }
 }

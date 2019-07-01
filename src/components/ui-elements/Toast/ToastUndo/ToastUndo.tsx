@@ -29,13 +29,17 @@ export const ToastUndo = ({ id, undo, closeToast ,msg= 'فایل مورد نظر
   
   return (
     <div>
-      <h4 className={styles.undo}>
+      <h4 className='pg-flex pg-justify-around'>
         <CircularProgressBar strokeWidth="1" sqSize="20" percentage={currentCount} />
         {msg}
-        <button className={styles.undoButton} onClick={handleClick}>
+        <button className={`pg-cursor-pointer ${styles.undoButton}`} onClick={handleClick}>
           UNDO
         </button>
       </h4>
     </div>
   )
 }
+
+
+
+

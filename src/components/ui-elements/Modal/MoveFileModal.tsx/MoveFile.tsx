@@ -174,7 +174,7 @@ class MoveFile extends React.Component<Iprops, Istate> {
         <div className={styles.submitButton}>
           <Button
             className={[
-              !this.props.modalSelection || this.props.modalSelection == this.props.parentId ? 'pg-btnPrimaryOutline' : 'pg-btnPrimary100',
+              !this.props.modalSelection || this.props.modalSelection == this.props.parentId ? 'pg-btnPrimaryOutline' : 'pg-btnPrimary',
               'pg-btnSm'
             ]}
             style={{ marginLeft: 5 }}
@@ -183,7 +183,7 @@ class MoveFile extends React.Component<Iprops, Istate> {
           >
             {t`انتقال`}
           </Button>
-          <Button className={['pg-btnDefault100', 'pg-btnSm']} onClick={handleClose}>
+          <Button className={['pg-btnDefault', 'pg-btnSm']} onClick={handleClose}>
             {t`انصراف`}
           </Button>
         </div>

@@ -32,7 +32,7 @@ export const ColorfulBox = ({ className, width, fontSize, height, margin, messag
 	style={{width: width, margin: margin, height: height, fontSize: fontSize}}>
 		<div className={styles.message}>{message}</div>
 		{withClose ? 
-			<a onClick={handleClose} className={styles.close}>
+			<a onClick={handleClose} className={`pg-absolute pg-flex pg-items-center pg-justify-start pg-w-29p pg-bg-transparent pg-p-0 ${styles.close}`}>
 				<Icon className={styles.closeIcon} src={cancelIcon} />
 			</a> : ''}
 		{children}

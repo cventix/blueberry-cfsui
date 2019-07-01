@@ -18,15 +18,8 @@
 	}
 	
 	.close {
-		position: absolute;
-		display: flex;
-		align-items: center;
 		left: -2px;
-		width: 29px;
-		justify-content: flex-start;
-		background-color: transparent;
-		padding: 0;
-
+		
 		img {
 			width: 16px;
 			height: 16px;

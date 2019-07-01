@@ -57,7 +57,7 @@ class UrlUploadModal extends React.Component<Iprops, Istate> {
       >
         <div className={styles.row}>
           <TextInput style={{ width: 300 }} name={'urlInput'} type={'email'} onChange={this.handleChange} />
-          <Button className={['btnPrimary100', 'btnSm']}  onClick={this.urlUpload}>{t`آپلود`}</Button>
+          <Button className={['pg-btnPrimary', 'pg-btnSm']}  onClick={this.urlUpload}>{t`آپلود`}</Button>
         </div>
       </UploadModal>
     )
