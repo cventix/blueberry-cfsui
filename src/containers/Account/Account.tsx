@@ -2,7 +2,7 @@ import * as React from 'react'
 import { SwitchBar } from '../../components/SwitchBar/SwitchBar'
 import ProfileEdit from './Profile/ProfileEdit'
 import { Security } from '../../components/Security/Security'
-import { getUserInfo, setProfileTab, changePassword, setFormState, getProducts } from '../../services/internal/store/actions'
+import { getUserInfo, setProfileTab, changePassword, setFormState, getProducts, setProductToggle } from '../../services/internal/store/actions'
 import { connect } from 'react-redux'
 import { t } from 'ttag'
 import Plans from './Plans/Plans'
@@ -15,6 +15,8 @@ export interface Iprops {
   profileView: string
   info: any
   getProducts: any
+  setProductToggle: any
+ monthly:any
 }
 export interface Istate {
   selected: string
@@ -32,6 +34,9 @@ class Account extends React.Component<Iprops, any> {
   componentDidMount = () => {
     this.props.getUserInfo()
     this.props.getProducts()
+  }
+  onToggle= ()=>{
+    this.props.setProductToggle(!this.props.monthly)
   }
   componentWillReceiveProps(nextProps: any) {
     if (nextProps.info) {
@@ -94,7 +99,7 @@ class Account extends React.Component<Iprops, any> {
         )
         break
       case t`پلن`:
-        view = <Plans planId={this.state.planId}/>
+        view = <Plans planId={this.state.planId} onToggle={this.onToggle}/>
         break
       case t`امنیت`:
         view = <Security changePassword={this.changePassword} updateChange={this.updateChange} />
@@ -114,11 +119,12 @@ const mapDispatchToProps = (dispatch: any) => {
     getUserInfo: () => dispatch(getUserInfo()),
     getProducts: () => dispatch(getProducts()),
     setProfileTab: (value: any) => dispatch(setProfileTab(value)),
+    setProductToggle: (value: any) => dispatch(setProductToggle(value)),
     changePassword: (currentPassword: string, newPassword: string) => dispatch(changePassword(currentPassword, newPassword)),
     setFormState: (value: any) => dispatch(setFormState(value))
   }
 }
-const mapStateToProps = (state: any) => ({ profileView: state.sidebar.profileTab, editableForm: state.account.editableForm, info: state.auth.info })
+const mapStateToProps = (state: any) => ({ profileView: state.sidebar.profileTab, editableForm: state.account.editableForm, info: state.auth.info , monthly: state.account.monthly })
 export default connect(
   mapStateToProps,
   mapDispatchToProps

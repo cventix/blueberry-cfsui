@@ -2,6 +2,25 @@ import * as React from 'react'
 import { connect } from 'react-redux'
 import { Button } from '../../../components/ui-elements/Button/Button'
 import { t } from 'ttag'
+import { Tooltip } from '../../../components/ui-elements/Tooltip/Tooltip'
+import { formatPrice } from '../../../services/internal/utils/formatPrice'
+
+export const translateName = (name: string) => {
+  let translate
+  if (localStorage.getItem('__language') == 'en') return name
+  switch (name) {
+    case 'FREE':
+      translate = 'رایگان'
+      break
+    case 'Pro':
+      translate = 'حرفه ای'
+      break
+    case 'Premium':
+      translate = 'ویژه'
+      break
+  }
+  return translate
+}
 
 export const Plan: React.FunctionComponent<any> = props => {
   let product = props.info
@@ -19,27 +38,73 @@ export const Plan: React.FunctionComponent<any> = props => {
         break
     }
   let featureInfo = JSON.parse(product.featureInfo)
-  console.log(featureInfo)
+  console.log(product.jsonPrices)
+  let style
+  if (props.index == 1)
+    style = {
+      backgroundImage: 'linear-gradient(to bottom, #ffffff, #eff4fb)'
+    }
   return (
-    <div className={'pg-flex pg-flex-col pg-bg-white pg-w-full pg-p-8'}>
-      <div className={'pg-text-blue-700 pg-text-center  '}>{product.name}</div>
-      <div className={'pg-text-gray-700 pg-text-center  '}>{product.priceInfo}</div>
-      <div className={'pg-text-gray-700 pg-text-center   '}>{props.monthly ? 'در ماه' : 'در سال'}</div>
-      <Button className={[props.active ? 'pg-btnDisabled' : 'pg-btnSuccess0', 'pg-btnLg']}>{buttonText}</Button>
+    <div className={`pg-flex pg-flex-col pg-bg-white pg-w-1/3 pg-p-8 `} style={style}>
+      <div className={'pg-text-blue-500 pg-text-center   pg-text-base'}>{translateName(product.name)}</div>
+      <div className={'pg-text-gray-900 pg-text-center pg-text-lg pg-p-2'}>
+        {props.monthly
+          ? product.jsonPrices
+            ? formatPrice(product.jsonPrices[0].valuePrice)
+            : '0'
+          : product.jsonPrices
+          ? formatPrice(product.jsonPrices[2].valuePrice)
+          : '0'}
+      </div>
+      <div className={'pg-text-gray-600 pg-text-center   '}>{props.monthly ? 'در ماه' : 'در سال'}</div>
+      <Button className={[props.active ? 'pg-btnDisabled' : 'pg-btnSuccess0', 'pg-btnLg', 'pg-mt-4', 'pg-mb-10']}>{buttonText}</Button>
       {Object.keys(featureInfo).map((objectKey, index) => {
-        let name = objectKey.split(':')[0]
-        let value = objectKey.split(':')[1]
-        console.log(name.match(/\d+$/))
+        let array = objectKey.split(':')
+        let name = array[0]
+        let value = featureInfo[objectKey]
+        console.log(name)
         return (
-          <div className={'pg-flex pg-justify-between'}>
-            
+          <div
+            className={`pg-flex pg-justify-between pg-p-3 pg-text-xs pg-border-dashed  pg-border-gray-300 ${index !==
+              +Object.keys(featureInfo).length - 1 && 'pg-border-b-2'}`}
+          >
             {index !== 1 && index !== 2 ? (
-              <>
-                <span>{name}</span> <span>{value? t`بله` : t`خیر`}</span>
-              </>
+              name == 'پشتیبانی ۲۴ساعته، تمام ایام هفته' ? (
+                <>
+                  <span>پشتیبانی</span> <span>۲۴x۷</span>
+                </>
+              ) : (
+                <>
+                  <span>
+                    {
+                      name
+                        .split('برای فایل‌ها')[0]
+                        .split('برای همه‌ی فایلها')[0]
+                        .split('نامحدود')[0]
+                    }
+                  </span>
+                  <span>
+                    {name.includes('نامحدود') ? (
+                      'نامحدود'
+                    ) : value && name == 'لینک مستقیم' ? (
+                      <Tooltip text={value} width={90} height={27} position={'bottom'}>
+                        محدودیت دارد
+                      </Tooltip>
+                    ) : index == 0 && +value == 1 && name == 'نمایش تبلیغات' ? (
+                      'بله'
+                    ) : name == 'نمایش تبلیغات' ? (
+                      'خیر'
+                    ) : name == 'لینک دانلود مستقیم برای همه‌ی فایلها' ? (
+                      'نامحدود'
+                    ) : (
+                      ''
+                    )}
+                  </span>
+                </>
+              )
             ) : (
               <>
-                <span>{name}</span> <span>{name.match(/\d+$/)}</span>
+                <span> سقف آپلود{name.split('سقف آپلود')[1]}</span> <span>{name.split('سقف آپلود')[0]}</span>
               </>
             )}
           </div>

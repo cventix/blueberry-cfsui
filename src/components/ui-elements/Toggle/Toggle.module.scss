@@ -2,7 +2,68 @@
 
 $width: 20px;
 $height: 12px;
+.bigToggle {
+  $width: $width * 2 + 5;
+  $height: $height * 2;
+  position: relative;
+  display: inline-block;
+  width: $width;
+  height: $height;
+  vertical-align: middle;
 
+  input[type='checkbox'] {
+    display: none;
+  }
+
+  .knob {
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    background-color: $disabled-lt-gray;
+    cursor: pointer;
+    @include transition(all 0.4s);
+    @include border-radius($height);
+
+    &:before {
+      content: '';
+      position: absolute;
+      top: 2.5px;
+      left: 2.68px;
+      width: ($height - 7);
+      height: ($height - 7);
+      background-color: #fff;
+      @include transition(all 0.4s);
+      @include border-radius(50%);
+    }
+  }
+
+  input:checked + .knob {
+    background-color: $dk-blue;
+  }
+
+  input:checked + .knob:before {
+    @include transform(translateX($height - 4));
+  }
+
+  &.onDisabled {
+    .knob {
+      background-color: $disabled-lt-gray $important;
+    }
+
+    input:checked + .knob:before {
+      transform: translateX($height - 4);
+    }
+  }
+
+  &.disabled {
+    .knob {
+      cursor: not-allowed;
+      background: $disabled-dk-gray;
+    }
+  }
+}
 .switch {
   position: relative;
   display: inline-block;
@@ -20,7 +81,7 @@ $height: 12px;
       @include box-shadow(0 1px 3px 0 rgba(0, 0, 0, 0.05));
 
       &:before {
-        content: "";
+        content: '';
         top: 3px;
         left: 3px;
         width: 10px;
@@ -32,7 +93,7 @@ $height: 12px;
         position: absolute;
         right: 4px;
         bottom: -1px;
-        content: "OFF";
+        content: 'OFF';
         color: $lt-gray;
         font-size: $font-size - 4;
       }
@@ -48,12 +109,12 @@ $height: 12px;
     }
 
     input:checked + .knob:after {
-      content: "ON";
+      content: 'ON';
       right: 6.5px;
     }
   }
 
-  input[type="checkbox"] {
+  input[type='checkbox'] {
     display: none;
   }
 
