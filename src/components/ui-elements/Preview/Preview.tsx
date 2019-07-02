@@ -61,7 +61,7 @@ export const Preview: React.FunctionComponent<Iprops> = props => {
             <Button className={['pg-btnControl', 'pg-btnCircle', 'pg-right']} onClick={() => props.goTo(+1)}>
               <Icon src={arrowLeft} className={[styles.icon, styles.iconRight].join(' ')} />
             </Button>
-            <section className={`pg-bg-white pg-z-100 pg-w-full pg-h-auto flex-center pg-fixed pg-top-50% pg-left-50% pg-rounded-sm pg-shadow-lg tablet-max:pg-w-full ${modalStyles.modalMain}`} {[modalStyles.modalMain, styles.previewMain].join(' ')}>
+            <section className={`pg-bg-white pg-z-100 pg-w-full pg-h-auto flex-center pg-fixed pg-top-50% pg-left-50% pg-rounded-sm pg-shadow-lg tablet-max:pg-w-full ${modalStyles.modalMain}`}>
               <div className={styles.image}>{props.children}</div>
             </section>
             <Button className={['pg-btnControl', 'pg-btnCircle', 'pg-left']} onClick={() => props.goTo(-1)}>

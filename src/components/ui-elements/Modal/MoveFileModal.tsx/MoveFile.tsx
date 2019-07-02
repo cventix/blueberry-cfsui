@@ -161,7 +161,7 @@ class MoveFile extends React.Component<Iprops, Istate> {
               handleNavigate={this.handleNavigate}
             />
           ) : (
-            <div className='flex-center pg-w-full pg-h-full' {styles.loading}>
+            <div className='flex-center pg-w-full pg-h-full'>
               {loading ? (
                 <>
                   <Icon src={loadingIcon} style={{ padding: '4px' }} /> در حال بارگذاری{' '}
