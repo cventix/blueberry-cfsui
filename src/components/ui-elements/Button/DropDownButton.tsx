@@ -20,14 +20,14 @@ export default interface Iprops {
 }
 
 const classCreator = (className: any) => {
-  return className.map((name: any) => styles[name]).join(' ')
+  return className.join(' ')
 }
 
 export const DropDownButton = ({ className, onClick, style, data, children, disabled }: Iprops) => {
   return (
     <button
       disabled={disabled}
-      className={className ? `${styles.btn} ${styles.dropdown} ${classCreator(className)}` : `${styles.dropdown} ${styles.btn}`}
+      className={className ? `pg-btn ${styles.dropdown} ${classCreator(className)}` : `${styles.dropdown} pg-btn`}
       {...onClick && { onClick: e => onClick(e) }}
       style={style}
     >

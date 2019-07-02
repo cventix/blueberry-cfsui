@@ -41,7 +41,7 @@ export const Navbar: React.FunctionComponent<Iprops> = ({ toggleHamburgerMenu, t
       fixed-on-top
       pg-h-header
       pg-bg-white
-      pg-z-50
+      pg-z-1000
       navbar"
     >
       <div className="pg-flex pg-flex-row pg-flex-wrap right">

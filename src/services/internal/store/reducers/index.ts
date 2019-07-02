@@ -20,5 +20,5 @@ export default combineReducers({
   history: historyReducer,
   vm: vmReducer,
   messages: messagesReducer,
-  account:accountReducer
+  account: accountReducer
 })

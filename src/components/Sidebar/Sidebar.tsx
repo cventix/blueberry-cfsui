@@ -18,7 +18,7 @@ export default interface Iprops {
 
 export const Sidebar: React.FunctionComponent<Iprops> = ({ onClickOverlay, open, onItemClick }: Iprops) => {
   return (
-    <aside className={open ? 'pg-relative sidebar open' : 'pg-relative sidebar'}>
+    <aside className={open ? 'pg-relative pg-z-1000 sidebar open' : 'pg-relative  pg-z-1000 sidebar'}>
       <div
         className="pg-fixed pg-inset-0 pg-hidden pg-z-40 pg-bg-black pg-cursor-pointer pg-opacity-50 overlay"
         onClick={e => {

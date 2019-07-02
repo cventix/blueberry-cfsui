@@ -1,6 +1,6 @@
 import * as React from 'react'
 import { connect } from 'react-redux'
-import { Plan } from './Plan'
+import  Plan  from './Plan'
 import Toggle from '../../../components/ui-elements/Toggle/Toggle'
 import greenArrow from '../../../images/typeIcons/group.svg'
 import { Icon } from '../../../components/ui-elements/Icon'
@@ -114,18 +114,19 @@ const Plans: React.FunctionComponent<any> = props => {
       staticPlan: false
     }
   ]
+ 
   return (
-    <div className={'pg-flex pg-w-full pg-flex-col'}>
+    <div className={'pg-flex pg-w-full pg-flex-col tablet-max:pg-p-12 mobile-max:pg-p-8'}>
       <div className={'pg-flex pg-w-full pg-justify-center '}>
         <div className={'pg-flex pg-bg-white pg-justify-center pg-relative'}>
           <div className={`pg-text-center pg-p-4 pg-px-10 pg-bg-activated-900`}>شخصی</div>
           <div className={'pg-text-center pg-p-4 pg-px-10 '}>سازمانی</div>
         </div>
       </div>
-      <div className={'pg-flex  pg-w-full pg-bg-white pg-p-10 pg-justify-center  '}>
+      <div className={'pg-flex  pg-w-full pg-bg-white  pg-p-10 pg-justify-center t'}>
         <span className={`pg-px-3 pg-py-1`}>ماهیانه</span>
-        <span onClick={props.onToggle}>
-          <Toggle checked={props.toggle} className={'bigToggle'} />
+        <span onClick={(e) => props.onToggle(e)}>
+          <Toggle checked={props.monthly} className={'bigToggle'} />
         </span>
         <span className={`pg-px-3 pg-py-1`}>سالانه</span>
         <span className={`pg-relative`}>
@@ -133,8 +134,8 @@ const Plans: React.FunctionComponent<any> = props => {
         </span>
         <span className={`pg-px-3 pg-py-1 pg-text-xs pg-text-green-400`}>٪۲۰ تخفیف</span>
       </div>
-      <div className={'pg-flex pg-w-full'}>
-        {products && products.map((plan: any, index: number) => <Plan info={plan} monthly={props.monthly} active={props.planId == plan.id} index={index} />)}
+      <div className={'pg-flex pg-w-full laptop:pg-flex-col mobile-max:pg-flex-col tablet-max:pg-flex-col '}>
+        {products && products.map((plan: any, index: number) => <Plan info={plan} active={props.planId == plan.id} index={index} onClick={props.onClick} />)}
       </div>
     </div>
   )

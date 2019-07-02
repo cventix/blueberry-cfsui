@@ -10,6 +10,7 @@ import signOut from '../../images/signout.svg'
 import styles from './Signout.module.scss'
 import { connect } from 'react-redux'
 import { signout } from '../../services/internal/store/actions'
+import { Link } from 'react-router-dom'
 
 export interface Iprops {
   username: string
@@ -18,16 +19,23 @@ export interface Iprops {
 }
 
 const Signout: React.FunctionComponent<Iprops> = ({ username, open, signout }) => {
- 
   return (
     <ul className={open ? `${styles.signout} ${styles.open}` : `${styles.signout}`}>
       <li>
         <span>{username}</span>
       </li>
       <li className={styles.item}>
-        <IconLink icon={profile} iconAlt="profile" label={t`حساب کاربری`} />
+        <Link to={'/account'}>
+          <IconLink icon={profile} iconAlt="profile" label={t`حساب کاربری`} />
+        </Link>
       </li>
-      <li className={styles.item} onClick={()=>{signout;window.location.replace('/login');    }}>
+      <li
+        className={styles.item}
+        onClick={() => {
+          signout
+          window.location.replace('/login')
+        }}
+      >
         <IconLink icon={signOut} iconAlt="logout" label={t`خروج`} />
       </li>
     </ul>

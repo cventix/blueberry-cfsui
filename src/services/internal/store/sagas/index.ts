@@ -1,7 +1,7 @@
 import { takeEvery, all, takeLatest } from 'redux-saga/effects'
 
 import { actionTypes } from '../actions/types'
-import { login, register, signout, forgetPassword, getUserInfo, changePassword, getProducts } from './auth'
+import { login, register, signout, forgetPassword, changePassword, } from './auth'
 import {
   getDocuments,
   getSharedDocuments,
@@ -20,6 +20,7 @@ import {
   changeSharingStatus,
   urlUpload
 } from './documents'
+import { getProducts, getUserInfo, changePlan } from './account';
 
 // import { getUserInfo } from './user'
 
@@ -28,12 +29,17 @@ function* watchAuth() {
   yield takeEvery(actionTypes.REGISTER, register)
   yield takeEvery(actionTypes.SIGNOUT, signout)
   yield takeEvery(actionTypes.FORGET_PASSWORD, forgetPassword)
-  yield takeEvery(actionTypes.GET_USER_INFO, getUserInfo)
   yield takeEvery(actionTypes.CHANGE_PASSWORD, changePassword)
-  yield takeEvery(actionTypes.GET_PRODUCTS, getProducts)
+
   //   yield takeEvery(actionTypes.VERIFY_MOBILE, verifyMobile)
   //   yield takeEvery(actionTypes.LOGOUT, logout)
   //   yield takeEvery(actionTypes.GET_USER_INFO, getUserInfo)
+}
+function* watchUser() {
+  yield takeEvery(actionTypes.GET_PRODUCTS, getProducts)
+  yield takeEvery(actionTypes.GET_USER_INFO, getUserInfo)
+  yield takeEvery(actionTypes.CHANGE_PLAN, changePlan)
+  
 }
 function* watchDocuments() {
   yield takeEvery(actionTypes.GET_DOCUMENTS, getDocuments)
@@ -56,5 +62,5 @@ function* watchDocuments() {
 }
 
 export function* rootSaga() {
-  yield all([watchAuth(), watchDocuments()])
+  yield all([watchAuth(), watchDocuments(), watchUser()])
 }

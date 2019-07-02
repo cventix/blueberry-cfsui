@@ -38,14 +38,14 @@ export const Plan: React.FunctionComponent<any> = props => {
         break
     }
   let featureInfo = JSON.parse(product.featureInfo)
-  console.log(product.jsonPrices)
+  console.log(props.monthly)
   let style
   if (props.index == 1)
     style = {
       backgroundImage: 'linear-gradient(to bottom, #ffffff, #eff4fb)'
     }
   return (
-    <div className={`pg-flex pg-flex-col pg-bg-white pg-w-1/3 pg-p-8 `} style={style}>
+    <div className={`pg-flex pg-flex-col pg-bg-white pg-w-1/3 pg-p-8 laptop:pg-w-full mobile-max:pg-w-full tablet-max:pg-w-full `} style={style}>
       <div className={'pg-text-blue-500 pg-text-center   pg-text-base'}>{translateName(product.name)}</div>
       <div className={'pg-text-gray-900 pg-text-center pg-text-lg pg-p-2'}>
         {props.monthly
@@ -53,16 +53,23 @@ export const Plan: React.FunctionComponent<any> = props => {
             ? formatPrice(product.jsonPrices[0].valuePrice)
             : '0'
           : product.jsonPrices
-          ? formatPrice(product.jsonPrices[2].valuePrice)
+          ? formatPrice(product.jsonPrices[2].valuePrice * 0.8)
           : '0'}
       </div>
-      <div className={'pg-text-gray-600 pg-text-center   '}>{props.monthly ? 'در ماه' : 'در سال'}</div>
-      <Button className={[props.active ? 'pg-btnDisabled' : 'pg-btnSuccess0', 'pg-btnLg', 'pg-mt-4', 'pg-mb-10']}>{buttonText}</Button>
+      <div className={'pg-text-gray-600 pg-text-center'}>{props.monthly ? 'در ماه' : 'در سال'}</div>
+      <div className={'pg-text-gray-600 pg-text-center'}>
+        <Button
+          className={[props.active ? 'pg-btnDisabled' : 'pg-btnSuccess0', 'pg-btnLg', 'pg-mt-4', 'pg-mb-10']}
+          onClick={props.onClick}
+          name={product.id}
+        >
+          {buttonText}
+        </Button>
+      </div>
       {Object.keys(featureInfo).map((objectKey, index) => {
         let array = objectKey.split(':')
         let name = array[0]
         let value = featureInfo[objectKey]
-        console.log(name)
         return (
           <div
             className={`pg-flex pg-justify-between pg-p-3 pg-text-xs pg-border-dashed  pg-border-gray-300 ${index !==
@@ -113,3 +120,8 @@ export const Plan: React.FunctionComponent<any> = props => {
     </div>
   )
 }
+const mapStateToProps = (state: any) => ({ monthly: state.account.monthly })
+export default connect(
+  mapStateToProps,
+  null
+)(Plan)

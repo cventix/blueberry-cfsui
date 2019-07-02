@@ -29,12 +29,7 @@ const authReducer = (state: StateInterface = initialState, action: any) => {
         ...state,
         token: action.payload.token
       }
-    case actionTypes.SET_USER_INFO:
-      return {
-        ...state,
-        info: action.info
-      }
-
+ 
     case actionTypes.SET_USER_CREDENTIALS:
       return {
         ...state,

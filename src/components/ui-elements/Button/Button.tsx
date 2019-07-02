@@ -13,6 +13,7 @@ export default interface Iprops {
   children?: any
   disabled?: boolean
   loading?: boolean
+  name?: string
   extraClassName?: any[]
 }
 
@@ -21,11 +22,12 @@ const classCreator = (className: any, extraClassName?: any) => {
   return [cls, extraClassName && extraClassName.join(' ')].join(' ')
 }
 
-export const Button = ({ className, onClick, style, children, loading, extraClassName, disabled }: Iprops) => {
+export const Button = ({ className, onClick, style, children, loading, extraClassName, disabled, name }: Iprops) => {
   return (
     <button
       disabled={disabled}
       className={className ? `pg-btn ${classCreator(className, extraClassName)}` : `pg-btn`}
+      name={name}
       onClick={e => onClick && onClick(e)}
       style={style}
     >

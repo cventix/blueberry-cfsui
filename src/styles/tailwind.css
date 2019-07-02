@@ -10620,6 +10620,10 @@ video {
   z-index: 50;
 }
 
+.pg-z-1000 {
+  z-index: 1000;
+}
+
 .pg-z-auto {
   z-index: auto;
 }
@@ -20547,6 +20551,10 @@ body:lang(en) {
     z-index: 50;
   }
 
+  .mobile-max\:pg-z-1000 {
+    z-index: 1000;
+  }
+
   .mobile-max\:pg-z-auto {
     z-index: auto;
   }
@@ -30356,6 +30364,10 @@ body:lang(en) {
 
   .tablet-max\:pg-z-50 {
     z-index: 50;
+  }
+
+  .tablet-max\:pg-z-1000 {
+    z-index: 1000;
   }
 
   .tablet-max\:pg-z-auto {
@@ -40169,6 +40181,10 @@ body:lang(en) {
     z-index: 50;
   }
 
+  .mobile\:pg-z-1000 {
+    z-index: 1000;
+  }
+
   .mobile\:pg-z-auto {
     z-index: auto;
   }
@@ -49978,6 +49994,10 @@ body:lang(en) {
 
   .tablet\:pg-z-50 {
     z-index: 50;
+  }
+
+  .tablet\:pg-z-1000 {
+    z-index: 1000;
   }
 
   .tablet\:pg-z-auto {
@@ -59791,6 +59811,10 @@ body:lang(en) {
     z-index: 50;
   }
 
+  .laptop\:pg-z-1000 {
+    z-index: 1000;
+  }
+
   .laptop\:pg-z-auto {
     z-index: auto;
   }
@@ -69602,6 +69626,10 @@ body:lang(en) {
     z-index: 50;
   }
 
+  .desktop\:pg-z-1000 {
+    z-index: 1000;
+  }
+
   .desktop\:pg-z-auto {
     z-index: auto;
   }
@@ -79411,6 +79439,10 @@ body:lang(en) {
 
   .lgDesktop\:pg-z-50 {
     z-index: 50;
+  }
+
+  .lgDesktop\:pg-z-1000 {
+    z-index: 1000;
   }
 
   .lgDesktop\:pg-z-auto {

@@ -2,7 +2,15 @@ import * as React from 'react'
 import { SwitchBar } from '../../components/SwitchBar/SwitchBar'
 import ProfileEdit from './Profile/ProfileEdit'
 import { Security } from '../../components/Security/Security'
-import { getUserInfo, setProfileTab, changePassword, setFormState, getProducts, setProductToggle } from '../../services/internal/store/actions'
+import {
+  getUserInfo,
+  setProfileTab,
+  changePassword,
+  setFormState,
+  getProducts,
+  setProductToggle,
+  changePlan
+} from '../../services/internal/store/actions'
 import { connect } from 'react-redux'
 import { t } from 'ttag'
 import Plans from './Plans/Plans'
@@ -16,7 +24,8 @@ export interface Iprops {
   info: any
   getProducts: any
   setProductToggle: any
- monthly:any
+  monthly: any
+  changePlan: any
 }
 export interface Istate {
   selected: string
@@ -35,7 +44,8 @@ class Account extends React.Component<Iprops, any> {
     this.props.getUserInfo()
     this.props.getProducts()
   }
-  onToggle= ()=>{
+  onToggle = (e: any) => {
+    e.preventDefault()
     this.props.setProductToggle(!this.props.monthly)
   }
   componentWillReceiveProps(nextProps: any) {
@@ -51,7 +61,7 @@ class Account extends React.Component<Iprops, any> {
         province: info.profile.province,
         city: info.profile.city,
         postalCode: info.profile.postalCode,
-        planId: info.plan.id,
+        planId: info.plan.id
       })
     }
   }
@@ -71,7 +81,10 @@ class Account extends React.Component<Iprops, any> {
     if (e) e.preventDefault()
     this.props.setFormState(!this.props.editableForm)
   }
-
+  onClick = (e: any) => {
+    console.log(e.target.name)
+    this.props.changePlan(e.target.name, "{ plan_type: 'MONTH', managed: false }", false)
+  }
   render() {
     const options = ['پروفایل', 'پلن ها', 'امنیت']
     let profileBasic, personalInfo
@@ -99,14 +112,14 @@ class Account extends React.Component<Iprops, any> {
         )
         break
       case t`پلن`:
-        view = <Plans planId={this.state.planId} onToggle={this.onToggle}/>
+        view = <Plans planId={this.state.planId} onToggle={this.onToggle} onClick={this.onClick} />
         break
       case t`امنیت`:
         view = <Security changePassword={this.changePassword} updateChange={this.updateChange} />
         break
     }
     return (
-      <div className={'pg-w-3/4'}>
+      <div className={'pg-w-full'}>
         {/* <SwitchBar options={options} onSwitch={this.switchView} selected={this.state.selected} /> */}
         <div className={'pg-py-4'}> {view}</div>
       </div>
@@ -121,10 +134,16 @@ const mapDispatchToProps = (dispatch: any) => {
     setProfileTab: (value: any) => dispatch(setProfileTab(value)),
     setProductToggle: (value: any) => dispatch(setProductToggle(value)),
     changePassword: (currentPassword: string, newPassword: string) => dispatch(changePassword(currentPassword, newPassword)),
+    changePlan: (id: number, additionalInfo: string, applyNow: boolean) => dispatch(changePlan(id, additionalInfo, applyNow)),
     setFormState: (value: any) => dispatch(setFormState(value))
   }
 }
-const mapStateToProps = (state: any) => ({ profileView: state.sidebar.profileTab, editableForm: state.account.editableForm, info: state.auth.info , monthly: state.account.monthly })
+const mapStateToProps = (state: any) => ({
+  profileView: state.sidebar.profileTab,
+  editableForm: state.account.editableForm,
+  info: state.account.info,
+  monthly: state.account.monthly
+})
 export default connect(
   mapStateToProps,
   mapDispatchToProps
