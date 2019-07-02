@@ -52,6 +52,14 @@ img {
   @apply .pg-flex .pg-flex-row .pg-flex-no-wrap
 }
 
+.flex-row-wrap {
+  @apply .pg-flex .pg-flex-row .pg-flex-wrap
+}
+
+.flex-col-wrap {
+  @apply .pg-flex .pg-flex-col .pg-flex-wrap
+}
+
 .flex-row-wrap-withspace {
   @apply .pg-flex .pg-flex-row .pg-flex-wrap .pg-justify-between
 }

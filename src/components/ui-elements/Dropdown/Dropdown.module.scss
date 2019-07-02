@@ -2,61 +2,44 @@
 
 $dropdown-width: 140px;
 $dropdown-item-height: 33px;
-$padding: 30px;
 $dropdown-border: #e5e5e5;
-$left: 10px;
-$more-button: #9b9b9b;
-$more-button-size: 28px;
-$background-white: #fff;
-$margin-top: -20px;
 
 .dropdownBox {
-  position: relative;
-
-
   .more {
-    margin-top: $margin-top;
-  }
+    margin-top: -20px;
 
-  .more::after {
-    content: '...';
-    font-size: $more-button-size;
-    display: flex;
-    justify-content: center;
-  }
-
-  .dpButton {
-    border: 0;
-    padding: 0;
-    background: 0;
-    color: $more-button;
-  }
-
-  .dpButton:hover {
-    color: $lt-blue;
-    cursor: pointer;
+    &:after {
+      content: '...';
+      display: flex;
+      justify-content: center;
+      font-size: $font-size * 2;
+    }
   }
 
   .dropdown {
     @include flex(column, wrap);
-    @include border-radius($br-radius-sm);
-    @include box-shadow(0 1px 3px 0 rgba(0, 0, 0, 0.05));
-    text-align: right;
     position: absolute;
-    z-index: 4;
+    left: -10px;
     width: $dropdown-width;
     list-style: none;
     background: white;
     border: solid 1px $dropdown-border;
-    left: -$left;
-    font-size: 12px;
+    font-size: $font-size - 2;
+    text-align: right;
+    z-index: 4;
+    @include border-radius($br-radius-sm);
+    @include box-shadow(0 1px 3px 0 rgba(0, 0, 0, 0.05));
 
     li {
       display: flex;
       align-items: center;
-      cursor: pointer;
       color: $lt-gray;
-      padding: 0 $padding;
+      padding: 0 30px;
+      cursor: pointer;
+
+      &:hover {
+        background: $hover-gray;
+      }
 
       a {
         width: 100%;
@@ -65,10 +48,7 @@ $margin-top: -20px;
         height: 35px;
       }
     }
-   
-    li:hover {
-      background: $hover-gray;
-    }
+
     .selected {
       background: $hover-gray;
     }
@@ -79,19 +59,22 @@ $margin-top: -20px;
       border-bottom: 0;
       width: 100%;
     }
+
     .label {
       line-height: 2.5;
       padding:0;
       margin: relative;
     }
+
     .description {
       font-family: $light-font;
-      font-size: 8px;
-      margin-bottom:9px;
-
+      font-size: $font-size - 6;
+      margin-bottom: 9px;
     }
+
     .bordered {
       border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+
       &:last-child {
         border: 0;
       }
@@ -101,6 +84,7 @@ $margin-top: -20px;
       display: inline-block;
       position: relative;
       top: 30%;
+
       &:after {
         content: '';
         display: block;
@@ -111,15 +95,14 @@ $margin-top: -20px;
         transform: rotate(45deg);
       }
     }
-    .text {
-      margin-right: 17px;
-    }
   }
 }
+
 .relative {
   position: relative !important;
   left:0 !important;
 }
+
 body:lang(en) {
   .dropdownBox {
     text-align: right;

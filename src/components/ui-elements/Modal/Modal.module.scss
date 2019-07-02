@@ -33,14 +33,6 @@ $header-height: 45px;
   opacity: 0;
 
   .modalMain {
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    background: #fff;
-    height: auto;
-    z-index: 1000;
-    @include border-radius($br-radius-sm);
-    @include box-shadow(0 5px 15px 0 rgba(0, 0, 0, 0.1));
     @include transform(translate(-50%, -50%));
 
     @media(min-width: $mobile + 1) and (max-width: $tablet - 128) {
@@ -53,38 +45,13 @@ $header-height: 45px;
   }
 
   .header {
-    @include flex(row, wrap);
-    @include box-shadow(0 1px 0 0 #e5e5e5);
-    @include border-radius($br-radius-sm);
-    justify-content: space-between;
-    height: $header-height;
-    background: $modal-header;
-    margin-bottom: 23px;
-
-    .title {
-      @include flex(row, wrap);
-      margin-right: 23px;
-      align-items: center;
-      font-family: $medium-font;
-      color: $lt-gray;
-    }
-
     .close {
-      cursor: pointer;
-      border: 0;
-      background: 0;
-      margin: $header-height/4;
-      justify-self: flex-end;
-    }
-    .closeIcon {
-      width: 10px;
+       justify-self: flex-end;
     }
   }
 
-  .body {
-    padding: 0 14px;
-  }
 }
+
 .displayBlock {
   visibility: visible;
   opacity: 1;

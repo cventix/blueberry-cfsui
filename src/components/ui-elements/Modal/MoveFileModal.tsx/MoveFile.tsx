@@ -2,20 +2,21 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { t } from 'ttag'
 
-import { UploadModal } from '../Uploadmodal/Uploadmodal'
+// ui-elements
 import { ContentBody } from '../../../Content/ContentBody'
-import { Button } from '../../Button/Button'
 import { navigateObject } from '../../../Content/Content'
 import { Breadcrumb } from '../../Breadcrumb/Breadcrumb'
+import { UploadModal } from '../Uploadmodal/Uploadmodal'
+import { Button } from '../../Button/Button'
 import { Icon } from '../../Icon'
 
-//styles and icons
-import loadingIcon from '../../../../images/loading/tail-spin.svg'
-import styles from './MoveFile.module.scss'
-
-//services
+// services
 import { moveDocuments, getModalDocuments, setParentId, setModalSelections, setHistory } from '../../../../services/internal/store/actions'
 import { IGetDocumentsInput, IMoveDocumentsInput, DocumentsInterface } from '../../../../services/internal/repositories/documents'
+
+// styles and icons
+import loadingIcon from '../../../../images/loading/tail-spin.svg'
+import styles from './MoveFile.module.scss'
 
 export interface Iprops {
   showModal?: boolean
@@ -31,6 +32,7 @@ export interface Iprops {
   parentId?: number
   setParentId: (parentId: number) => void
 }
+
 export interface Istate {
   name: string
   description: string
@@ -159,7 +161,7 @@ class MoveFile extends React.Component<Iprops, Istate> {
               handleNavigate={this.handleNavigate}
             />
           ) : (
-            <div className={styles.loading}>
+            <div className='flex-center pg-w-full pg-h-full' {styles.loading}>
               {loading ? (
                 <>
                   <Icon src={loadingIcon} style={{ padding: '4px' }} /> در حال بارگذاری{' '}
@@ -171,7 +173,7 @@ class MoveFile extends React.Component<Iprops, Istate> {
           )}
         </div>
 
-        <div className={styles.submitButton}>
+        <div className='pg-w-full pg-flex pg-justify-end pg-mt-23p pg-ml-35p'>
           <Button
             className={[
               !this.props.modalSelection || this.props.modalSelection == this.props.parentId ? 'pg-btnPrimaryOutline' : 'pg-btnPrimary',
@@ -214,3 +216,4 @@ export default connect(
   mapStateToProps,
   mapDispatchToProps
 )(MoveFile)
+

@@ -45,11 +45,11 @@ export const Dropdown: React.FunctionComponent<Iprops> = ({
 }) => {
 
   return (
-    <div className={styles.dropdownBox}>
+    <div className={`pg-relative ${styles.dropdownBox}`}>
       {children
         ? children
         : !noButton && (
-            <button onClick={onToggle} className={styles.dpButton}>
+            <button onClick={onToggle} className='pg-border-0 pg-p-0 pg-bg-transparent pg-text-gray-600 hover:pg-text-blue-400 pg-cursor-pointer'>
               <div className={styles.more} />
             </button>
           )}

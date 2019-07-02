@@ -1,89 +1,35 @@
 @import '../../../../styles/global.scss';
 
-.submitButton {
-  float: left;
-}
-
 .shareModal {
-  .shareRow {
-    @include flex(row, unset);
-    margin: 0 10px;
-  }
-  .columnRow {
-    @include flex(column, unset);
-    width: 50%;
-    margin-left: 40px;
-  }
-  .socialRow {
-    @include flex(row, unset);
-    align-items: center;
-    justify-content: center;
-  }
-  
-  h4 {
-    font-size: 14px;
-    font-weight: 100;
-    color: $dk-gray;
-  }
-  .paragraph {
-    font-size: 10px;
-    color: $input-color;
-    margin-bottom: 15px;
-  }
   .socialIcon {
-    width: 35px;
-    height: 35px;
-    border-radius: 3px;
     border: solid 1px #dfdfdf;
-    background-color: #ffffff;
-    margin-left: 14px;
+
     img {
       width: 23px;
       height: 23px;
     }
-    display: flex;
-    justify-content: center;
-    align-items: center;
   }
-  .shareUser {
-    margin-top: 50px;
-    margin-bottom: 15px;
-  }
+
   .listItems {
-    @include flex(column, wrap);
-    @include border-radius($br-radius-sm);
-    @include box-shadow(0 1px 3px 0 rgba(0, 0, 0, 0.05));
-    text-align: right;
-    z-index: 4;
     list-style: none;
-    background: white;
     border: solid 1px #e5e5e5;
     left: -10px;
-    font-size: 12px;
-    .listItem{
-      display: flex;
-      cursor: pointer;
-      color: $lt-gray;
-      padding: 0 10px 0 0;
-      flex-direction: column;
-    }
+
     .description {
       font-family: $light-font;
       font-size: 8px;
       margin-bottom:9px;
-
     }
+
     .bordered {
       border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+
       &:last-child {
         border: 0;
       }
     }
  
     .checkmark {
-      display: inline-block;
-      position: relative;
-      height: 20%;
       &:after {
         content: '';
         display: block;
@@ -93,9 +39,6 @@
         border-width: 0 2px 2px 0;
         transform: rotate(45deg);
       }
-    }
-    .text {
-      margin-right: 17px;
     }
   }
 }

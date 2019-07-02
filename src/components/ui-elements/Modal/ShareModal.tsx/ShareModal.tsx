@@ -2,21 +2,22 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { t } from 'ttag'
 
+// ui-elements
+import { ClipBoard } from '../../Clipboard/Clipboard'
 import { TextInput } from '../../Input/Input'
 import { Button } from '../../Button/Button'
-import { Modal } from '../Modal'
-import { ClipBoard } from '../../Clipboard/Clipboard'
 import { IconLink } from '../../IconLink'
-
-// icons and styles
-import googlePlus from '../../../../images/socialIcons/google-plus-g-brands.svg'
-import twitter from '../../../../images/socialIcons/twitter-brands.svg'
-import telegram from '../../../../images/socialIcons/telegram-plane-brands.svg'
-import facebook from '../../../../images/socialIcons/facebook-f-brands.svg'
-import styles from '../CreateFolderModal/CreateFolder.module.scss'
+import { Modal } from '../Modal'
 
 //services
 import { shareDocuments, changeSharingStatus } from '../../../../services/internal/store/actions/documents'
+
+// icons and styles
+import googlePlus from '../../../../images/socialIcons/google-plus-g-brands.svg'
+import telegram from '../../../../images/socialIcons/telegram-plane-brands.svg'
+import facebook from '../../../../images/socialIcons/facebook-f-brands.svg'
+import twitter from '../../../../images/socialIcons/twitter-brands.svg'
+import styles from '../CreateFolderModal/CreateFolder.module.scss'
 
 export interface Iprops {
   showModal?: boolean
@@ -94,26 +95,26 @@ class ShareModal extends React.Component<Iprops, Istate> {
     return (
       <Modal show={showModal} handleClose={handleCFClose} width={640} title={t`ایجاد پوشه جدید`}>
         <form className={styles.shareModal}>
-          <div className={styles.shareRow}>
-            <div className={styles.columnRow}>
+          <div className='pg-flex pg-flex-row pg-mt-0 pg-mb-0 pg-mr-10p pg-ml-10p'>
+            <div className='pg-flex pg-flex-col pg-w-50% pg-ml-10'>
               <div>
-                <h4>لینک اشتراک گذاری</h4>
-                <p className={styles.paragraph}>لینک به صفحه نمایش محتویات این فولدر</p>
+                <h4 className='pg-text-gray-800 pg-text-sm pg-font-vThin'>لینک اشتراک گذاری</h4>
+                <p className='pg-mb-15p pg-text-10p pg-text-gray-600'>لینک به صفحه نمایش محتویات این فولدر</p>
               </div>
               <div className={'copyBox'}>
                 <ClipBoard placeholder={this.state.shareLink} />
               </div>
               <div style={{ marginTop: 8, marginBottom: 12 }}>
-                <ul className={styles.listItems}>
+                <ul className={`pg-rounded-sm flex-col-wrap pg-shadow-sm pg-text-right pg-z-4 pg-bg-white pg-text-xs ${styles.listItems}`}>
                   {dropDownData.map((item: any, i: number) => {
                     return (
                       <li style={{ display: 'flex', padding: '0 10px' }}>
-                        <li style={{ width: '10px' }}> {this.state.selected === item.label ? <span className={styles.checkmark} /> : <span />}</li>
-                        <li className={styles.listItem} onClick={() => this.changeSharingStatus(item.label)}>
+                        <li style={{ width: '10px' }}> {this.state.selected === item.label ? <span className={`pg-inline-block pg-relative pg-h-20% ${styles.checkmark}`} /> : <span />}</li>
+                        <li className='pg-flex pg-flex-col pg-cursor-pointer pg-text-gray-700 pg-pt-0 pg-pr-10p pg-pb-0 pg-pl-0' onClick={() => this.changeSharingStatus(item.label)}>
                           <p className={styles.label}>
-                            <span className={item.isSelected ? styles.text : ' '}>{item.label}</span>
+                            <span className={item.isSelected ? 'pg-mr-17p' : ' '}>{item.label}</span>
                           </p>
-                          <p className={[styles.description, item.isSelected ? styles.text : ' '].join(' ')}>{item.description}</p>
+                          <p className={[styles.description, item.isSelected ? 'pg-mr-17p' : ' '].join(' ')}>{item.description}</p>
                         </li>
                       </li>
                     )
@@ -123,28 +124,28 @@ class ShareModal extends React.Component<Iprops, Istate> {
             </div>
             <div className={styles.column}>
               <div>
-                <h4>اشتراک‌گذاری در شبکه‌های اجتماعی</h4>
-                <p className={styles.paragraph}>لینک به صفحه نمایش محتویات این فولدر</p>
+                <h4 className='pg-text-gray-800 pg-text-sm pg-font-vThin'>اشتراک‌گذاری در شبکه‌های اجتماعی</h4>
+                <p className='pg-mb-15p pg-text-10p pg-text-gray-600'>لینک به صفحه نمایش محتویات این فولدر</p>
               </div>
-              <div className={styles.socialRow}>
+              <div className='flex-center pg-flex-row'>
                 <a href={`https://plus.google.com/share?url=http://cdn.persiangig.com/download/${item.uuid}/${item.name}/dl`}>
-                  <IconLink icon={googlePlus} iconAlt={`googleplus`} className={styles.socialIcon} />
+                  <IconLink icon={googlePlus} iconAlt={`googleplus`} className={`flex-center pg-w-35p pg-h-35p pg-rounded-sm pg-bg-white pg-ml-14p ${styles.socialIcon}`} />
                 </a>
                 <a href={`https://www.facebook.com/sharer/sharer.php?u=http://cdn.persiangig.com/download/${item.uuid}/${item.name}/dl`}>
-                  <IconLink icon={facebook} iconAlt={`facebook`} className={styles.socialIcon} />
+                  <IconLink icon={facebook} iconAlt={`facebook`} className={`flex-center pg-w-35p pg-h-35p pg-rounded-sm pg-bg-white pg-ml-14p ${styles.socialIcon}`} />
                 </a>
                 <a href={`https://twitter.com/home?status=http://cdn.persiangig.com/Fdownload/${item.uuid}/${item.name}/dl`}>
-                  <IconLink icon={twitter} iconAlt={`twitter`} className={styles.socialIcon} />
+                  <IconLink icon={twitter} iconAlt={`twitter`} className={`flex-center pg-w-35p pg-h-35p pg-rounded-sm pg-bg-white pg-ml-14p ${styles.socialIcon}`} />
                 </a>
                 <a href={`https://telegram.me/share/url?url=http://cdn.persiangig.com/download/${item.uuid}/${item.name}/dl`}>
-                  <IconLink icon={telegram} iconAlt={`telegram`} className={styles.socialIcon} />
+                  <IconLink icon={telegram} iconAlt={`telegram`} className={`flex-center pg-w-35p pg-h-35p pg-rounded-sm pg-bg-white pg-ml-14p ${styles.socialIcon}`} />
                 </a>
               </div>
-              <div className={styles.shareUser}>
-                <h4> اشتراک با کاربران پرشین گیگ</h4>
-                <p className={styles.paragraph}>ایمیل کاربر را وارد کنید</p>
+              <div className='pg-mt-50p pg-mb-15p'>
+                <h4 className='pg-text-gray-800 pg-text-sm pg-font-vThin'> اشتراک با کاربران پرشین گیگ</h4>
+                <p className='pg-mb-15p pg-text-10p pg-text-gray-600'>ایمیل کاربر را وارد کنید</p>
               </div>
-              <div className={styles.socialRow} style={{ marginBottom: 45 }}>
+              <div className='flex-center pg-flex-row' style={{ marginBottom: 45 }}>
                 <TextInput style={{ width: 174 }} name={'userEmail'} placeholder={'email@example.com'} onChange={this.handleChange} />
                 <Button className={['pg-btnPrimary', 'pg-btnSm']} style={{ marginRight: 10 }} onClick={this.shareDocument}>{t`اشتراک`}</Button>
               </div>

@@ -14,10 +14,9 @@ interface Iprops {
 
 export const ConfirmModal: React.FunctionComponent<Iprops> = ({ value,text, handleSubmit, changeHandler }) => {
   return (
-  
       <form onSubmit={handleSubmit}>
       {text}
-        <div className={styles.submitButton}>
+        <div className='pg-float-left'>
           <Button className={['pg-btnPrimary', 'pg-btnSm']}>بلی</Button>
         </div>
       </form>

@@ -1,10 +1,16 @@
 import React from 'react'
 import { connect } from 'react-redux'
+import { t } from 'ttag'
+
+// ui-elements
 import { UploadModal } from '../Uploadmodal/Uploadmodal'
 import { TextInput } from '../../Input/Input'
 import { Button } from '../../Button/Button'
+
+// services
 import { createFolder, getDocuments } from '../../../../services/internal/store/actions/documents'
-import { t } from 'ttag'
+
+// styles
 import styles from './CreateFolder.module.scss'
 
 export interface Iprops {
@@ -15,7 +21,8 @@ export interface Iprops {
   document?: any
   parentId?: number
 }
-//todo
+
+// todo
 // validation
 class CFmodal extends React.Component<Iprops, any> {
   constructor(props: Iprops) {
@@ -81,7 +88,7 @@ class CFmodal extends React.Component<Iprops, any> {
         <form onSubmit={this.handleSubmit}>
           <TextInput placeholder={t`نام پوشه`} style={{ width: 300 }} onChange={this.changeHandler} name={'name'} />
           <TextInput placeholder={t`توضیحات پوشه`} style={{ width: 300 }} onChange={this.changeHandler} name={'description'} />
-          <div className={styles.submitButton}>
+          <div className='pg-float-left'>
             <Button className={['pg-btnPrimary', 'pg-btnSm']}>{t`ایجاد`}</Button>
           </div>
         </form>

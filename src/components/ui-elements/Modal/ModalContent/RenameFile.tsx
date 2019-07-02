@@ -1,13 +1,14 @@
 import * as React from 'react'
+import { connect } from 'react-redux'
 
+// ui-elements
 import { TextInput } from '../../Input/Input'
 import { Button } from '../../Button/Button'
-
-import styles from '../CreateFolderModal/CreateFolder.module.scss'
 import { UploadModal } from '../Uploadmodal/Uploadmodal'
-import { renameFolder } from '../../../../services/internal/store/actions'
-import { connect } from 'react-redux'
+
+// services
 import { ItemInterface } from '../../../../services/internal/store/reducers/documentReducer'
+import { renameFolder } from '../../../../services/internal/store/actions'
 import { runInThisContext } from 'vm'
 
 interface Iprops {
@@ -53,7 +54,7 @@ class RenameFile extends React.Component<Iprops, any> {
       <UploadModal show={showModal} width={640} title={'تغییر نام'} formDescription={' نام جدید را در فرم زیر وارد نمایید'} handleClose={handleClose}>
         <form onSubmit={this.handleSubmit}>
           <TextInput value={this.state.renameInput} style={{ width: 300 }} onChange={this.changeHandler} name={'renameInput'} />
-          <div className={styles.submitButton}>
+          <div className='pg-float-left'>
             <Button className={['pg-btnPrimary', 'pg-btnSm']}>تغییر نام</Button>
           </div>
         </form>

@@ -44,9 +44,9 @@ export const DropdownItem: React.FunctionComponent<Iprops> = ({
       <a href={link}>
         <p className={styles.label}>
           {selectable && isSelected == index && <span className={styles.checkmark} />}
-          <span className={selectable ? styles.text : ' '}>{label}</span>
+          <span className={selectable ? 'pg-mr-17p' : ' '}>{label}</span>
         </p>
-        <p className={[styles.description, selectable ? styles.text : ' '].join(' ')}>{description}</p>
+        <p className={[styles.description, selectable ? 'pg-mr-17p' : ' '].join(' ')}>{description}</p>
       </a>
     </li>
   )
