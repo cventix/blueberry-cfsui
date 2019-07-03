@@ -132,9 +132,9 @@
 			@include transition(all ease-in-out 1s);
 
 			@if $type == checkbox {
-				right: 4.5px;
-				width: 3px;
-				height: 7px;
+				right: 4px;
+				width: 5px;
+				height: 9px;
 				border-style: solid;
 				border-color: #fff;
 				border-width: 0 1.5px 1.5px 0;

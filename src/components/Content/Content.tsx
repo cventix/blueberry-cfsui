@@ -16,9 +16,10 @@ import {
   getSharedDocuments,
   setParentId,
   setEditStatus,
-  setRenameText
+  setRenameText,
+  removeFolder
 } from '../../services/internal/store/actions'
-import { sliceData } from '../../services/internal/utils/sliceData'
+
 import { setSelections, removeSelection, setToggle, selectAll } from '../../services/internal/store/actions/selections'
 import { IGenerateLinkInput, IRenameFolderInput, IRemoveFolderInput } from '../../services/internal/repositories/documents'
 import { sortData } from '../../services/internal/utils/sortData'
@@ -29,6 +30,7 @@ import styles from './Content.module.scss'
 
 import ModalContent from './SubContent/ModalContent'
 import { ItemInterface } from '../../services/internal/store/reducers/documentReducer'
+import toast from '../../components/ui-elements/Toast/Toast'
 
 export interface IProps {
   getDocuments?: any
@@ -40,6 +42,7 @@ export interface IProps {
   document?: any
   loading?: boolean
   setSelections: (e: Array<number>) => void
+  removeFolder?: any
   setRenameText?: any
   setItem: (e: any) => void
   selection: Array<number>
@@ -82,7 +85,7 @@ class Content extends React.Component<IProps, IState> {
       filteredTable: [],
       checkAll: false,
       selectedArray: [],
-      view: 'grid',
+      view: localStorage.getItem('displayView') ? localStorage.getItem('displayView') || '{}' : 'grid',
       showMore: false,
       modalView: '',
       ascendingSize: false,
@@ -161,9 +164,6 @@ class Content extends React.Component<IProps, IState> {
     }
   }
 
-  turnOffbutton = () => {
-    if (this.state.showMore !== false) this.setState({ showMore: false })
-  }
   /**
    * gets data and makes an obj
    * @param nextProps
@@ -176,22 +176,13 @@ class Content extends React.Component<IProps, IState> {
     }
     console.log(nextProps)
     if (nextProps.selection.length == 0 || (nextProps.selection.length > 0 && nextProps.document.documents !== this.state.mainTable)) {
-      console.log(sliceData({ array: nextProps.document.documents }))
       this.setState({
-        table: sliceData({ array: nextProps.document.documents }),
+        table: nextProps.document.documents,
         showMore: nextProps.document.documents.length > 10,
         mainTable: nextProps.document.documents,
-        filteredTable: sliceData({ array: nextProps.document.documents })
+        filteredTable: nextProps.document.documents
       })
     }
-  }
-
-  // show more button function
-  showMore = () => {
-    this.setState({
-      filteredTable: sliceData({ array: this.state.mainTable, choppedArray: this.state.table }),
-      showMore: Math.ceil(this.state.mainTable.length / this.step) - 1 === Math.ceil(this.state.table.length / 10) ? false : true
-    })
   }
 
   //sort types
@@ -220,7 +211,7 @@ class Content extends React.Component<IProps, IState> {
     }
 
     this.setState({
-      table: sliceData({ array: table }),
+      table,
       mainTable: table,
       filteredTable: this.state.table
     })
@@ -244,6 +235,7 @@ class Content extends React.Component<IProps, IState> {
   //switch between grid and list
   switchView = (view: string) => {
     this.setState({ view })
+    localStorage.setItem('displayView', view)
   }
 
   // navigate to directories
@@ -280,7 +272,7 @@ class Content extends React.Component<IProps, IState> {
     this.props.setItem(item)
     // if (modalView == t`تغییر نام`) this.props.setEditStatus(renameFileId)
     // else
-     this.setState({ modalView, showModal: true })
+    this.setState({ modalView, showModal: true })
   }
 
   // handle search
@@ -293,6 +285,18 @@ class Content extends React.Component<IProps, IState> {
     })
   }
 
+  onRemoveDocument = async (fileId: number) => {
+    let table = this.state.table
+
+    try {
+      let result = await this.props.removeFolder({ folderId: fileId })
+      table = table.filter((x: any) => x.id !== fileId)
+      this.updateTable({ table })
+      toast.success('حذف شد')
+    } catch (error) {
+      console.log('E: ', error)
+    }
+  }
   // on item check
   onCheck = (id: number) => {
     let selectedArray = this.props.selection
@@ -315,7 +319,7 @@ class Content extends React.Component<IProps, IState> {
       { label: t`تغییر نام`, onClick: this.openModal },
       { label: t`افزودن توضیح` },
       { label: t`دریافت لینک‌ها` },
-      { label: t`حذف فایل`, onClick: this.openModal }
+      { label: t`حذف فایل`, onClick: this.onRemoveDocument }
     ]
 
     return (
@@ -327,7 +331,6 @@ class Content extends React.Component<IProps, IState> {
           handleSearchInput={(e: any) => this.onChangeSearchInput(e)}
         />
         <ContentBody
-          turnOffbutton={this.turnOffbutton}
           onCheckAll={this.onCheckAll}
           onCheck={this.onCheck}
           view={this.state.view}
@@ -349,18 +352,6 @@ class Content extends React.Component<IProps, IState> {
             table={this.state.table}
             updateTable={this.updateTable}
           />
-        )}
-
-        {!this.props.loading && this.state.filteredTable.length > 0 && (
-          <div className={styles.footer}>
-            <Button
-              className={[this.state.showMore ? 'pg-btnDefault0' : 'pg-btnDefault100', 'pg-btnLg']}
-              disabled={!this.state.showMore}
-              onClick={this.showMore}
-            >
-              <IconLink icon={arrowBottom} className={styles.arrow} iconAlt={`new-folder`} label={t`نمایش بیشتر`} />
-            </Button>
-          </div>
         )}
       </React.Fragment>
     )
@@ -388,7 +379,8 @@ const mapDispatchToProps = (dispatch: any) => {
     setParentId: (value: any) => dispatch(setParentId(value)),
     setEditStatus: (value: any) => dispatch(setEditStatus(value)),
     selectAll: (value: boolean) => dispatch(selectAll(value)),
-    setRenameText: (value: any) => dispatch(setRenameText(value))
+    setRenameText: (value: any) => dispatch(setRenameText(value)),
+    removeFolder: (value: IRemoveFolderInput) => dispatch(removeFolder(value))
   }
 }
 

@@ -49,7 +49,7 @@ const TableRow: React.FunctionComponent<Iprops> = ({
   return (
     <tr
       key={item.id}
-      className={isMoveModal && modalSelection === item.id ? styles.activeRow : ''}
+      className={isMoveModal && modalSelection === item.id ? styles.activeRow :  ''}
       onMouseEnter={toggleHover}
       onMouseLeave={toggleHover}
     >

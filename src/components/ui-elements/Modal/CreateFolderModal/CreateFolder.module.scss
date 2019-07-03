@@ -5,6 +5,9 @@
 }
 
 .shareModal {
+  .column{
+    flex:1;
+  }
   .shareRow {
     @include flex(row, unset);
     margin: 0 10px;

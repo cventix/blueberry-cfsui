@@ -41,7 +41,7 @@ export interface Iprops {
   onSort?: (sortBy: string, type?: string | undefined) => void
   setTempDocuments?: (e: any) => void
   handleChange?: any
-  turnOffbutton?: () => void
+
 }
 
 export interface ITableItem {
@@ -98,7 +98,7 @@ const makeSimpleArray = (array: any) => {
 
 export const ContentBody: React.FunctionComponent<Iprops> = ({
   view,
-  turnOffbutton,
+
   dropDownData,
   handleNavigate,
   username,
@@ -114,7 +114,7 @@ export const ContentBody: React.FunctionComponent<Iprops> = ({
   ...rest
 }) => {
   table = isMoveModal ? makeSimpleArray(table) : makeArray(table, username)
-  table.length < 10 && turnOffbutton && turnOffbutton()
+
   const { width } = useWindowDimensions()
   if (loading)
     return (

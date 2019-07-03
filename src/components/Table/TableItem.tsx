@@ -15,6 +15,7 @@ import { setEditStatus } from '../../services/internal/store/actions'
 
 export interface Iprops {
   checkbox?: boolean
+  selection?: any
   label: string
   name?: string
   sortable?: boolean
@@ -59,7 +60,7 @@ const TableItem: React.FunctionComponent<Iprops> = ({
   onCheckAll,
   checked,
   itemName,
-  setEditStatus,
+  selection,
   item,
   hovered,
   onCheck,
@@ -73,7 +74,6 @@ const TableItem: React.FunctionComponent<Iprops> = ({
   const [hoveredButton, setHovered] = useState(false)
   const toggleHover = () => setHovered(!hoveredButton)
 
-
   return (
     <td
       data-label={name}
@@ -84,7 +84,7 @@ const TableItem: React.FunctionComponent<Iprops> = ({
     >
       <div className={'rowItem'}>
         {checkbox && (
-          <div className={hovered ? 'rowItem' : [styles.invisible, 'rowItem'].join(' ')}>
+          <div className={selection.length > 0 ? 'rowItem' : hovered ? 'rowItem' : [styles.invisible, 'rowItem'].join(' ')}>
             <Checkbox onChange={() => (onCheckAll ? onCheckAll() : onCheck && id && onCheck(id))} checked={checked} />
           </div>
         )}
@@ -95,7 +95,7 @@ const TableItem: React.FunctionComponent<Iprops> = ({
           {mimetype && mimetype === 'image' ? <Icon src={imgSrc} className={'imageIcon icon'} /> : <Icon mimetype={mimetype} />}
           <div className={styles.name}>
             {name == 'name' && isEditable == id ? (
-              <div >
+              <div>
                 <TextInput placeholder={label} value={renameText} onChange={handleChange} />
               </div>
             ) : (
@@ -123,7 +123,11 @@ const TableItem: React.FunctionComponent<Iprops> = ({
   )
 }
 
-const mapStateToProps = (state: any) => ({ isEditable: state.sidebar.isEditable, renameText: state.sidebar.renameText })
+const mapStateToProps = (state: any) => ({
+  isEditable: state.sidebar.isEditable,
+  renameText: state.sidebar.renameText,
+  selection: state.selection.selection
+})
 const mapDispatchToProps = (dispatch: any) => {
   return {
     setEditStatus: (value: any) => dispatch(setEditStatus(value))

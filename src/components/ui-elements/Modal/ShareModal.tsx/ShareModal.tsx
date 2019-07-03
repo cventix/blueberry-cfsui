@@ -95,15 +95,25 @@ class ShareModal extends React.Component<Iprops, Istate> {
       <Modal show={showModal} handleClose={handleCFClose} width={640} title={t`ایجاد پوشه جدید`}>
         <form className={styles.shareModal}>
           <div className={styles.shareRow}>
-            <div className={styles.columnRow}>
-              <div>
-                <h4>لینک اشتراک گذاری</h4>
-                <p className={styles.paragraph}>لینک به صفحه نمایش محتویات این فولدر</p>
-              </div>
+            <div className={styles.column}>
+              <h4>لینک اشتراک گذاری</h4>
+              <p className={styles.paragraph}>لینک به صفحه نمایش محتویات این فولدر</p>
+
               <div className={'copyBox'}>
                 <ClipBoard placeholder={this.state.shareLink} />
               </div>
-              <div style={{ marginTop: 8, marginBottom: 12 }}>
+            </div>
+            <div className={styles.column}>
+              <div>
+                <h4> اشتراک با کاربران پرشین گیگ</h4>
+                <p className={styles.paragraph}>ایمیل کاربر را وارد کنید</p>
+              </div>
+              <div className={styles.socialRow} style={{ marginBottom: 15 }}>
+                <TextInput style={{ width: 174 }} name={'userEmail'} placeholder={'email@example.com'} onChange={this.handleChange} />
+                <Button className={['pg-btnPrimary100', 'pg-btnSm']} style={{ marginRight: 10 }} onClick={this.shareDocument}>{t`اشتراک`}</Button>
+              </div>
+
+              {/* <div style={{ marginTop: 8, marginBottom: 12 }}>
                 <ul className={styles.listItems}>
                   {dropDownData.map((item: any, i: number) => {
                     return (
@@ -119,36 +129,26 @@ class ShareModal extends React.Component<Iprops, Istate> {
                     )
                   })}
                 </ul>
-              </div>
+              </div> */}
             </div>
-            <div className={styles.column}>
-              <div>
-                <h4>اشتراک‌گذاری در شبکه‌های اجتماعی</h4>
-                <p className={styles.paragraph}>لینک به صفحه نمایش محتویات این فولدر</p>
-              </div>
-              <div className={styles.socialRow}>
-                <a href={`https://plus.google.com/share?url=http://cdn.persiangig.com/download/${item.uuid}/${item.name}/dl`}>
-                  <IconLink icon={googlePlus} iconAlt={`googleplus`} className={styles.socialIcon} />
-                </a>
-                <a href={`https://www.facebook.com/sharer/sharer.php?u=http://cdn.persiangig.com/download/${item.uuid}/${item.name}/dl`}>
-                  <IconLink icon={facebook} iconAlt={`facebook`} className={styles.socialIcon} />
-                </a>
-                <a href={`https://twitter.com/home?status=http://cdn.persiangig.com/Fdownload/${item.uuid}/${item.name}/dl`}>
-                  <IconLink icon={twitter} iconAlt={`twitter`} className={styles.socialIcon} />
-                </a>
-                <a href={`https://telegram.me/share/url?url=http://cdn.persiangig.com/download/${item.uuid}/${item.name}/dl`}>
-                  <IconLink icon={telegram} iconAlt={`telegram`} className={styles.socialIcon} />
-                </a>
-              </div>
-              <div className={styles.shareUser}>
-                <h4> اشتراک با کاربران پرشین گیگ</h4>
-                <p className={styles.paragraph}>ایمیل کاربر را وارد کنید</p>
-              </div>
-              <div className={styles.socialRow} style={{ marginBottom: 45 }}>
-                <TextInput style={{ width: 174 }} name={'userEmail'} placeholder={'email@example.com'} onChange={this.handleChange} />
-                <Button className={['btnPrimary100', 'btnSm']} style={{ marginRight: 10 }} onClick={this.shareDocument}>{t`اشتراک`}</Button>
-              </div>
-            </div>
+          </div>
+          <div style={{ marginTop: 20 }}>
+            <h4 className={'pg-justify-center pg-flex'}>اشتراک‌گذاری در شبکه‌های اجتماعی</h4>
+            <p className={`pg-justify-center pg-flex ${styles.paragraph}`}>لینک به صفحه نمایش محتویات این فولدر</p>
+          </div>
+          <div className={styles.socialRow} style={{ marginBottom: 20 }}>
+            <a href={`https://plus.google.com/share?url=http://cdn.persiangig.com/download/${item.uuid}/${item.name}/dl`}>
+              <IconLink icon={googlePlus} iconAlt={`googleplus`} className={styles.socialIcon} />
+            </a>
+            <a href={`https://www.facebook.com/sharer/sharer.php?u=http://cdn.persiangig.com/download/${item.uuid}/${item.name}/dl`}>
+              <IconLink icon={facebook} iconAlt={`facebook`} className={styles.socialIcon} />
+            </a>
+            <a href={`https://twitter.com/home?status=http://cdn.persiangig.com/Fdownload/${item.uuid}/${item.name}/dl`}>
+              <IconLink icon={twitter} iconAlt={`twitter`} className={styles.socialIcon} />
+            </a>
+            <a href={`https://telegram.me/share/url?url=http://cdn.persiangig.com/download/${item.uuid}/${item.name}/dl`}>
+              <IconLink icon={telegram} iconAlt={`telegram`} className={styles.socialIcon} />
+            </a>
           </div>
         </form>
       </Modal>
