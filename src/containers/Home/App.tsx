@@ -36,7 +36,6 @@ import {
 } from '../../services/internal/store/actions'
 
 //styles
-import './App.css'
 import styles from '../../components/Content/Content.module.scss'
 import { IRemoveFolderInput, IDownloadDirectoryInput, IGenerateLinkInput } from '../../services/internal/repositories/documents'
 import urlUploadModal from '../../components/ui-elements/Modal/urlUpload/urlUploadModal'
