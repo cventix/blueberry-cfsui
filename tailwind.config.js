@@ -683,7 +683,7 @@ module.exports = {
             border: '1px solid #e5e7e9',
             background: theme('colors.gray.300'),
             color: '#b3bcc5',
-            cursor: theme('cursor.auto')
+            cursor: theme('cursor.not-allowed')
           },
 
           /* with extra radius */

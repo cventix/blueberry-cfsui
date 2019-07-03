@@ -748,7 +748,7 @@ video {
   border: 1px solid #e5e7e9;
   background: #f1f2f3;
   color: #b3bcc5;
-  cursor: auto;
+  cursor: not-allowed;
 }
 
 .pg-btn.pg-btnPill {
