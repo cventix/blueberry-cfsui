@@ -2,23 +2,23 @@ import React from 'react'
 import { Link, Redirect } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { t } from 'ttag'
-import { Authentication } from '../Authentication'
 
-// ui-elements
+// ui-elements & internal-components
 import { TextInput } from '../../../components/ui-elements/Input/Input'
 import { Button } from '../../../components/ui-elements/Button/Button'
-import { Icon } from '../../../components/ui-elements/Icon'
 import { IconLink } from '../../../components/ui-elements/IconLink'
+import { Icon } from '../../../components/ui-elements/Icon'
+import { Authentication } from '../Authentication'
 
 // services
-import { PayloadInterface } from '../../../services/internal/store/reducers/authReducer'
 import { setUserCredentials, setToken, login, removeMessages } from '../../../services/internal/store/actions'
+import { PayloadInterface } from '../../../services/internal/store/reducers/authReducer'
 
 // icons & styles
 import loading from '../../../images/loading/tail-spin.svg'
 import lock from '../../../images/typeIcons/login/lock.svg'
-import styles from '../Authentication.module.scss'
 import error from '../../../images/error.svg'
+import styles from '../Authentication.module.scss'
 
 class Login extends React.Component<any, any> {
   state = {
@@ -65,12 +65,12 @@ class Login extends React.Component<any, any> {
       return (
         <Authentication>
           <form className={styles.login} onSubmit={this.handleSubmit}>
-            <span className={styles.title}>{t`ورود به حساب کاربری`}</span>
-            <p className={styles.description}>{t`برای استفاده از خدمات ابتدا وارد شوید`}</p>
+            <span className={`pg-text-gray-800 pg-leading-usuall pg-text-base ${styles.title}`}>{t`ورود به حساب کاربری`}</span>
+            <p className={`pg-text-gray-800 pg-mb-38p pg-text-xs ${styles.description}`}>{t`برای استفاده از خدمات ابتدا وارد شوید`}</p>
             <TextInput placeholder={t`نام کاربر یا ایمیل`} name={'email'} onChange={this.handleChange} onBlur={this.onBlur} />
             <TextInput placeholder={t`رمز عبور`} name={'password'} type={'password'} onChange={this.handleChange} />
-            <div className={styles.row}>
-              <div className={styles.switch}>
+            <div className={`flex-row-wrap-withspace pg-h-35p pg-mt-14p pg-text-gray-800 ${styles.row}`}>
+              <div className={`flex-center pg-flex-row pg-flex-wrap ${styles.switch}`}>
                 {t`عضو نیستید؟`}
                 <Link to={'/register'}>
                   <span className={styles.link}>{t`ثبت‌نام`}</span>
@@ -88,7 +88,7 @@ class Login extends React.Component<any, any> {
                 <IconLink icon={error} label={t`${this.props.messages.errors}`} />
               </div>
             )}
-            <Link to={'/forgetpassword'} className={styles.forgetPassword}>
+            <Link to={'/forgetpassword'} className={`pg-block pg-mt-36p pg-text-xs pg-text-gray-600 ${styles.forgetPassword}`}>
               <IconLink icon={lock} label={t`رمز عبور را فراموش کرده‌ام!`} />
             </Link>
           </form>

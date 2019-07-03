@@ -2,23 +2,25 @@ import React from 'react'
 import { Link, Redirect } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { t } from 'ttag'
-import { Authentication } from '../Authentication'
 
-// ui-elements
+// ui-elements & internal-components
 import { TextInput } from '../../../components/ui-elements/Input/Input'
 import { Button } from '../../../components/ui-elements/Button/Button'
 import { Icon } from '../../../components/ui-elements/Icon'
-
-// icons & styles
-import loading from '../../../images/loading/tail-spin.svg'
-import styles from '../Authentication.module.scss'
-import error from '../../../images/error.svg'
-import success from '../../../images/icon-upload-done.svg'
+import { Authentication } from '../Authentication'
 
 // services
 import { forgetPassword, removeMessages } from '../../../services/internal/store/actions'
 import { PayloadInterface } from '../../../services/internal/store/reducers/authReducer'
 import { IconLink } from '../../../components/ui-elements/IconLink'
+
+// icons & styles
+import loading from '../../../images/loading/tail-spin.svg'
+import success from '../../../images/icon-upload-done.svg'
+import error from '../../../images/error.svg'
+import styles from '../Authentication.module.scss'
+
+
 
 class ForgetPassword extends React.Component<any, any> {
   state = {
@@ -55,11 +57,11 @@ class ForgetPassword extends React.Component<any, any> {
     return (
       <Authentication>
         <form className={styles.login} onSubmit={this.handleSubmit}>
-          <span className={styles.title}>{t`بازیابی رمز عبور`}</span>
-          <p className={styles.description}>{t`لطفا ایمیل خود را وارد نمایید تا لینک بازیابی رمز عبور برایتان فرستاده شود`}</p>
+          <span className={`pg-text-gray-800 pg-leading-usuall pg-text-base ${styles.title}`}>{t`بازیابی رمز عبور`}</span>
+          <p className={`pg-text-gray-800 pg-mb-38p pg-text-xs ${styles.description}`}>{t`لطفا ایمیل خود را وارد نمایید تا لینک بازیابی رمز عبور برایتان فرستاده شود`}</p>
           <TextInput placeholder={t`ایمیل`} name={'email'} onChange={this.handleChange} onBlur={this.onBlur} />
-          <div className={styles.row}>
-            <div className={styles.switch}>
+          <div className={`flex-row-wrap-withspace pg-h-35p pg-mt-14p pg-text-gray-800 ${styles.row}`}>
+            <div className={`flex-center pg-flex-row pg-flex-wrap ${styles.switch}`}>
               {t`عضو نیستید؟`}
               <Link to={'/register'}>
                 <span className={styles.link}>{t`ثبت‌نام`}</span>
@@ -68,7 +70,7 @@ class ForgetPassword extends React.Component<any, any> {
 
             <Button className={[this.props.isLoading && !this.state.loading ? 'pg-btnDisabled' : 'pg-btnSuccess', 'pg-btnSm']} style={{ width: '35%' }}>
               {this.props.isLoading && !this.state.loading && (
-                <div className={styles.buttonLoading}>
+                <div className='pg-absolute pg-top-5p pg-left-28p'>
                   <Icon src={loading} />
                 </div>
               )}

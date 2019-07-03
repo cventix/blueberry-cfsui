@@ -2,22 +2,23 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { t } from 'ttag'
-import { Authentication } from '../Authentication'
 
-// ui-elements
+
+// ui-elements & intenal-components
 import { TextInput } from '../../../components/ui-elements/Input/Input'
 import { Button } from '../../../components/ui-elements/Button/Button'
-import { Icon } from '../../../components/ui-elements/Icon'
 import { IconLink } from '../../../components/ui-elements/IconLink'
+import { Icon } from '../../../components/ui-elements/Icon'
+import { Authentication } from '../Authentication'
+import { ReCaptcha } from '../ReCaptcha/ReCaptcha'
 
 // services
-import { PayloadInterface } from '../../../services/internal/store/reducers/authReducer'
 import { setUserCredentials, setToken, login, register, removeMessages } from '../../../services/internal/store/actions'
+import { PayloadInterface } from '../../../services/internal/store/reducers/authReducer'
 
-// icons & styles
-import error from '../../../images/error.svg'
+// styles & icons
 import styles from '../Authentication.module.scss'
-import { ReCaptcha } from '../ReCaptcha/ReCaptcha'
+import error from '../../../images/error.svg'
 
 function validate(email: string, password: string) {
   return {
@@ -96,8 +97,8 @@ class Register extends React.Component<any, any> {
     return (
       <Authentication>
         <form onSubmit={this.handleSubmit}>
-          <span className={styles.title}>{t`ثبت‌نام کاربر جدید`}</span>
-          <p className={styles.description}>{t`برای استفاده از خدمات ابتدا ثبت‌نام شوید`}</p>
+          <span className={`pg-text-gray-800 pg-leading-usuall pg-text-base ${styles.title}`}>{t`ثبت‌نام کاربر جدید`}</span>
+          <p className={`pg-text-gray-800 pg-mb-38p pg-text-xs ${styles.description}`}>{t`برای استفاده از خدمات ابتدا ثبت‌نام شوید`}</p>
           <TextInput placeholder={t`نام کاربری`} name={'username'} onChange={this.handleChange} onBlur={this.handleBlur} />
           <TextInput placeholder={t`ایمیل`} type={'email'} name={'email'} onChange={this.handleChange} onBlur={this.handleBlur} />
           <TextInput placeholder={t`رمز عبور`} name={'password'} type={'password'} onChange={this.handleChange} onBlur={this.handleBlur} />
@@ -108,8 +109,8 @@ class Register extends React.Component<any, any> {
             onChange={this.handleChange}
             onBlur={this.handleBlur}
           />
-          <div className={styles.row}>
-            <div className={styles.switch}>
+          <div className={`flex-row-wrap-withspace pg-h-35p pg-mt-14p pg-text-gray-800 ${styles.row}`}>
+            <div className={`flex-center pg-flex-row pg-flex-wrap ${styles.switch}`}>
               {t`عضو هستید؟`}
               <Link to={'/login'}>
                 <span className={styles.link}>{t`ورود`}</span>
