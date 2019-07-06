@@ -18,9 +18,11 @@ import {
   deleteDocument,
   uploadDocuments,
   changeSharingStatus,
-  urlUpload
+  urlUpload,
+  uploadServer
 } from './documents'
 import { getProducts, getUserInfo, changePlan } from './account';
+
 
 // import { getUserInfo } from './user'
 
@@ -53,7 +55,8 @@ function* watchDocuments() {
   yield takeEvery(actionTypes.GET_TRASH_DOCUMENTS, getTrashDocuments)
   yield takeEvery(actionTypes.GET_SHARED_DOCUMENTS, getSharedDocuments)
   yield takeEvery(actionTypes.GENERATE_DOWNLOAD_LINK, generateLink)
-
+  yield takeEvery(actionTypes.UPLOAD_SERVER, uploadServer)
+  
   yield takeEvery(actionTypes.RESTORE_FILES, restoreFiles)
   yield takeEvery(actionTypes.DELETE_DOCUMENT, deleteDocument)
   yield takeLatest(actionTypes.DOWNLOAD_DIRECTORY, downloadDirectory)

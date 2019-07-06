@@ -19,6 +19,7 @@
     "axios": "^0.18.0",
     "bottlejs": "^1.7.2",
     "crypto-js": "^3.1.9-1",
+    "fine-uploader": "^5.16.2",
     "glamor": "^2.20.40",
     "moment": "^2.24.0",
     "node-sass": "^4.11.0",

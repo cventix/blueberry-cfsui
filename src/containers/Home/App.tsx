@@ -15,7 +15,7 @@ import { UploadModal } from '../../components/ui-elements/Modal/Uploadmodal/Uplo
 import MoveFile from '../../components/ui-elements/Modal/MoveFileModal.tsx/MoveFile'
 import { TextInput } from '../../components/ui-elements/Input/Input'
 import { Button } from '../../components/ui-elements/Button/Button'
-import { downloadDirectory, removeMessages, deleteDocument, uploadDocument, urlUpload } from '../../services/internal/store/actions'
+import { downloadDirectory, removeMessages, deleteDocument, uploadDocument, urlUpload, uploadServer } from '../../services/internal/store/actions'
 import { setToggle, removeSelection } from '../../services/internal/store/actions/selections'
 import { ToastUndo } from '../../components/ui-elements/Toast/ToastUndo/ToastUndo'
 import toast from '../../components/ui-elements/Toast/Toast'
@@ -40,7 +40,8 @@ import './App.css'
 import styles from '../../components/Content/Content.module.scss'
 import { IRemoveFolderInput, IDownloadDirectoryInput, IGenerateLinkInput } from '../../services/internal/repositories/documents'
 import urlUploadModal from '../../components/ui-elements/Modal/urlUpload/urlUploadModal'
-import Account from '../Account/Account';
+import Account from '../Account/Account'
+import FileUploadModal from '../../components/ui-elements/Modal/FileUploadModal/FileUploadModal';
 function readFileDataAsBase64(e: any) {
   const file = e[0]
 
@@ -58,6 +59,7 @@ function readFileDataAsBase64(e: any) {
     reader.readAsDataURL(file)
   })
 }
+
 class App extends Component<
   {
     login: any
@@ -84,9 +86,11 @@ class App extends Component<
     uploadDocument?: any
     urlUpload?: any
     removeSelection?: any
+    uploadServer?: any
   },
   {}
 > {
+  uploader: any
   constructor(props: any) {
     super(props)
   }
@@ -102,7 +106,8 @@ class App extends Component<
     countDown: 10,
     toRemove: [],
     removeItem: [],
-    removedIndex: 0
+    removedIndex: 0,
+    uploadModal: false
   }
   timer: any = ''
   countDownTime = 10000
@@ -185,22 +190,10 @@ class App extends Component<
     if (!e.target) {
       console.log(e)
       switch (e) {
-        case `fileUpload`:
-          console.log(file)
-          // const files = Array.from(file)
-
-          const formData = new FormData()
-          // files.forEach((item: any, index) => {
-          // formData.append('file', item)
-          // console.log(formData)
-
-          // formData.append(`Content-Type`, 'application/x-www-form-urlencoded')
-          // formData.append(`Content-length`, file[0].size)
-          // formData.append(`token`, localStorage.getItem('token') || '{}')
-          // formData.append(`Cookie`, `token="${localStorage.getItem('token') || '{}'}"`)
-          // })
-          console.log(file[0].size)
-          this.props.uploadDocument({ file: readFileDataAsBase64(file), fileSize: file[0].size, fileName: file[0].name })
+        case t`آپلود فایل`:
+          
+          this.setState({ modal: 'uploadModal', showModal: true })
+          // this.props.uploadDocument({ file: readFileDataAsBase64(file), fileSize: file[0].size, fileName: file[0].name })
           break
         case `دانلود با فرمت zip`:
           await this.props.downloadDirectory({ documentIds: this.props.selection, downloadType: 'zip' })
@@ -352,7 +345,9 @@ class App extends Component<
       case 'urlUpload':
         modal = <UrlUploadmodal showModal={this.state.showModal} handleCFClose={this.handleClose} />
         break
-
+      case 'uploadModal':
+        modal = <FileUploadModal handleCFClose={this.handleClose} showModal={this.state.showModal} />
+        break
       default:
         break
     }
@@ -377,7 +372,7 @@ class App extends Component<
         />
         <Main showModal={this.state.showModal}>
           <Switch>
-          <Route path={`/account`} component={Account} />
+            <Route path={`/account`} component={Account} />
             <Route path={`/fm`} component={Content} />
             <Route exact path={`/vm`} component={VMContent} />
             <Route exact path={`/vm/order`} component={Order} />
@@ -416,7 +411,8 @@ const mapDispatchToProps = (dispatch: any) => {
     removeMessages: () => dispatch(removeMessages()),
     uploadDocument: (value: any) => dispatch(uploadDocument(value)),
     urlUpload: (value: any) => dispatch(urlUpload(value)),
-    removeSelection: () => dispatch(removeSelection())
+    removeSelection: () => dispatch(removeSelection()),
+    uploadServer: (value: any) => dispatch(uploadServer(value))
   }
 }
 

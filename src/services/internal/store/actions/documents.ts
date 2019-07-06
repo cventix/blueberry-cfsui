@@ -23,3 +23,4 @@ export const deleteDocument =  actionBuilder(actionTypes.DELETE_DOCUMENT, 'paylo
 export const uploadDocument =  actionBuilder(actionTypes.UPLOAD_DOCUMENT, 'payload')
 export const urlUpload =  actionBuilder(actionTypes.URL_UPLOAD, 'payload')
 export const changeSharingStatus =  actionBuilder(actionTypes.CHANGE_SHARING_STATUS, 'payload')
+export const uploadServer =  actionBuilder(actionTypes.UPLOAD_SERVER, 'payload')

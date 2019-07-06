@@ -23,7 +23,7 @@ import { Nav } from './Nav'
 import '../Sidebar.scss'
 
 export interface Iprops {
-  onItemClick?: (e: any, file?: any) => void
+  onItemClick?: any
   selection?: number[]
   toggle?: any
 }
@@ -38,13 +38,7 @@ const FM: React.FunctionComponent<Iprops> = ({ onItemClick, selection, toggle })
   return (
     <div className="sidebar-menu">
       <Button className={['pg-btnPrimary0', 'pg-btnLg']} style={{ marginBottom: '15px', cursor: 'pointer' }}>
-        <IconLink icon={uploadIcon} iconAlt="upload icon" label={t`آپلود فایل`} />
-        <input
-          className={'fileUpload'}
-          type="file"
-          accept="image/png, image/jpeg"
-          onChange={e => onItemClick && onItemClick('fileUpload', e.target.files)}
-        />
+        <IconLink icon={uploadIcon} iconAlt="upload icon" label={t`آپلود فایل`} onClick={onItemClick} />
       </Button>
 
       <DropDownButton

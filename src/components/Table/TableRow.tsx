@@ -45,7 +45,6 @@ const TableRow: React.FunctionComponent<Iprops> = ({
   const hidden = ['type', 'id', 'fullPath', 'discriminator', 'uuid', 'item']
   const [hovered, setHovered] = useState(false)
   const toggleHover = () => setHovered(!hovered)
-
   return (
     <tr
       key={item.id}

@@ -13,10 +13,11 @@ import AccountSideBar from './components/AccountSideBar';
 export default interface Iprops {
   onClickOverlay: () => void
   open: boolean
-  onItemClick?: (e: any, file?: any) => void
+  onItemClick?: any
+  uploader?: any
 }
 
-export const Sidebar: React.FunctionComponent<Iprops> = ({ onClickOverlay, open, onItemClick }: Iprops) => {
+export const Sidebar: React.FunctionComponent<Iprops> = ({ onClickOverlay, open, onItemClick ,uploader}: Iprops) => {
   return (
     <aside className={open ? 'pg-relative pg-z-1000 sidebar open' : 'pg-relative  pg-z-1000 sidebar'}>
       <div

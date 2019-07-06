@@ -54,6 +54,15 @@ export interface IShareStatusInput {
   sharingStatus: string
   id: number
 }
+export interface IUploadServerInput {
+  name: any
+  size: any
+  id: any
+  uuid: any
+  parent: any
+  mode: any
+  origin: any
+}
 
 export interface DocumentsInterface {
   getDocuments(input?: IGetDocumentsInput): Promise<object>
@@ -102,7 +111,7 @@ class Documents implements DocumentsInterface {
   async urlUpload({ path, parentId = 0 }: IUrlUploadInput) {
     let headers = { 'Content-Type': 'text/html' }
     const url = `/rest/upload/url`
-    let body = `url=${path}&path-id=${parentId}&token=${localStorage.getItem('token')}&dlc=false&` 
+    let body = `url=${path}&path-id=${parentId}&token=${localStorage.getItem('token')}&dlc=false&`
     console.log(body)
     try {
       return await this._rest.post({ url, body })
@@ -206,13 +215,13 @@ class Documents implements DocumentsInterface {
       throw error
     }
   }
-  
+
   async uploadDocument({ body, fileSize, fileName, pathId }: any) {
     let url = `/rest/upload/binary?name=${fileName}&size=${fileSize}&path-id=${pathId}`
-    let headers=  {  'Content-Type': 'application/octet-stream'};
+    let headers = { 'Content-Type': 'application/octet-stream' }
     console.log(body)
     try {
-      return await this._rest.post({ url, body ,headers})
+      return await this._rest.post({ url, body, headers })
     } catch (error) {
       throw error
     }
@@ -225,6 +234,15 @@ class Documents implements DocumentsInterface {
     }
     try {
       return await this._rest.put({ url, body })
+    } catch (error) {
+      throw error
+    }
+  }
+  async uploadServer({ name, size, id, uuid, parent, mode, origin }: IUploadServerInput) {
+    const url = `http://cdn.persiangig.com:9234/server_upload?pathId=${parent}&name=${name}&size=${size}&id=${id}&uuid=${uuid}&${mode == 'cdn' ? 'subdomain=true' : 'subdomain=false'}`
+   
+    try {
+      return await this._rest.post({ url })
     } catch (error) {
       throw error
     }

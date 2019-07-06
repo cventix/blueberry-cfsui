@@ -6,7 +6,6 @@ import { bottle } from '../../../index'
 const documents = bottle.container.Documents
 
 export function* getDocuments(action: AnyAction) {
-
   let base = { headers: { token: localStorage.getItem('token') } }
   let folderInfo
   if (action.payload && action.payload.isChildren)
@@ -205,6 +204,24 @@ export function* changeSharingStatus(action: any) {
   try {
     yield documents.changeSharingStatus({ id: action.payload.id, sharingStatus: action.payload.sharingStatus })
     yield put(actions.setMessage('دسترسی تغییر داده شد.'))
+  } catch (err) {
+    yield put(actions.setError(err.errors[0].msg))
+    yield put(actions.setLoadingState(false))
+  }
+}
+
+export function* uploadServer(action: any) {
+  console.log(action)
+  try {
+    yield documents.uploadServer({
+      name: action.payload.name,
+      size: action.payload.size,
+      id: action.payload.id,
+      uuid: action.payload.uuid,
+      parent: action.payload.parent,
+      mode: action.payload.mode,
+      origin: action.payload.origin
+    })
   } catch (err) {
     yield put(actions.setError(err.errors[0].msg))
     yield put(actions.setLoadingState(false))

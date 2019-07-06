@@ -17,7 +17,8 @@ import {
   setParentId,
   setEditStatus,
   setRenameText,
-  removeFolder
+  removeFolder,
+  uploadServer
 } from '../../services/internal/store/actions'
 
 import { setSelections, removeSelection, setToggle, selectAll } from '../../services/internal/store/actions/selections'
@@ -32,6 +33,24 @@ import ModalContent from './SubContent/ModalContent'
 import { ItemInterface } from '../../services/internal/store/reducers/documentReducer'
 import toast from '../../components/ui-elements/Toast/Toast'
 
+// const uploader = new FineUploaderTraditional({
+//   options: {
+//       chunking: {
+//           enabled: true
+//       },
+//       deleteFile: {
+//           enabled: true,
+//           endpoint: '/uploads'
+//       },
+//       request: {
+//           endpoint: 'http://cdn.persiangig.com:9234/uploads'
+//       },
+
+//       retry: {
+//           enableAuto: true
+//       }
+//   }
+// })
 export interface IProps {
   getDocuments?: any
   data?: any
@@ -53,6 +72,7 @@ export interface IProps {
   setToggle?: any
   setParentId?: any
   selectAll?: any
+  uploadServer?: any
 }
 
 export interface navigateObject {
@@ -77,6 +97,7 @@ export interface IState {
 
 class Content extends React.Component<IProps, IState> {
   step = 10
+  uploader: any
 
   constructor(props: any) {
     super(props)
@@ -99,6 +120,7 @@ class Content extends React.Component<IProps, IState> {
       message: '',
       toRemove: []
     }
+    
   }
 
   async componentDidMount() {
@@ -117,6 +139,7 @@ class Content extends React.Component<IProps, IState> {
     }
 
     this.setState({ showMore: this.state.table.length > 10 ? true : false })
+
   }
 
   /**back button */
@@ -330,6 +353,7 @@ class Content extends React.Component<IProps, IState> {
           table={this.state.filteredTable}
           handleSearchInput={(e: any) => this.onChangeSearchInput(e)}
         />
+       
         <ContentBody
           onCheckAll={this.onCheckAll}
           onCheck={this.onCheck}
@@ -380,7 +404,8 @@ const mapDispatchToProps = (dispatch: any) => {
     setEditStatus: (value: any) => dispatch(setEditStatus(value)),
     selectAll: (value: boolean) => dispatch(selectAll(value)),
     setRenameText: (value: any) => dispatch(setRenameText(value)),
-    removeFolder: (value: IRemoveFolderInput) => dispatch(removeFolder(value))
+    removeFolder: (value: IRemoveFolderInput) => dispatch(removeFolder(value)),
+    uploadServer: (value: any) => dispatch(uploadServer(value))
   }
 }
 
