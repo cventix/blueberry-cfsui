@@ -14,7 +14,7 @@ class Auth implements AuthInterface {
   }
 
   async login(email: string, password: string) {
-    const url = `/auth?email=${encodeURIComponent(email)}&userPassword=${SHA1(password).toString()}`
+    const url = `/cfs/auth?email=${encodeURIComponent(email)}&userPassword=${SHA1(password).toString()}`
     try {
       return await this._rest.get({ url })
     } catch (error) {
@@ -23,7 +23,7 @@ class Auth implements AuthInterface {
   }
 
   async register(email: string, username: string, password: string, reCaptcha: string) {
-    const url = '/rest/users/signup'
+    const url = '/cfs/rest/users/signup'
 
     const body = {
       email,
@@ -38,7 +38,7 @@ class Auth implements AuthInterface {
     }
   }
   async changePassword(currentPassword: string, newPassword: string) {
-    const url = '/rest/users/changePassword'
+    const url = '/cfs/rest/users/changePassword'
 
     const body = {
       currentPassword: SHA1(currentPassword).toString(),
@@ -52,7 +52,7 @@ class Auth implements AuthInterface {
   }
 
   async forgetPassword(email: string) {
-    const url = `/rest/users/resetPassword?email=${email}`
+    const url = `/cfs/rest/users/resetPassword?email=${email}`
     try {
       return await this._rest.get({ url })
     } catch (error) {
@@ -61,7 +61,7 @@ class Auth implements AuthInterface {
   }
 
   async getUserInfo() {
-    const url = '/rest/users/currentUser'
+    const url = '/cfs/rest/users/currentUser'
     try {
       return await this._rest.get({ url })
     } catch (error) {
@@ -69,7 +69,7 @@ class Auth implements AuthInterface {
     }
   }
   async getProducts() {
-    const url = '/rest/products/user/products?category=CFS'
+    const url = '/cfs/rest/products/user/products?category=CFS'
     try {
       return await this._rest.get({ url })
     } catch (error) {
@@ -78,7 +78,7 @@ class Auth implements AuthInterface {
   }
 
   async signout() {
-    const url = `rest/users/signout`
+    const url = `/cfs/rest/users/signout`
     try {
       return await this._rest.get({ url })
     } catch (error) {

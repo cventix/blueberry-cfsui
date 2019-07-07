@@ -12,7 +12,7 @@ class Account implements AccountInterface {
   }
 
   async getUserInfo() {
-    const url = '/rest/users/currentUser'
+    const url = '/cfs/rest/users/currentUser'
     try {
       return await this._rest.get({ url })
     } catch (error) {
@@ -20,7 +20,7 @@ class Account implements AccountInterface {
     }
   }
   async getProducts() {
-    const url = '/rest/products/user/products?category=CFS'
+    const url = '/cfs/rest/products/user/products?category=CFS'
     try {
       return await this._rest.get({ url })
     } catch (error) {
@@ -28,7 +28,7 @@ class Account implements AccountInterface {
     }
   }
   async changePlan(id: number, additionalInfo: string, applyNow: boolean) {
-    const url = '/rest/users/changePlan'
+    const url = '/cfs/rest/users/changePlan'
     const body = {
       additionalInfo,
       applyNow,

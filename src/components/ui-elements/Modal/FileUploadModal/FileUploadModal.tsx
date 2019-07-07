@@ -47,7 +47,7 @@ class FileUploadModal extends React.Component<any, any> {
     const { showModal, handleClose, loading, modalSelection } = this.props
     return (
       <div className={'pg-fixed pg-bg-white pg-w-1/4 pg-bottom-10p pg-left-10p'}>
-        <FileInput multiple accept="image/*" uploader={this.uploader}/>
+        <FileInput dropzone-disabled={ true } multiple accept="image/*" uploader={this.uploader}/>
       </div>
     )
   }

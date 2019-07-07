@@ -6,15 +6,13 @@ import { bottle } from '../../../index'
 const documents = bottle.container.Documents
 
 export function* getDocuments(action: AnyAction) {
-  let base = { headers: { token: localStorage.getItem('token') } }
   let folderInfo
-  if (action.payload && action.payload.isChildren)
-    folderInfo = { isChildren: action.payload.isChildren, path: action.payload.path, headers: { token: localStorage.getItem('token') } }
+  if (action.payload && action.payload.isChildren) folderInfo = { isChildren: action.payload.isChildren, path: action.payload.path }
 
   try {
     yield put(actions.setLoadingState(true))
     console.log(folderInfo)
-    let data = yield documents.getDocuments(folderInfo ? folderInfo : base)
+    let data = yield documents.getDocuments(folderInfo && folderInfo)
     if (folderInfo && folderInfo.isChildren === true) {
       yield put(actions.setParentId(data.parent.id))
       data = data.children
