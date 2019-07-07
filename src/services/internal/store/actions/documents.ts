@@ -24,3 +24,4 @@ export const uploadDocument =  actionBuilder(actionTypes.UPLOAD_DOCUMENT, 'paylo
 export const urlUpload =  actionBuilder(actionTypes.URL_UPLOAD, 'payload')
 export const changeSharingStatus =  actionBuilder(actionTypes.CHANGE_SHARING_STATUS, 'payload')
 export const uploadServer =  actionBuilder(actionTypes.UPLOAD_SERVER, 'payload')
+export const setUploader =  actionBuilder(actionTypes.SET_UPLOADER, 'payload')

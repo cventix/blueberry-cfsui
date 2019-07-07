@@ -55,7 +55,8 @@ export const initialState: any = {
   tem_doucuments: [],
   modal_documents: [],
   lastChild: false,
-  parentId: ''
+  parentId: '',
+  uploader:''
 }
 
 const documentReducer = (state: StateInterface = initialState, action: any) => {
@@ -100,6 +101,11 @@ const documentReducer = (state: StateInterface = initialState, action: any) => {
         ...state,
         parentId: action.payload
       }
+      case actionTypes.SET_UPLOADER:
+        return {
+          ...state,
+          uploader: action.payload
+        }
     default:
       return state
   }

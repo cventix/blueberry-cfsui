@@ -6,7 +6,43 @@
     vertical-align: middle;
   }
 }
-
+.react-fine-uploader-gallery-dropzone {
+  border-radius: 3px !important;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.05) !important;
+  border: solid 1px #e5e5e5 !important;
+  background-color: #ffffff !important;
+}
+.react-fine-uploader-file-progress-bar {
+  background: #00abc7;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2) inset;
+  height: inherit;
+  border-radius: 9px;
+  direction: rtl;
+}
+.red {
+  background: #ff4747;
+}
+.yellow {
+  background: #f5cd23;
+}
+.green {
+  background: #21d352;
+}
+.react-fine-uploader-file-progress-bar-container {
+  height: 5px;
+  left: 50%;
+  opacity: 0.9;
+  top: 60px;
+  width: 90%;
+  z-index: 1;
+  direction: ltr;
+  background: #f1f1f2;
+  width: 100%;
+}
+.react-fine-uploader-thumbnail {
+  width: 28px;
+  height: 28px;
+}
 .rowItem {
   display: -webkit-flex;
   display: flex;
@@ -16,7 +52,7 @@
     width: 28px;
     height: 28px;
     object-fit: cover;
-    border-radius:3px;
+    border-radius: 3px;
   }
   .icon {
     margin-right: 21px;
@@ -27,9 +63,9 @@
     }
   }
 }
-.smPadding{
-  padding: 10px  7px!important;
-  border-bottom:0 !important
+.smPadding {
+  padding: 10px 7px !important;
+  border-bottom: 0 !important;
 }
 /* hide items */
 .hide {

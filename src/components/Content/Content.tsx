@@ -120,7 +120,6 @@ class Content extends React.Component<IProps, IState> {
       message: '',
       toRemove: []
     }
-    
   }
 
   async componentDidMount() {
@@ -139,7 +138,6 @@ class Content extends React.Component<IProps, IState> {
     }
 
     this.setState({ showMore: this.state.table.length > 10 ? true : false })
-
   }
 
   /**back button */
@@ -170,19 +168,21 @@ class Content extends React.Component<IProps, IState> {
    * gets documnet if children goes inside folder
    */
   onGetDocument = async (isChildren?: boolean, path?: any, parentId?: number) => {
-    if (isChildren == true) {
-      try {
-        this.props.setParentId(parentId)
-        await this.props.getDocuments({ isChildren: true, path, parentId })
-      } catch (error) {
-        console.log('E: ', error)
-      }
-    } else {
-      try {
-        this.props.setParentId(0)
-        await this.props.getDocuments()
-      } catch (error) {
-        console.log('E: ', error)
+    if (localStorage.getItem('token')) {
+      if (isChildren == true) {
+        try {
+          this.props.setParentId(parentId)
+          await this.props.getDocuments({ isChildren: true, path, parentId })
+        } catch (error) {
+          console.log('E: ', error)
+        }
+      } else {
+        try {
+          this.props.setParentId(0)
+          await this.props.getDocuments()
+        } catch (error) {
+          console.log('E: ', error)
+        }
       }
     }
   }
@@ -353,7 +353,7 @@ class Content extends React.Component<IProps, IState> {
           table={this.state.filteredTable}
           handleSearchInput={(e: any) => this.onChangeSearchInput(e)}
         />
-       
+
         <ContentBody
           onCheckAll={this.onCheckAll}
           onCheck={this.onCheck}

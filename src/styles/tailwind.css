@@ -10099,6 +10099,10 @@ video {
   color: #702459;
 }
 
+.pg-text-xxs {
+  font-size: 0.625rem;
+}
+
 .pg-text-xs {
   font-size: 0.75rem;
 }
@@ -20030,6 +20034,10 @@ body:lang(en) {
     color: #702459;
   }
 
+  .mobile-max\:pg-text-xxs {
+    font-size: 0.625rem;
+  }
+
   .mobile-max\:pg-text-xs {
     font-size: 0.75rem;
   }
@@ -29843,6 +29851,10 @@ body:lang(en) {
 
   .tablet-max\:focus\:pg-text-pink-900:focus {
     color: #702459;
+  }
+
+  .tablet-max\:pg-text-xxs {
+    font-size: 0.625rem;
   }
 
   .tablet-max\:pg-text-xs {
@@ -39660,6 +39672,10 @@ body:lang(en) {
     color: #702459;
   }
 
+  .mobile\:pg-text-xxs {
+    font-size: 0.625rem;
+  }
+
   .mobile\:pg-text-xs {
     font-size: 0.75rem;
   }
@@ -49473,6 +49489,10 @@ body:lang(en) {
 
   .tablet\:focus\:pg-text-pink-900:focus {
     color: #702459;
+  }
+
+  .tablet\:pg-text-xxs {
+    font-size: 0.625rem;
   }
 
   .tablet\:pg-text-xs {
@@ -59290,6 +59310,10 @@ body:lang(en) {
     color: #702459;
   }
 
+  .laptop\:pg-text-xxs {
+    font-size: 0.625rem;
+  }
+
   .laptop\:pg-text-xs {
     font-size: 0.75rem;
   }
@@ -69105,6 +69129,10 @@ body:lang(en) {
     color: #702459;
   }
 
+  .desktop\:pg-text-xxs {
+    font-size: 0.625rem;
+  }
+
   .desktop\:pg-text-xs {
     font-size: 0.75rem;
   }
@@ -78918,6 +78946,10 @@ body:lang(en) {
 
   .lgDesktop\:focus\:pg-text-pink-900:focus {
     color: #702459;
+  }
+
+  .lgDesktop\:pg-text-xxs {
+    font-size: 0.625rem;
   }
 
   .lgDesktop\:pg-text-xs {

@@ -21,14 +21,16 @@ import FileFiltering from './FileFiltering/FileFiltering'
 import { ActionNav } from './ActionNav'
 import { Nav } from './Nav'
 import '../Sidebar.scss'
-
+import FileUploadModal from '../../ui-elements/Modal/FileUploadModal/FileUploadModal'
+import FileInput from 'react-fine-uploader/file-input'
 export interface Iprops {
   onItemClick?: any
   selection?: number[]
   toggle?: any
+  uploader?: any
 }
 
-const FM: React.FunctionComponent<Iprops> = ({ onItemClick, selection, toggle }) => {
+const FM: React.FunctionComponent<Iprops> = ({ onItemClick, selection, toggle, uploader }) => {
   let data = [
     { label: `دانلود با فرمت zip`, onClick: onItemClick },
     { label: `دانلود با فرمت iso`, onClick: onItemClick },
@@ -37,10 +39,14 @@ const FM: React.FunctionComponent<Iprops> = ({ onItemClick, selection, toggle })
 
   return (
     <div className="sidebar-menu">
-      <Button className={['pg-btnPrimary0', 'pg-btnLg']} style={{ marginBottom: '15px', cursor: 'pointer' }}>
-        <IconLink icon={uploadIcon} iconAlt="upload icon" label={t`آپلود فایل`} onClick={onItemClick} />
-      </Button>
-
+      <div onClick={()=>onItemClick(t`آپلود فایل`)}>
+        <Button className={['pg-btnPrimary0', 'pg-btnLg']} style={{ marginBottom: '15px', cursor: 'pointer' }} id={'upload'}>
+          <IconLink icon={uploadIcon} iconAlt="upload icon" label={t`آپلود فایل`} />
+          <div className={'pg-absolute pg-top-0 pg-w-full pg-opacity-0'}>
+            <FileInput uploader={uploader} className={'fileUploader-wrapper'} />
+          </div>
+        </Button>
+      </div>
       <DropDownButton
         data={data}
         className={[selection && selection.length > 0 ? 'pg-btnSuccess0' : 'pg-btnSuccessOutline', 'pg-btnLg']}
@@ -65,6 +71,11 @@ const FM: React.FunctionComponent<Iprops> = ({ onItemClick, selection, toggle })
     </div>
   )
 }
-const mapStateToProps = (state: any) => ({ select: state, selection: state.selection.selection, toggle: state.selection.toggle })
+const mapStateToProps = (state: any) => ({
+  select: state,
+  selection: state.selection.selection,
+  toggle: state.selection.toggle,
+  uploader: state.document.uploader
+})
 
 export default connect(mapStateToProps)(FM)

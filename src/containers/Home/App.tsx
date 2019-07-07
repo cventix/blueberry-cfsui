@@ -15,13 +15,14 @@ import { UploadModal } from '../../components/ui-elements/Modal/Uploadmodal/Uplo
 import MoveFile from '../../components/ui-elements/Modal/MoveFileModal.tsx/MoveFile'
 import { TextInput } from '../../components/ui-elements/Input/Input'
 import { Button } from '../../components/ui-elements/Button/Button'
-import { downloadDirectory, removeMessages, deleteDocument, uploadDocument, urlUpload, uploadServer } from '../../services/internal/store/actions'
+import { downloadDirectory, removeMessages, deleteDocument, uploadDocument, urlUpload, uploadServer, setUploader } from '../../services/internal/store/actions'
 import { setToggle, removeSelection } from '../../services/internal/store/actions/selections'
 import { ToastUndo } from '../../components/ui-elements/Toast/ToastUndo/ToastUndo'
 import toast from '../../components/ui-elements/Toast/Toast'
 import UrlUploadmodal from '../../components/ui-elements/Modal/urlUpload/urlUploadModal'
 // Services
 import { setRouter } from '../../services/internal/store/actions/router'
+import FineUploaderTraditional from 'fine-uploader-wrappers'
 
 import {
   removeFolder,
@@ -41,7 +42,7 @@ import styles from '../../components/Content/Content.module.scss'
 import { IRemoveFolderInput, IDownloadDirectoryInput, IGenerateLinkInput } from '../../services/internal/repositories/documents'
 import urlUploadModal from '../../components/ui-elements/Modal/urlUpload/urlUploadModal'
 import Account from '../Account/Account'
-import FileUploadModal from '../../components/ui-elements/Modal/FileUploadModal/FileUploadModal';
+import FileUploadModal from '../../components/ui-elements/Modal/FileUploadModal/FileUploadModal'
 function readFileDataAsBase64(e: any) {
   const file = e[0]
 
@@ -87,12 +88,48 @@ class App extends Component<
     urlUpload?: any
     removeSelection?: any
     uploadServer?: any
+    setUploader?: any
+    uploader?: any
   },
   {}
 > {
   uploader: any
   constructor(props: any) {
     super(props)
+    this.uploader = new FineUploaderTraditional({
+      options: {
+        autoUpload: true,
+        maxConnections: 3,
+        disableCancelForFormUploads: true,
+        chunking: {
+          enabled: true,
+          partSize: 128000,
+          concurrent: {
+            enabled: false
+          }
+        },
+
+        request: {
+          endpoint: `http://cdn.persiangig.com:9234/uploads`
+        },
+        callbacks: {
+          onComplete: (id: any, name: any, result: any) => {
+            console.log(id)
+            const { uploadServer } = this.props
+            const size = this.uploader.methods.getSize(id)
+            const uuid = this.uploader.methods.getUuid(id)
+            const parent = 0
+
+            uploadServer({ name, size, id, uuid, parent })
+          }
+        }
+      },
+      extraButtons: [
+        {
+          element: document.getElementById('upload')
+        }
+      ]
+    })
   }
 
   state = {
@@ -114,6 +151,9 @@ class App extends Component<
 
   handleClose = () => {
     this.setState({ showModal: false, modalView: '' })
+  }
+  componentDidMount() {
+    this.props.setUploader(this.uploader)
   }
 
   undo = (ids: any) => {
@@ -191,7 +231,7 @@ class App extends Component<
       console.log(e)
       switch (e) {
         case t`آپلود فایل`:
-          
+          console.log(this.props.uploader)
           this.setState({ modal: 'uploadModal', showModal: true })
           // this.props.uploadDocument({ file: readFileDataAsBase64(file), fileSize: file[0].size, fileName: file[0].name })
           break
@@ -390,7 +430,8 @@ const mapStateToProps = (state: any) => ({
   selection: state.selection.selection,
   item: state.sidebar.item,
   messages: state.messages,
-  downloadToken: state.sidebar.downloadToken
+  downloadToken: state.sidebar.downloadToken,
+  uploader :state.document.uploader
 })
 
 const mapDispatchToProps = (dispatch: any) => {
@@ -412,7 +453,8 @@ const mapDispatchToProps = (dispatch: any) => {
     uploadDocument: (value: any) => dispatch(uploadDocument(value)),
     urlUpload: (value: any) => dispatch(urlUpload(value)),
     removeSelection: () => dispatch(removeSelection()),
-    uploadServer: (value: any) => dispatch(uploadServer(value))
+    uploadServer: (value: any) => dispatch(uploadServer(value)),
+    setUploader: (value: any) => dispatch(setUploader(value))
   }
 }
 
