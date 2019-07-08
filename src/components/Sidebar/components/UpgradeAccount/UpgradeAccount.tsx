@@ -8,6 +8,7 @@ import { IconLink } from '../../../ui-elements/IconLink'
 // icons & styles
 import arrowLeftIcon from '../../../../images/arrow-left.svg'
 import styles from './UpgradeAccount.module.scss'
+import { Link } from 'react-router-dom';
 
 export default interface Iprops {
   percent?: number
@@ -25,8 +26,9 @@ export const UpgradeAccount = ({ percent = 70, forVM, forPreview }: Iprops) => {
         <Progressbar value={percent} height={8} color={'green'} />
       </div>
       <span className={`pg-font-vLight pg-pb-13p pg-text-xs pg-text-gray-800 ${styles.deleteQus}`}>{t`می‌خواهید فایل‌هایتان حذف نشود؟`}</span>
-      <IconLink icon={arrowLeftIcon}
+      <Link to={'/account/plans'}><IconLink icon={arrowLeftIcon}
       className={forVM || forPreview ? `hide` : `absolute-on-bottom pg-flex pg-flex-row pg-pt-8p pg-pb-8p pg-pr-6 pg-pl-6 pg-cursor-pointer pg-font-vMedium pg-text-gray-800 pg-bg-yellow-300 pg-h-10 pg-flex pg-flex pg-items-center ${styles.bottom}`} iconAlt="arrow-left" label={t`ارتقاء حساب میزبانی`} />
+  </Link>
     </div>
   )
 }

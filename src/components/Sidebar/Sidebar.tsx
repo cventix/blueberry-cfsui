@@ -8,7 +8,8 @@ import './Sidebar.scss'
 import PreviewSideBar from './components/PreviewSideBar'
 import PreviewSideBarImage from './components/PreviewSideBarImage'
 import TrashSideBar from './components/TrashSideBar'
-import AccountSideBar from './components/AccountSideBar';
+import { AccountSideBar } from './components/AccountSideBar';
+
 
 export default interface Iprops {
   onClickOverlay: () => void
@@ -18,6 +19,7 @@ export default interface Iprops {
 }
 
 export const Sidebar: React.FunctionComponent<Iprops> = ({ onClickOverlay, open, onItemClick ,uploader}: Iprops) => {
+  
   return (
     <aside className={open ? 'pg-relative pg-z-1000 sidebar open' : 'pg-relative  pg-z-1000 sidebar'}>
       <div
@@ -34,7 +36,7 @@ export const Sidebar: React.FunctionComponent<Iprops> = ({ onClickOverlay, open,
           <Route path={`/fm/trash`} render={() => <TrashSideBar onItemClick={onItemClick} />} />
           <Route path={`/fm`} render={() => <FM onItemClick={onItemClick} />} />
           <Route exact path={`/vm`} component={VM} />
-          <Route exact path={`/account`} component={AccountSideBar} />
+          <Route  path={`/account`} component={AccountSideBar} />
         </Switch>
       </div>
     </aside>

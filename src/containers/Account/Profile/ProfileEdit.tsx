@@ -21,7 +21,7 @@ const ProfileEdit: React.FunctionComponent<any> = props => {
         <div className={'pg-py-3 pg-bg-gray-400 pg-text-gray-700 pg-px-1'}>مشخصات فردی</div>
         {personalInfo &&
           personalInfo.map((each: any) => {
-            return <InputRow label={each.label} value={each.value} border={true} isEditable={props.editableForm} onChange={props.updateChange} name={each.name}/>
+            return <InputRow label={each.label} value={each.value} border={true} isEditable={props.editableForm} onChange={props.updateChange} name={each.name} selectable={each.selectable}/>
           })}
         <Button className={['pg-btnPrimary0', 'pg-btnSm']}>{t`ویرایش`}</Button>
       </form>

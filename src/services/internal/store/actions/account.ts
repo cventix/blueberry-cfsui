@@ -14,3 +14,5 @@ export const setFormState = actionBuilder(actionTypes.SET_FORM_STATE, 'payload')
 export const setProductToggle = actionBuilder(actionTypes.SET_PRODUCT_TOGGLE, 'payload')
 
 export const changePlan = actionBuilder(actionTypes.CHANGE_PLAN, 'id', 'additionalInfo', 'applyNow')
+
+export const changeProfile = actionBuilder(actionTypes.CHANGE_PROFILE, 'payload')

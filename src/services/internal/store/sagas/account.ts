@@ -40,3 +40,14 @@ export function* changePlan(action: any) {
     yield put(actions.setLoadingState(false))
   }
 }
+export function* changeProfile(action: any) {
+  try {
+    yield put(actions.setLoadingState(true))
+    let result = yield account.changeProfile(action.payload)
+    yield put(actions.setUserInfo(result))
+    yield put(actions.setLoadingState(false))
+  } catch (err) {
+    yield put(actions.setError(err.errors[0].msg))
+    yield put(actions.setLoadingState(false))
+  }
+}

@@ -7,10 +7,10 @@ import style from './SelectInput.module.scss'
 import { ngettext, msgid, t } from 'ttag';
 
 export default interface Iprops {
-  options: any[]
+  options?: any[]
   onChange?: () => void
   selected?: object
-  placeholder: string
+  placeholder?: string
 }
 
 const styles = {

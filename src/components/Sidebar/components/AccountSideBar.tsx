@@ -12,7 +12,8 @@ import security from '../../../images/typeIcons/icon-lock.svg'
 import wallet from '../../../images/typeIcons/icon-wallet.svg'
 // internal components & styles
 import '../Sidebar.scss'
-import { setProfileTab } from '../../../services/internal/store/actions';
+import { setProfileTab } from '../../../services/internal/store/actions'
+import { Link } from 'react-router-dom'
 
 export interface Iprops {
   onItemClick?: (e: any) => void
@@ -22,22 +23,38 @@ export interface Iprops {
   setProfileTab: any
 }
 
-const AccountSideBar: React.FunctionComponent<Iprops> = ({ onItemClick,setProfileTab, profileView }) => {
+export const AccountSideBar: React.FunctionComponent<Iprops> = () => {
   return (
     <div className="sidebar-menu">
-      <IconLink icon={edit}  className={`iconLink upFromUrl pg-p-3 ${profileView == t`اطلاعات کاربری` && 'pg-bg-gray-0' }` } iconAlt="upload icon" label={t`اطلاعات کاربری`} onClick={setProfileTab} />
-      <IconLink icon={wallet} className={`iconLink upFromUrl pg-p-3 ${profileView == t`پلن` && 'pg-bg-gray-0' }`} iconAlt="upload icon" label={t`پلن`} onClick={setProfileTab} />
-      <IconLink icon={security} className={`iconLink upFromUrl  pg-p-3 ${profileView == t`امنیت` && 'pg-bg-gray-0' }`} iconAlt="upload icon" label={t`امنیت`} onClick={setProfileTab}/>
+      <Link to={'/account/profile'}>
+        <IconLink
+          icon={edit}
+          className={`iconLink upFromUrl pg-p-3 ${window.location.pathname == '/account/profile' && 'pg-bg-gray-0'}`}
+          iconAlt="upload icon"
+          label={t`اطلاعات کاربری`}
+         
+        />
+      </Link>
+      <Link to={'/account/plans'}>
+        <IconLink
+          icon={wallet}
+          className={`iconLink upFromUrl pg-p-3 ${window.location.pathname == '/account/plans' && 'pg-bg-gray-0'}`}
+          iconAlt="upload icon"
+          label={t`پلن`}
+         
+        />
+      </Link>
+      <Link to={'/account/changePassword'}>
+        <IconLink
+          icon={security}
+          className={`iconLink upFromUrl  pg-p-3 ${window.location.pathname == '/account/changePassword'&& 'pg-bg-gray-0'}`}
+          iconAlt="upload icon"
+          label={t`امنیت`}
+        
+        />
+      </Link>
     </div>
   )
 }
 
-const mapStateToProps = (state: any) => ({ profileView: state.sidebar.profileTab  })
-const mapDispatchToProps = (dispatch: any) => {
-    return {
-      
-      setProfileTab:(value:any)=>dispatch(setProfileTab(value))
-    }
-  }
 
-export default connect(mapStateToProps,mapDispatchToProps)(AccountSideBar)

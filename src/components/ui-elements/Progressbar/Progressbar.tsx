@@ -5,7 +5,7 @@ import styles from './Progressbar.module.scss'
 export default interface Iprops {
   value?: number
   error?: boolean
-  width?: number
+  width?: number | string
   height?: number
   color?: string
   max?: number
@@ -15,7 +15,18 @@ export default interface Iprops {
   onMouseUp?: any
 }
 
-export const Progressbar: React.FunctionComponent<Iprops> = ({ value, max = 100, error = false, direction, width, height, color, onChange ,onMouseDown,onMouseUp}) => (
+export const Progressbar: React.FunctionComponent<Iprops> = ({
+  value,
+  max = 100,
+  error = false,
+  direction,
+  width,
+  height,
+  color,
+  onChange,
+  onMouseDown,
+  onMouseUp
+}) => (
   <div className={styles.progressContainer}>
     <progress
       value={value}

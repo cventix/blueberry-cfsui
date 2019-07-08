@@ -25,7 +25,7 @@ const Signout: React.FunctionComponent<Iprops> = ({ username, open, signout }) =
         <span>{username}</span>
       </li>
       <li className={styles.item}>
-        <Link to={'/account'}>
+        <Link to={'/account/profile'}>
           <IconLink icon={profile} iconAlt="profile" label={t`حساب کاربری`} />
         </Link>
       </li>

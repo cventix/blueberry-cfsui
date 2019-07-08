@@ -40,6 +40,16 @@ class Account implements AccountInterface {
       throw error
     }
   }
+  async changeProfile(body:any) {
+    const url = '/cfs/rest/users/changeProfile?verify=false'
+   
+    try {
+      return await this._rest.put({ url, body })
+    } catch (error) {
+      throw error
+    }
+  }
 }
+
 
 export default Account

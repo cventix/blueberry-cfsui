@@ -12,7 +12,7 @@ import { IconLink } from '../../../components/ui-elements/IconLink'
 
 // services
 import { PayloadInterface } from '../../../services/internal/store/reducers/authReducer'
-import { setUserCredentials, setToken, login, removeMessages } from '../../../services/internal/store/actions'
+import { setUserCredentials, setToken, login, removeMessages, setUserInfo } from '../../../services/internal/store/actions'
 
 // icons & styles
 import loading from '../../../images/loading/tail-spin.svg'
@@ -104,7 +104,7 @@ const mapDispatchToProps = (dispatch: any) => {
   return {
     login: (payload: PayloadInterface) => dispatch(login(payload)),
     setToken: (token: string) => dispatch(setToken(token)),
-    setUserInfo: (payload: PayloadInterface) => dispatch(setUserCredentials(payload)),
+    setUserInfo: (payload: PayloadInterface) => dispatch(setUserInfo(payload)),
     removeMessages: (payload: PayloadInterface) => dispatch(removeMessages(payload))
   }
 }

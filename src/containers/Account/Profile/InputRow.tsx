@@ -2,6 +2,8 @@ import * as React from 'react'
 import { connect } from 'react-redux'
 import { getUserInfo } from '../../../services/internal/store/actions'
 import { TextInput } from '../../../components/ui-elements/Input/Input'
+import { SelectInput } from '../../../components/ui-elements/SelectInput/SelectInput'
+import { ProvinceSelect } from '../../../components/ui-elements/Select/ProvinceSelect';
 
 export const InputRow: React.FunctionComponent<any> = props => {
   return (
@@ -9,8 +11,10 @@ export const InputRow: React.FunctionComponent<any> = props => {
       <span className={'pg-flex pg-w-1/4 pg-px-1 pg-items-center'}> {props.label}</span>
       {!props.isEditable ? (
         <span className={'pg-h-12 pg-items-center pg-text-left pg-justify-end pg-flex  pg-w-3/4'}>{props.value}</span>
+      ) : props.selectable && props.name !== 'city' ? (
+        <ProvinceSelect />
       ) : (
-        <TextInput className={'pg-w-3/4'} value ={props.value} type={props.type} name={props.name} onChange={props.onChange} />
+        <TextInput className={'pg-w-3/4'} value={props.value} type={props.type} name={props.name} onChange={props.onChange} />
       )}
     </div>
   )

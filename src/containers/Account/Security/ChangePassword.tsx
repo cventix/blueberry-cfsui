@@ -7,7 +7,7 @@ import { Button } from '../../../components/ui-elements/Button/Button'
 
 const ChangePassword: React.FunctionComponent<any> = props => {
   return (
-    <form onSubmit={props.changePassword}>
+    <form onSubmit={props.changePassword} className={'pg-w-1/2 laptop:pg-w-3/4 tablet:pg-w-3/4  mobile-max:pg-w-full'}>
       <h1 className={'pg-text-lg pg-py-5 pg-text-gray-700'}> تغییر رمز</h1>
       <InputRow label={t`رمز عبور  فعلی`} type={'password'} name={'oldPassword'} isEditable={true} onChange={props.updateChange} />
       <InputRow label={t`رمز عبور جدید`} type={'password'} name={'newPassword'} isEditable={true} onChange={props.updateChange} />

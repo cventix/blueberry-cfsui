@@ -23,23 +23,29 @@ import { Nav } from './Nav'
 import '../Sidebar.scss'
 import FileUploadModal from '../../ui-elements/Modal/FileUploadModal/FileUploadModal'
 import FileInput from 'react-fine-uploader/file-input'
+import { getUserInfo } from '../../../services/internal/store/actions'
+import { useEffect } from 'react'
 export interface Iprops {
   onItemClick?: any
   selection?: number[]
   toggle?: any
   uploader?: any
+  getUserInfo?: any
+  userInfo?: any
 }
 
-const FM: React.FunctionComponent<Iprops> = ({ onItemClick, selection, toggle, uploader }) => {
+const FM: React.FunctionComponent<Iprops> = ({ onItemClick, selection, getUserInfo, userInfo, uploader }) => {
   let data = [
     { label: `دانلود با فرمت zip`, onClick: onItemClick },
     { label: `دانلود با فرمت iso`, onClick: onItemClick },
     { label: `دانلود با فرمت tar`, onClick: onItemClick }
   ]
-
+  useEffect(() => {
+    if (userInfo.length < 1) getUserInfo()
+  }, [])
   return (
     <div className="sidebar-menu">
-      <div onClick={()=>onItemClick(t`آپلود فایل`)}>
+      <div onClick={() => onItemClick(t`آپلود فایل`)}>
         <Button className={['pg-btnPrimary0', 'pg-btnLg']} style={{ marginBottom: '15px', cursor: 'pointer' }} id={'upload'}>
           <IconLink icon={uploadIcon} iconAlt="upload icon" label={t`آپلود فایل`} />
           <div className={'pg-absolute pg-top-0 pg-w-full pg-opacity-0'}>
@@ -65,17 +71,27 @@ const FM: React.FunctionComponent<Iprops> = ({ onItemClick, selection, toggle, u
       <ActionNav onItemClick={onItemClick} />
       <Hr />
       <FileFiltering forFM={true} onItemClick={onItemClick} />
-      <UpgradeAccount />
+      <UpgradeAccount percent={userInfo && userInfo.plan && +(userInfo.quota / JSON.parse(userInfo.plan.jsonInfo).quota).toFixed(2)} />
       <Hr />
       <Nav />
     </div>
   )
 }
+
+const mapDispatchToProps = (dispatch: any) => {
+  return {
+    getUserInfo: () => dispatch(getUserInfo())
+  }
+}
 const mapStateToProps = (state: any) => ({
   select: state,
   selection: state.selection.selection,
   toggle: state.selection.toggle,
-  uploader: state.document.uploader
+  uploader: state.document.uploader,
+  userInfo: state.account.info
 })
 
-export default connect(mapStateToProps)(FM)
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(FM)
