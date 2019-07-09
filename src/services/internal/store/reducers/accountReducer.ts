@@ -8,7 +8,8 @@ export const initialState: any = {
   editableForm: false,
   products: [],
   monthly: true,
-  info:[]
+  info: [],
+  cities: ['']
 }
 
 const accountReducer = (state: any = initialState, action: any) => {
@@ -24,6 +25,11 @@ const accountReducer = (state: any = initialState, action: any) => {
         info: action.info
       }
 
+    case actionTypes.SET_CITIES:
+      return {
+        ...state,
+        cities: action.payload
+      }
     case actionTypes.SET_PRODUCTS:
       return {
         ...state,

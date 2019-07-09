@@ -44,7 +44,7 @@ const Plans: React.FunctionComponent<Iprops> = ({ info }) => {
       </div>
       {expireDate && <InputRow label={'تاریخ اتمام طرح'} value={expireDate} border={true} isEditable={false} />}
       <div className={'pg-flex pg-justify-end'}>
-     <Link to={'/account/plan/upgrade'}> <Button className={['pg-btnPrimary0', 'pg-btnLg','pg-my-4']}>ارتقای حساب </Button></Link>
+     <Link to={'/account/plans/upgrade'}> <Button className={['pg-btnPrimary0', 'pg-btnLg','pg-my-4']}>ارتقای حساب </Button></Link>
       </div>
      
     </div>

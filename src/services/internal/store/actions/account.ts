@@ -16,3 +16,5 @@ export const setProductToggle = actionBuilder(actionTypes.SET_PRODUCT_TOGGLE, 'p
 export const changePlan = actionBuilder(actionTypes.CHANGE_PLAN, 'id', 'additionalInfo', 'applyNow')
 
 export const changeProfile = actionBuilder(actionTypes.CHANGE_PROFILE, 'payload')
+
+export const setCities = actionBuilder(actionTypes.SET_CITIES, 'payload')

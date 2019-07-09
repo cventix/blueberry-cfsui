@@ -32,29 +32,25 @@ export const AccountSideBar: React.FunctionComponent<Iprops> = () => {
           className={`iconLink upFromUrl pg-p-3 ${window.location.pathname == '/account/profile' && 'pg-bg-gray-0'}`}
           iconAlt="upload icon"
           label={t`اطلاعات کاربری`}
-         
         />
       </Link>
       <Link to={'/account/plans'}>
         <IconLink
           icon={wallet}
-          className={`iconLink upFromUrl pg-p-3 ${window.location.pathname == '/account/plans' && 'pg-bg-gray-0'}`}
+          className={`iconLink upFromUrl pg-p-3 ${window.location.pathname == '/account/plans' ||
+            (window.location.pathname.includes('plans') && 'pg-bg-gray-0')}`}
           iconAlt="upload icon"
           label={t`پلن`}
-         
         />
       </Link>
       <Link to={'/account/changePassword'}>
         <IconLink
           icon={security}
-          className={`iconLink upFromUrl  pg-p-3 ${window.location.pathname == '/account/changePassword'&& 'pg-bg-gray-0'}`}
+          className={`iconLink upFromUrl  pg-p-3 ${window.location.pathname == '/account/changePassword' && 'pg-bg-gray-0'}`}
           iconAlt="upload icon"
           label={t`امنیت`}
-        
         />
       </Link>
     </div>
   )
 }
-
-
