@@ -1,9 +1,9 @@
 import * as React from 'react'
 import { connect } from 'react-redux'
 import  Plan  from './Plan'
-import Toggle from '../../../components/ui-elements/Toggle/Toggle'
-import greenArrow from '../../../images/typeIcons/group.svg'
-import { Icon } from '../../../components/ui-elements/Icon'
+import Toggle from '../ui-elements/Toggle/Toggle'
+import greenArrow from '../../images/typeIcons/group.svg'
+import { Icon } from '../ui-elements/Icon'
 const UpgradePlans: React.FunctionComponent<any> = props => {
   let products = [
     {

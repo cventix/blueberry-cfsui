@@ -1,6 +1,6 @@
 import * as React from 'react'
 import { SwitchBar } from '../../components/SwitchBar/SwitchBar'
-import ProfileEdit from './Profile/ProfileEdit'
+import ProfileEdit from '../../components/Profile/ProfileEdit'
 import { Security } from '../../components/Security/Security'
 import {
   getUserInfo,
@@ -15,10 +15,10 @@ import {
 } from '../../services/internal/store/actions'
 import { connect } from 'react-redux'
 import { t } from 'ttag'
-import Plans from './Plans/Plans'
+import Plans from '../../components/Plans/Plans'
 import loading from '../../images/loading/loading.gif'
 import { Switch, Route } from 'react-router-dom'
-import UpgradePlans from './Plans/UpgradePlans'
+import UpgradePlans from '../../components/Plans/UpgradePlans'
 import iranGeography from '../../services/internal/utils/iranProvinces.json'
 import RenameFile from '../../components/ui-elements/Modal/ModalContent/RenameFile'
 import EditModal from '../../components/ui-elements/Modal/EditModal/EditModal'
@@ -72,7 +72,7 @@ class Account extends React.Component<Iprops, any> {
     if (nextProps.info && nextProps.info.profile) {
       let info = nextProps.info
       console.log(nextProps.info)
-      if (this.props.cities.length < 2) this.findCities(this.findProvinceName(info.profile.province))
+      if (this.props.cities.length < 2) this.findCities(nextProps.info.profile.province ? this.findProvinceName(info.profile.province): 'تهران')
 
       this.setState({
         displayName: info.displayName,
@@ -84,7 +84,8 @@ class Account extends React.Component<Iprops, any> {
         province: info.profile.province,
         city: info.profile.city,
         postalCode: info.profile.postalCode,
-        planId: info.plan.id
+        planId: info.plan.id,
+        profile: nextProps.info.profile
       })
     } else if (nextProps.info) {
       let info = nextProps.info
@@ -114,19 +115,21 @@ class Account extends React.Component<Iprops, any> {
     console.log(provinceName, cities)
     if (cities[0] !== this.props.cities[0]) this.props.setCities(cities)
   }
-  onEdit = (modalView: string) => {
+  onEdit = (modalView: string, label: string) => {
+    console.log(label)
     this.setState({ modalView })
     if (modalView == 'fullName') {
-      this.setState({ input: [{ name: 'name', value: this.state.name }, { name: 'family', value: this.state.family }] })
+      this.setState({ input: [{ name: 'name', value: this.state.name }, { name: 'family', value: this.state.family }], modalType: t`نام` })
     } else if (modalView == 'location') {
       this.setState({
         input: [
           { name: 'province', value: this.state.province, selectable: true, optionsArray: this.state.provinces },
           { name: 'city', value: this.state.city, selectable: true, optionsArray: this.state.cities }
-        ]
+        ],
+        modalType: t`مکان`
       })
     } else {
-      this.setState({ input: [{ name: modalView, value: this.state[modalView] }] })
+      this.setState({ input: [{ name: modalView, value: this.state[modalView] }], modalType: label })
     }
   }
 
@@ -144,20 +147,26 @@ class Account extends React.Component<Iprops, any> {
   }
   updateChange = (e: any) => {
     let changedValues = this.state.changedValues.concat(e.target.name)
-    console.log(e.target.name)
+    console.log(this.findProvinceNumber(e.target.value))
     if (e.target.name === 'province') {
-      console.log(e.target.value)
-      this.findCities(e.target.value)
+      // console.log(e.target.value)
 
-      this.setState({ [e.target.name]: this.findProvinceNumber(e.target.value), changedValues })
+      // console.log(this.state[e.target.name])
       this.setState({
+        province: 3,
         input: [
           { name: 'province', value: e.target.value, selectable: true, optionsArray: this.state.provinces },
           { name: 'city', value: this.state.city, selectable: true, optionsArray: this.props.cities }
         ]
       })
+      // this.setState({
+      //   input: [
+      //     { name: 'province', value: e.target.value, selectable: true, optionsArray: this.state.provinces },
+      //     { name: 'city', value: this.state.city, selectable: true, optionsArray: this.props.cities }
+      //   ]
+      // })
     } else if (e.target.name === 'name') {
-      this.setState({ [e.target.name]: e.target.value , changedValues})
+      this.setState({ [e.target.name]: e.target.value, changedValues })
       this.setState({ input: [{ name: 'name', value: e.target.value }, { name: 'family', value: this.state.family }] })
     } else if (e.target.name === 'family') {
       this.setState({ [e.target.name]: e.target.value, changedValues })
@@ -167,17 +176,28 @@ class Account extends React.Component<Iprops, any> {
         input: [{ name: [e.target.name], value: e.target.value }]
       })
       console.log(e.target.value)
-      this.setState({ [e.target.name]: e.target.value })
+      this.setState({ [e.target.name]: e.target.value, changedValues })
     }
   }
   profileChange = async (e: any) => {
     if (e) e.preventDefault()
 
     let body: any = {}
+    let profiles = ['nationalId', 'province', 'city', 'postalCode']
 
-    this.state.changedValues.map((each: any, index: number) => (body[each] = this.state[this.state.changedValues[index]]))
+    this.state.changedValues.map((each: any, index: number) => {
+      console.log(each)
+      if (!profiles.includes(each)) {
+        body[each] = this.state[this.state.changedValues[index]]
+      } else {
+        let profile = this.state.profile
+        profile[each] = this.state.changedValues[each]
+        console.log(profile)
+        body['profile'] = { [each]: profile }
+      }
+    })
     let result = await this.props.changeProfile(body)
-    this.setState({ modalView: '' })
+    this.setState({ modalView: '', changedValues: [] })
   }
   onClick = (e: any) => {
     console.log(e.target.name)
@@ -189,7 +209,7 @@ class Account extends React.Component<Iprops, any> {
 
   render() {
     const options = ['پروفایل', 'پلن ها', 'امنیت']
-
+    console.log(this.state)
     let profileBasic: any, personalInfo: any
     if (this.props.info) {
       console.log(this.state.province)
@@ -199,7 +219,7 @@ class Account extends React.Component<Iprops, any> {
         { label: 'شماره تلفن', value: this.state.mobileNumber, name: 'mobileNumber' }
       ]
       personalInfo = [
-        { label: 'نام', value: this.state.name +' '+ this.state.family, name: 'fullName' },
+        { label: 'نام', value: this.state.name + ' ' + this.state.family, name: 'fullName' },
         { label: 'کد ملی', value: this.state.nationalId, name: 'nationalId' },
         {
           label: 'موقعیت',
@@ -216,7 +236,7 @@ class Account extends React.Component<Iprops, any> {
         profileChange={this.profileChange}
         updateChange={this.updateChange}
         input={this.state.input}
-        title={'ویرایش'}
+        title={`ویرایش ${this.state.modalType}`}
       />
     )
     return (

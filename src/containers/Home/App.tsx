@@ -150,6 +150,7 @@ class App extends Component<
   countDownTime = 10000
 
   handleClose = () => {
+    console.log('dasd')
     this.setState({ showModal: false, modalView: '' })
   }
   componentDidMount() {
@@ -370,6 +371,7 @@ class App extends Component<
 
     if (nextProps.messages.msgs.length > 0) {
       toast.success(nextProps.messages.msgs)
+      // nextProps.messages.msgs.mao((each:any)=>each.length>)
       this.props.removeMessages()
     }
   }
@@ -386,7 +388,7 @@ class App extends Component<
         modal = <UrlUploadmodal showModal={this.state.showModal} handleCFClose={this.handleClose} />
         break
       case 'uploadModal':
-        modal = <FileUploadModal handleCFClose={this.handleClose} showModal={this.state.showModal} />
+        modal = <FileUploadModal handleClose={this.handleClose} showModal={this.state.showModal} />
         break
       default:
         break

@@ -5,6 +5,11 @@ $preview-header-color: #8b8e9b;
 $padding: 30px;
 .image {
   height: 100%;
+
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
   .cover {
     object-fit: cover;
   }
@@ -96,7 +101,7 @@ $padding: 30px;
       vertical-align: middle;
       font-family: 'vazir-medium';
       img {
-        margin-left: 10px;
+        margin: 10px;
       }
     }
   }
@@ -106,6 +111,7 @@ $padding: 30px;
     justify-content: center;
     .icon {
       margin-bottom: -4px;
+      margin: 4px;
     }
   }
   .arrows {

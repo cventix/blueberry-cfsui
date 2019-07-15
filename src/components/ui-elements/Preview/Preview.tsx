@@ -8,6 +8,7 @@ import arrowLeft from '../../../images/arrow-left-white.svg'
 import bigger from '../../../images/icon-fullscreen.svg'
 import zoomIn from '../../../images/buttonIcons/zoom-in.svg'
 import zoomOut from '../../../images/buttonIcons/zoom-out.svg'
+import Fullscreen from 'react-full-screen'
 
 import styles from './Preview.module.scss'
 
@@ -26,24 +27,11 @@ export default interface Iprops {
 }
 
 import DownloadBarImage from './DownloadBar/DownlaodBarImage'
+import { ZoomBar } from '../../ZoomBar/ZoomBar'
 
 export const Preview: React.FunctionComponent<Iprops> = props => {
-  let content
-  switch (props.type) {
-    case 'img':
-      content = 'image'
-      break
-    case 'code':
-      content = 'code'
-      break
-    case 'music':
-      content = 'music'
-      break
-    case 'video':
-      content = 'video'
-      break
-  }
 
+  const [isFull, setFull] = React.useState(false)
   return (
     <div className={props.show ? [styles.modal, styles.displayBlock].join(' ') : [styles.modal, styles.displayNone].join(' ')}>
       <div className={styles.previewBox}>
@@ -55,32 +43,20 @@ export const Preview: React.FunctionComponent<Iprops> = props => {
         </div>
         <div className={styles.previewBody}>
           <div className={styles.arrows}>
-            <Button className={['pg-btnControl', 'pg-btnCircle', 'pg-right']} onClick={() => props.goTo(+1)}>
+            <Button className={['pg-btnControl', 'pg-btnCircle', 'pg-right', 'pg-rounded-full']} onClick={() => props.goTo(+1)}>
               <Icon src={arrowLeft} className={[styles.icon, styles.iconRight].join(' ')} />
             </Button>
             <section className={[modalStyles.modalMain, styles.previewMain].join(' ')}>
-              <div className={styles.image}>{props.children}</div>
+              <Fullscreen enabled={isFull}>
+                <div className={styles.image}>{props.children}</div>
+              </Fullscreen>
             </section>
-            <Button className={['pg-btnControl', 'pg-btnCircle', 'pg-left']} onClick={() => props.goTo(-1)}>
+            <Button className={['pg-btnControl', 'pg-btnCircle', 'pg-left', 'pg-rounded-full']} onClick={() => props.goTo(-1)}>
               <Icon src={arrowLeft} className={styles.icon} />
             </Button>
           </div>
 
-          {/* {content === 'image' && (
-            <div className={styles.bottomBar}>
-              <Button className={['btnControl', 'btnLg', 'btnCircle']} style={{ height: 50 }}>
-                <div className={styles.row}>
-                  <Icon src={bigger} className={styles.icon} />
-                  تمام صفحه
-                  <div className={localStorage.getItem('__language') == 'fa' ? styles.marginRight : styles.marginleft}>
-                    <Icon src={zoomOut} className={styles.icon} />
-                    59%
-                    <Icon src={zoomIn} className={styles.icon} />
-                  </div>
-                </div>
-              </Button>
-            </div>
-          )} */}
+          {props.item.genericType === 'image' && <ZoomBar setFull={setFull} />}
           <DownloadBarImage onItemClick={props.onDownloadFile} />
         </div>
       </div>

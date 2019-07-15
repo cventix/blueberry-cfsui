@@ -176,8 +176,17 @@ class Documents implements DocumentsInterface {
       throw error
     }
   }
+  async addDescription({ id, description }: any) {
+    const url = `/cfs/rest/documents/${id}}`
+    const body = { id, description }
+
+    try {
+      return await this._rest.post({ url, body })
+    } catch (error) {
+      throw error
+    }
+  }
   async generateDownloadLink({ uuid, headers }: IGenerateLinkInput = {}) {
-    console.log(uuid)
     const url = `/cfs/rest/publicAccess/${uuid}/generateDownloadLink`
     try {
       let result = await this._rest.get({ url, headers })
@@ -239,8 +248,10 @@ class Documents implements DocumentsInterface {
     }
   }
   async uploadServer({ name, size, id, uuid, parent, mode, origin }: IUploadServerInput) {
-    const url = `http://cdn.persiangig.com:9234/server_upload?pathId=${parent}&name=${name}&size=${size}&id=${id}&uuid=${uuid}&${mode == 'cdn' ? 'subdomain=true' : 'subdomain=false'}`
-   
+    const url = `http://us.cdn.persiangig.com:9234/server_upload?pathId=${parent}&name=${name}&size=${size}&id=${id}&uuid=${uuid}&${
+      mode == 'cdn' ? 'subdomain=true' : 'subdomain=false'
+    }`
+
     try {
       return await this._rest.post({ url })
     } catch (error) {

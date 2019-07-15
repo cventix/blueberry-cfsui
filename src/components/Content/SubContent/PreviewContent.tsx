@@ -50,7 +50,7 @@ class PreviewContent extends React.Component<any, any> {
     switch (this.props.item.genericType) {
       case 'image':
         content = (
-          <img className={'cover'} src={`http://cdn.persiangig.com/preview/${this.props.item.uuid}/${this.props.image}/${this.props.item.name}`} />
+          <img className={'cover'} id={'map'} src={`http://cdn.persiangig.com/preview/${this.props.item.uuid}/${this.props.image}/${this.props.item.name}`} />
         )
         break
       case 'video':

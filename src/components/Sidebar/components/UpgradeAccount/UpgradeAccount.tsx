@@ -16,7 +16,7 @@ export default interface Iprops {
   forPreview?: boolean
 }
 
-export const UpgradeAccount = ({ percent = 70, forVM, forPreview }: Iprops) => {
+export const UpgradeAccount = ({ percent = 0, forVM, forPreview }: Iprops) => {
   return (
     <div className={forVM || forPreview ? [styles.upgradeAccount, styles.forVM].join(' ') : styles.upgradeAccount}>
       <div className={'pg-font-vLight'}>

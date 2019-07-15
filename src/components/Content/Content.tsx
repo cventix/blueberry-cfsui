@@ -18,7 +18,8 @@ import {
   setEditStatus,
   setRenameText,
   removeFolder,
-  uploadServer
+  uploadServer,
+  setDocuments
 } from '../../services/internal/store/actions'
 
 import { setSelections, removeSelection, setToggle, selectAll } from '../../services/internal/store/actions/selections'
@@ -73,6 +74,7 @@ export interface IProps {
   setParentId?: any
   selectAll?: any
   uploadServer?: any
+  setDocuments?: any
 }
 
 export interface navigateObject {
@@ -123,7 +125,7 @@ class Content extends React.Component<IProps, IState> {
   }
 
   async componentDidMount() {
-    if (this.props.location.pathname === '/fm' || this.props.location.pathname === '/fm/' || this.props.location.pathname.includes('preview')) {
+    if (this.props.location.pathname === '/fm' || this.props.location.pathname === '/fm/' || this.props.location.pathname === '/fm/cfs' ||this.props.location.pathname.includes('preview')) {
       this.onGetDocument(false)
       this.props.setToggle([false, false])
       this.setState({ table: this.props.data })
@@ -134,10 +136,14 @@ class Content extends React.Component<IProps, IState> {
       } else if (this.props.location.pathname.split('/fm/')[1].includes('shared')) {
         this.props.getSharedDocuments()
         this.props.setToggle([true, false])
-      } else this.onGetDocument(true, this.props.location.pathname.split('/fm/')[1], this.props.item.id)
+      } else {
+        
+        this.onGetDocument(true, this.props.location.pathname.split('/fm/')[1], this.props.item.id)
+      }
     }
-
-    this.setState({ showMore: this.state.table.length > 10 ? true : false })
+let table= [{"boost":{},"cfsFullPath":"/1212313.jpg","createdAt":1562484257993,"deleted":false,"description":"dsd","discriminator":"F","docLocations":[{"createdAt":1562484258020,"location":{"name":"fr-cdn"},"transferStatus":"INPROGRESS"},{"createdAt":1562484258012,"location":{"name":"us-cdn"},"transferStatus":"SUCCESS"}],"downloadCount":20,"favourite":false,"fullPath":"/1212313.jpg","genericType":"image","hasPassword":false,"id":63371809,"mimeType":"image/jpeg","name":"1212313.jpg","owner":{"displayName":"shahz","id":62443905,"md5":"f6865c9db3d5f4d96c9341fd23422f31"},"preview":true,"properties":"{\"height\":137,\"FormatName\":\"JPEG\",\"width\":1061,\"colorDepth\":24}","purchased":false,"shared":false,"sharingStatus":"PUBLIC","size":9301,"subdomain":false,"treePath":"63371809","updatedAt":1563087626639,"uuid":"1ZCewsTv6t"},{"boost":{},"cfsFullPath":"/1463659_641432705880124_1052296591_n.jpg","createdAt":1562503372267,"deleted":false,"discriminator":"F","docLocations":[{"createdAt":1562503372310,"location":{"name":"fr-cdn"},"transferStatus":"INPROGRESS"},{"createdAt":1562503372306,"location":{"name":"us-cdn"},"transferStatus":"SUCCESS"}],"downloadCount":17,"favourite":false,"fullPath":"/1463659_641432705880124_1052296591_n.jpg","genericType":"image","hasPassword":false,"id":63373095,"mimeType":"image/jpeg","name":"1463659_641432705880124_1052296591_n.jpg","owner":{"displayName":"shahz","id":62443905,"md5":"f6865c9db3d5f4d96c9341fd23422f31"},"preview":true,"properties":"{\"height\":334,\"FormatName\":\"JPEG\",\"width\":720,\"colorDepth\":24}","purchased":false,"shared":false,"sharingStatus":"PUBLIC","size":51720,"subdomain":false,"treePath":"63373095","updatedAt":1562503374207,"uuid":"wLCk6QTiL5"},{"boost":{},"cfsFullPath":"/231.jpg","createdAt":1562496487355,"deleted":false,"discriminator":"F","docLocations":[{"createdAt":1562496487394,"location":{"name":"fr-cdn"},"transferStatus":"INPROGRESS"},{"createdAt":1562496487388,"location":{"name":"us-cdn"},"transferStatus":"SUCCESS"}],"downloadCount":19,"favourite":false,"fullPath":"/231.jpg","genericType":"image","hasPassword":false,"id":63372580,"mimeType":"image/jpeg","name":"231.jpg","owner":{"displayName":"shahz","id":62443905,"md5":"f6865c9db3d5f4d96c9341fd23422f31"},"preview":true,"properties":"{\"height\":821,\"FormatName\":\"JPEG\",\"width\":564,\"colorDepth\":24}","purchased":false,"shared":false,"sharingStatus":"PUBLIC","size":86248,"subdomain":false,"treePath":"63372580","updatedAt":1562496488161,"uuid":"j46aiiBfKZ"},{"boost":{},"cfsFullPath":"/7a5eeccd20a339c7cee9ea60230c698f.jpg","createdAt":1562484218835,"deleted":false,"discriminator":"F","docLocations":[{"createdAt":1562484218917,"location":{"name":"fr-cdn"},"transferStatus":"INPROGRESS"},{"createdAt":1562484218904,"location":{"name":"us-cdn"},"transferStatus":"SUCCESS"}],"downloadCount":20,"favourite":false,"fullPath":"/7a5eeccd20a339c7cee9ea60230c698f.jpg","genericType":"image","hasPassword":false,"id":63371806,"mimeType":"image/jpeg","name":"7a5eeccd20a339c7cee9ea60230c698f.jpg","owner":{"displayName":"shahz","id":62443905,"md5":"f6865c9db3d5f4d96c9341fd23422f31"},"preview":true,"properties":"{\"height\":821,\"FormatName\":\"JPEG\",\"width\":564,\"colorDepth\":24}","purchased":false,"shared":false,"sharingStatus":"PUBLIC","size":86248,"subdomain":false,"treePath":"63371806","updatedAt":1562484220214,"uuid":"Z1QnPBqAUM"},{"boost":{},"cfsFullPath":"/camphoto_869693583.jpg","createdAt":1562485437501,"deleted":false,"discriminator":"F","docLocations":[{"createdAt":1562485437562,"location":{"name":"fr-cdn"},"transferStatus":"INPROGRESS"},{"createdAt":1562485437555,"location":{"name":"us-cdn"},"transferStatus":"SUCCESS"}],"downloadCount":19,"favourite":false,"fullPath":"/camphoto_869693583.jpg","genericType":"image","hasPassword":false,"id":63371885,"mimeType":"image/jpeg","name":"camphoto_869693583.jpg","owner":{"displayName":"shahz","id":62443905,"md5":"f6865c9db3d5f4d96c9341fd23422f31"},"preview":true,"properties":"{\"height\":4032,\"FormatName\":\"JPEG\",\"width\":3024,\"colorDepth\":24}","purchased":false,"shared":false,"sharingStatus":"PUBLIC","size":3166166,"subdomain":false,"treePath":"63371885","updatedAt":1562485441687,"uuid":"qmubOEcUB6"},{"boost":{},"cfsFullPath":"/Damahi_-_Divaneh.jpg","createdAt":1562484446327,"deleted":false,"discriminator":"F","docLocations":[{"createdAt":1562484446363,"location":{"name":"fr-cdn"},"transferStatus":"INPROGRESS"},{"createdAt":1562484446353,"location":{"name":"us-cdn"},"transferStatus":"SUCCESS"}],"downloadCount":20,"favourite":false,"fullPath":"/Damahi_-_Divaneh.jpg","genericType":"image","hasPassword":false,"id":63371823,"mimeType":"image/jpeg","name":"Damahi_-_Divaneh.jpg","owner":{"displayName":"shahz","id":62443905,"md5":"f6865c9db3d5f4d96c9341fd23422f31"},"preview":true,"properties":"{\"height\":1277,\"FormatName\":\"JPEG\",\"width\":1280,\"colorDepth\":24}","purchased":false,"shared":false,"sharingStatus":"PUBLIC","size":221616,"subdomain":false,"treePath":"63371823","updatedAt":1562484447077,"uuid":"qwI8f65l13"},{"boost":{},"cfsFullPath":"/ddd.jpg","createdAt":1562483528891,"deleted":false,"discriminator":"F","docLocations":[{"createdAt":1562483528918,"location":{"name":"fr-cdn"},"transferStatus":"INPROGRESS"},{"createdAt":1562483528911,"location":{"name":"us-cdn"},"transferStatus":"SUCCESS"}],"downloadCount":20,"favourite":false,"fullPath":"/ddd.jpg","genericType":"image","hasPassword":false,"id":63371764,"mimeType":"image/jpeg","name":"ddd.jpg","owner":{"displayName":"shahz","id":62443905,"md5":"f6865c9db3d5f4d96c9341fd23422f31"},"preview":true,"properties":"{\"height\":221,\"FormatName\":\"JPEG\",\"width\":618,\"colorDepth\":24}","purchased":false,"shared":false,"sharingStatus":"PUBLIC","size":24064,"subdomain":false,"treePath":"63371764","updatedAt":1562483529312,"uuid":"ABF17s6lfd"},{"boost":{},"cfsFullPath":"/esdsd.jpg","createdAt":1562484496051,"deleted":false,"discriminator":"F","docLocations":[{"createdAt":1562484496075,"location":{"name":"fr-cdn"},"transferStatus":"INPROGRESS"},{"createdAt":1562484496069,"location":{"name":"us-cdn"},"transferStatus":"SUCCESS"}],"downloadCount":20,"favourite":false,"fullPath":"/esdsd.jpg","genericType":"image","hasPassword":false,"id":63371831,"mimeType":"image/jpeg","name":"esdsd.jpg","owner":{"displayName":"shahz","id":62443905,"md5":"f6865c9db3d5f4d96c9341fd23422f31"},"preview":true,"properties":"{\"height\":1200,\"FormatName\":\"JPEG\",\"width\":1200,\"colorDepth\":24}","purchased":false,"shared":false,"sharingStatus":"PUBLIC","size":224285,"subdomain":false,"treePath":"63371831","updatedAt":1562484496547,"uuid":"N3xOPbQIcZ"},{"boost":{},"cfsFullPath":"/IMG_4730.jpg","createdAt":1562484877715,"deleted":false,"discriminator":"F","docLocations":[{"createdAt":1562484877906,"location":{"name":"fr-cdn"},"transferStatus":"INPROGRESS"},{"createdAt":1562484877898,"location":{"name":"us-cdn"},"transferStatus":"SUCCESS"}],"downloadCount":19,"favourite":false,"fullPath":"/IMG_4730.jpg","genericType":"image","hasPassword":false,"id":63371855,"mimeType":"image/jpeg","name":"IMG_4730.jpg","owner":{"displayName":"shahz","id":62443905,"md5":"f6865c9db3d5f4d96c9341fd23422f31"},"preview":true,"properties":"{\"height\":1306,\"FormatName\":\"JPEG\",\"width\":1307,\"colorDepth\":24}","purchased":false,"shared":false,"sharingStatus":"PUBLIC","size":431924,"subdomain":false,"treePath":"63371855","updatedAt":1562484878685,"uuid":"VkO38IhfKP"},{"boost":{},"cfsFullPath":"/jbhvhv.jpg","createdAt":1562496364646,"deleted":false,"discriminator":"F","docLocations":[{"createdAt":1562496364802,"location":{"name":"fr-cdn"},"transferStatus":"INPROGRESS"},{"createdAt":1562496364796,"location":{"name":"us-cdn"},"transferStatus":"SUCCESS"}],"downloadCount":19,"favourite":false,"fullPath":"/jbhvhv.jpg","genericType":"image","hasPassword":false,"id":63372573,"mimeType":"image/jpeg","name":"jbhvhv.jpg","owner":{"displayName":"shahz","id":62443905,"md5":"f6865c9db3d5f4d96c9341fd23422f31"},"preview":true,"properties":"{\"height\":1200,\"FormatName\":\"JPEG\",\"width\":1200,\"colorDepth\":24}","purchased":false,"shared":false,"sharingStatus":"PUBLIC","size":224285,"subdomain":false,"treePath":"63372573","updatedAt":1562496365266,"uuid":"ZM45Lx5t9L"},{"boost":{},"cfsFullPath":"/jh.jpg","createdAt":1562492018526,"deleted":false,"discriminator":"F","docLocations":[{"createdAt":1562492018589,"location":{"name":"fr-cdn"},"transferStatus":"INPROGRESS"},{"createdAt":1562492018582,"location":{"name":"us-cdn"},"transferStatus":"SUCCESS"}],"downloadCount":19,"favourite":false,"fullPath":"/jh.jpg","genericType":"image","hasPassword":false,"id":63372312,"mimeType":"image/jpeg","name":"jh.jpg","owner":{"displayName":"shahz","id":62443905,"md5":"f6865c9db3d5f4d96c9341fd23422f31"},"preview":true,"properties":"{\"height\":221,\"FormatName\":\"JPEG\",\"width\":618,\"colorDepth\":24}","purchased":false,"shared":false,"sharingStatus":"PUBLIC","size":24064,"subdomain":false,"treePath":"63372312","updatedAt":1562492018930,"uuid":"yiL4DZfa7f"},{"boost":{},"cfsFullPath":"/Screen_Shot_2019-06-22_at_9.44.52_AM_copy.png","createdAt":1562486053919,"deleted":false,"discriminator":"F","docLocations":[{"createdAt":1562486053944,"location":{"name":"fr-cdn"},"transferStatus":"INPROGRESS"},{"createdAt":1562486053936,"location":{"name":"us-cdn"},"transferStatus":"SUCCESS"}],"downloadCount":19,"favourite":false,"fullPath":"/Screen_Shot_2019-06-22_at_9.44.52_AM_copy.png","genericType":"image","hasPassword":false,"id":63371923,"mimeType":"image/png","name":"Screen_Shot_2019-06-22_at_9.44.52_AM_copy.png","owner":{"displayName":"shahz","id":62443905,"md5":"f6865c9db3d5f4d96c9341fd23422f31"},"preview":true,"properties":"{\"height\":155,\"FormatName\":\"png\",\"width\":1108,\"colorDepth\":32}","purchased":false,"shared":false,"sharingStatus":"PUBLIC","size":26473,"subdomain":false,"treePath":"63371923","updatedAt":1562486054141,"uuid":"oqFfJZqIYY"}]
+    this.setState({ showMore: this.state.table.length > 10 ? true : false ,table,filteredTable:table})
+    this.props.setDocuments(table)
   }
 
   /**back button */
@@ -197,7 +203,7 @@ class Content extends React.Component<IProps, IState> {
         item: nextProps.item
       })
     }
-    console.log(nextProps)
+
     if (nextProps.selection.length == 0 || (nextProps.selection.length > 0 && nextProps.document.documents !== this.state.mainTable)) {
       this.setState({
         table: nextProps.document.documents,
@@ -362,7 +368,7 @@ class Content extends React.Component<IProps, IState> {
           table={this.state.filteredTable}
           dropDownData={dropDownData}
           handleChange={this.handleChange}
-          loading={this.props.loading}
+          loading={!this.props.loading}
           openModal={this.openModal}
           loadingStyle={styles.loading}
           onSort={this.onSort}
@@ -405,7 +411,8 @@ const mapDispatchToProps = (dispatch: any) => {
     selectAll: (value: boolean) => dispatch(selectAll(value)),
     setRenameText: (value: any) => dispatch(setRenameText(value)),
     removeFolder: (value: IRemoveFolderInput) => dispatch(removeFolder(value)),
-    uploadServer: (value: any) => dispatch(uploadServer(value))
+    uploadServer: (value: any) => dispatch(uploadServer(value)),
+    setDocuments: (value: any) => dispatch(setDocuments(value)),
   }
 }
 

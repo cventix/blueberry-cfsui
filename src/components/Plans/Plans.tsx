@@ -1,10 +1,10 @@
 import * as React from 'react'
 import { connect } from 'react-redux'
 import { InputRow } from '../Profile/InputRow'
-import { Progressbar } from '../../../components/ui-elements/Progressbar/Progressbar'
-import { formatBytes } from '../../../services/internal/utils/formatBytes'
+import { Progressbar } from '../ui-elements/Progressbar/Progressbar'
+import { formatBytes } from '../../services/internal/utils/formatBytes'
 import { translateName } from './Plan'
-import { Button } from '../../../components/ui-elements/Button/Button';
+import { Button } from '../ui-elements/Button/Button';
 import { Link } from 'react-router-dom';
 
 export interface Iprops {
@@ -31,7 +31,7 @@ const Plans: React.FunctionComponent<Iprops> = ({ info }) => {
   return (
     <div className={'pg-w-1/2 laptop:pg-w-3/4 tablet:pg-w-3/4  mobile-max:pg-w-full'}>
       <h1 className={'pg-text-lg pg-py-5 pg-text-gray-700'}>پلن فعال</h1>
-      <InputRow label={'نام طرح '} value={`${faname} - ${faTime}`} border={true} isEditable={false} />
+      <InputRow label={'نام طرح '} value={`${faname} - ${faTime}`} border={true} editable={false} />
       <div className={`pg-flex pg-text-gray-700 pg-w-full pg-flex-col pg-py-4 pg-border-b-2`}>
         <div className={`pg-flex pg-justify-between pg-my-2`}>
           <div>فضای پرشده </div>
@@ -42,7 +42,7 @@ const Plans: React.FunctionComponent<Iprops> = ({ info }) => {
         </div>
         <Progressbar value={percent ? percent : 0.9} height={28} width={'100%'} color={renderColor(percent)} />
       </div>
-      {expireDate && <InputRow label={'تاریخ اتمام طرح'} value={expireDate} border={true} isEditable={false} />}
+      {expireDate && <InputRow label={'تاریخ اتمام طرح'} value={expireDate} border={true} editable={false} />}
       <div className={'pg-flex pg-justify-end'}>
      <Link to={'/account/plans/upgrade'}> <Button className={['pg-btnPrimary0', 'pg-btnLg','pg-my-4']}>ارتقای حساب </Button></Link>
       </div>

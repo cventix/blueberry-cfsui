@@ -6,13 +6,16 @@ import { bottle } from '../../../index'
 const documents = bottle.container.Documents
 
 export function* getDocuments(action: AnyAction) {
+
+  let base = { headers: { token: localStorage.getItem('token') } }
   let folderInfo
-  if (action.payload && action.payload.isChildren) folderInfo = { isChildren: action.payload.isChildren, path: action.payload.path }
+  if (action.payload && action.payload.isChildren)
+    folderInfo = { isChildren: action.payload.isChildren, path: action.payload.path, headers: { token: localStorage.getItem('token') } }
 
   try {
     yield put(actions.setLoadingState(true))
     console.log(folderInfo)
-    let data = yield documents.getDocuments(folderInfo && folderInfo)
+    let data = yield documents.getDocuments(folderInfo ? folderInfo : base)
     if (folderInfo && folderInfo.isChildren === true) {
       yield put(actions.setParentId(data.parent.id))
       data = data.children
@@ -160,7 +163,14 @@ export function* generateLink(action: AnyAction) {
     yield put(actions.setLoadingState(false))
   }
 }
-
+export function* addDescription(action: AnyAction) {
+  try {
+    let result = yield documents.addDescription({ id: action.payload.id, description: action.payload.description })
+  } catch (err) {
+    yield put(actions.setError(err.errors[0].msg))
+    yield put(actions.setLoadingState(false))
+  }
+}
 export function* downloadDirectory(action: AnyAction) {
   let info = { type: action.payload.downloadType, documentIds: action.payload.documentIds }
   try {
@@ -200,7 +210,8 @@ export function* urlUpload(action: any) {
 export function* changeSharingStatus(action: any) {
   console.log(action)
   try {
-    yield documents.changeSharingStatus({ id: action.payload.id, sharingStatus: action.payload.sharingStatus })
+    let result = yield documents.changeSharingStatus({ id: action.payload.id, sharingStatus: action.payload.sharingStatus })
+    actions.setSidebarItems(result)
     yield put(actions.setMessage('دسترسی تغییر داده شد.'))
   } catch (err) {
     yield put(actions.setError(err.errors[0].msg))

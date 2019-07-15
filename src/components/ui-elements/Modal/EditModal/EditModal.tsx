@@ -63,7 +63,7 @@ class EditModal extends React.Component<any, any> {
           )}
 
           <div className={styles.submitButton}>
-            <Button className={['pg-btnPrimary100', 'pg-btnSm']}>{this.props.title}</Button>
+            <Button className={['pg-btnPrimary100', 'pg-btnSm']}>ویرایش</Button>
           </div>
         </form>
       </UploadModal>

@@ -1,10 +1,9 @@
 import * as React from 'react'
 import { connect } from 'react-redux'
-import { getUserInfo } from '../../../services/internal/store/actions'
-import { TextInput } from '../../../components/ui-elements/Input/Input'
+
 import { InputRow } from './InputRow'
-import { Button } from '../../../components/ui-elements/Button/Button'
-import { t } from 'ttag'
+
+
 
 const ProfileEdit: React.FunctionComponent<any> = props => {
   let { profileBasic, personalInfo } = props
@@ -20,11 +19,12 @@ const ProfileEdit: React.FunctionComponent<any> = props => {
               <InputRow
                 label={each.label}
                 value={each.value}
+                editable={true}
                 border={true}
                 onEdit={props.onEdit}
-                isEditable={props.editableForm}
                 onChange={props.updateChange}
                 name={each.name}
+                
               />
             )
           })}
@@ -34,10 +34,10 @@ const ProfileEdit: React.FunctionComponent<any> = props => {
             return (
               <InputRow
                 label={each.label}
+                editable={true}
                 value={each.value}
                 onEdit={props.onEdit}
                 border={true}
-                isEditable={props.editableForm}
                 onChange={props.updateChange}
                 name={each.name}
                 {...each.optionsArray && { optionsArray: each.optionsArray }}

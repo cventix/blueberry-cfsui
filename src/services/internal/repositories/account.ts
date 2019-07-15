@@ -30,9 +30,11 @@ class Account implements AccountInterface {
   async changePlan(id: number, additionalInfo: string, applyNow: boolean) {
     const url = '/cfs/rest/users/changePlan'
     const body = {
-      additionalInfo,
-      applyNow,
-      id
+      plan: {
+        additionalInfo,
+        applyNow,
+        id
+      }
     }
     try {
       return await this._rest.put({ url, body })
@@ -40,9 +42,9 @@ class Account implements AccountInterface {
       throw error
     }
   }
-  async changeProfile(body:any) {
+  async changeProfile(body: any) {
     const url = '/cfs/rest/users/changeProfile?verify=false'
-   
+
     try {
       return await this._rest.put({ url, body })
     } catch (error) {
@@ -50,6 +52,5 @@ class Account implements AccountInterface {
     }
   }
 }
-
 
 export default Account

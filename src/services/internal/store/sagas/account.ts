@@ -33,7 +33,11 @@ export function* getProducts() {
 export function* changePlan(action: any) {
   try {
     yield put(actions.setLoadingState(true))
-    yield account.changePlan(action.id, action.additionalInfo, action.applyNow)
+   let result =  yield account.changePlan(action.id, action.additionalInfo, action.applyNow)
+   if (result == 200) {
+    yield put(actions.setMessage('یک صورتحساب جدید برای شما ایجاد شد. برای فعال کردن حساب ویژه ی خود لطفا به صفحه  صورتحساب  ها بروید و صورتحساب خود را پرداخت کنید.'))
+  }
+
     yield put(actions.setLoadingState(false))
   } catch (err) {
     yield put(actions.setError(err.errors[0].msg))

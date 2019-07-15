@@ -1,9 +1,9 @@
 import * as React from 'react'
 import { connect } from 'react-redux'
-import { Button } from '../../../components/ui-elements/Button/Button'
+import { Button } from '../ui-elements/Button/Button'
 import { t } from 'ttag'
-import { Tooltip } from '../../../components/ui-elements/Tooltip/Tooltip'
-import { formatPrice } from '../../../services/internal/utils/formatPrice'
+import { Tooltip } from '../ui-elements/Tooltip/Tooltip'
+import { formatPrice } from '../../services/internal/utils/formatPrice'
 
 export const translateName = (name: string) => {
   let translate

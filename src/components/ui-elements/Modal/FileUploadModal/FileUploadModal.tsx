@@ -1,16 +1,13 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { getModalDocuments, uploadServer, setUploader } from '../../../../services/internal/store/actions/documents'
-import FineUploaderTraditional from 'fine-uploader-wrappers'
-import RetryButton from 'react-fine-uploader/retry-button'
-import Thumbnail from 'react-fine-uploader/thumbnail'
-import Filename from 'react-fine-uploader/filename'
-import Status from 'react-fine-uploader/status'
-import ProgressBar from 'react-fine-uploader/progress-bar'
-import DeleteButton from 'react-fine-uploader/delete-button'
-import CancelButton from 'react-fine-uploader/cancel-button'
+
 import 'react-fine-uploader/gallery/gallery.css'
 import 'react-fine-uploader/'
+import { Icon } from '../../Icon'
+import close from '../../../../images/icon-btn-refresh-copy.svg'
+import styles from '../Modal.module.scss'
+import UploadItem from './UploadItem';
 export interface Iprops {}
 export interface Istate {}
 const isFileGone = (status: any) => {
@@ -66,39 +63,20 @@ class FileUploadModal extends React.Component<any, any> {
     }
     console.log(statusText)
     return (
-      <div className={'pg-fixed pg-bg-white pg-w-1/4 pg-bottom-10p pg-left-10p 	pg-text-xs'}>
-        {this.state.submittedFiles.map((id: any) => (
-          <div className={'pg-flex pg-flex-1 pg-justify-between'}>
-            <div style={{ width: '28px' }}>
-              <Thumbnail id={id} text={{ upload_successful: 'Success!' }} uploader={this.props.uploader} />
-            </div>
-            <div className={'pg-flex-1 pg-align-middle pg-p-2 pg-overflow-hidden pg-h-12 pg-max-w-xs pg-justify-center pg-flex pg-items-center'}>
-              <Filename id={id} uploader={this.props.uploader} style={{ textOverflow: 'ellipsis'}} />
-            </div>
-            <div className={'pg-flex pg-flex-1 pg-flex-col pg-items-center'}>
-              <div className={'pg-text-xxs pg-justify-content pg-text-center'}>
-                <Status id={id} text={statusText} uploader={this.props.uploader} />
-              </div>
-              <div className={'pg-align-middle'}>
-                <ProgressBar
-                  id={id}
-                  uploader={this.props.uploader}
-                  hideBeforeStart={false}
-                  hideOnComplete={false}
-                  className={this.state.progressColor}
-                />
+      <div className={this.props.showModal ? [styles.displayBlock].join(' ') : [ styles.displayNone].join(' ')}>
+        <div className={'pg-fixed pg-bg-white pg-w-1/3 pg-bottom-10p pg-left-10p pg-rounded-sm	pg-text-xs'}>
+          {this.state.submittedFiles.length > 0 && (
+            <div className={'pg-w-full pg-bg-blue-400 pg-rounded-t-sm pg-p-2 pg-flex pg-justify-between'}>
+              <div className={'pg-text-white'}>بارگذاری فایل</div>
+              <div className={'pg-text-white pg-cursor-pointer'} onClick={this.props.handleClose}>
+                انصراف <Icon className={styles.closeIcon} src={close} />
               </div>
             </div>
-            <div className={'pg-flex-1 pg-justify-center pg-flex'}>
-              {buttonState == 'retry' ? (
-                <RetryButton id={id} uploader={this.props.uploader} onlyRenderIfDeletable={false} />
-              ) : (
-                <CancelButton id={id} uploader={this.props.uploader} />
-              )}
-            </div>
-            {/* <RetryButton id={ id } uploader={ uploader } /> */}
-          </div>
-        ))}
+          )}
+          {this.state.submittedFiles.map((id: any) => (
+           <UploadItem id={id}/>
+          ))}
+        </div>
       </div>
     )
   }

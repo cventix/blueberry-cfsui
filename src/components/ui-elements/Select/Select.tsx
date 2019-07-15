@@ -4,7 +4,7 @@ export default interface Iprops {
   optionsArray: any
   value: string
   onChange: any
-  name: string
+  name: string | undefined
 }
 
 export const Select: React.FunctionComponent<Iprops> = ({ optionsArray, value, onChange, name }) => {
