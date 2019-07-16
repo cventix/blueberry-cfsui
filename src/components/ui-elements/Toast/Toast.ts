@@ -31,7 +31,7 @@ export default {
         autoClose: 5000,
         className: css({
           height: '35px !important',
-          width:'480px !important',
+          width: '480px !important',
           fontFamily: 'vazir-regular !important',
           padding: '10px !important',
           minHeight: '35px !important',
@@ -42,6 +42,23 @@ export default {
         position: toast.POSITION.BOTTOM_LEFT
       })
     }
+  },
+  timed(msg: any, options = {}) {
+    return toast.success(msg, {
+      ...options,
+      autoClose: false,
+      className: css({
+        height: '35px !important',
+        width: '480px !important',
+        fontFamily: 'vazir-regular !important',
+        padding: '10px !important',
+        minHeight: '35px !important',
+        textAlign: 'center !important',
+        background: 'linear-gradient(to top, #2fd673, #3ae57c) !important'
+      }),
+      hideProgressBar: true,
+      position: toast.POSITION.BOTTOM_LEFT
+    })
   },
   succeed(msg: any, options = {}) {
     return toast.success(msg, {
@@ -60,43 +77,42 @@ export default {
     })
   },
   error(msg: string, options = {}) {
-    if(msg.length < 30) {
-    return toast.error(msg, {
-      ...options,
-      autoClose: 3000,
-      className: css({
-        height: '35px !important',
-        fontFamily: 'vazir-regular !important',
-        padding: '0 !important',
-        minHeight: '35px !important',
-        textAlign: 'center !important'
-      }),
+    console.log(msg.length)
+    if (msg.length < 30) {
+      return toast.error(msg, {
+        ...options,
+        autoClose: 30000,
+        className: css({
+          fontFamily: 'vazir-regular !important',
+          padding: '0 !important',
+          minHeight: '35px !important',
+          textAlign: 'center !important'
+        }),
 
-      position: toast.POSITION.BOTTOM_LEFT,
-      hideProgressBar: true,
-      progressClassName: css({
-        background: '#007aff'
+        position: toast.POSITION.BOTTOM_LEFT,
+        hideProgressBar: true,
+        progressClassName: css({
+          background: '#007aff'
+        })
       })
-    })
-  }else{
-    return toast.error(msg, {
-      ...options,
-      autoClose: 3000,
-      className: css({
-        height: '35px !important',
-        fontFamily: 'vazir-regular !important',
-        padding: '10px !important',
-        minHeight: '35px !important',
-        textAlign: 'center !important'
-      }),
+    } else {
+      return toast.error(msg, {
+        ...options,
+        autoClose: 30000,
+        className: css({
+          fontFamily: 'vazir-regular !important',
+          padding: '10px !important',
+          minHeight: '35px !important',
+          textAlign: 'center !important'
+        }),
 
-      position: toast.POSITION.BOTTOM_LEFT,
-      hideProgressBar: true,
-      progressClassName: css({
-        background: '#007aff'
+        position: toast.POSITION.BOTTOM_LEFT,
+        hideProgressBar: true,
+        progressClassName: css({
+          background: '#007aff'
+        })
       })
-    })
-  }
+    }
   },
   dismiss() {
     return toast.dismiss()

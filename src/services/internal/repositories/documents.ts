@@ -11,6 +11,7 @@ export interface IGetDocumentsInput {
 export interface IGenerateLinkInput {
   uuid?: string
   headers?: object
+  name?: string
 }
 
 export interface ICreateFolderInput {

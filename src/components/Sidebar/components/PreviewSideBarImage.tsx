@@ -34,7 +34,7 @@ const PreviewSideBarImage: React.FunctionComponent<Iprops> = ({ onItemClick, ite
       <Button className={['pg-btnSuccess0', 'pg-btnLg']} style={{ marginBottom: '15px' }}>
         <IconLink icon={uploadIcon} iconAlt="upload icon" label={t`دانلود فایل`} onClick={onItemClick} />
       </Button>
-      <div className="pg-flex pg-flex-row pg-flex-wrap pg-justify-center pg-mt-19p pg-rounded-sm pg-text-xs pg-p-8p">
+      <div className="pg-flex pg-flex-row pg-flex-wrap pg-justify-center pg-border-1 pg-mt-19p pg-rounded-sm pg-text-xs pg-p-8p">
         آمار: {JSON.stringify(item.downloadCount)} دانلود
       </div>
       <div className="pg-mt-37p pg-mb-5">

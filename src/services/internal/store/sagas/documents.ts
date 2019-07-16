@@ -156,11 +156,13 @@ export function* shareDocuments(action: any) {
 export function* generateLink(action: AnyAction) {
   let uuid = { uuid: action.payload }
   try {
+    yield put(actions.setDownloadLoadingState(true))
     let result = yield documents.generateDownloadLink(uuid)
     yield put(actions.setDownloadToken(result.token))
+    yield put(actions.setDownloadLoadingState(false))
   } catch (err) {
     yield put(actions.setError(err.errors[0].msg))
-    yield put(actions.setLoadingState(false))
+    yield put(actions.setDownloadLoadingState(false))
   }
 }
 export function* addDescription(action: AnyAction) {

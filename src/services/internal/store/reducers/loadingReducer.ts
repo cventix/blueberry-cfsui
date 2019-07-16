@@ -1,21 +1,23 @@
 import { actionTypes } from '../actions/types'
 
-
 // Interfaces
 interface StateInterface {
   isLoading: boolean
   modalLoading: boolean
+  downloadLoading: boolean
 }
 
 interface ActionInterface {
   type: string
   isLoading?: boolean
   modalLoading?: boolean
+  downloadLoading?: boolean
 }
 
 const initialState: StateInterface = {
   isLoading: false,
-  modalLoading: false
+  modalLoading: false,
+  downloadLoading: false
 }
 
 const loadingReducer = (state: any = initialState, action: any) => {
@@ -28,6 +30,11 @@ const loadingReducer = (state: any = initialState, action: any) => {
       return {
         modalLoading: action.modalLoading
       }
+    case actionTypes.SET_DOWNLOAD_LOADING:
+      return {
+        downloadLoading: action.downloadLoading
+      }
+
     default:
       return state
   }

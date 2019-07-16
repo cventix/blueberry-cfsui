@@ -15,7 +15,15 @@ import { UploadModal } from '../../components/ui-elements/Modal/Uploadmodal/Uplo
 import MoveFile from '../../components/ui-elements/Modal/MoveFileModal.tsx/MoveFile'
 import { TextInput } from '../../components/ui-elements/Input/Input'
 import { Button } from '../../components/ui-elements/Button/Button'
-import { downloadDirectory, removeMessages, deleteDocument, uploadDocument, urlUpload, uploadServer, setUploader } from '../../services/internal/store/actions'
+import {
+  downloadDirectory,
+  removeMessages,
+  deleteDocument,
+  uploadDocument,
+  urlUpload,
+  uploadServer,
+  setUploader
+} from '../../services/internal/store/actions'
 import { setToggle, removeSelection } from '../../services/internal/store/actions/selections'
 import { ToastUndo } from '../../components/ui-elements/Toast/ToastUndo/ToastUndo'
 import toast from '../../components/ui-elements/Toast/Toast'
@@ -90,6 +98,7 @@ class App extends Component<
     uploadServer?: any
     setUploader?: any
     uploader?: any
+    downloadLoading?: boolean
   },
   {}
 > {
@@ -362,13 +371,13 @@ class App extends Component<
   }
 
   componentWillReceiveProps(nextProps: any, prevProps: any) {
-    console.log(prevProps)
-    console.log(prevProps.history && nextProps.history.location.pathname !== prevProps.history.location.pathname)
     if (nextProps.messages.errors.length > 0) {
       toast.error(nextProps.messages.errors)
       this.props.removeMessages()
     }
-
+    if (nextProps.downloadLoading) {
+      toast.timed('در آماده سازی  دانلود')
+    }
     if (nextProps.messages.msgs.length > 0) {
       toast.success(nextProps.messages.msgs)
       // nextProps.messages.msgs.mao((each:any)=>each.length>)
@@ -433,7 +442,8 @@ const mapStateToProps = (state: any) => ({
   item: state.sidebar.item,
   messages: state.messages,
   downloadToken: state.sidebar.downloadToken,
-  uploader :state.document.uploader
+  downloadLoading: state.loading.downloadLoading,
+  uploader: state.document.uploader
 })
 
 const mapDispatchToProps = (dispatch: any) => {
