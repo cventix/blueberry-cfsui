@@ -4,7 +4,7 @@ import { connect } from 'react-redux'
 import 'react-fine-uploader/gallery/gallery.css'
 import 'react-fine-uploader/'
 import { getModalDocuments, uploadServer, setUploader } from '../../../../services/internal/store/actions/documents'
-import FineUploaderTraditional from 'fine-uploader-wrappers'
+
 import RetryButton from 'react-fine-uploader/retry-button'
 import Thumbnail from 'react-fine-uploader/thumbnail'
 import Filename from 'react-fine-uploader/filename'

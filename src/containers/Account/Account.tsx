@@ -61,7 +61,7 @@ class Account extends React.Component<Iprops, any> {
     if (this.props.info.length < 1) this.props.getUserInfo()
     this.props.getProducts()
     let provinces = iranGeography.map((province: any) => province.name)
-
+    document.title = 'پروفایل کاربری'
     this.setState({ provinces })
   }
   onToggle = (e: any) => {
@@ -72,7 +72,7 @@ class Account extends React.Component<Iprops, any> {
     if (nextProps.info && nextProps.info.profile) {
       let info = nextProps.info
       console.log(nextProps.info)
-      if (this.props.cities.length < 2) this.findCities(nextProps.info.profile.province ? this.findProvinceName(info.profile.province): 'تهران')
+      if (this.props.cities.length < 2) this.findCities(nextProps.info.profile.province ? this.findProvinceName(info.profile.province) : 'تهران')
 
       this.setState({
         displayName: info.displayName,
@@ -239,41 +239,39 @@ class Account extends React.Component<Iprops, any> {
         title={`ویرایش ${this.state.modalType}`}
       />
     )
-    return (
+    return this.props.loading ? (
+      <div className={'pg-w-full  pg-min-h-screen pg-flex pg-justify-center pg-items-center'}>
+        <img style={{ width: '50px', marginBottom: '30%' }} src={loading} />
+      </div>
+    ) : (
       <div className={'pg-w-full'}>
         <div className={'pg-py-4'}>
-          {this.props.loading ? (
-            <div className={'pg-w-full pg-my-10 pg-flex pg-justify-center pg-items-center'}>
-              <img src={loading} />
-            </div>
-          ) : (
-            <Switch>
-              <Route
-                path={`/account/profile`}
-                render={() => (
-                  <ProfileEdit
-                    profileChange={this.profileChange}
-                    onEdit={this.onEdit}
-                    profileBasic={profileBasic}
-                    personalInfo={personalInfo}
-                    updateChange={this.updateChange}
-                  />
-                )}
-              />
+          <Switch>
+            <Route
+              path={`/account/profile`}
+              render={() => (
+                <ProfileEdit
+                  profileChange={this.profileChange}
+                  onEdit={this.onEdit}
+                  profileBasic={profileBasic}
+                  personalInfo={personalInfo}
+                  updateChange={this.updateChange}
+                />
+              )}
+            />
 
-              <Route
-                path={`/account/plans/upgrade`}
-                render={() => <UpgradePlans planId={this.state.planId} onToggle={this.onToggle} onClick={this.onClick} />}
-              />
-              <Route path={`/account/plans`} render={() => <Plans />} />
-              <Route
-                path={`/account/changePassword`}
-                render={() => <Security changePassword={this.changePassword} updateChange={this.updateChange} />}
-              />
-            </Switch>
-          )}
-          {modal}
+            <Route
+              path={`/account/plans/upgrade`}
+              render={() => <UpgradePlans planId={this.state.planId} onToggle={this.onToggle} onClick={this.onClick} />}
+            />
+            <Route path={`/account/plans`} render={() => <Plans />} />
+            <Route
+              path={`/account/changePassword`}
+              render={() => <Security changePassword={this.changePassword} updateChange={this.updateChange} />}
+            />
+          </Switch>
         </div>
+        {modal}
       </div>
     )
   }

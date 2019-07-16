@@ -62,7 +62,7 @@ class EditModal extends React.Component<any, any> {
             )
           )}
 
-          <div className={styles.submitButton}>
+          <div className={`${styles.submitButton} pg-mt-5`}>
             <Button className={['pg-btnPrimary100', 'pg-btnSm']}>ویرایش</Button>
           </div>
         </form>

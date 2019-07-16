@@ -30,7 +30,7 @@ export const InputRow: React.FunctionComponent<Iprops> = props => {
           <span className={'pg-h-12 pg-items-center pg-text-left pg-justify-end pg-flex  pg-w-3/4'}>{props.value} </span>
           {props.editable && (
             <span
-              className={'pg-text-blue-400 pg-text-center pg-items-center pg-mr-3 pg-flex pg-text-blue-400'}
+              className={'pg-text-blue-400 pg-text-center pg-items-center pg-mr-3 pg-flex pg-text-blue-400 pg-cursor-pointer'}
               onClick={() => props.onEdit(props.name, props.label)}
             >
               {t`ویرایش`}

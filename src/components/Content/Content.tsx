@@ -148,6 +148,7 @@ class Content extends React.Component<IProps, IState> {
         this.onGetDocument(true, this.props.location.pathname.split('/fm/')[1], this.props.item.id)
       }
     }
+    document.title = "میزبانی فایل"
   }
 
   /**back button */
