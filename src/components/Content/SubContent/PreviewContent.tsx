@@ -46,7 +46,7 @@ class PreviewContent extends React.Component<any, any> {
   }
 
   public render() {
-    console.log(process.env)
+    console.log(this.props.image)
     let content
     switch (this.props.item.genericType) {
       case 'image':

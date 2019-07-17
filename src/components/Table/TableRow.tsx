@@ -42,7 +42,7 @@ const TableRow: React.FunctionComponent<Iprops> = ({
   modalSelection,
   smPadding = false
 }) => {
-  const hidden = ['type', 'id', 'fullPath', 'discriminator', 'uuid', 'item']
+  const hidden = ['type', 'id', 'fullPath', 'discriminator', 'uuid', 'item','genericType']
   const [hovered, setHovered] = useState(false)
   const toggleHover = () => setHovered(!hovered)
   return (

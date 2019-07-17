@@ -46,6 +46,7 @@ export interface Iprops {
 export interface ITableItem {
   id?: number
   type?: string
+
   name?: string
   discriminator?: string
   fullPath?: string
@@ -54,7 +55,7 @@ export interface ITableItem {
   size?: string
   uuid?: string
   item?: any
-
+  genericType?: any
   smPadding?: boolean
 }
 
@@ -65,6 +66,7 @@ const makeArray = (array: any, username?: string) => {
     table.push({
       id: each.id,
       type: each.genericType && formatType(each.genericType, each.discriminator == 'D'),
+      genericType: each.genericType,
       name: each.name,
       discriminator: each.discriminator,
       fullPath: each.fullPath,

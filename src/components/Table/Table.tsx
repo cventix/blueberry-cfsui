@@ -76,7 +76,7 @@ const Table: React.FunctionComponent<Iprops> = ({
   hasHeader = true
 }) => {
   const header = [t`نام`, t`تاریخ`, t`مالک`, t`حجم`]
-  const hidden = ['type', 'id', 'fullPath', 'discriminator', 'uuid', 'item']
+  const hidden = ['type', 'id', 'fullPath', 'discriminator', 'uuid', 'item','genricType']
   const [hovered, setHovered] = useState(false)
   const toggleHover = () => setHovered(!hovered)
   return (

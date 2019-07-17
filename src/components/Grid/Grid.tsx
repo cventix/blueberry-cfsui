@@ -18,13 +18,24 @@ export interface Iprops {
   sortable?: boolean
   selection: Array<number>
   dropDownData?: any
+  mainItem?: any
   onCheckAll?: () => void
   onSort?: (sortBy: string, type?: string | undefined) => void
   onCheck?: (id: number, e?: any) => void
   handleNavigate?: (e: navigateObject) => void
 }
 
-const Grid: React.FunctionComponent<Iprops> = ({ selection, table, onCheckAll, onSort, onCheck, handleNavigate, checkbox, dropDownData }) => {
+const Grid: React.FunctionComponent<Iprops> = ({
+  selection,
+  mainItem,
+  table,
+  onCheckAll,
+  onSort,
+  onCheck,
+  handleNavigate,
+  checkbox,
+  dropDownData
+}) => {
   return (
     <React.Fragment>
       <GridHeader onCheckAll={onCheckAll} sortable={true} onSort={onSort} />
@@ -36,6 +47,7 @@ const Grid: React.FunctionComponent<Iprops> = ({ selection, table, onCheckAll, o
               key={index}
               dropDownData={dropDownData}
               item={item}
+              mainItem={mainItem}
               checkbox={checkbox}
               onCheck={onCheck}
               checked={typeof item.id != 'undefined' && selection.includes(item.id)}
@@ -47,6 +59,6 @@ const Grid: React.FunctionComponent<Iprops> = ({ selection, table, onCheckAll, o
     </React.Fragment>
   )
 }
-const mapStateToProps = (state: any) => ({ selection: state.selection.selection })
+const mapStateToProps = (state: any) => ({ selection: state.selection.selection, mainItem: state.sidebar.item })
 
 export default connect(mapStateToProps)(Grid)

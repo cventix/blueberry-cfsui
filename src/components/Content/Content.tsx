@@ -287,7 +287,10 @@ class Content extends React.Component<IProps, IState> {
         this.props.history.push(`${this.props.history.location.pathname}/${name}`)
         this.onGetDocument(true, `${this.props.history.location.pathname.split('fm/')[1]}`, item.id)
       } else {
-        this.props.history.push(`fm/preview/${item.genericType}${item.genericType === 'image' ? '/' + this.props.image : ''}/${name}`)
+        console.log(item)
+        this.props.history.push(
+          `fm/preview/${item.genericType}${item.genericType === 'image' ?  ( this.props.image ? '/'+this.props.image : '/medium') : ''}/${name}`
+        )
         this.props.setItem(item)
         this.setState({ modalView: 'previewModal', previewId: id, fileName: name, [`item${id}`]: item })
       }
