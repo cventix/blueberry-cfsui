@@ -99,6 +99,7 @@ class App extends Component<
     setUploader?: any
     uploader?: any
     downloadLoading?: boolean
+    parentId?: any
   },
   {}
 > {
@@ -127,7 +128,7 @@ class App extends Component<
             const { uploadServer } = this.props
             const size = this.uploader.methods.getSize(id)
             const uuid = this.uploader.methods.getUuid(id)
-            const parent = 0
+            const parent = this.props.parentId
 
             uploadServer({ name, size, id, uuid, parent })
           }
@@ -197,6 +198,7 @@ class App extends Component<
     console.log(type)
     let deleteMsg = 'فایل حذف شد'
     let recoverMsg = 'فایل بازیابی شد'
+
     toast.success(<ToastUndo undo={this.undo} id={this.props.selection} msg={type == `بازیابی فایل` ? recoverMsg : deleteMsg} />, {
       toRemove: [],
       onClose:
@@ -269,8 +271,7 @@ class App extends Component<
           break
         case t`حذف`:
           if (this.props.selection && this.props.selection.length > 0) {
-            this.toRemoveFromList(e)
-            this.props.setTempDocuments(this.props.document)
+            this.onRemoveDocument()
           } else {
             toast.error('You havent selected anything')
           }
@@ -340,15 +341,15 @@ class App extends Component<
 
   onRemoveDocument = async () => {
     let table = this.props.document.documents
-    if (this.state.toRemove.length > 0)
-      try {
-        let result = await this.props.removeFolder({ folderId: this.state.toRemove })
-        table = table.filter((x: any, index: number) => x.id !== result.payload.folderId[index])
-        this.props.setDocuments(table)
-        this.setState({ showRemove: false })
-      } catch (error) {
-        console.log('E: ', error)
-      }
+
+    try {
+      let result = await this.props.removeFolder({ folderId: this.props.selection })
+      table = table.filter((x: any, index: number) => x.id !== result.payload.folderId[index])
+      this.props.setDocuments(table)
+      this.setState({ showRemove: false })
+    } catch (error) {
+      console.log('E: ', error)
+    }
   }
   onEraseDocument = async () => {
     try {
@@ -427,6 +428,7 @@ class App extends Component<
             <Route path={`/fm`} component={Content} />
             <Route exact path={`/vm`} component={VMContent} />
             <Route exact path={`/vm/order`} component={Order} />
+            <Route path={`/`} component={Content} />
           </Switch>
         </Main>
 
@@ -443,7 +445,8 @@ const mapStateToProps = (state: any) => ({
   messages: state.messages,
   downloadToken: state.sidebar.downloadToken,
   downloadLoading: state.loading.downloadLoading,
-  uploader: state.document.uploader
+  uploader: state.document.uploader,
+  parentId: state.document.parentId
 })
 
 const mapDispatchToProps = (dispatch: any) => {

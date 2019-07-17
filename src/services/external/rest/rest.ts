@@ -32,7 +32,7 @@ class Rest implements RestInterface {
       'Content-Type': 'application/json',
       Accept: 'application/json',
       // token: this._storage.getItem('token')
-      cookie: `token="${localStorage.getItem('token')}"`,
+      // cookie: `token="${localStorage.getItem('token')}"`,
       token: localStorage.getItem('token')
     }
     this._http = this._config.get('httpClient').create({
@@ -46,11 +46,16 @@ class Rest implements RestInterface {
       if (headers) this._headers = { ...this._headers, ...headers }
       console.log(`%c[HEADERS]:`, 'font-weight: bold; color: green;', this._headers)
       console.log(`%c[${method}]: ${url}`, 'font-weight: bold; color: #3e3e3e;')
-      console.log(this._headers)
+      console.log(document.cookie)
       if (this._headers.token == null) {
         this._headers.token = localStorage.getItem('token')
-        this._headers.cookie = `token=${localStorage.getItem('token')}`
+        this._headers.Cookie = `token=${localStorage.getItem('token')}`
       }
+      // if (this._headers.cookie == null) {
+      //   this._headers.token = localStorage.getItem('token')
+      //   this._headers.Cookie = `token=${localStorage.getItem('token')}`
+      // }
+      console.log(  this._headers)
       const httpInput = { method, url, headers: this._headers }
       if (body) {
         ;(httpInput as any).data = body
@@ -60,12 +65,16 @@ class Rest implements RestInterface {
 
       return data ? data : status
     } catch ({ response: { data } }) {
-      if (data.errors[0].code === 403) window.location.replace('/login')
+      console.log(data)
+      // if (data.errors && data.errors[0].code === 403) {
+      //   window.location.replace('/login')
+      // }
       throw data
     }
   }
 
   async get({ url, headers }: InputInterface) {
+    console.log(headers)
     try {
       return await this._base({ method: 'GET', url, headers })
     } catch (error) {

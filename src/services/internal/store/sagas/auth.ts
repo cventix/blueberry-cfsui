@@ -15,6 +15,7 @@ export function* login(action: AnyAction) {
     yield put(actions.setUserCredentials({ username: user.username }))
     yield storage.setItem('user', user.username)
     yield localStorage.setItem('token', token)
+    document.cookie = `token="${token}"`;
     yield put(actions.setLoadingState(false))
   } catch (err) {
     yield put(actions.setError(err.errors[0].msg))

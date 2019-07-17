@@ -138,17 +138,19 @@ class Content extends React.Component<IProps, IState> {
       this.props.setToggle([false, false])
       this.setState({ table: this.props.data })
     } else {
-      if (this.props.location.pathname.split('/fm/')[1].includes('trash')) {
-        this.props.getTrashDocuments()
-        this.props.setToggle([false, true])
-      } else if (this.props.location.pathname.split('/fm/')[1].includes('shared')) {
-        this.props.getSharedDocuments()
-        this.props.setToggle([true, false])
+      if (this.props.location.pathname.split('/fm/')[1]) {
+        if (this.props.location.pathname.split('/fm/')[1].includes('trash')) {
+          this.props.getTrashDocuments()
+          this.props.setToggle([false, true])
+        } else if (this.props.location.pathname.split('/fm/')[1].includes('shared')) {
+          this.props.getSharedDocuments()
+          this.props.setToggle([true, false])
+        }
       } else {
         this.onGetDocument(true, this.props.location.pathname.split('/fm/')[1], this.props.item.id)
       }
     }
-    document.title = "میزبانی فایل"
+    document.title = 'میزبانی فایل'
   }
 
   /**back button */

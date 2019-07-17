@@ -64,7 +64,7 @@ class UploadItem extends React.Component<any, any> {
     return (
       <div className={'pg-flex pg-flex-2 pg-justify-between'}>
         <div style={{ width: '28px' }} className={'pg-flex pg-items-center pg-px-2'}>
-          <Thumbnail id={id} text={{ upload_successful: 'Success!' }} uploader={this.props.uploader} />
+          <Thumbnail id={id} text={{ upload_successful: 'Success!' }} uploader={this.props.uploader}style={{ width: '28px' }} />
         </div>
         <div className={'pg-flex-2 pg-align-middle pg-p-2 pg-overflow-hidden pg-h-12 pg-max-w-xs pg-justify-center pg-flex pg-items-center'}>
           <Filename id={id} uploader={this.props.uploader} style={{ textOverflow: 'ellipsis' }} />

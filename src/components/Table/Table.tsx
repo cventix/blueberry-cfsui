@@ -94,9 +94,9 @@ const Table: React.FunctionComponent<Iprops> = ({
       )}
       <tbody>
         {table &&
-          table.map((item: Item) => {
+          table.map((item: Item,index:number) => {
             return (
-              <TableRow item={item} isMoveModal={isMoveModal}   handleChange={handleChange} checkbox={checkbox} handleNavigate={handleNavigate} onCheck={onCheck} smPadding={smPadding} openModal={openModal}>
+              <TableRow item={item} key={index} isMoveModal={isMoveModal}   handleChange={handleChange} checkbox={checkbox} handleNavigate={handleNavigate} onCheck={onCheck} smPadding={smPadding} openModal={openModal}>
                 {dropdown && (
                   <td className={[styles.show, styles.left].join(' ')}>
                     <EnhancedDropdown

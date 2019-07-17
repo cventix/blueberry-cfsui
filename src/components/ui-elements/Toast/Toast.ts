@@ -81,7 +81,7 @@ export default {
     if (msg.length < 30) {
       return toast.error(msg, {
         ...options,
-        autoClose: 30000,
+        autoClose: 3000,
         className: css({
           fontFamily: 'vazir-regular !important',
           padding: '0 !important',
@@ -98,7 +98,7 @@ export default {
     } else {
       return toast.error(msg, {
         ...options,
-        autoClose: 30000,
+        autoClose: 3000,
         className: css({
           fontFamily: 'vazir-regular !important',
           padding: '10px !important',

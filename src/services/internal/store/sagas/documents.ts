@@ -6,11 +6,11 @@ import { bottle } from '../../../index'
 const documents = bottle.container.Documents
 
 export function* getDocuments(action: AnyAction) {
-
-  let base = { headers: { token: localStorage.getItem('token') } }
+console.log(localStorage.getItem('token'))
+  let base = { headers: { token: localStorage.getItem('token'),Cookie:`token="${localStorage.getItem('token')}"` } }
   let folderInfo
   if (action.payload && action.payload.isChildren)
-    folderInfo = { isChildren: action.payload.isChildren, path: action.payload.path, headers: { token: localStorage.getItem('token') } }
+    folderInfo = { isChildren: action.payload.isChildren, path: action.payload.path, headers: { token: localStorage.getItem('token') , Cookie:`token="${localStorage.getItem('token')}"`} }
 
   try {
     yield put(actions.setLoadingState(true))
