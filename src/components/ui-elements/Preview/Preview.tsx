@@ -43,7 +43,7 @@ export const Preview: React.FunctionComponent<Iprops> = props => {
         </div>
         <div className={styles.previewBody}>
           <div className={styles.arrows}>
-            <Button className={['pg-btnControl', 'pg-btnCircle', 'pg-right', 'pg-rounded-full']} onClick={() => props.goTo(+1)}>
+            <Button className={['pg-btnControl', 'pg-btnCircle', 'pg-right', 'pg-rounded-full','tablet-max:pg-absolute',styles.rightArrow,styles.flexButton]} onClick={() => props.goTo(+1)}>
               <Icon src={arrowLeft} className={[styles.icon, styles.iconRight].join(' ')} />
             </Button>
             <section className={[modalStyles.modalMain, styles.previewMain].join(' ')}>
@@ -51,7 +51,7 @@ export const Preview: React.FunctionComponent<Iprops> = props => {
                 <div className={styles.image}>{props.children}</div>
               </Fullscreen>
             </section>
-            <Button className={['pg-btnControl', 'pg-btnCircle', 'pg-left', 'pg-rounded-full']} onClick={() => props.goTo(-1)}>
+            <Button className={['pg-btnControl', 'pg-btnCircle', 'pg-left', 'pg-rounded-full','tablet-max:pg-absolute',styles.leftArrow]} onClick={() => props.goTo(-1)}>
               <Icon src={arrowLeft} className={styles.icon} />
             </Button>
           </div>

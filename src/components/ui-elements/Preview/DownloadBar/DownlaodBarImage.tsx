@@ -14,6 +14,7 @@ import uploadIcon from '../../../../images/upload.svg'
 import { connect } from 'react-redux'
 
 import styles from './DownloadBar.module.scss'
+import { formatBytes } from '../../../../services/internal/utils/formatBytes'
 
 export interface Iprops {
   onItemClick?: (e: any) => void
@@ -24,11 +25,11 @@ const DownloadBarImage: React.FunctionComponent<Iprops> = ({ onItemClick, item }
   console.log(item.downloadCount)
   return (
     <div className={styles.downloadBar}>
-      <div className={styles.downloadBox}>آمار: {JSON.stringify(item.downloadCount)} دانلود</div>
+      <div className={styles.downloadBox}>آمار: {item.downloadCount ? JSON.stringify(item.downloadCount) : '0'} دانلود</div>
       <Button className={['pg-btnSuccess0', 'pg-btnLg']} style={{ marginBottom: '15px' }}>
         <IconLink icon={uploadIcon} iconAlt="upload icon" label={t`دانلود فایل`} onClick={onItemClick} />
       </Button>
-      <div className={styles.sizeBox}> حجم فایل: ۱.۲۹ مگابایت</div>
+      <div className={styles.sizeBox}> حجم فایل:{item.size}</div>
     </div>
   )
 }
