@@ -70,7 +70,7 @@ const TableItem: React.FunctionComponent<Iprops> = ({
   handleChange,
   uuid
 }) => {
-  let imgSrc = item && `http://cdn.persiangig.com/preview/${uuid}/medium/${item.name}`
+  let imgSrc = item && `${process.env.REACT_APP_URL}/preview/${uuid}/medium/${item.name}`
   const [hoveredButton, setHovered] = useState(false)
   const toggleHover = () => setHovered(!hoveredButton)
 

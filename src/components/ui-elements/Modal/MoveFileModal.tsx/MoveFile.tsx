@@ -137,6 +137,7 @@ class MoveFile extends React.Component<Iprops, Istate> {
   }
   render() {
     const { showModal, handleClose, loading, modalSelection } = this.props
+    let style = localStorage.getItem('__language') == 'en' ? { marginRight: 5 } : { marginLeft: 5 }
     return (
       <UploadModal
         show={showModal}
@@ -144,7 +145,7 @@ class MoveFile extends React.Component<Iprops, Istate> {
         flexDirection={'column'}
         width={640}
         title={t`انتقال`}
-        formDescription={t`پوشه مقصد را انتخاب کنید`}
+        formDescription={t`انتقال فایل به ...`}
       >
         <Breadcrumb history={this.state.history} modal={true} />
         <div className={[styles.move, modalSelection && styles.selected].join(' ')}>
@@ -162,7 +163,7 @@ class MoveFile extends React.Component<Iprops, Istate> {
             <div className={styles.loading}>
               {loading ? (
                 <>
-                  <Icon src={loadingIcon} style={{ padding: '4px' }} /> در حال بارگذاری{' '}
+              <Icon src={loadingIcon} style={{ padding: '4px' }} /> {t`در حال بارگذاری`}
                 </>
               ) : (
                 'داده ای وجود ندارد'
@@ -173,12 +174,9 @@ class MoveFile extends React.Component<Iprops, Istate> {
 
         <div className={styles.submitButton}>
           <Button
-            className={[
-              !this.props.modalSelection  ? 'pg-btnPrimaryOutline' : 'pg-btnPrimary100',
-              'pg-btnSm'
-            ]}
-            style={{ marginLeft: 5 }}
-            disabled={!this.props.modalSelection }
+            className={[!this.props.modalSelection ? 'pg-btnPrimaryOutline' : 'pg-btnPrimary100', 'pg-btnSm']}
+            style={style}
+            disabled={!this.props.modalSelection}
             onClick={this.moveDocument}
           >
             {t`انتقال`}

@@ -61,7 +61,7 @@ class Account extends React.Component<Iprops, any> {
     if (this.props.info.length < 1) this.props.getUserInfo()
     this.props.getProducts()
     let provinces = iranGeography.map((province: any) => province.name)
-    document.title = 'پروفایل کاربری'
+    document.title = t`پروفایل کاربری`
     this.setState({ provinces })
   }
   onToggle = (e: any) => {
@@ -214,19 +214,19 @@ class Account extends React.Component<Iprops, any> {
     if (this.props.info) {
       console.log(this.state.province)
       profileBasic = [
-        { label: 'نام کاربری', value: this.state.displayName, name: 'displayName' },
-        { label: 'پست الکترونیکی', value: this.state.email, name: 'email' },
-        { label: 'شماره تلفن', value: this.state.mobileNumber, name: 'mobileNumber' }
+        { label: t`نام نمایشی`, value: this.state.displayName, name: 'displayName' },
+        { label: t`پست الکترونیکی`, value: this.state.email, name: `email` },
+        { label: t`شماره تلفن`, value: this.state.mobileNumber, name: `mobileNumber` }
       ]
       personalInfo = [
-        { label: 'نام', value: this.state.name + ' ' + this.state.family, name: 'fullName' },
-        { label: 'کد ملی', value: this.state.nationalId, name: 'nationalId' },
+        { label: t`نام`, value: this.state.name + ` ` + this.state.family, name: `fullName` },
+        { label: t`کد ملی`, value: this.state.nationalId, name: `nationalId` },
         {
-          label: 'موقعیت',
-          value: this.state.province && this.findProvinceName(this.state.province) + ' - ' + this.state.city,
-          name: 'location'
+          label: t`موقعیت`,
+          value: this.state.province && this.findProvinceName(this.state.province) + ` - ` + this.state.city,
+          name: `location`
         },
-        { label: 'کدپستی', value: this.state.postalCode, name: 'postalCode' }
+        { label: t`کدپستی`, value: this.state.postalCode, name: 'postalCode' }
       ]
     }
     let modal = (
@@ -236,7 +236,7 @@ class Account extends React.Component<Iprops, any> {
         profileChange={this.profileChange}
         updateChange={this.updateChange}
         input={this.state.input}
-        title={`ویرایش ${this.state.modalType}`}
+        title={`${t`ویرایش`} ${this.state.modalType}`}
       />
     )
     return this.props.loading ? (

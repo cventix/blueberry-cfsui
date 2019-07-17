@@ -41,7 +41,6 @@ export interface Iprops {
   onSort?: (sortBy: string, type?: string | undefined) => void
   setTempDocuments?: (e: any) => void
   handleChange?: any
-
 }
 
 export interface ITableItem {
@@ -122,25 +121,29 @@ export const ContentBody: React.FunctionComponent<Iprops> = ({
         <Icon src={loadingIcon} />
       </div>
     )
-  if (!loading && table.length < 1) return <div className={loadingStyle}>{'داده ای وجود ندارد'}</div>
-  return view === 'table' ? (
-    <Grid sortable={true} dropDownData={dropDownData} onSort={onSort} checkbox={true} table={table} handleNavigate={handleNavigate} {...rest} />
-  ) : width < 768 ? (
-    <Grid sortable={true} dropDownData={dropDownData} onSort={onSort} checkbox={true} table={table} handleNavigate={handleNavigate} {...rest} />
-  ) : (
-    <Table
-      dropdown={true}
-      openModal={openModal}
-      tabletView={width && width < 768 ? true : false}
-      onOpenCFModal={onOpenCFModal}
-      dropDownData={dropDownData}
-      onSort={onSort}
-      isMoveModal={isMoveModal}
-      handleChange={  handleChange}
-      handleNavigate={handleNavigate}
-      table={table}
-      {...rest}
-    />
+  if (!loading && table.length < 1) return <div className={loadingStyle}>{t`داده ای وجود ندارد`}</div>
+  return (
+    <div className={'pg-pb-10'}>
+      {view === 'table' ? (
+        <Grid sortable={true} dropDownData={dropDownData} onSort={onSort} checkbox={true} table={table} handleNavigate={handleNavigate} {...rest} />
+      ) : width < 768 ? (
+        <Grid sortable={true} dropDownData={dropDownData} onSort={onSort} checkbox={true} table={table} handleNavigate={handleNavigate} {...rest} />
+      ) : (
+        <Table
+          dropdown={true}
+          openModal={openModal}
+          tabletView={width && width < 768 ? true : false}
+          onOpenCFModal={onOpenCFModal}
+          dropDownData={dropDownData}
+          onSort={onSort}
+          isMoveModal={isMoveModal}
+          handleChange={handleChange}
+          handleNavigate={handleNavigate}
+          table={table}
+          {...rest}
+        />
+      )}
+    </div>
   )
 }
 

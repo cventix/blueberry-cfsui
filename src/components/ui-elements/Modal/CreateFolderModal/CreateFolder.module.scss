@@ -5,8 +5,8 @@
 }
 
 .shareModal {
-  .column{
-    flex:1;
+  .column {
+    flex: 1;
   }
   .shareRow {
     @include flex(row, unset);
@@ -22,7 +22,7 @@
     align-items: center;
     justify-content: center;
   }
-  
+
   h4 {
     font-size: 14px;
     font-weight: 100;
@@ -63,7 +63,7 @@
     border: solid 1px #e5e5e5;
     left: -10px;
     font-size: 12px;
-    .listItem{
+    .listItem {
       display: flex;
       cursor: pointer;
       color: $lt-gray;
@@ -73,8 +73,7 @@
     .description {
       font-family: $light-font;
       font-size: 8px;
-      margin-bottom:9px;
-
+      margin-bottom: 9px;
     }
     .bordered {
       border-bottom: 1px solid rgba(0, 0, 0, 0.05);
@@ -82,7 +81,7 @@
         border: 0;
       }
     }
- 
+
     .checkmark {
       display: inline-block;
       position: relative;
@@ -100,5 +99,10 @@
     .text {
       margin-right: 17px;
     }
+  }
+}
+body:lang(en) {
+  .submitButton {
+    float: right;
   }
 }

@@ -2,6 +2,7 @@ import * as React from 'react'
 import { connect } from 'react-redux'
 
 import { InputRow } from './InputRow'
+import { t } from 'ttag';
 
 
 
@@ -11,8 +12,8 @@ const ProfileEdit: React.FunctionComponent<any> = props => {
   return (
     <>
       <form onSubmit={props.profileChange}>
-        <h1 className={'pg-text-lg pg-py-5 pg-text-gray-700'}> اکانت شخصی</h1>
-        <div className={'pg-py-3 pg-bg-gray-400 pg-text-gray-700 pg-px-1'}>مشخصات اصلی</div>
+        <h1 className={'pg-text-lg pg-py-5 pg-text-gray-700'}>{t`اکانت شخصی`}</h1>
+        <div className={'pg-py-3 pg-bg-gray-400 pg-text-gray-700 pg-px-1'}>{t`مشخصات اصلی`}</div>
         {profileBasic &&
           profileBasic.map((each: any) => {
             return (
@@ -28,7 +29,7 @@ const ProfileEdit: React.FunctionComponent<any> = props => {
               />
             )
           })}
-        <div className={'pg-py-3 pg-bg-gray-400 pg-text-gray-700 pg-px-1'}>مشخصات فردی</div>
+        <div className={'pg-py-3 pg-bg-gray-400 pg-text-gray-700 pg-px-1'}>{t`مشخصات فردی`}</div>
         {personalInfo &&
           personalInfo.map((each: any) => {
             return (

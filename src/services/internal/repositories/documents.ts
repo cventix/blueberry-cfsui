@@ -249,7 +249,7 @@ class Documents implements DocumentsInterface {
     }
   }
   async uploadServer({ name, size, id, uuid, parent, mode, origin }: IUploadServerInput) {
-    const url = `http://us.cdn.persiangig.com:9234/server_upload?pathId=${parent}&name=${name}&size=${size}&id=${id}&uuid=${uuid}&${
+    const url = `${process.env.REACT_APP_URL}:9234/server_upload?pathId=${parent}&name=${name}&size=${size}&id=${id}&uuid=${uuid}&${
       mode == 'cdn' ? 'subdomain=true' : 'subdomain=false'
     }`
 

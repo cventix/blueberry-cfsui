@@ -27,7 +27,7 @@ export default interface Iprops {
 }
 
 export const Card: React.FunctionComponent<Iprops> = ({ item, checkbox, handleNavigate, dropdown, onCheck, onCheckAll, checked, dropDownData }) => {
-  let imgSrc = `http://cdn.persiangig.com/preview/${item['uuid']}/medium/${item['name']}`
+  let imgSrc = `${process.env.REACT_APP_URL}/preview/${item['uuid']}/medium/${item['name']}`
   return (
     <div className={styles.item}>
       <div

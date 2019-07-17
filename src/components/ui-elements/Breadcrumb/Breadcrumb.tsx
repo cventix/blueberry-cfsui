@@ -25,14 +25,14 @@ export default interface Iprops {
 }
 
 export const Breadcrumb: React.FunctionComponent<Iprops> = ({ history, modal, className }) => {
-  let historyArray = [{ link: '/', name: `پوشه اصلی` }]
+  let historyArray = [{ link: '/', name: t`پوشه اصلی` }]
   if (history && history.link) {
     history.link.split('/').map((item: any, index: number) => {
       let slug = history.link.split(item).pop()
       if (index !== 0 && item) historyArray.push({ link: slug, name: item })
     })
   }
-  console.log(window.location.pathname == '/fm/trash')
+
   // return <div>jio</div>
   return (
     <div className={` ${modal ? [styles.breadcrumb, styles.modalbread, className].join(' ') : styles.breadcrumb}`}>
@@ -49,7 +49,7 @@ export const Breadcrumb: React.FunctionComponent<Iprops> = ({ history, modal, cl
           </React.Fragment>
         ))
       ) : window.location.pathname == '/fm/trash' ? (
-        <span className={[styles.active, styles.item].join(' ')}> سطل آشغال</span>
+        <span className={[styles.active, styles.item].join(' ')}> {t`سطل آشغال`}</span>
       ) : (
         <Route path="/:path" component={BreadcrumbsItem} />
       )}

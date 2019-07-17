@@ -69,8 +69,8 @@
     "not op_mini all"
   ],
   "devDependencies": {
-    "autoprefixer": "^9.6.0",
     "@types/video.js": "^7.2.10",
+    "autoprefixer": "^9.6.0",
     "babel-plugin-module-resolver": "^3.2.0",
     "postcss-cli": "^6.1.2",
     "prettier": "^1.17.0",

@@ -83,11 +83,11 @@ class ShareModal extends React.Component<Iprops, Istate> {
     if (this.props.item.description) this.setState({ description: this.props.item.description })
     if (this.props.item.discriminator == 'F')
       this.setState({
-        shareLink: `http://cdn.persiangig.com/download/${this.props.item.uuid}/${this.props.item.name}/dl`
+        shareLink: `${process.env.REACT_APP_URL}/download/${this.props.item.uuid}/${this.props.item.name}/dl`
       })
     else
       this.setState({
-        shareLink: `http://cdn.persiangig.com/public/${this.props.item.uuid}`
+        shareLink: `${process.env.REACT_APP_URL}/public/${this.props.item.uuid}`
       })
   }
   changeView = (view: string) => {

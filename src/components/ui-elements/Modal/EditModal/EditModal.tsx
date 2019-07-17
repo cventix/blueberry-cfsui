@@ -5,11 +5,12 @@ import { Button } from '../../Button/Button'
 
 import styles from '../CreateFolderModal/CreateFolder.module.scss'
 import { UploadModal } from '../Uploadmodal/Uploadmodal'
-import { renameFolder, changeProfile } from '../../../../services/internal/store/actions'
+import { changeProfile } from '../../../../services/internal/store/actions'
 import { connect } from 'react-redux'
 import { ItemInterface } from '../../../../services/internal/store/reducers/documentReducer'
-import { runInThisContext } from 'vm'
+
 import { Select } from '../../Select/Select'
+import { t } from 'ttag';
 
 interface Iprops {
   value?: string
@@ -63,7 +64,7 @@ class EditModal extends React.Component<any, any> {
           )}
 
           <div className={`${styles.submitButton} pg-mt-5`}>
-            <Button className={['pg-btnPrimary100', 'pg-btnSm']}>ویرایش</Button>
+            <Button className={['pg-btnPrimary100', 'pg-btnSm']}>{t`ویرایش`}</Button>
           </div>
         </form>
       </UploadModal>

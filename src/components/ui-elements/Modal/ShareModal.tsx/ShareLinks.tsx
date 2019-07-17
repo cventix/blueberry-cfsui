@@ -27,7 +27,7 @@ const ShareLinks = (props: any) => {
   function toggle(e: any) {
     e.preventDefault()
     setToggleState(toggleState === 'off' ? 'on' : 'off')
-    if (toggleState === 'off') copyToClipboard(`http://cdn.persiangig.com/download/${props.item.uuid}/${props.item.name}/dl`)
+    if (toggleState === 'off') copyToClipboard(`${process.env.REACT_APP_URL}/download/${props.item.uuid}/${props.item.name}/dl`)
   }
 
   const copyToClipboard = (placeholder: any) => {
@@ -54,7 +54,7 @@ const ShareLinks = (props: any) => {
             </select>
           ) : (
             <div className={'pg-w-3/4 pg-flex'}>
-              <input className={'pg-w-full'} readOnly value={`http://cdn.persiangig.com/download/${props.item.uuid}/${props.item.name}/dl`} />
+              <input className={'pg-w-full'} readOnly value={`${process.env.REACT_APP_URL}/download/${props.item.uuid}/${props.item.name}/dl`} />
             </div>
           )}
 
@@ -92,16 +92,16 @@ const ShareLinks = (props: any) => {
         <p className={`pg-justify-center pg-flex ${styles.paragraph}`}>لینک به صفحه نمایش محتویات این فولدر</p>
       </div>
       <div className={styles.socialRow} style={{ marginBottom: 20 }}>
-        <a href={`https://plus.google.com/share?url=http://cdn.persiangig.com/download/${props.item.uuid}/${props.item.name}/dl`}>
+        <a href={`https://plus.google.com/share?url=${process.env.REACT_APP_URL}/download/${props.item.uuid}/${props.item.name}/dl`}>
           <IconLink icon={googlePlus} iconAlt={`googleplus`} className={styles.socialIcon} />
         </a>
-        <a href={`https://www.facebook.com/sharer/sharer.php?u=http://cdn.persiangig.com/download/${props.item.uuid}/${props.item.name}/dl`}>
+        <a href={`https://www.facebook.com/sharer/sharer.php?u=${process.env.REACT_APP_URL}/download/${props.item.uuid}/${props.item.name}/dl`}>
           <IconLink icon={facebook} iconAlt={`facebook`} className={styles.socialIcon} />
         </a>
-        <a href={`https://twitter.com/home?status=http://cdn.persiangig.com/Fdownload/${props.item.uuid}/${props.item.name}/dl`}>
+        <a href={`https://twitter.com/home?status=${process.env.REACT_APP_URL}/Fdownload/${props.item.uuid}/${props.item.name}/dl`}>
           <IconLink icon={twitter} iconAlt={`twitter`} className={styles.socialIcon} />
         </a>
-        <a href={`https://telegram.me/share/url?url=http://cdn.persiangig.com/download/${props.item.uuid}/${props.item.name}/dl`}>
+        <a href={`https://telegram.me/share/url?url=${process.env.REACT_APP_URL}/download/${props.item.uuid}/${props.item.name}/dl`}>
           <IconLink icon={telegram} iconAlt={`telegram`} className={styles.socialIcon} />
         </a>
       </div>

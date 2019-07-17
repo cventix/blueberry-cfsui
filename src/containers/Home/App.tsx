@@ -120,7 +120,7 @@ class App extends Component<
         },
 
         request: {
-          endpoint: `http://cdn.persiangig.com:9234/uploads`
+          endpoint: `${process.env.REACT_APP_URL}:9234/uploads`
         },
         callbacks: {
           onComplete: (id: any, name: any, result: any) => {
@@ -298,7 +298,7 @@ class App extends Component<
           let result = await this.props.generateDownloadLink(uuid)
           setTimeout(() => {
             if (result && this.props.downloadToken && this.props.downloadToken.length > 0)
-              window.location.href = `http://cdn.persiangig.com/dl/${this.props.downloadToken}/${this.props.item.uuid}/${this.props.item.name}`
+              window.location.href = `${process.env.REACT_APP_URL}/dl/${this.props.downloadToken}/${this.props.item.uuid}/${this.props.item.name}`
           }, 1000)
           break
         default:

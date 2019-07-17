@@ -17,7 +17,7 @@ class PreviewContent extends React.Component<any, any> {
     let result = await this.props.generateDownloadLink(uuid)
     setTimeout(() => {
       if (result && this.props.downloadToken && this.props.downloadToken.length > 0)
-        window.location.href = `http://cdn.persiangig.com/dl/${this.props.downloadToken}/${this.props.item.uuid}/${this.props.item.name}`
+        window.location.href = `${process.env.REACT_APP_URL}/dl/${this.props.downloadToken}/${this.props.item.uuid}/${this.props.item.name}`
     }, 2000)
   }
 
@@ -46,20 +46,21 @@ class PreviewContent extends React.Component<any, any> {
   }
 
   public render() {
+    console.log(process.env)
     let content
     switch (this.props.item.genericType) {
       case 'image':
         content = (
-          <img className={'cover'} id={'map'} src={`http://cdn.persiangig.com/preview/${this.props.item.uuid}/${this.props.image}/${this.props.item.name}`} />
+          <img className={'cover'} id={'map'} src={`${process.env.REACT_APP_URL}/preview/${this.props.item.uuid}/${this.props.image}/${this.props.item.name}`} />
         )
         break
       case 'video':
-        content = <MyVideoPlayer url={`http://cdn.persiangig.com/preview/${this.props.item.uuid}/${this.props.image}/${this.props.item.name}`} />
+        content = <MyVideoPlayer url={`${process.env.REACT_APP_URL}/preview/${this.props.item.uuid}/${this.props.image}/${this.props.item.name}`} />
         break
       case 'audio':
         content = (
           <MyVideoPlayer
-            url={`http://cdn.persiangig.com/preview/${this.props.item.uuid}/${this.props.image}/${this.props.item.name}`}
+            url={`${process.env.REACT_APP_URL}/preview/${this.props.item.uuid}/${this.props.image}/${this.props.item.name}`}
             type={'audio'}
           />
         )

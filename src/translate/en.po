@@ -368,3 +368,126 @@ msgstr "Delete File"
 msgid "نام کاربری باید بین ۵ تا ۴۵ حرف باشد، با عدد شروع نشود و تنها شامل حروف انگلیسی و اعداد باشد."
 msgstr "The username must be between 5-45 characters, cannot begin with a number, and contain only English letters and numbers."
 
+msgid "پلن"
+msgstr "Plan"
+
+msgid "اطلاعات کاربری"
+msgstr "Profile"
+
+msgid "امنیت"
+msgstr "Security"
+
+msgid "به اشتراک گذاشته‌ شده‌ها"
+msgstr "Sharing"
+
+
+msgid "نمایش حذف شده‌ها"
+msgstr "Deleted files"
+
+msgid "نام نمایشی"
+msgstr "Display Name"
+
+msgid "پست الکترونیکی"
+msgstr "Email"
+
+msgid "شماره تلفن"
+msgstr "Telephone"
+
+msgid "نام"
+msgstr "Name"
+
+msgid "کد ملی"
+msgstr "National Id"
+
+msgid "موقعیت"
+msgstr "Location"
+
+msgid "کدپستی"
+msgstr "Postal Code"
+
+msgid "اکانت شخصی"
+msgstr "Personal Account"
+
+msgid "مشخصات اصلی"
+msgstr "BASICS"
+
+msgid "مشخصات فردی"
+msgstr "PERSONAL"
+
+msgid "ویرایش"
+msgstr "Edit"
+
+
+msgid "فضای پرشده"
+msgstr "Personal Space"
+
+msgid "نام طرح "
+msgstr "Plan Name"
+
+msgid "پلن فعال"
+msgstr "Active Plan"
+
+msgid "ارتقای حساب"
+msgstr "Upgrade"
+
+msgid "تاریخ اتمام طرح"
+msgstr "Expiration Date"
+
+msgid "از"
+msgstr "of"
+
+msgid "تغییر رمز"
+msgstr "Change Password"
+
+msgid "رمز عبور  فعلی"
+msgstr "Old Password"
+
+msgid "رمز عبور جدید"
+msgstr "New Password"
+
+msgid "تایید رمز عبور جدید"
+msgstr "Repeat Password"
+
+msgid "بازیابی فایل"
+msgstr "Restore File"
+
+msgid "حذف دائم"
+msgstr "Erase File"
+
+msgid "سطل آشغال"
+msgstr "Trash"
+
+msgid "داده ای وجود ندارد"
+msgstr "No Data Was Found"
+
+
+msgid "ایجاد پوشه جدید"
+msgstr "Create New Folder"
+
+msgid "برای ایجاد پوشه اطلاعات خود را در فرم زیر وارد نمایید"
+msgstr "Enter your data in form below"
+
+msgid "نام پوشه"
+msgstr "Folder Name"
+
+msgid "توضیحات پوشه"
+msgstr "Folder Description"
+
+msgid "ایجاد"
+msgstr "Create"
+
+msgid "انتقال فایل به ..."
+msgstr "Move 1 item to ..."
+
+msgid "در حال بارگذاری"
+msgstr "Loading ..."
+
+
+msgid "میزبانی فایل"
+msgstr "File Storage"
+
+msgid "پروفایل کاربری"
+msgstr "Account"
+
+
+

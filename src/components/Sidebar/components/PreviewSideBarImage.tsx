@@ -38,7 +38,7 @@ const PreviewSideBarImage: React.FunctionComponent<Iprops> = ({ onItemClick, ite
         آمار: {JSON.stringify(item.downloadCount)} دانلود
       </div>
       <div className="pg-mt-37p pg-mb-5">
-        <ClipBoard placeholder={`http://cdn.persiangig.com/preview/${item.uuid}${imageUrl}/${item.name}`} />
+        <ClipBoard placeholder={`${process.env.REACT_APP_URL}/preview/${item.uuid}${imageUrl}/${item.name}`} />
       </div>
       <div className="pg-mb-46p">
         <ButtonGroup

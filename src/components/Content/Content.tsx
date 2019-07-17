@@ -150,7 +150,7 @@ class Content extends React.Component<IProps, IState> {
         this.onGetDocument(true, this.props.location.pathname.split('/fm/')[1], this.props.item.id)
       }
     }
-    document.title = 'میزبانی فایل'
+    document.title = t`میزبانی فایل`
   }
 
   /**back button */
@@ -212,7 +212,7 @@ class Content extends React.Component<IProps, IState> {
     }
 
     if (nextProps.downloadToken && nextProps.downloadToken.length > 0)
-      window.location.href = `http://cdn.persiangig.com/dl/${nextProps.downloadToken}/${this.props.item.uuid}/${this.props.item.name}`
+      window.location.href = `${process.env.REACT_APP_URL}/dl/${nextProps.downloadToken}/${this.props.item.uuid}/${this.props.item.name}`
 
     if (nextProps.selection.length == 0 || (nextProps.selection.length > 0 && nextProps.document.documents !== this.state.mainTable)) {
       this.setState({
