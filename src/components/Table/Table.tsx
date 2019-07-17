@@ -13,6 +13,7 @@ import styles from './Table.module.scss'
 //interface
 import { ITableItem } from '../Content/ContentBody'
 import TableRow from './TableRow';
+import { selectAll } from '../../services/internal/store/actions';
 
 const EnhancedDropdown = enhancer(Dropdown)
 
@@ -51,6 +52,7 @@ export interface Iprops {
   onRenameDocument?: (e: any) => void
   onCheck?: (id: number, e?: any) => void
   handleChange?: any
+  selectAll?: boolean
 }
 
 const Table: React.FunctionComponent<Iprops> = ({
@@ -84,11 +86,11 @@ const Table: React.FunctionComponent<Iprops> = ({
       {hasHeader && (
         <TableHeader
           titles={header}
+        
           dropdown={dropdown}
           onSort={onSort}
           tabletView={tabletView}
           onOpenCFModal={onOpenCFModal}
-          
           {...onCheckAll && { checkAll: checkAll, onCheckAll: onCheckAll }}
         />
       )}

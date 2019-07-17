@@ -59,7 +59,7 @@ export const Plan: React.FunctionComponent<any> = props => {
       <div className={'pg-text-gray-600 pg-text-center'}>{props.monthly ? 'در ماه' : 'در سال'}</div>
       <div className={'pg-text-gray-600 pg-text-center'}>
         <Button
-          className={[props.active ? 'pg-btnDisabled' : 'pg-btnSuccess0', 'pg-btnLg', 'pg-mt-4', 'pg-mb-10']}
+          className={[props.active ? 'pg-btnDisabled' : props.disable ? 'pg-btnDisabled' : 'pg-btnSuccess0', 'pg-btnLg', 'pg-mt-4', 'pg-mb-10']}
           onClick={props.onClick}
           name={product.id}
         >

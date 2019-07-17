@@ -1,6 +1,6 @@
 import * as React from 'react'
 import { connect } from 'react-redux'
-import  Plan  from './Plan'
+import Plan from './Plan'
 import Toggle from '../ui-elements/Toggle/Toggle'
 import greenArrow from '../../images/typeIcons/group.svg'
 import { Icon } from '../ui-elements/Icon'
@@ -114,7 +114,7 @@ const UpgradePlans: React.FunctionComponent<any> = props => {
       staticPlan: false
     }
   ]
- 
+  console.log(props.planId)
   return (
     <div className={'pg-flex pg-w-full pg-flex-col tablet-max:pg-p-12 mobile-max:pg-p-8'}>
       <div className={'pg-flex pg-w-full pg-justify-center '}>
@@ -125,7 +125,7 @@ const UpgradePlans: React.FunctionComponent<any> = props => {
       </div>
       <div className={'pg-flex  pg-w-full pg-bg-white  pg-p-10 pg-justify-center t'}>
         <span className={`pg-px-3 pg-py-1`}>ماهیانه</span>
-        <span onClick={(e) => props.onToggle(e)}>
+        <span onClick={e => props.onToggle(e)}>
           <Toggle checked={props.monthly} className={'bigToggle'} />
         </span>
         <span className={`pg-px-3 pg-py-1`}>سالانه</span>
@@ -135,12 +135,15 @@ const UpgradePlans: React.FunctionComponent<any> = props => {
         <span className={`pg-px-3 pg-py-1 pg-text-xs pg-text-green-400`}>٪۲۰ تخفیف</span>
       </div>
       <div className={'pg-flex pg-w-full laptop:pg-flex-col mobile-max:pg-flex-col tablet-max:pg-flex-col '}>
-        {products && products.map((plan: any, index: number) => <Plan info={plan} active={props.planId == plan.id} index={index} onClick={props.onClick} />)}
+        {products &&
+          products.map((plan: any, index: number) => (
+            <Plan info={plan} disable={props.planId > plan.id} active={props.planId == plan.id} index={index} onClick={props.onClick} />
+          ))}
       </div>
     </div>
   )
 }
-const mapStateToProps = (state: any) => ({ products: state.account.products ,monthly: state.account.monthly })
+const mapStateToProps = (state: any) => ({ products: state.account.products, monthly: state.account.monthly })
 
 export default connect(
   mapStateToProps,

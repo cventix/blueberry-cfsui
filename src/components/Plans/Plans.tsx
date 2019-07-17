@@ -23,10 +23,14 @@ const renderColor = (percent: any) => {
 const Plans: React.FunctionComponent<Iprops> = ({ info }) => {
   let faname, percent, faTime, expireDate
   if (info && info.plan && JSON.parse(info.plan.jsonInfo)) {
-    console.log(JSON.parse(info.plan.featureInfo))
+    console.log(JSON.parse(info.plan.jsonInfo).name)
+    if (info.plan.featureInfo)
+      faname =
+        localStorage.getItem('__language') == 'en'
+          ? JSON.parse(info.plan.featureInfo).en_description
+          : JSON.parse(info.plan.featureInfo).fa_description
+    else faname = translateName(info.plan.name)
 
-    faname =
-      localStorage.getItem('__language') == 'en' ? JSON.parse(info.plan.featureInfo).en_description : JSON.parse(info.plan.featureInfo).fa_description
     faTime =
       localStorage.getItem('__language') == 'en'
         ? JSON.parse(info.plan.jsonInfo).plan_type

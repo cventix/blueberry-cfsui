@@ -289,7 +289,7 @@ class Content extends React.Component<IProps, IState> {
       } else {
         console.log(item)
         this.props.history.push(
-          `fm/preview/${item.genericType}${item.genericType === 'image' ?  ( this.props.image ? '/'+this.props.image : '/medium') : ''}/${name}`
+          `fm/preview/${item.genericType}${item.genericType === 'image' ? (this.props.image ? '/' + this.props.image : '/medium') : ''}/${name}`
         )
         this.props.setItem(item)
         this.setState({ modalView: 'previewModal', previewId: id, fileName: name, [`item${id}`]: item })
@@ -347,6 +347,19 @@ class Content extends React.Component<IProps, IState> {
       console.log('E: ', error)
     }
   }
+  arraysEqual = (a: any, b: any) => {
+    if (a === b) return true
+    if (a == null || b == null) return false
+    if (a.length != b.length) return false
+
+    a.sort()
+    b.sort()
+    for (var i = 0; i < a.length; ++i) {
+      if (a[i] !== b[i]) return false
+    }
+    return true
+  }
+
   // on item check
   onCheck = (id: number) => {
     let selectedArray = this.props.selection
@@ -355,6 +368,10 @@ class Content extends React.Component<IProps, IState> {
       selectedArray = selectedArray.filter((obj: any) => {
         return obj !== id
       })
+
+    let ids = this.state.table.map((a: any) => a.id)
+    if (this.arraysEqual(ids, selectedArray)) this.props.selectAll(true)
+
     this.props.setSelections(selectedArray)
     this.setState({ selectedArray })
   }
