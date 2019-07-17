@@ -204,9 +204,9 @@ class App extends Component<
       onClose:
         type == t`حذف`
           ? this.onRemoveDocument
-          : t`حذف دائم`
+          : type == t`حذف دائم`
           ? this.onEraseDocument
-          : `بازیابی فایل`
+          : type == t`بازیابی فایل`
           ? await this.props.restoreFiles({ documentIds: this.props.selection })
           : ''
     })

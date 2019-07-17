@@ -89,6 +89,7 @@ export function* deleteDocument(action: AnyAction) {
   let folderInfo = { documentIds: action.payload.folderId }
   try {
     yield documents.deleteDocument(folderInfo)
+    yield put(actions.setSelections([]))
   } catch (err) {
     yield put(actions.setError(err.errors[0].msg))
   }
@@ -185,6 +186,7 @@ export function* downloadDirectory(action: AnyAction) {
 export function* restoreFiles(action: AnyAction) {
   try {
     yield documents.restoreFiles({ documentIds: action.payload.documentIds })
+    yield put(actions.setSelections([]))
   } catch (err) {
     yield put(actions.setError(err.errors[0].msg))
     yield put(actions.setLoadingState(false))
