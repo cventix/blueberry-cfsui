@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { Route, Switch } from 'react-router-dom'
+import { Route, Switch, Redirect } from 'react-router-dom'
 import { t } from 'ttag'
 
 import { Navbar } from '../../components/Navbar/Navbar'
@@ -428,7 +428,7 @@ class App extends Component<
             <Route path={`/fm`} component={Content} />
             <Route exact path={`/vm`} component={VMContent} />
             <Route exact path={`/vm/order`} component={Order} />
-            <Route path={`/`} component={Content} />
+            <Redirect path="/" to="/fm" />
           </Switch>
         </Main>
 

@@ -14,7 +14,7 @@ class Config implements ConfigInterface {
   private _config: IConfig
   constructor() {
     this._config = {
-      baseUrl: 'http://mtn.cdn.persiangig.com/cfs/',
+      baseUrl: `${process.env.REACT_APP_URL}`,
       appLanguage: 'fa',
       storage: localStorage,
       httpClient: axios,
