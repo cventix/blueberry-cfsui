@@ -19,7 +19,7 @@ export const Nav: React.FunctionComponent<Iprops> = () => {
   return (
     <div className="pg-mt-4 pg-mb-full nav">
       <IconLink icon={fileCloudIcon} className="pg-mb-13p pg-text-gray-700 iconLink" iconAlt={`content-delivery ${altIcon}`} label={t`شبکه تحویل محتوا`} />
-      <Link to={`/vm`}>
+      <Link to={`/vms`}>
         <IconLink icon={vpsIcon} className="pg-mb-13p pg-text-gray-700 iconLink" iconAlt={`vps ${altIcon}`} label={t`سرور و هاست`} />
       </Link>
       <IconLink icon={internetIcon} className="pg-mb-13p pg-text-gray-700 iconLink" iconAlt={`Internet ${altIcon}`} label={t`اینترنت`} />

@@ -44,7 +44,7 @@ class RenameFile extends React.Component<Iprops, any> {
       let result = await this.props.renameFolder({ folderId: this.props.item.id, name: this.state.renameInput })
       this.onRenameDocument(result)
     } catch (error) {
-      console.log('E: ', error)
+      //console.log('E: ', error)
     }
   }
   render() {

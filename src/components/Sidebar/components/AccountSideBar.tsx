@@ -26,27 +26,27 @@ export interface Iprops {
 export const AccountSideBar: React.FunctionComponent<Iprops> = () => {
   return (
     <div className="sidebar-menu">
-      <Link to={'/account/profile'}>
+      <Link to={'/nwaccount/profile'}>
         <IconLink
           icon={edit}
-          className={`iconLink upFromUrl pg-p-3 ${window.location.pathname == '/account/profile' && 'pg-bg-gray-0'}`}
+          className={`iconLink upFromUrl pg-p-3 ${window.location.pathname == '/nwaccount/profile' && 'pg-bg-gray-0'}`}
           iconAlt="upload icon"
           label={t`اطلاعات کاربری`}
         />
       </Link>
-      <Link to={'/account/plans'}>
+      <Link to={'/nwaccount/plans'}>
         <IconLink
           icon={wallet}
-          className={`iconLink upFromUrl pg-p-3 ${window.location.pathname == '/account/plans' ||
+          className={`iconLink upFromUrl pg-p-3 ${window.location.pathname == '/nwaccount/plans' ||
             (window.location.pathname.includes('plans') && 'pg-bg-gray-0')}`}
           iconAlt="upload icon"
           label={t`پلن`}
         />
       </Link>
-      <Link to={'/account/changePassword'}>
+      <Link to={'/nwaccount/changePassword'}>
         <IconLink
           icon={security}
-          className={`iconLink upFromUrl  pg-p-3 ${window.location.pathname == '/account/changePassword' && 'pg-bg-gray-0'}`}
+          className={`iconLink upFromUrl  pg-p-3 ${window.location.pathname == '/nwaccount/changePassword' && 'pg-bg-gray-0'}`}
           iconAlt="upload icon"
           label={t`امنیت`}
         />

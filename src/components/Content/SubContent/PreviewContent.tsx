@@ -22,7 +22,7 @@ class PreviewContent extends React.Component<any, any> {
   }
 
   goNext = (add: number) => {
-    console.log(this.props.item.id)
+    //console.log(this.props.item.id)
     let index = this.props.document.documents.findIndex((p: any) => p.id == this.props.item.id)
     let firstFileIndex = this.props.document.documents.findIndex((a: any) => a.discriminator === 'F')
     if (this.props.document.documents[index].discriminator === 'F') {
@@ -39,14 +39,14 @@ class PreviewContent extends React.Component<any, any> {
         item = reversed[reversed.length - 1]
       }
       if (item) {
-        this.props.history.push(`/fm/preview/${item.genericType}${item.genericType === 'image' ? '/' + this.props.image : ''}/${item.name}`)
+        this.props.history.push(`/nwfm/preview/${item.genericType}${item.genericType === 'image' ? '/' + this.props.image : ''}/${item.name}`)
         this.props.setItem(item)
       }
     }
   }
 
   public render() {
-    console.log(this.props.image)
+    //console.log(this.props.image)
     let content
     switch (this.props.item.genericType) {
       case 'image':

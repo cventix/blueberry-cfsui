@@ -52,17 +52,17 @@ class MediaPlayer extends React.Component<Iprops, Istate> {
     this.setState({ seeking: true })
   }
   onSeekChange = (e: any) => {
-    // console.log(e.target.value)
+    // //console.log(e.target.value)
     this.setState({ played: parseFloat(e.target.value) })
   }
   onSeekMouseUp = (e: any) => {
-    // console.log(e.target.value)
+    // //console.log(e.target.value)
     this.setState({ seeking: false })
     this.player.seekTo(parseFloat(e.target.value))
   }
 
   setVolume = (e: any) => {
-    console.log(e.target.value)
+    //console.log(e.target.value)
     this.setState({ volume: parseFloat(e.target.value) })
   }
 
@@ -71,13 +71,13 @@ class MediaPlayer extends React.Component<Iprops, Istate> {
   }
 
   onProgress = (state: any) => {
-    // console.log('onProgress', state)
+    // //console.log('onProgress', state)
     if (!this.state.seeking) {
       this.setState(state)
     }
   }
   onDuration = (duration: number) => {
-    // console.log('onDuration', duration)
+    // //console.log('onDuration', duration)
     this.setState({ duration })
   }
   ref = (player: any) => {
@@ -113,7 +113,7 @@ class MediaPlayer extends React.Component<Iprops, Istate> {
             {...this.state.isFull && { width: '100%' }}
             volume={this.state.volume}
             onProgress={this.onProgress}
-            onSeek={e => console.log('onSeek', e)}
+            // onSeek={e => console.log('onSeek', e)}
             onDuration={this.onDuration}
           />
         </Fullscreen>

@@ -6,7 +6,7 @@ import { bottle } from '../../../index'
 const documents = bottle.container.Documents
 
 export function* getDocuments(action: AnyAction) {
-  console.log(localStorage.getItem('token'))
+  //console.log(localStorage.getItem('token'))
   let base = { headers: { token: localStorage.getItem('token'), Cookie: `token="${localStorage.getItem('token')}"` } }
   let folderInfo
   if (action.payload && action.payload.isChildren)
@@ -18,7 +18,7 @@ export function* getDocuments(action: AnyAction) {
 
   try {
     yield put(actions.setLoadingState(true))
-    console.log(folderInfo)
+    //console.log(folderInfo)
     let data = yield documents.getDocuments(folderInfo ? folderInfo : base)
     if (folderInfo && folderInfo.isChildren === true) {
       yield put(actions.setParentId(data.parent.id))
@@ -136,8 +136,8 @@ export function* moveDocuments(action: any) {
   try {
     yield put(actions.setLoadingState(true))
     yield documents.moveDocuments(moveInfo)
-    window.location.pathname.split('fm/')[1]
-      ? yield put(actions.getDocuments({ isChildren: true, path: window.location.pathname.split('fm/')[1] }))
+    window.location.pathname.split('nwfm/')[1]
+      ? yield put(actions.getDocuments({ isChildren: true, path: window.location.pathname.split('nwfm/')[1] }))
       : yield put(actions.getDocuments())
     yield put(actions.setMessage('فایل جا به جا شد'))
     yield put(actions.setSelections([]))
@@ -153,7 +153,7 @@ export function* moveDocuments(action: any) {
 
 export function* shareDocuments(action: any) {
   let shareInfo = { userEmails: action.userEmails, documentIds: [action.documentIds] }
-  console.log(shareInfo)
+  //console.log(shareInfo)
   try {
     yield documents.shareDocuments(shareInfo)
   } catch (err) {
@@ -200,7 +200,7 @@ export function* restoreFiles(action: AnyAction) {
   }
 }
 export function* uploadDocuments(action: AnyAction) {
-  console.log(action)
+  //console.log(action)
   try {
     yield documents.uploadDocument({ body: action.payload.file, fileSize: action.payload.fileSize, fileName: action.payload.fileName, pathId: 0 })
   } catch (err) {
@@ -209,7 +209,7 @@ export function* uploadDocuments(action: AnyAction) {
   }
 }
 export function* urlUpload(action: any) {
-  console.log(action)
+  //console.log(action)
   try {
     yield documents.urlUpload({ path: action.payload.url, parentId: action.payload.url })
   } catch (err) {
@@ -219,7 +219,7 @@ export function* urlUpload(action: any) {
 }
 
 export function* changeSharingStatus(action: any) {
-  console.log(action)
+  //console.log(action)
   try {
     let result = yield documents.changeSharingStatus({ id: action.payload.id, sharingStatus: action.payload.sharingStatus })
     actions.setSidebarItems(result)
@@ -231,7 +231,7 @@ export function* changeSharingStatus(action: any) {
 }
 
 export function* uploadServer(action: any) {
-  console.log(action)
+  //console.log(action)
   try {
     yield documents.uploadServer({
       name: action.payload.name,

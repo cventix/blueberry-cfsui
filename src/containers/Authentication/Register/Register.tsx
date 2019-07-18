@@ -83,13 +83,13 @@ class Register extends React.Component<any, any> {
       try {
         await this.props.register(this.state.email, this.state.username, this.state.password, this.state.token)
       } catch (error) {
-        console.log('E: ', error)
+        //console.log('E: ', error)
       }
   }
   handleClick = async (e: React.MouseEvent<HTMLButtonElement>, execute: () => Promise<string>) => {
     const token = await execute()
     this.setState({ token })
-    console.log(token)
+    //console.log(token)
   }
 
   render() {
@@ -111,7 +111,7 @@ class Register extends React.Component<any, any> {
           <div className={styles.row}>
             <div className={styles.switch}>
               {t`عضو هستید؟`}
-              <Link to={'/login'}>
+              <Link to={'/nwlogin'}>
                 <span className={styles.link}>{t`ورود`}</span>
               </Link>
             </div>

@@ -19,17 +19,17 @@ class Routes extends React.Component<any> {
     return (
       <Router>
         <Switch>
-          <Route path="/login" component={Login} />
-          <Route path="/register" component={Register} />
+          <Route path="/nwlogin" component={Login} />
+          <Route path="/nwregister" component={Register} />
           <PrivateRoute isAuthenticated={this.props.isAuth ? true : false} path="/" component={App} />
-          <PrivateRoute isAuthenticated={this.props.isAuth ? true : false} path="/fm/:foldername" component={App} />
-          <Route path="/forgetpassword" component={ForgetPassword} />
-          <PrivateRoute isAuthenticated={this.props.isAuth ? true : false} path="/fm" component={App} {...this.props} />
-          <PrivateRoute isAuthenticated={this.props.isAuth ? true : false} path="/vm" component={App} />
-          <PrivateRoute isAuthenticated={this.props.isAuth ? true : false} path="/vm/order" component={Order} />
+          <PrivateRoute isAuthenticated={this.props.isAuth ? true : false} path="/nwfm/:foldername" component={App} />
+          <Route path="/nwforgetpassword" component={ForgetPassword} />
+          <PrivateRoute isAuthenticated={this.props.isAuth ? true : false} path="/nwfm" component={App} {...this.props} />
+          <PrivateRoute isAuthenticated={this.props.isAuth ? true : false} path="/nwvms" component={App} />
+          <PrivateRoute isAuthenticated={this.props.isAuth ? true : false} path="/nwvms/order" component={Order} />
           <Router>
             <Switch>
-              <PrivateRoute isAuthenticated={this.props.isAuth ? true : false} path="/fm/preview/image/:size/:name" component={App} />
+              <PrivateRoute isAuthenticated={this.props.isAuth ? true : false} path="/nwfm/preview/image/:size/:name" component={App} />
             </Switch>
           </Router>
           <PrivateRoute component={App} />

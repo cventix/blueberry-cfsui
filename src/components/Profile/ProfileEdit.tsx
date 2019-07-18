@@ -8,7 +8,7 @@ import { t } from 'ttag';
 
 const ProfileEdit: React.FunctionComponent<any> = props => {
   let { profileBasic, personalInfo } = props
-  console.log(personalInfo)
+  //console.log(personalInfo)
   return (
     <>
       <form onSubmit={props.profileChange}>

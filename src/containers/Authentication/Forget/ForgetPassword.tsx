@@ -28,7 +28,7 @@ class ForgetPassword extends React.Component<any, any> {
   }
 
   handleChange = (e: any) => {
-    console.log(e.target)
+    //console.log(e.target)
     this.setState({
       msg: false,
       [e.target.name]: e.target.value
@@ -44,14 +44,14 @@ class ForgetPassword extends React.Component<any, any> {
     this.setState({ msg: true })
     try {
       let result = await this.props.forgetPassword({ email: this.state.email })
-      console.log(result)
+      //console.log(result)
     } catch (error) {
-      console.log('E: ', error)
+      //console.log('E: ', error)
     }
   }
 
   render() {
-    console.log(this.props.messages.msgs)
+    //console.log(this.props.messages.msgs)
     return (
       <Authentication>
         <form className={styles.login} onSubmit={this.handleSubmit}>
@@ -61,7 +61,7 @@ class ForgetPassword extends React.Component<any, any> {
           <div className={styles.row}>
             <div className={styles.switch}>
               {t`عضو نیستید؟`}
-              <Link to={'/register'}>
+              <Link to={'/nwregister'}>
                 <span className={styles.link}>{t`ثبت‌نام`}</span>
               </Link>
             </div>

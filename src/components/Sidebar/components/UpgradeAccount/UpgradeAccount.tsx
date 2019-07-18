@@ -26,7 +26,7 @@ export const UpgradeAccount = ({ percent = 0, forVM, forPreview }: Iprops) => {
         <Progressbar value={percent} height={8} color={'green'} />
       </div>
       <span className={`pg-font-vLight pg-pb-13p pg-text-xs pg-text-gray-800 ${styles.deleteQus}`}>{t`می‌خواهید فایل‌هایتان حذف نشود؟`}</span>
-      <Link to={'/account/plans/upgrade'}><IconLink icon={arrowLeftIcon}
+      <Link to={'/nwaccount/plans/upgrade'}><IconLink icon={arrowLeftIcon}
       className={forVM || forPreview ? `hide` : `absolute-on-bottom pg-flex pg-flex-row pg-pt-8p pg-pb-8p pg-pr-6 pg-pl-6 pg-cursor-pointer pg-font-vMedium pg-text-gray-800 pg-bg-yellow-300 pg-h-10 pg-flex pg-flex pg-items-center ${styles.bottom}`} iconAlt="arrow-left" label={t`ارتقاء حساب میزبانی`} />
   </Link>
     </div>

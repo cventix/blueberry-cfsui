@@ -31,7 +31,7 @@ class FileUploadModal extends React.Component<any, any> {
     //   this.setState({ submittedFiles })
     // })
     this.props.uploader.on('statusChange', (id: any, oldStatus: any, newStatus: any) => {
-      console.log(newStatus)
+      //console.log(newStatus)
       if (newStatus === 'submitted') {
         const submittedFiles = this.state.submittedFiles
 
@@ -61,7 +61,7 @@ class FileUploadModal extends React.Component<any, any> {
       upload_successful: 'انجام شد',
       uploading: 'در حال آپلود'
     }
-    console.log(statusText)
+    //console.log(statusText)
     return (
       <div className={this.props.showModal ? [styles.displayBlock].join(' ') : [ styles.displayNone].join(' ')}>
         <div className={'pg-fixed pg-bg-white pg-w-1/3 pg-bottom-10p pg-left-10p pg-rounded-sm	pg-text-xs'}>

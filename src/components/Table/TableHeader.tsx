@@ -25,7 +25,7 @@ const TableHeader: React.FunctionComponent<Iprops> = ({ titles, onOpenCFModal, d
   const altIcon = 'Icon'
   const [hovered, setHovered] = useState(false)
   const toggleHover = () => setHovered(!hovered)
-  console.log(selectAll)
+  //console.log(selectAll)
   return (
     <thead>
       {titles && (

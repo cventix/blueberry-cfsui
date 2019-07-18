@@ -22,7 +22,7 @@ export interface Iprops {
 }
 
 const DownloadBarImage: React.FunctionComponent<Iprops> = ({ onItemClick, item }) => {
-  console.log(item.downloadCount)
+  //console.log(item.downloadCount)
   return (
     <div className={styles.downloadBar}>
       <div className={styles.downloadBox}>آمار: {item.downloadCount ? JSON.stringify(item.downloadCount) : '0'} دانلود</div>

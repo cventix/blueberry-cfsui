@@ -4,7 +4,7 @@ import * as actions from '../actions'
 import { bottle } from '../../../index'
 
 const account = bottle.container.Account
-console.log(account)
+//console.log(account)
 
 export function* getUserInfo() {
   try {

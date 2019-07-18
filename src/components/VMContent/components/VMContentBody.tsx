@@ -13,11 +13,11 @@ export const VMContentBody: React.FunctionComponent<Iprops> = () => {
 			<Router>
 				<Switch>
 					<Route
-						path="/vm/order"
+						path="/vms/order"
 						component={Order}
 					/>
 					<Route
-						 path="/vm"
+						 path="/vms"
 						component={VMGrid}
 					/>
 				</Switch>

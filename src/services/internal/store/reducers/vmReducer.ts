@@ -16,7 +16,7 @@ const goToNextStep = () => ({type: 'STEP_FORWARD'})
 const goToPreviousStep = () => ({type: 'STEP_BACKWARD'})
 
 const vmReducer = (state: any = initialState, action: any) => {
-console.log(action.type)
+//console.log(action.type)
   switch (action.type) {
     case actionTypes.SELECT_OS:
       return {

@@ -48,13 +48,13 @@ class CFmodal extends React.Component<Iprops, any> {
     try {
       let result = await this.props.createFolder({ name: this.state.name, parentId })
       this.props.handleCFClose()
-      // this.setState({ table: result},()=>console.log(this.state.table))
+      // this.setState({ table: result},()=>//console.log(this.state.table))
     } catch (error) {
-      console.log('E: ', error)
+      //console.log('E: ', error)
     }
   }
   // componentWillReceiveProps(nextProps: any) {
-  //   console.log(nextProps)
+  //   //console.log(nextProps)
   //   if (nextProps.document && nextProps.document.id) this.showToast()
   // }
   showToast() {

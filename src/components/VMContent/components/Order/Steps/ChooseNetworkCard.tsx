@@ -48,8 +48,8 @@ const ChooseNetworkCard: React.FunctionComponent<Iprops> = (props) => {
 				</ColorfulBox>
 			</div>
 			<Footer
-			nextStep={`vm/order/finalStep`}
-			previousStep={`vm/order/choosePlan`}
+			nextStep={`vms/order/finalStep`}
+			previousStep={`vms/order/choosePlan`}
 			handleNextStep={props.goToNextStep}
 			handlePreviousStep={props.goToPreviousStep}
 			/>

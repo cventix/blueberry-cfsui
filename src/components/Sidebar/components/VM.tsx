@@ -25,7 +25,7 @@ export default interface Iprops {
 export const VM: React.FunctionComponent<Iprops> = ({ onItemClick }) => {
   return (
     <div className="sidebar-menu">
-      <Link to="/vm/order/SelectOs">
+      <Link to="/vms/order/SelectOs">
         <Button className={['pg-btnSuccess0', 'pg-btnLg']} style={{ marginBottom: '15px' }}>
           <IconLink icon={purchaseIcon} iconAlt="upload icon" label={t`خرید سرور جدید`}/>
         </Button> 

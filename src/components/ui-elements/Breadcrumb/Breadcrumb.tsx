@@ -48,7 +48,7 @@ export const Breadcrumb: React.FunctionComponent<Iprops> = ({ history, modal, cl
             {index !== historyArray.length - 1 && <Icon src={bigger} />}
           </React.Fragment>
         ))
-      ) : window.location.pathname == '/fm/trash' ? (
+      ) : window.location.pathname == '/nwfm/trash' ? (
         <span className={[styles.active, styles.item].join(' ')}> {t`سطل آشغال`}</span>
       ) : (
         <Route path="/:path" component={BreadcrumbsItem} />
@@ -58,8 +58,8 @@ export const Breadcrumb: React.FunctionComponent<Iprops> = ({ history, modal, cl
 }
 
 const BreadcrumbsItem: React.FunctionComponent<any> = ({ match, ...rest }) => {
-  let title = match.params.path === 'fm' ? t`پوشه اصلی` : match.params.path
-  console.log(title)
+  let title = match.params.path === 'nwfm' ? t`پوشه اصلی` : match.params.path
+  //console.log(title)
   return (
     <span>
       <Link className={match.isExact ? [styles.active, styles.item].join(' ') : styles.item} to={match.url || ''}>

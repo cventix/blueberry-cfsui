@@ -17,12 +17,12 @@ class VMContent extends React.Component<Iprops> {
 
 	// handle search
 	onChangeSearchInput = (val: string) => {
-		console.log(val);
+		//console.log(val);
 	}
 
  	public render() {
-		const history = [{ title: t`لیست سرورها`, link: '/vm', active: false }]
-		if (this.props.location.pathname !== '/vm')
+		const history = [{ title: t`لیست سرورها`, link: '/vms', active: false }]
+		if (this.props.location.pathname !== '/vms')
 			history.push({ title: this.props.location.pathname.split('/'), link: this.props.location.pathname, active: true })
 		return (
 			<React.Fragment>

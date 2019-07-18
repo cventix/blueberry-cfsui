@@ -114,7 +114,7 @@ const UpgradePlans: React.FunctionComponent<any> = props => {
       staticPlan: false
     }
   ]
-  console.log(props.planId)
+  //console.log(props.planId)
   return (
     <div className={'pg-flex pg-w-full pg-flex-col tablet-max:pg-p-12 mobile-max:pg-p-8'}>
       <div className={'pg-flex pg-w-full pg-justify-center '}>
