@@ -22,7 +22,7 @@ class ModalContent extends React.Component<any, any> {
     }
   }
   handleClose = () => {
-    if (this.props.history.location.pathname.includes('preview')) this.props.history.push('/fm')
+    if (this.props.history.location.pathname.includes('preview')) this.props.history.push('/nwfm')
     this.props.closeModal()
   }
 
@@ -71,7 +71,7 @@ class ModalContent extends React.Component<any, any> {
         table = table.filter((x: any) => x.id !== result.payload.folderId)
         this.props.updateTable({ table })
       } catch (error) {
-        console.log('E: ', error)
+        //console.log('E: ', error)
       }
   }
   componentDidMount() {
@@ -83,7 +83,7 @@ class ModalContent extends React.Component<any, any> {
   public render() {
     let modal
 
-    console.log(this.props.modalView)
+    //console.log(this.props.modalView)
     switch (this.props.modalView) {
       case t`تغییر نام`:
         modal = <RenameFile handleClose={this.handleClose} showModal={true} table={this.props.table} updateTable={this.props.updateTable} />

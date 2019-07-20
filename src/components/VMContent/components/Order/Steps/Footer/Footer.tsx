@@ -27,7 +27,7 @@ export default interface Iprops {
 }
 
 export const Footer: React.FunctionComponent<Iprops> = (props) => { 
-	console.log(props.handleNextStep)
+	//console.log(props.handleNextStep)
 	return (
 		<footer className={styles.footer}>
 			<div className={styles.btnWrapper}>
@@ -41,7 +41,7 @@ export const Footer: React.FunctionComponent<Iprops> = (props) => {
 							<IconLink icon={arrowLeftGrayIcon} label={t`قبـلی`}/>
 						</Button>
 					</Link>
-					<Link to="/vm">
+					<Link to="/vms">
 						<Button className={['pg-btnDefault0', 'pg-btnSm']}>{t`انصراف`}</Button>
 					</Link>
 				</div>

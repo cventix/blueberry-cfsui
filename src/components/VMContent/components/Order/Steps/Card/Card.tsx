@@ -18,7 +18,7 @@ export interface Iprops {
 }
 
 const Card: React.FunctionComponent<Iprops> = (props) => { 
-	console.log( props.onClickCard)
+	//console.log( props.onClickCard)
 	return (
 		<div className={props.selected ? [`${styles.item}`, `${styles.selected}`, props.className].join(' ') :
 			props.withoutHover || props.active ? [`${styles.item}`, `${styles.withoutHover}`,`${styles.active}`, props.className].join(' ') : 

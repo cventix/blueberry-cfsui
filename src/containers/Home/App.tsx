@@ -125,7 +125,7 @@ class App extends Component<
         },
         callbacks: {
           onComplete: (id: any, name: any, result: any) => {
-            console.log(id)
+            //console.log(id)
             const { uploadServer } = this.props
             const size = this.uploader.methods.getSize(id)
             const uuid = this.uploader.methods.getUuid(id)
@@ -161,7 +161,7 @@ class App extends Component<
   countDownTime = 10000
 
   handleClose = () => {
-    console.log('dasd')
+    //console.log('dasd')
     this.setState({ showModal: false, modalView: '' })
   }
   componentDidMount() {
@@ -171,7 +171,7 @@ class App extends Component<
   undo = (ids: any) => {
     let documents = this.props.document.documents
 
-    console.log(ids)
+    //console.log(ids)
     this.setState({
       toRemove: this.state.toRemove.filter((v: any, index: number) => v[index] !== ids[index])
     })
@@ -196,7 +196,7 @@ class App extends Component<
     })
     let documents = this.props.document.documents.filter((i: any, index: number) => !this.props.selection.includes(i.id))
     this.props.setDocuments(documents)
-    console.log(type)
+    //console.log(type)
     let deleteMsg = 'فایل حذف شد'
     let recoverMsg = 'فایل بازیابی شد'
 
@@ -223,7 +223,7 @@ class App extends Component<
   }
 
   cleanCollection = () => {
-    console.log(this.state.toRemove)
+    //console.log(this.state.toRemove)
     this.onRemoveDocument()
   }
 
@@ -239,12 +239,12 @@ class App extends Component<
   }
 
   onItemClick = async (e: any, file: any) => {
-    console.log(e)
+    //console.log(e)
     if (!e.target) {
-      console.log(e)
+      //console.log(e)
       switch (e) {
         case t`آپلود فایل`:
-          console.log(this.props.uploader)
+          //console.log(this.props.uploader)
           this.setState({ modal: 'uploadModal', showModal: true })
           // this.props.uploadDocument({ file: readFileDataAsBase64(file), fileSize: file[0].size, fileName: file[0].name })
           break
@@ -309,22 +309,22 @@ class App extends Component<
       switch (e.target.value) {
         case t`نمایش حذف شده‌ها`:
           this.props.setToggle([false, true])
-          if (this.props.history.location.pathname !== '/fm/trash') {
-            this.props.history.push(`/fm/trash`)
+          if (this.props.history.location.pathname !== '/nwfm/trash') {
+            this.props.history.push(`/nwfm/trash`)
             this.props.getTrashDocuments()
           } else {
-            this.props.history.push(`/fm`)
+            this.props.history.push(`/nwfm`)
             this.props.setToggle([false, false])
           }
 
           break
         case t`به اشتراک گذاشته‌ شده‌ها`:
           this.props.setToggle([true, false])
-          if (this.props.history.location.pathname !== '/fm/shared') {
-            this.props.history.push(`/fm/shared`)
+          if (this.props.history.location.pathname !== '/nwfm/shared') {
+            this.props.history.push(`/nwfm/shared`)
             this.props.getSharedDocuments()
           } else {
-            this.props.history.push(`/fm`)
+            this.props.history.push(`/nwfm`)
             this.props.setToggle([false, false])
           }
 
@@ -336,7 +336,7 @@ class App extends Component<
           break
       }
     } else if (e.target.files) {
-      console.log(e.target.files)
+      //console.log(e.target.files)
     }
   }
 
@@ -349,7 +349,7 @@ class App extends Component<
       this.props.setDocuments(table)
       this.setState({ showRemove: false })
     } catch (error) {
-      console.log('E: ', error)
+      //console.log('E: ', error)
     }
   }
   onEraseDocument = async () => {
@@ -357,7 +357,7 @@ class App extends Component<
       let result = await this.props.deleteDocument({ folderId: this.props.selection })
       this.setState({ showRemove: false })
     } catch (error) {
-      console.log('E: ', error)
+      //console.log('E: ', error)
     }
   }
   toggleHamburgerMenu() {
@@ -425,12 +425,12 @@ class App extends Component<
         />
         <Main showModal={this.state.showModal}>
           <Switch>
-            <Route path={`/account`} component={Account} />
+            <Route path={`/nwaccount`} component={Account} />
+            <Route path={`/nwfm`} component={Content} />
             <Route path={`/billing`} component={Billing} />
-            <Route path={`/fm`} component={Content} />
-            <Route exact path={`/vm`} component={VMContent} />
-            <Route exact path={`/vm/order`} component={Order} />
-            <Redirect path="/" to="/fm" />
+            <Route exact path={`/vms`} component={VMContent} />
+            <Route exact path={`/vms/order`} component={Order} />
+            <Redirect path="/" to="/nwfm" />
           </Switch>
         </Main>
 

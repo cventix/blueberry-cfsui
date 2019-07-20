@@ -23,7 +23,7 @@ const renderColor = (percent: any) => {
 const Plans: React.FunctionComponent<Iprops> = ({ info }) => {
   let faname, percent, faTime, expireDate
   if (info && info.plan && JSON.parse(info.plan.jsonInfo)) {
-    console.log(JSON.parse(info.plan.jsonInfo).name)
+    //console.log(JSON.parse(info.plan.jsonInfo).name)
     if (info.plan.featureInfo)
       faname =
         localStorage.getItem('__language') == 'en'
@@ -51,7 +51,7 @@ const Plans: React.FunctionComponent<Iprops> = ({ info }) => {
             {faname} - {faTime}
           </div>
 
-          <Link to={'/account/plans/upgrade'}>
+          <Link to={'/nwaccount/plans/upgrade'}>
             <Button className={['pg-btnPrimary0', 'pg-btnMd', 'pg-my-4']} style={{ height: '35px' }}>{t`ارتقای حساب`}</Button>
           </Link>
         </div>

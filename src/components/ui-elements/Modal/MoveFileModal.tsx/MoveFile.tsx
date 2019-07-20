@@ -67,23 +67,23 @@ class MoveFile extends React.Component<Iprops, Istate> {
   }
 
   onGetDocument = async (isChildren?: boolean, path?: any, id?: number) => {
-    console.log(path)
+    //console.log(path)
     if (path !== '/') {
       try {
         if (id) this.props.setParentId(id)
         await this.props.getModalDocuments({ isChildren: true, path, modal: true, id })
       } catch (error) {
-        console.log('E: ', error)
+        //console.log('E: ', error)
       }
     } else {
       try {
         this.props.setParentId(0)
         await this.props.getModalDocuments({ modal: true, id })
       } catch (error) {
-        console.log('E: ', error)
+        //console.log('E: ', error)
       }
     }
-    console.log(path)
+    //console.log(path)
     this.setState({
       history: {
         title: name,
@@ -123,7 +123,7 @@ class MoveFile extends React.Component<Iprops, Istate> {
         item = discriminator[0]
         discriminator = discriminator[0].discriminator
       }
-      console.log(item.parent)
+      //console.log(item.parent)
       if (discriminator === 'D') {
         this.onGetDocument(true, path, id)
       }

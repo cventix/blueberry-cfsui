@@ -36,7 +36,7 @@ class EditModal extends React.Component<any, any> {
   }
   componentDidMount() {
     this.props.input.map((each: any) => {
-      console.log(each.value)
+      //console.log(each.value)
       this.setState({ [each.name]: each.value })
     })
   }
@@ -44,7 +44,7 @@ class EditModal extends React.Component<any, any> {
   render() {
     let { handleClose, showModal } = this.props
 
-    console.log(this.props)
+    //console.log(this.props)
     return (
       <UploadModal show={showModal} width={440} title={this.props.title} formDescription={this.props.formDescription} handleClose={handleClose}>
         <form onSubmit={this.props.profileChange} className={'pg-w-full'}>

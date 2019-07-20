@@ -51,7 +51,7 @@ const FinalStep: React.FunctionComponent<Iprops> = (props) => {
 			</div>
 			<Footer 
 			finalStep={true}
-			previousStep={`vm/order/chooseNetwork`}
+			previousStep={`vms/order/chooseNetwork`}
 			handlePreviousStep={props.goToPreviousStep}
 			/>
 		</div>

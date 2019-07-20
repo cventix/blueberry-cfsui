@@ -196,8 +196,8 @@ const ChoosePlan: React.FunctionComponent<Iprops> = (props) => {
 				</Card>
 			</div>
 			<Footer 
-			nextStep={`vm/order/chooseNetwork`}
-			previousStep={`vm/order/serviceDuration`}
+			nextStep={`vms/order/chooseNetwork`}
+			previousStep={`vms/order/serviceDuration`}
 			handleNextStep={props.goToNextStep}
 			handlePreviousStep={props.goToPreviousStep}
 			/>

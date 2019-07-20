@@ -60,7 +60,7 @@ class UploadItem extends React.Component<any, any> {
       upload_successful: 'انجام شد',
       uploading: 'در حال آپلود'
     }
-    console.log(statusText)
+    //console.log(statusText)
     return (
       <div className={'pg-flex pg-flex-2 pg-justify-between'}>
         <div style={{ width: '28px' }} className={'pg-flex pg-items-center pg-px-2'}>

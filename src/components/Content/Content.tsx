@@ -129,25 +129,25 @@ class Content extends React.Component<IProps, IState> {
 
   async componentDidMount() {
     if (
-      this.props.location.pathname === '/fm' ||
-      this.props.location.pathname === '/fm/' ||
-      this.props.location.pathname === '/fm/cfs' ||
+      this.props.location.pathname === '/nwfm' ||
+      this.props.location.pathname === '/nwfm/' ||
+      this.props.location.pathname === '/nwfm/cfs' ||
       this.props.location.pathname.includes('preview')
     ) {
       this.onGetDocument(false)
       this.props.setToggle([false, false])
       this.setState({ table: this.props.data })
     } else {
-      if (this.props.location.pathname.split('/fm/')[1]) {
-        if (this.props.location.pathname.split('/fm/')[1].includes('trash')) {
+      if (this.props.location.pathname.split('/nwfm/')[1]) {
+        if (this.props.location.pathname.split('/nwfm/')[1].includes('trash')) {
           this.props.getTrashDocuments()
           this.props.setToggle([false, true])
-        } else if (this.props.location.pathname.split('/fm/')[1].includes('shared')) {
+        } else if (this.props.location.pathname.split('/nwfm/')[1].includes('shared')) {
           this.props.getSharedDocuments()
           this.props.setToggle([true, false])
         }
       } else {
-        this.onGetDocument(true, this.props.location.pathname.split('/fm/')[1], this.props.item.id)
+        this.onGetDocument(true, this.props.location.pathname.split('/nwfm/')[1], this.props.item.id)
       }
     }
     document.title = t`میزبانی فایل`
@@ -157,23 +157,23 @@ class Content extends React.Component<IProps, IState> {
   componentDidUpdate(prevProps: any) {
     if (
       this.props.location.pathname !== prevProps.location.pathname &&
-      this.props.location.pathname.includes('/fm') &&
+      this.props.location.pathname.includes('/nwfm') &&
       !prevProps.location.pathname.includes('/preview') &&
       !this.props.location.pathname.includes('/preview')
     ) {
-      if (!this.props.location.pathname.split('/fm')[1] || this.props.location.pathname.split('/fm')[1] == '/') {
+      if (!this.props.location.pathname.split('/nwfm')[1] || this.props.location.pathname.split('/nwfm')[1] == '/') {
         this.onGetDocument(false)
         this.props.setToggle([false, false])
       } else if (
-        this.props.location.pathname.split('/fm')[1] !== '/trash' &&
-        this.props.location.pathname.split('/fm')[1] !== '/shared' &&
+        this.props.location.pathname.split('/nwfm')[1] !== '/trash' &&
+        this.props.location.pathname.split('/nwfm')[1] !== '/shared' &&
         this.props.location.pathname.includes('/preview')
       ) {
-        console.log(this.props.location.pathname.split('/fm')[1])
-        this.onGetDocument(true, this.props.location.pathname.split('/fm/')[1], this.props.item.id)
+        //console.log(this.props.location.pathname.split('/nwfm')[1])
+        this.onGetDocument(true, this.props.location.pathname.split('/nwfm/')[1], this.props.item.id)
       }
     } else if (this.props.location.pathname.includes('/preview') && this.state.modalView === '') {
-      this.props.history.push('/fm')
+      this.props.history.push('/nwfm')
     }
   }
 
@@ -187,14 +187,14 @@ class Content extends React.Component<IProps, IState> {
           this.props.setParentId(parentId)
           await this.props.getDocuments({ isChildren: true, path, parentId })
         } catch (error) {
-          console.log('E: ', error)
+          //console.log('E: ', error)
         }
       } else {
         try {
           this.props.setParentId(0)
           await this.props.getDocuments()
         } catch (error) {
-          console.log('E: ', error)
+          //console.log('E: ', error)
         }
       }
     }
@@ -285,11 +285,11 @@ class Content extends React.Component<IProps, IState> {
       })[0].discriminator
       if (discriminator === 'D') {
         this.props.history.push(`${this.props.history.location.pathname}/${name}`)
-        this.onGetDocument(true, `${this.props.history.location.pathname.split('fm/')[1]}`, item.id)
+        this.onGetDocument(true, `${this.props.history.location.pathname.split('nwfm/')[1]}`, item.id)
       } else {
-        console.log(item)
+        //console.log(item)
         this.props.history.push(
-          `fm/preview/${item.genericType}${item.genericType === 'image' ? (this.props.image ? '/' + this.props.image : '/medium') : ''}/${name}`
+          `nwfm/preview/${item.genericType}${item.genericType === 'image' ? (this.props.image ? '/' + this.props.image : '/medium') : ''}/${name}`
         )
         this.props.setItem(item)
         this.setState({ modalView: 'previewModal', previewId: id, fileName: name, [`item${id}`]: item })
@@ -317,7 +317,7 @@ class Content extends React.Component<IProps, IState> {
     this.setState({ modalView, showModal: true })
   }
   downloadFile = async (fileId: number) => {
-    console.log(fileId)
+    //console.log(fileId)
     let item = this.state.table.filter((obj: any) => {
       return obj.id === fileId
     })[0]
@@ -344,7 +344,7 @@ class Content extends React.Component<IProps, IState> {
       this.updateTable({ table })
       toast.success('حذف شد')
     } catch (error) {
-      console.log('E: ', error)
+      //console.log('E: ', error)
     }
   }
   arraysEqual = (a: any, b: any) => {

@@ -76,13 +76,12 @@ export const Navbar: React.FunctionComponent<Iprops> = ({ toggleHamburgerMenu, t
           pg-mb-23p
           pg-mr-0
           pg-ml-0
-          nav"
-        >
-          <NavLink to={`/fm`} className="pg-ml-30p item" activeClassName="current">
+          nav">
+          <NavLink to={`/nwfm`} className="pg-ml-30p item" activeClassName="current">
             <IconLink icon={fileCloudIcon} iconAlt={`File-cloud ${altIcon}`} iconWidth={24} label={t`میزبانی‌فایل`} />
           </NavLink>
-          <NavLink to={`/vm`} className="pg-ml-30p item" activeClassName="current">
-            <IconLink icon={vpsIcon} iconAlt={`vps ${altIcon}`} iconWidth={24} label={t`سرور و هاست`} />
+          <NavLink to={`/vms`} className="pg-ml-30p item" activeClassName="current">
+            <IconLink icon={vpsIcon} iconAlt={`vps ${altIcon}`} iconWidth={24} label={t`سرور و هاست`} /> 
           </NavLink>
           <NavLink to={`#`} className="pg-ml-30p item" activeClassName="current">
             <IconLink icon={internetIcon} iconAlt={`Internet ${altIcon}`} iconWidth={24} label={t`اینترنت`} />
@@ -109,14 +108,10 @@ export const Navbar: React.FunctionComponent<Iprops> = ({ toggleHamburgerMenu, t
             className="iconLink
           tablet-max:pg-hidden
           pg-relative pg-ml-23p
-          hasNotif"
-            iconAlt={`Notif ${altIcon}`}
-            iconWidth={24}
-          />
-          <Link to={window.location.pathname.includes('fm') ? `/billing` : `/vm/giftcard`}>
-            <IconLink
-              icon={financeIcon}
-              className="iconLink
+          hasNotif" iconAlt={`Notif ${altIcon}`} iconWidth={24}/>
+          <Link to={`/vms/giftcard`}>
+            <IconLink icon={financeIcon}
+            className="iconLink
             tablet-max:pg-hidden
             pg-ml-23p"
               iconAlt={`Finance ${altIcon}`}

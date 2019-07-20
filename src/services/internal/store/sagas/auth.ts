@@ -27,25 +27,25 @@ export function* forgetPassword(action: AnyAction) {
   try {
     yield put(actions.setLoadingState(true))
     const result = yield auth.forgetPassword(action.email.email)
-    console.log(result)
+    //console.log(result)
     if (result == 200) {
       yield put(actions.setMessage('لینک بازیابی کلمه عبور به ایمیل شما فرستاده شد'))
     }
     yield put(actions.setLoadingState(false))
   } catch (err) {
-    console.log(err)
+    //console.log(err)
     yield put(actions.setError(err.errors[0].msg))
     yield put(actions.setLoadingState(false))
   }
 }
 export function* register(action: AnyAction) {
-  console.log(action)
+  //console.log(action)
   try {
     yield put(actions.setLoadingState(true))
     yield auth.register(action.email, action.username, action.password,action.reCaptcha)
     yield put(actions.setLoadingState(false))
   } catch (err) {
-    console.log(err)
+    //console.log(err)
     yield put(actions.setError(err.errors[0].msg))
     yield put(actions.setLoadingState(false))
   }

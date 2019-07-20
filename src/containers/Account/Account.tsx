@@ -71,7 +71,7 @@ class Account extends React.Component<Iprops, any> {
   componentWillReceiveProps(nextProps: any) {
     if (nextProps.info && nextProps.info.profile) {
       let info = nextProps.info
-      console.log(nextProps.info)
+      //console.log(nextProps.info)
       if (this.props.cities.length < 2) this.findCities(nextProps.info.profile.province ? this.findProvinceName(info.profile.province) : 'تهران')
 
       this.setState({
@@ -109,14 +109,14 @@ class Account extends React.Component<Iprops, any> {
         province.cities.map((city: any) => cities.push(city.name))
       }
     })
-    console.log(provinceName)
+    //console.log(provinceName)
     this.setState({ cities })
-    console.log(this.props.cities)
-    console.log(provinceName, cities)
+    //console.log(this.props.cities)
+    //console.log(provinceName, cities)
     if (cities[0] !== this.props.cities[0]) this.props.setCities(cities)
   }
   onEdit = (modalView: string, label: string) => {
-    console.log(label)
+    //console.log(label)
     this.setState({ modalView })
     if (modalView == 'fullName') {
       this.setState({ input: [{ name: 'name', value: this.state.name }, { name: 'family', value: this.state.family }], modalType: t`نام` })
@@ -147,11 +147,11 @@ class Account extends React.Component<Iprops, any> {
   }
   updateChange = (e: any) => {
     let changedValues = this.state.changedValues.concat(e.target.name)
-    console.log(this.findProvinceNumber(e.target.value))
+    //console.log(this.findProvinceNumber(e.target.value))
     if (e.target.name === 'province') {
-      // console.log(e.target.value)
+      // //console.log(e.target.value)
 
-      // console.log(this.state[e.target.name])
+      // //console.log(this.state[e.target.name])
       this.setState({
         province: 3,
         input: [
@@ -175,7 +175,7 @@ class Account extends React.Component<Iprops, any> {
       this.setState({
         input: [{ name: [e.target.name], value: e.target.value }]
       })
-      console.log(e.target.value)
+      //console.log(e.target.value)
       this.setState({ [e.target.name]: e.target.value, changedValues })
     }
   }
@@ -186,13 +186,13 @@ class Account extends React.Component<Iprops, any> {
     let profiles = ['nationalId', 'province', 'city', 'postalCode']
 
     this.state.changedValues.map((each: any, index: number) => {
-      console.log(each)
+      //console.log(each)
       if (!profiles.includes(each)) {
         body[each] = this.state[this.state.changedValues[index]]
       } else {
         let profile = this.state.profile
         profile[each] = this.state.changedValues[each]
-        console.log(profile)
+        //console.log(profile)
         body['profile'] = { [each]: profile }
       }
     })
@@ -200,7 +200,7 @@ class Account extends React.Component<Iprops, any> {
     this.setState({ modalView: '', changedValues: [] })
   }
   onClick = (e: any) => {
-    console.log(e.target.name)
+    //console.log(e.target.name)
     this.props.changePlan(e.target.name, "{ plan_type: 'MONTH', managed: false }", false)
   }
   closeModal = () => {
@@ -209,10 +209,10 @@ class Account extends React.Component<Iprops, any> {
 
   render() {
     const options = ['پروفایل', 'پلن ها', 'امنیت']
-    console.log(this.state)
+    //console.log(this.state)
     let profileBasic: any, personalInfo: any
     if (this.props.info) {
-      console.log(this.state.province)
+      //console.log(this.state.province)
       profileBasic = [
         { label: t`نام نمایشی`, value: this.state.displayName, name: 'displayName' },
         { label: t`پست الکترونیکی`, value: this.state.email, name: `email` },
@@ -248,7 +248,7 @@ class Account extends React.Component<Iprops, any> {
         <div className={'pg-py-4'}>
           <Switch>
             <Route
-              path={`/account/profile`}
+              path={`/nwaccount/profile`}
               render={() => (
                 <ProfileEdit
                   profileChange={this.profileChange}
@@ -261,12 +261,12 @@ class Account extends React.Component<Iprops, any> {
             />
 
             <Route
-              path={`/account/plans/upgrade`}
+              path={`/nwaccount/plans/upgrade`}
               render={() => <UpgradePlans planId={this.state.planId} onToggle={this.onToggle} onClick={this.onClick} />}
             />
-            <Route path={`/account/plans`} render={() => <Plans />} />
+            <Route path={`/nwaccount/plans`} render={() => <Plans />} />
             <Route
-              path={`/account/changePassword`}
+              path={`/nwaccount/changePassword`}
               render={() => <Security changePassword={this.changePassword} updateChange={this.updateChange} />}
             />
           </Switch>

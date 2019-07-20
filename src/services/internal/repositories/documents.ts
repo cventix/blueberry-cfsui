@@ -83,7 +83,7 @@ class Documents implements DocumentsInterface {
   }
 
   async getDocuments({ isChildren, path, headers }: IGetDocumentsInput = { isChildren: false, path: '', headers: {} }) {
-    console.log(path)
+    //console.log(path)
     const url = `/cfs/rest/documents${isChildren ? '/children' : ''}?sort=+discriminator,+name${isChildren ? `&path=${path}` : ''}`
     try {
       return await this._rest.get({ url, headers })
@@ -113,7 +113,7 @@ class Documents implements DocumentsInterface {
     let headers = { 'Content-Type': 'text/html' }
     const url = `/cfs/rest/upload/url`
     let body = `url=${path}&path-id=${parentId}&token=${localStorage.getItem('token')}&dlc=false&`
-    console.log(body)
+    //console.log(body)
     try {
       return await this._rest.post({ url, body })
     } catch (error) {
@@ -170,7 +170,7 @@ class Documents implements DocumentsInterface {
   async shareDocuments({ documentIds, userEmails }: IShareDocumentsInput) {
     const url = `/cfs/rest/documents/share?ids=${documentIds.join()}`
     const body = { userEmails }
-    console.log(url)
+    //console.log(url)
     try {
       return await this._rest.post({ url, body })
     } catch (error) {
@@ -197,9 +197,9 @@ class Documents implements DocumentsInterface {
     }
   }
   async downloadDirectory({ documentIds, type }: IDownloadDirectoryInput) {
-    console.log(documentIds, type)
+    //console.log(documentIds, type)
     let url = `/cfs/rest/documents/archive?ids=${documentIds.join()}&format=${type}`
-    console.log(url)
+    //console.log(url)
     try {
       return await this._rest.get({ url })
     } catch (error) {
@@ -207,7 +207,7 @@ class Documents implements DocumentsInterface {
     }
   }
   async restoreFiles({ documentIds }: IRestoreFileInput) {
-    console.log(documentIds)
+    //console.log(documentIds)
     let url = `/cfs/rest/documents/restore?ids=${documentIds.join()}`
 
     try {
@@ -217,7 +217,7 @@ class Documents implements DocumentsInterface {
     }
   }
   async deleteDocument({ documentIds }: IRestoreFileInput) {
-    console.log(documentIds)
+    //console.log(documentIds)
     let url = `/cfs/rest/documents?ids=${documentIds.join()}`
     try {
       return await this._rest.delete({ url })
@@ -229,7 +229,7 @@ class Documents implements DocumentsInterface {
   async uploadDocument({ body, fileSize, fileName, pathId }: any) {
     let url = `/cfs/rest/upload/binary?name=${fileName}&size=${fileSize}&path-id=${pathId}`
     let headers = { 'Content-Type': 'application/octet-stream' }
-    console.log(body)
+    //console.log(body)
     try {
       return await this._rest.post({ url, body, headers })
     } catch (error) {

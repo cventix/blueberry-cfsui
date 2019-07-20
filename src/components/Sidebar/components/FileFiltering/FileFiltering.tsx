@@ -17,7 +17,7 @@ export interface Iprops {
 }
 
 const FileFiltering = ({ forFM, forVM, onItemClick, selection }: Iprops) => {
-  console.log(selection.toggle[0], selection.toggle[1])
+  //console.log(selection.toggle[0], selection.toggle[1])
   return (
     <div className={styles.fileFiltering}>
       <div className={forFM ? `pg-mr-11p pg-h-22p pg-leading-snug pg-mt-21p ${styles.option}` : `hide`} onClick={onItemClick}>

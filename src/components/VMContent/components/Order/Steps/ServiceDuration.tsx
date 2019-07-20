@@ -33,7 +33,7 @@ export interface Iprops {
 const steps = [t`انتخاب سیستم عامل`, t`انتخاب مدت سرویس`, t`انتخاب طرح`, t`اطلاعات کارت شبکه`, t`انتخاب نام سرور و ثبت نهایی`];
 
 const ServiceDuration: React.FunctionComponent<Iprops> = (props) => { 
-	console.log(props.history)
+	//console.log(props.history)
 	return (
 		<div className={styles.serviceDuration}>
 			<ColorfulBox className={['green', 'lg']} withClose={true} message={t`با خرید پلن روزانه، سرور شما هر روز به صورت خودکار تمدید می شود. هر گاه از تمدید منصرف شدید، می توانید سرور را حذف نمایید.`}/>
@@ -59,8 +59,8 @@ const ServiceDuration: React.FunctionComponent<Iprops> = (props) => {
 				</Card>
 			</div>
 			<Footer 
-			nextStep={`vm/order/ChoosePlan`} 
-			previousStep={`vm/order/SelectOs`} 
+			nextStep={`vms/order/ChoosePlan`} 
+			previousStep={`vms/order/SelectOs`} 
 			handleNextStep={props.goToNextStep}
 			handlePreviousStep={props.goToPreviousStep}
 			/>

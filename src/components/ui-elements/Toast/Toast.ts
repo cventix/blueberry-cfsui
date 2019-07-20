@@ -77,7 +77,7 @@ export default {
     })
   },
   error(msg: string, options = {}) {
-    console.log(msg.length)
+    //console.log(msg.length)
     if (msg.length < 30) {
       return toast.error(msg, {
         ...options,

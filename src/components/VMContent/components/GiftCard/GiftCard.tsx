@@ -17,12 +17,12 @@ import styles from './GiftCard.module.scss'
 export default class GiftCard extends React.Component<any, any> {
 	// handle search
     onChangeSearchInput = (val: string) => {
-        console.log(val);
+        //console.log(val);
     }
 
     render() {
-		const history = [{ title: t`لیست سرورها`, link: '/vm', active: false }]
-			if (this.props.location.pathname !== '/vm')
+		const history = [{ title: t`لیست سرورها`, link: '/vms', active: false }]
+			if (this.props.location.pathname !== '/vms')
 				history.push({ title: this.props.location.pathname.split('/'), link: this.props.location.pathname, active: true })
       
 		return (

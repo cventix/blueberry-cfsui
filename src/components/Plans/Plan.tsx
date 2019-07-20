@@ -38,7 +38,7 @@ export const Plan: React.FunctionComponent<any> = props => {
         break
     }
   let featureInfo = JSON.parse(product.featureInfo)
-  console.log(props.monthly)
+  //console.log(props.monthly)
   let style
   if (props.index == 1)
     style = {

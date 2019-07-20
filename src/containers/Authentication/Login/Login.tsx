@@ -48,9 +48,9 @@ class Login extends React.Component<any, any> {
     await this.props.removeMessages()
     try {
       let result = await this.props.login({ email: this.state.email, password: this.state.password })
-      console.log(result)
+      //console.log(result)
     } catch (error) {
-      console.log('E: ', error)
+      //console.log('E: ', error)
     }
   }
 
@@ -58,7 +58,7 @@ class Login extends React.Component<any, any> {
 
   render() {
     if (this.state.token) {
-      return <Redirect to="/fm" />
+      return <Redirect to="/nwfm" />
     } else if (!this.state.token) {
       window.document.cookie = 'token=;expires=Thu, 01 Jan 1970 00:00:00 GMT;path=/'
       localStorage.clear()
@@ -72,7 +72,7 @@ class Login extends React.Component<any, any> {
             <div className={styles.row}>
               <div className={styles.switch}>
                 {t`عضو نیستید؟`}
-                <Link to={'/register'}>
+                <Link to={'/nwregister'}>
                   <span className={styles.link}>{t`ثبت‌نام`}</span>
                 </Link>
               </div>
@@ -88,7 +88,7 @@ class Login extends React.Component<any, any> {
                 <IconLink icon={error} label={t`${this.props.messages.errors}`} />
               </div>
             )}
-            <Link to={'/forgetpassword'} className={styles.forgetPassword}>
+            <Link to={'/nwforgetpassword'} className={styles.forgetPassword}>
               <IconLink icon={lock} label={t`رمز عبور را فراموش کرده‌ام!`} />
             </Link>
           </form>

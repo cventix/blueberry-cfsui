@@ -36,6 +36,7 @@ class Rest implements RestInterface {
       token: localStorage.getItem('token')
     }
     this._http = this._config.get('httpClient').create({
+      baseURL: this._config.get('baseUrl'),
       headers: this._headers,
       timeout: this._config.get('fetchTimeout')
     })
@@ -44,9 +45,9 @@ class Rest implements RestInterface {
   private async _base({ method = 'GET', url, headers = {}, body }: IBaseInput) {
     try {
       if (headers) this._headers = { ...this._headers, ...headers }
-      console.log(`%c[HEADERS]:`, 'font-weight: bold; color: green;', this._headers)
-      console.log(`%c[${method}]: ${url}`, 'font-weight: bold; color: #3e3e3e;')
-      console.log(document.cookie)
+      // //console.log(`%c[HEADERS]:`, 'font-weight: bold; color: green;', this._headers)
+      // //console.log(`%c[${method}]: ${url}`, 'font-weight: bold; color: #3e3e3e;')
+      // //console.log(document.cookie)
       if (this._headers.token == null) {
         this._headers.token = localStorage.getItem('token')
         this._headers.Cookie = `token=${localStorage.getItem('token')}`
@@ -55,26 +56,26 @@ class Rest implements RestInterface {
       //   this._headers.token = localStorage.getItem('token')
       //   this._headers.Cookie = `token=${localStorage.getItem('token')}`
       // }
-      console.log(  this._headers)
+      // //console.log(this._headers)
       const httpInput = { method, url, headers: this._headers }
       if (body) {
         ;(httpInput as any).data = body
       }
-      console.log('httpInput', httpInput)
+      // //console.log('httpInput', httpInput)
       const { data, status } = await this._http(httpInput)
 
       return data ? data : status
     } catch ({ response: { data } }) {
-      console.log(data)
-      // if (data.errors && data.errors[0].code === 403) {
-      //   window.location.replace('/login')
-      // }
+      // //console.log(data)
+      if (data.errors && data.errors[0].code === 403) {
+        window.location.replace('/nwlogin')
+      }
       throw data
     }
   }
 
   async get({ url, headers }: InputInterface) {
-    console.log(headers)
+    // //console.log(headers)
     try {
       return await this._base({ method: 'GET', url, headers })
     } catch (error) {
