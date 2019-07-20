@@ -51,6 +51,7 @@ import { IRemoveFolderInput, IDownloadDirectoryInput, IGenerateLinkInput } from 
 import urlUploadModal from '../../components/ui-elements/Modal/urlUpload/urlUploadModal'
 import Account from '../Account/Account'
 import FileUploadModal from '../../components/ui-elements/Modal/FileUploadModal/FileUploadModal'
+import Billing from '../Billing/Billing';
 function readFileDataAsBase64(e: any) {
   const file = e[0]
 
@@ -425,6 +426,7 @@ class App extends Component<
         <Main showModal={this.state.showModal}>
           <Switch>
             <Route path={`/account`} component={Account} />
+            <Route path={`/billing`} component={Billing} />
             <Route path={`/fm`} component={Content} />
             <Route exact path={`/vm`} component={VMContent} />
             <Route exact path={`/vm/order`} component={Order} />

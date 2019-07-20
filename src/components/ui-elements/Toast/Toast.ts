@@ -31,7 +31,7 @@ export default {
         autoClose: 5000,
         className: css({
           height: '35px !important',
-          width: '480px !important',
+         
           fontFamily: 'vazir-regular !important',
           padding: '10px !important',
           minHeight: '35px !important',
@@ -49,7 +49,7 @@ export default {
       autoClose: false,
       className: css({
         height: '35px !important',
-        width: '480px !important',
+       
         fontFamily: 'vazir-regular !important',
         padding: '10px !important',
         minHeight: '35px !important',

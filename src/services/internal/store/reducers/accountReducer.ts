@@ -9,7 +9,8 @@ export const initialState: any = {
   products: [],
   monthly: true,
   info: [],
-  cities: ['']
+  cities: [''],
+  billing:[]
 }
 
 const accountReducer = (state: any = initialState, action: any) => {
@@ -24,6 +25,11 @@ const accountReducer = (state: any = initialState, action: any) => {
         ...state,
         info: action.info
       }
+      case actionTypes.SET_INVOICES:
+        return {
+          ...state,
+          billing: action.payload
+        }
 
     case actionTypes.SET_CITIES:
       return {

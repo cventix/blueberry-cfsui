@@ -32,7 +32,7 @@ export interface Iprops {
   dropdown?: boolean
   tabletView?: boolean
   checkAll?: boolean
-  handleNavigate: any
+  handleNavigate?: any
   optionSelected?: number
   position?: string
   dropDownData?: any
@@ -45,6 +45,7 @@ export interface Iprops {
   modalSelection?: number
   smPadding?: boolean
   openModal ?: any 
+  header?: any
   onCheckAll?: () => void
   onSort?: (sortBy: string, type?: string | undefined) => void
   onOpenCFModal?: () => void
@@ -75,9 +76,10 @@ const Table: React.FunctionComponent<Iprops> = ({
   smPadding = false,
   onOpenCFModal,
   handleChange,
+  header,
   hasHeader = true
 }) => {
-  const header = [t`نام`, t`تاریخ`, t`مالک`, t`حجم`]
+
   const hidden = ['type', 'id', 'fullPath', 'discriminator', 'uuid', 'item','genricType']
   const [hovered, setHovered] = useState(false)
   const toggleHover = () => setHovered(!hovered)

@@ -21,7 +21,7 @@ import {
   urlUpload,
   uploadServer
 } from './documents'
-import { getProducts, getUserInfo, changePlan, changeProfile } from './account';
+import { getProducts, getUserInfo, changePlan, changeProfile, getInvoices } from './account';
 
 
 // import { getUserInfo } from './user'
@@ -42,6 +42,7 @@ function* watchUser() {
   yield takeEvery(actionTypes.GET_USER_INFO, getUserInfo)
   yield takeEvery(actionTypes.CHANGE_PLAN, changePlan)
   yield takeEvery(actionTypes.CHANGE_PROFILE, changeProfile)
+  yield takeEvery(actionTypes.GET_INVOICES, getInvoices)
 }
 function* watchDocuments() {
   yield takeEvery(actionTypes.GET_DOCUMENTS, getDocuments)

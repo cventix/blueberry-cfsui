@@ -115,7 +115,7 @@ export const ContentBody: React.FunctionComponent<Iprops> = ({
   ...rest
 }) => {
   table = isMoveModal ? makeSimpleArray(table) : makeArray(table, username)
-
+  const header = [t`نام`, t`تاریخ`, t`مالک`, t`حجم`]
   const { width } = useWindowDimensions()
   if (loading)
     return (
@@ -136,6 +136,7 @@ export const ContentBody: React.FunctionComponent<Iprops> = ({
           openModal={openModal}
           tabletView={width && width < 768 ? true : false}
           onOpenCFModal={onOpenCFModal}
+          header={header}
           dropDownData={dropDownData}
           onSort={onSort}
           isMoveModal={isMoveModal}

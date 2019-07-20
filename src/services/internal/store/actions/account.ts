@@ -18,3 +18,10 @@ export const changePlan = actionBuilder(actionTypes.CHANGE_PLAN, 'id', 'addition
 export const changeProfile = actionBuilder(actionTypes.CHANGE_PROFILE, 'payload')
 
 export const setCities = actionBuilder(actionTypes.SET_CITIES, 'payload')
+
+export const getInvoices = actionBuilder(actionTypes.GET_INVOICES, 'payload')
+
+export const setInvoices = actionBuilder(actionTypes.SET_INVOICES, 'payload')
+
+
+

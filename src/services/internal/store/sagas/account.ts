@@ -55,3 +55,15 @@ export function* changeProfile(action: any) {
     yield put(actions.setLoadingState(false))
   }
 }
+
+export function* getInvoices(action: any) {
+  try {
+    yield put(actions.setLoadingState(true))
+    let result = yield account.getInvoices()
+    yield put(actions.setInvoices(result))
+    yield put(actions.setLoadingState(false))
+  } catch (err) {
+    yield put(actions.setError(err.errors[0].msg))
+    yield put(actions.setLoadingState(false))
+  }
+}

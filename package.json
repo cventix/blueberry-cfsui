@@ -2,7 +2,7 @@
   "name": "blueberry-cfsui",
   "version": "0.1.0",
   "private": true,
-  "proxy": "http://cdn.persiangig.com/",
+  "proxy": "http://cdn.persiangig.com",
   "dependencies": {
     "@types/crypto-js": "^3.1.43",
     "@types/jest": "24.0.11",
