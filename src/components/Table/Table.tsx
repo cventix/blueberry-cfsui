@@ -12,8 +12,8 @@ import styles from './Table.module.scss'
 
 //interface
 import { ITableItem } from '../Content/ContentBody'
-import TableRow from './TableRow';
-import { selectAll } from '../../services/internal/store/actions';
+import TableRow from './TableRow'
+import { selectAll } from '../../services/internal/store/actions'
 
 const EnhancedDropdown = enhancer(Dropdown)
 
@@ -27,7 +27,7 @@ export interface Item {
 }
 
 export interface Iprops {
-  table?: ITableItem[]
+  table?: any
   selection: Array<number>
   dropdown?: boolean
   tabletView?: boolean
@@ -44,7 +44,8 @@ export interface Iprops {
   hasHeader?: boolean
   modalSelection?: number
   smPadding?: boolean
-  openModal ?: any 
+  openModal?: any
+  tr?: boolean
   header?: any
   onCheckAll?: () => void
   onSort?: (sortBy: string, type?: string | undefined) => void
@@ -76,11 +77,12 @@ const Table: React.FunctionComponent<Iprops> = ({
   smPadding = false,
   onOpenCFModal,
   handleChange,
+  tr,
   header,
   hasHeader = true
 }) => {
-
-  const hidden = ['type', 'id', 'fullPath', 'discriminator', 'uuid', 'item','genricType']
+  console.log(table)
+  const hidden = ['type', 'id', 'fullPath', 'discriminator', 'uuid', 'item', 'genricType']
   const [hovered, setHovered] = useState(false)
   const toggleHover = () => setHovered(!hovered)
   return (
@@ -88,7 +90,6 @@ const Table: React.FunctionComponent<Iprops> = ({
       {hasHeader && (
         <TableHeader
           titles={header}
-        
           dropdown={dropdown}
           onSort={onSort}
           tabletView={tabletView}
@@ -98,10 +99,22 @@ const Table: React.FunctionComponent<Iprops> = ({
       )}
       <tbody>
         {table &&
-          table.map((item: Item,index:number) => {
+          table.map((item: Item, index: number) => {
             return (
-              <TableRow item={item} key={index} isMoveModal={isMoveModal}   handleChange={handleChange} checkbox={checkbox} handleNavigate={handleNavigate} onCheck={onCheck} smPadding={smPadding} openModal={openModal}>
-                {dropdown && (
+              <TableRow
+                item={item}
+                tr={tr}
+                key={index}
+                id={item.id}
+                isMoveModal={isMoveModal}
+                handleChange={handleChange}
+                checkbox={checkbox}
+                handleNavigate={handleNavigate}
+                onCheck={onCheck}
+                smPadding={smPadding}
+                openModal={openModal}
+              >
+                {!tr && dropdown && (
                   <td className={[styles.show, styles.left].join(' ')}>
                     <EnhancedDropdown
                       width={138}

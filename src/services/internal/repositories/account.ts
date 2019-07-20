@@ -27,6 +27,14 @@ class Account implements AccountInterface {
       throw error
     }
   }
+  async getInvoice(id:number) {
+    const url = `/cfs/rest/invoices/${id}`
+    try {
+      return await this._rest.get({ url })
+    } catch (error) {
+      throw error
+    }
+  }
   async getProducts() {
     const url = '/cfs/rest/products/user/products?category=CFS'
     try {

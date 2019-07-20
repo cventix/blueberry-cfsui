@@ -1,7 +1,7 @@
 import { takeEvery, all, takeLatest } from 'redux-saga/effects'
 
 import { actionTypes } from '../actions/types'
-import { login, register, signout, forgetPassword, changePassword, } from './auth'
+import { login, register, signout, forgetPassword, changePassword } from './auth'
 import {
   getDocuments,
   getSharedDocuments,
@@ -21,8 +21,8 @@ import {
   urlUpload,
   uploadServer
 } from './documents'
-import { getProducts, getUserInfo, changePlan, changeProfile, getInvoices } from './account';
-
+import { getProducts, getUserInfo, changePlan, changeProfile, getInvoices, getInvoice } from './account'
+import {} from '../actions'
 
 // import { getUserInfo } from './user'
 
@@ -43,6 +43,7 @@ function* watchUser() {
   yield takeEvery(actionTypes.CHANGE_PLAN, changePlan)
   yield takeEvery(actionTypes.CHANGE_PROFILE, changeProfile)
   yield takeEvery(actionTypes.GET_INVOICES, getInvoices)
+  yield takeEvery(actionTypes.GET_INVOICE, getInvoice)
 }
 function* watchDocuments() {
   yield takeEvery(actionTypes.GET_DOCUMENTS, getDocuments)
@@ -57,7 +58,7 @@ function* watchDocuments() {
   yield takeEvery(actionTypes.GET_SHARED_DOCUMENTS, getSharedDocuments)
   yield takeEvery(actionTypes.GENERATE_DOWNLOAD_LINK, generateLink)
   yield takeEvery(actionTypes.UPLOAD_SERVER, uploadServer)
-  
+
   yield takeEvery(actionTypes.RESTORE_FILES, restoreFiles)
   yield takeEvery(actionTypes.DELETE_DOCUMENT, deleteDocument)
   yield takeLatest(actionTypes.DOWNLOAD_DIRECTORY, downloadDirectory)

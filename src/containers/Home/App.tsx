@@ -51,7 +51,7 @@ import { IRemoveFolderInput, IDownloadDirectoryInput, IGenerateLinkInput } from 
 import urlUploadModal from '../../components/ui-elements/Modal/urlUpload/urlUploadModal'
 import Account from '../Account/Account'
 import FileUploadModal from '../../components/ui-elements/Modal/FileUploadModal/FileUploadModal'
-import Billing from '../Billing/Billing';
+import Billing from '../Account/Billing/Billing'
 function readFileDataAsBase64(e: any) {
   const file = e[0]
 
@@ -377,8 +377,9 @@ class App extends Component<
       toast.error(nextProps.messages.errors)
       this.props.removeMessages()
     }
-    if (nextProps.downloadLoading) {
-      toast.timed('در آماده سازی  دانلود')
+    if (nextProps.downloadLoading && nextProps.downloadLoading > 0) {
+      console.log(nextProps.downloadLoading )
+      toast.timed('درحال آماده‌سازی دانلود')
     }
     if (nextProps.messages.msgs.length > 0) {
       toast.success(nextProps.messages.msgs)
@@ -427,7 +428,6 @@ class App extends Component<
           <Switch>
             <Route path={`/nwaccount`} component={Account} />
             <Route path={`/nwfm`} component={Content} />
-            <Route path={`/billing`} component={Billing} />
             <Route exact path={`/vms`} component={VMContent} />
             <Route exact path={`/vms/order`} component={Order} />
             <Redirect path="/" to="/nwfm" />

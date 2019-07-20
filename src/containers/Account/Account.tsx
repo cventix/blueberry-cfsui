@@ -22,6 +22,7 @@ import UpgradePlans from '../../components/Plans/UpgradePlans'
 import iranGeography from '../../services/internal/utils/iranProvinces.json'
 import RenameFile from '../../components/ui-elements/Modal/ModalContent/RenameFile'
 import EditModal from '../../components/ui-elements/Modal/EditModal/EditModal'
+import Billing from './Billing/Billing';
 
 export interface Iprops {
   getUserInfo: any
@@ -68,36 +69,36 @@ class Account extends React.Component<Iprops, any> {
     e.preventDefault()
     this.props.setProductToggle(!this.props.monthly)
   }
-  componentWillReceiveProps(nextProps: any) {
-    if (nextProps.info && nextProps.info.profile) {
-      let info = nextProps.info
-      //console.log(nextProps.info)
-      if (this.props.cities.length < 2) this.findCities(nextProps.info.profile.province ? this.findProvinceName(info.profile.province) : 'تهران')
+  // componentWillReceiveProps(nextProps: any) {
+  //   if (nextProps.info && nextProps.info.profile) {
+  //     let info = nextProps.info
+  //     //console.log(nextProps.info)
+  //     if (this.props.cities.length < 2) this.findCities(nextProps.info.profile.province ? this.findProvinceName(info.profile.province) : 'تهران')
 
-      this.setState({
-        displayName: info.displayName,
-        email: info.email,
-        mobileNumber: info.mobileNumber,
-        name: info.name,
-        family: info.family,
-        nationalId: info.profile.nationalId,
-        province: info.profile.province,
-        city: info.profile.city,
-        postalCode: info.profile.postalCode,
-        planId: info.plan.id,
-        profile: nextProps.info.profile
-      })
-    } else if (nextProps.info) {
-      let info = nextProps.info
-      this.setState({
-        displayName: info.displayName,
-        email: info.email,
-        mobileNumber: info.mobileNumber,
-        name: info.name,
-        family: info.family
-      })
-    }
-  }
+  //     this.setState({
+  //       displayName: info.displayName,
+  //       email: info.email,
+  //       mobileNumber: info.mobileNumber,
+  //       name: info.name,
+  //       family: info.family,
+  //       nationalId: info.profile.nationalId,
+  //       province: info.profile.province,
+  //       city: info.profile.city,
+  //       postalCode: info.profile.postalCode,
+  //       planId: info.plan.id,
+  //       profile: nextProps.info.profile
+  //     })
+  //   } else if (nextProps.info) {
+  //     let info = nextProps.info
+  //     this.setState({
+  //       displayName: info.displayName,
+  //       email: info.email,
+  //       mobileNumber: info.mobileNumber,
+  //       name: info.name,
+  //       family: info.family
+  //     })
+  //   }
+  // }
   switchView = (selected: string) => {
     this.setState({ selected })
   }
@@ -239,12 +240,7 @@ class Account extends React.Component<Iprops, any> {
         title={`${t`ویرایش`} ${this.state.modalType}`}
       />
     )
-    return this.props.loading ? (
-      <div className={'pg-w-full  pg-min-h-screen pg-flex pg-justify-center pg-items-center'}>
-        <img style={{ width: '50px', marginBottom: '30%' }} src={loading} />
-      </div>
-    ) : (
-      <div className={'pg-w-full'}>
+    return <div className={'pg-w-full'}>
         <div className={'pg-py-4'}>
           <Switch>
             <Route
@@ -269,11 +265,15 @@ class Account extends React.Component<Iprops, any> {
               path={`/nwaccount/changePassword`}
               render={() => <Security changePassword={this.changePassword} updateChange={this.updateChange} />}
             />
+             <Route
+              path={`/nwaccount/billing`}
+              render={() => <Billing />}
+            />
           </Switch>
         </div>
         {modal}
       </div>
-    )
+    
   }
 }
 

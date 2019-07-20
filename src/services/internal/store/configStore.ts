@@ -11,7 +11,7 @@ const middleware = []
 // middleware.push(createLogger())
 middleware.push(sagaMiddleware)
 
-const store = createStore(reducers, undefined, compose(applyMiddleware(...middleware)))
+const store = createStore(reducers, undefined, composeWithDevTools(compose(applyMiddleware(...middleware))))
 
 sagaMiddleware.run(rootSaga)
 
