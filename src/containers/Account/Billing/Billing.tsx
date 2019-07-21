@@ -32,6 +32,7 @@ class Billing extends React.Component<Iprops, any> {
     array.map((each: any,index:number) => {
       table.push({
         index,
+        id:each.id,
         refCode:each.refCode,
         productName:each.name,
         created_at: each.persianCreatedAt,

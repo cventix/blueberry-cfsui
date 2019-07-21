@@ -109,7 +109,7 @@ export const Navbar: React.FunctionComponent<Iprops> = ({ toggleHamburgerMenu, t
           tablet-max:pg-hidden
           pg-relative pg-ml-23p
           hasNotif" iconAlt={`Notif ${altIcon}`} iconWidth={24}/>
-          <Link to={window.location.pathname.includes('nwfm')?`/nwaccount/billing`:`/vms/giftcard`}>
+          <Link to={`/nwaccount/billing`}>
             <IconLink icon={financeIcon}
             className="iconLink
             tablet-max:pg-hidden

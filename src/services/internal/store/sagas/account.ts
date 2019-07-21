@@ -68,9 +68,11 @@ export function* getInvoices(action: any) {
   }
 }
 export function* getInvoice(action: any) {
+console.log(action)
   try {
     yield put(actions.setLoadingState(true))
-    let result = yield account.getInvoice(action.payload.id)
+    let result = yield account.getInvoice(action.payload)
+    console.log(result)
     yield put(actions.setInvoice(result))
     yield put(actions.setLoadingState(false))
   } catch (err) {

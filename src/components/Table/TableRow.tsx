@@ -5,7 +5,8 @@ import TableItem from './TableItem'
 
 import styles from './Table.module.scss'
 import Invoice from '../../containers/Account/Billing/Invoice'
-import { getInvoice } from '../../services/internal/store/sagas/account';
+import { getInvoice } from '../../services/internal/store/actions';
+
 export interface Iprops {
   item: any
   selection: Array<number>
@@ -53,10 +54,13 @@ const TableRow: React.FunctionComponent<Iprops> = ({
   const [hovered, setHovered] = useState(false)
   const [expanded, setExpanded] = useState(false)
   const toggleHover = () => setHovered(!hovered)
-  const toggleExpanded = (id:any) => {
+  const toggleExpanded = (e:any) => {
     setExpanded(!expanded)
-    getInvoice(id)
+    console.log(e.target.dataset.name)
+    getInvoice(e.target.dataset.name)
+ 
   }
+
   return (
     <>
       <tr
@@ -92,11 +96,11 @@ const TableRow: React.FunctionComponent<Iprops> = ({
         })}
 
         {children}
-        {tr && <td className={[styles.show, styles.left].join(' ')} onClick={()=>toggleExpanded(id)}> {`جزئیات`}</td>}
+        {tr && <td className={[styles.show, styles.left].join(' ')} data-name={id} onClick={toggleExpanded}> {`جزئیات`}</td>}
       </tr>
       {tr && expanded && (
         <tr>
-         <Invoice/>
+         <Invoice id={id}/>
         </tr>
       )}
     </>
