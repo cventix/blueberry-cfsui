@@ -6,7 +6,8 @@ import loading from '../../../images/loading/loading.gif'
 import { getInvoices } from '../../../services/internal/store/actions'
 import Table from '../../../components/Table/Table'
 import { formatDate } from '../../../services/internal/utils/formatDates'
-import { formatPrice } from '../../../services/internal/utils/formatPrice';
+import { formatPrice } from '../../../services/internal/utils/formatPrice'
+import { Button } from '../../../components/ui-elements/Button/Button'
 
 export interface Iprops {
   loading: boolean
@@ -19,7 +20,7 @@ class Billing extends React.Component<Iprops, any> {
   constructor(props: any) {
     super(props)
     this.state = {
-      table:[]
+      table: []
     }
   }
   componentDidMount = async () => {
@@ -28,26 +29,39 @@ class Billing extends React.Component<Iprops, any> {
   }
   makeBillingArray = (array: any) => {
     let lang = localStorage.getItem('__language')
-    let table:any=[];
-    array.map((each: any,index:number) => {
+    let table: any = []
+    array.map((each: any, index: number) => {
       table.push({
         index,
-        id:each.id,
-        refCode:each.refCode,
-        productName:each.name,
+        id: each.id,
+        refCode: each.refCode,
+        productName: each.name,
         created_at: each.persianCreatedAt,
         payablePrice: formatPrice(each.payablePrice),
-        invoiceStatus: each.invoiceStatus
-
+        invoiceStatus: this.renderStatusButton(each.invoiceStatus)
       })
     })
     return table
   }
-
+  renderStatusButton = (status: string) => {
+    let button
+    switch (status) {
+      case 'DRAFT':
+        button = <Button className={['pg-btnMd', 'pg-btnPrimary0', 'pg-btnCircle', 'pg-rounded-full']}>{`پرداخت کنید`}</Button>
+        break
+      case 'PAID':
+        button = <Button className={['pg-btnMd', 'pg-btnSuccessOutline', 'pg-btnCircle', 'pg-rounded-full']}>{`پرداخت شده`}</Button>
+        break
+      case 'CANCLED':
+        button = <Button className={['pg-btnMd', 'pg-btnDangerOutline', 'pg-btnCircle', 'pg-rounded-full']}>{`لغپ شده`}</Button>
+        break
+    }
+    return button
+  }
   componentWillReceiveProps(nextProps: any) {
     console.log(nextProps)
     if (nextProps.billing) {
-     this.setState({table :this.makeBillingArray( nextProps.billing)})
+      this.setState({ table: this.makeBillingArray(nextProps.billing) })
     }
   }
 
@@ -55,7 +69,7 @@ class Billing extends React.Component<Iprops, any> {
     const header = [t`ردیف`, t`شماره فاکتور`, t`محصول`, t`تاریخ`, t`قابل پرداخت`, t`وضعیت`]
     return (
       <div className={'pg-w-full'}>
-        <Table header={header} dropdown={true} table={this.state.table}  tr={true}/>
+        <Table header={header} dropdown={true} table={this.state.table} tr={true} />
       </div>
     )
   }

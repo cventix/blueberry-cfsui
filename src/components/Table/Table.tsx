@@ -54,6 +54,7 @@ export interface Iprops {
   onRenameDocument?: (e: any) => void
   onCheck?: (id: number, e?: any) => void
   handleChange?: any
+  sortable?: boolean
   selectAll?: boolean
 }
 
@@ -78,6 +79,7 @@ const Table: React.FunctionComponent<Iprops> = ({
   onOpenCFModal,
   handleChange,
   tr,
+  sortable,
   header,
   hasHeader = true
 }) => {
@@ -91,6 +93,7 @@ const Table: React.FunctionComponent<Iprops> = ({
         <TableHeader
           titles={header}
           dropdown={dropdown}
+          sortable={sortable}
           onSort={onSort}
           tabletView={tabletView}
           onOpenCFModal={onOpenCFModal}

@@ -16,12 +16,13 @@ export interface Iprops {
   checkAll?: boolean
   tabletView?: boolean
   selectAll?: boolean
+  sortable?: boolean
   onSort?: (sortBy: string, type?: string | undefined) => void
   onCheckAll?: () => void
   onOpenCFModal?: () => void
 }
 
-const TableHeader: React.FunctionComponent<Iprops> = ({ titles, onOpenCFModal, dropdown, onSort, selectAll, onCheckAll, tabletView }) => {
+const TableHeader: React.FunctionComponent<Iprops> = ({ titles, sortable, onOpenCFModal, dropdown, onSort, selectAll, onCheckAll, tabletView }) => {
   const altIcon = 'Icon'
   const [hovered, setHovered] = useState(false)
   const toggleHover = () => setHovered(!hovered)
@@ -41,7 +42,7 @@ const TableHeader: React.FunctionComponent<Iprops> = ({ titles, onOpenCFModal, d
                   hovered={hovered && hovered}
                   checked={selectAll}
                   checkbox={label === t`نام` ? true : false}
-                  sortable={label !== t`مالک` && true}
+                  sortable={sortable == false ? false : label !== t`مالک` && true}
                   sortType={label === t`نام` ? 'alphabet' : ' '}
                   className={label === t`نام` ? ['header', 'show'] : ['header']}
                 />

@@ -69,36 +69,36 @@ class Account extends React.Component<Iprops, any> {
     e.preventDefault()
     this.props.setProductToggle(!this.props.monthly)
   }
-  // componentWillReceiveProps(nextProps: any) {
-  //   if (nextProps.info && nextProps.info.profile) {
-  //     let info = nextProps.info
-  //     //console.log(nextProps.info)
-  //     if (this.props.cities.length < 2) this.findCities(nextProps.info.profile.province ? this.findProvinceName(info.profile.province) : 'تهران')
+  componentWillReceiveProps(nextProps: any) {
+    if (nextProps.info && nextProps.info.profile) {
+      let info = nextProps.info
+      //console.log(nextProps.info)
+      if (this.props.cities.length < 2) this.findCities(nextProps.info.profile.province ? this.findProvinceName(info.profile.province) : 'تهران')
 
-  //     this.setState({
-  //       displayName: info.displayName,
-  //       email: info.email,
-  //       mobileNumber: info.mobileNumber,
-  //       name: info.name,
-  //       family: info.family,
-  //       nationalId: info.profile.nationalId,
-  //       province: info.profile.province,
-  //       city: info.profile.city,
-  //       postalCode: info.profile.postalCode,
-  //       planId: info.plan.id,
-  //       profile: nextProps.info.profile
-  //     })
-  //   } else if (nextProps.info) {
-  //     let info = nextProps.info
-  //     this.setState({
-  //       displayName: info.displayName,
-  //       email: info.email,
-  //       mobileNumber: info.mobileNumber,
-  //       name: info.name,
-  //       family: info.family
-  //     })
-  //   }
-  // }
+      this.setState({
+        displayName: info.displayName,
+        email: info.email,
+        mobileNumber: info.mobileNumber,
+        name: info.name,
+        family: info.family,
+        nationalId: info.profile.nationalId,
+        province: info.profile.province,
+        city: info.profile.city,
+        postalCode: info.profile.postalCode,
+        planId: info.plan.id,
+        profile: nextProps.info.profile
+      })
+    } else if (nextProps.info) {
+      let info = nextProps.info
+      this.setState({
+        displayName: info.displayName,
+        email: info.email,
+        mobileNumber: info.mobileNumber,
+        name: info.name,
+        family: info.family
+      })
+    }
+  }
   switchView = (selected: string) => {
     this.setState({ selected })
   }
