@@ -147,7 +147,7 @@ class MoveFile extends React.Component<Iprops, Istate> {
         title={t`انتقال`}
         formDescription={t`انتقال فایل به ...`}
       >
-        <Breadcrumb history={this.state.history} modal={true} />
+        <Breadcrumb history={this.state.history} modal={true} parentId={this.props.parentId} />
         <div className={[styles.move, modalSelection && styles.selected].join(' ')}>
           {!loading ? (
             <ContentBody

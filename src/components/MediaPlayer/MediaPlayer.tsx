@@ -3,7 +3,7 @@ import ReactPlayer from 'react-player'
 import Fullscreen from 'react-full-screen'
 import { connect } from 'react-redux'
 
-import { PlayerRangeBar } from '../ui-elements/Rangebar/PlayerRangeBar/PlayerRangeBar'
+import { PlayerRangeBar } from '../ui-elements/RangeBar/PlayerRangeBar/PlayerRangeBar'
 import { Icon } from '../ui-elements/Icon'
 import { IconLink } from '../ui-elements/IconLink'
 

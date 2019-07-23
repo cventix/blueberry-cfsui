@@ -15,7 +15,7 @@ export interface Iprops {
   getBilling: () => void
 }
 
-export interface Istate {}
+export interface Istate { }
 class Billing extends React.Component<Iprops, any> {
   constructor(props: any) {
     super(props)
@@ -32,13 +32,13 @@ class Billing extends React.Component<Iprops, any> {
     let table: any = []
     array.map((each: any, index: number) => {
       table.push({
-        index,
+        index: +index+1,
         id: each.id,
         refCode: each.refCode,
         productName: each.name,
         created_at: each.persianCreatedAt,
         payablePrice: formatPrice(each.payablePrice),
-        invoiceStatus: this.renderStatusButton(each.invoiceStatus)
+        invoiceStatus: each.invoiceStatus ? this.renderStatusButton(each.invoiceStatus) : this.renderStatusButton(each.paid ? 'PAID' : 'DRAFT')
       })
     })
     return table
@@ -52,8 +52,8 @@ class Billing extends React.Component<Iprops, any> {
       case 'PAID':
         button = <Button className={['pg-btnMd', 'pg-btnSuccessOutline', 'pg-btnCircle', 'pg-rounded-full']}>{`پرداخت شده`}</Button>
         break
-      case 'CANCLED':
-        button = <Button className={['pg-btnMd', 'pg-btnDangerOutline', 'pg-btnCircle', 'pg-rounded-full']}>{`لغپ شده`}</Button>
+      case 'CANCEL':
+        button = <Button className={['pg-btnMd', 'pg-btnDangerOutline', 'pg-btnCircle', 'pg-rounded-full']}>{`لغو شده`}</Button>
         break
     }
     return button

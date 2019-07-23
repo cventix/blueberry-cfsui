@@ -14,12 +14,17 @@ class Invoice extends React.Component<any, any> {
     quota: '',
     persianTo: '',
     persianFrom: '',
-    totalPrice: '',
-    rate: '',
-    normalPrice: '',
-    tax: '',
-    others: '',
-    persianApprovedAt: ''
+    totalPrice: 0,
+    rate: 0,
+    normalPrice: 0,
+    tax: 0,
+    others: 0,
+    paid: false,
+    persianApprovedAt: '',
+    off: false,
+    base: 0,
+    discount: 0,
+    totalNoTax: 0
   }
 
   async componentDidMount() {
@@ -32,30 +37,48 @@ class Invoice extends React.Component<any, any> {
       this.renderInvoice(nextProps.invoice)
     }
   }
+  setPrices = (title: string, each: any) => {
+    switch (title) {
+      case 'BASE':
+        this.setState({ base: each.price })
+        break
+      case 'DISCOUNT':
+        this.setState({ discount: each.price, totalNoTax: +this.state.base - +each.price },()=>console.log(this.state.base - +each.price))
+        break
+
+      default:
+        break
+    }
+  }
 
   renderInvoice = (invoice: any) => {
     let price = invoice.invoiceItems[0].price
+    invoice.invoiceItems.map((each: any) => this.setPrices(each.priceComponent.title, each))
     if (invoice.invoiceItems[1].price > invoice.invoiceItems[0].price) price = invoice.invoiceItems[1].price
     this.setState({
       name: invoice.product.name,
       quota: formatBytes({ bytes: JSON.parse(invoice.product.jsonInfo).quota }),
       persianTo: invoice.persianTo,
       persianFrom: invoice.persianFrom,
-      totalPrice: formatPrice(invoice.totalPrice),
+      totalPrice: invoice.totalPrice,
+      totalNoTax: price,
       persianApprovedAt: invoice.persianApprovedAt,
-      rate: formatPrice(price),
-      tax: formatPrice(price * 0.06),
-      others: formatPrice(price * 0.03)
+      rate: price,
+      tax: price * 0.06,
+      others: price * 0.03,
+      paid: invoice.paid,
+      off: invoice.invoiceItems.length > 2
     })
   }
 
   makeBillingArray = () => {
-    let table = [{ index: 0, price: 'قیمت', amount: '-', rate: this.state.rate, normalPrice: this.state.rate }]
+    let table = [{ index: 1, price: 'قیمت', amount: '-', rate: formatPrice(this.state.base), normalPrice: formatPrice(this.state.base) }]
+    if (this.state.off) table.push({ index: 2, price: 'تخفیف', amount: '-', rate: formatPrice(this.state.discount), normalPrice: formatPrice(this.state.discount) })
     return table
   }
 
   render() {
-    let { name, quota, persianTo, persianFrom } = this.state
+    let { name, quota, persianTo, persianFrom, paid } = this.state
     const header = [t`ردیف`, t`شرح`, t`مقدار`, t`نرخ`, t`مبلغ`]
 
     return (
@@ -79,23 +102,23 @@ class Invoice extends React.Component<any, any> {
                 <div className={'pg-w-1/2 '}>
                   <div className={'pg-flex pg-w-full pg-py-3'}>
                     <div className={'pg-flex  pg-w-1/2'}> مجموع بدون مالیات</div>
-                    <div className={'pg-flex pg-w-1/2 pg-px-6'}>{this.state.rate}</div>
+                    <div className={'pg-flex pg-w-1/2 pg-px-6'}>{formatPrice(this.state.totalNoTax)}</div>
                   </div>
                   <div className={'pg-flex pg-w-full  pg-py-3'}>
                     <div className={'pg-flex  pg-w-1/2'}>۶ درصد مالیات</div>
-                    <div className={'pg-flex pg-w-1/2 pg-px-6'}>{this.state.tax}</div>
+                    <div className={'pg-flex pg-w-1/2 pg-px-6'}>{formatPrice(this.state.tax)}</div>
                   </div>
                   <div className={'pg-flex pg-w-full  pg-py-3'}>
                     <div className={'pg-flex  pg-w-1/2'}>۳ درصد عوارض</div>
-                    <div className={'pg-flex pg-w-1/2 pg-px-6'}>{this.state.others}</div>
+                    <div className={'pg-flex pg-w-1/2 pg-px-6'}>{formatPrice(this.state.others)}</div>
                   </div>
                   <div />
                 </div>
               </div>
-              {this.props.paid && (
+              {paid && (
                 <div className={'pg-w-full pg-my-4 pg-flex pg-border pg-border-green-400 pg-p-4 pg-rounded-sm pg-justify-between'}>
                   <div>
-                    پرداخت شده در{this.state.persianApprovedAt} بمبلغ{this.state.totalPrice}
+                    پرداخت شده در{this.state.persianApprovedAt} بمبلغ{formatPrice(this.state.totalPrice)}
                   </div>
                   <div>
                     <Button>چاپ</Button>

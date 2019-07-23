@@ -27,6 +27,7 @@
     "react": "^16.8.6",
     "react-click-outside-hook": "^1.1.1",
     "react-dom": "^16.8.6",
+    "react-dropzone": "^10.1.6",
     "react-fine-uploader": "^1.1.1",
     "react-full-screen": "^0.2.4",
     "react-html5video": "^2.5.1",

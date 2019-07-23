@@ -12,7 +12,7 @@ import { Footer } from './Footer/Footer'
 
 // styles
 import styles from '../Order.module.scss'
-import { RangeBar } from '../../../../ui-elements/Rangebar/RangeBar';
+import { RangeBar } from '../../../../ui-elements/RangeBar/RangeBar';
 
 
 export default interface Iprops {}

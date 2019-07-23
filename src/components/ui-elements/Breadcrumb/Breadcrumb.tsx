@@ -22,6 +22,7 @@ export default interface Iprops {
   history?: any
   modal?: boolean
   className?: string
+  parentId?: number
 }
 
 export const Breadcrumb: React.FunctionComponent<Iprops> = ({ history, modal, className }) => {

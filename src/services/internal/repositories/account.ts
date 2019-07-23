@@ -20,7 +20,7 @@ class Account implements AccountInterface {
     }
   }
   async getInvoices() {
-    const url = `/cfs/rest/invoices`
+    const url = `/cfs/rest/invoices?where=[{"product.category":{"$eq":"CFS"}}]`
     try {
       return await this._rest.get({ url })
     } catch (error) {

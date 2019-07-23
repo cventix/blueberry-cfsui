@@ -67,9 +67,9 @@ class Rest implements RestInterface {
       return data ? data : status
     } catch ({ response: { data } }) {
       // //console.log(data)
-      if (data.errors && data.errors[0].code === 403) {
-        window.location.replace('/nwlogin')
-      }
+      // if (data.errors && data.errors[0].code === 403) {
+      //   window.location.replace('/nwlogin')
+      // }
       throw data
     }
   }
