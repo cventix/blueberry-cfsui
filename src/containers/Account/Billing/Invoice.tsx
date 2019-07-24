@@ -7,6 +7,8 @@ import { formatBytes } from '../../../services/internal/utils/formatBytes'
 import Table from '../../../components/Table/Table'
 import { formatPrice } from '../../../services/internal/utils/formatPrice'
 import { Button } from '../../../components/ui-elements/Button/Button'
+import { Icon } from '../../../components/ui-elements/Icon'
+import print from '../../../images/icon-back-copy.2.svg'
 
 class Invoice extends React.Component<any, any> {
   state = {
@@ -43,7 +45,7 @@ class Invoice extends React.Component<any, any> {
         this.setState({ base: each.price })
         break
       case 'DISCOUNT':
-        this.setState({ discount: each.price, totalNoTax: +this.state.base - +each.price },()=>console.log(this.state.base - +each.price))
+        this.setState({ discount: each.price })
         break
 
       default:
@@ -61,7 +63,6 @@ class Invoice extends React.Component<any, any> {
       persianTo: invoice.persianTo,
       persianFrom: invoice.persianFrom,
       totalPrice: invoice.totalPrice,
-      totalNoTax: price,
       persianApprovedAt: invoice.persianApprovedAt,
       rate: price,
       tax: price * 0.06,
@@ -73,7 +74,8 @@ class Invoice extends React.Component<any, any> {
 
   makeBillingArray = () => {
     let table = [{ index: 1, price: 'قیمت', amount: '-', rate: formatPrice(this.state.base), normalPrice: formatPrice(this.state.base) }]
-    if (this.state.off) table.push({ index: 2, price: 'تخفیف', amount: '-', rate: formatPrice(this.state.discount), normalPrice: formatPrice(this.state.discount) })
+    if (this.state.off)
+      table.push({ index: 2, price: 'تخفیف', amount: '-', rate: formatPrice(this.state.discount), normalPrice: formatPrice(this.state.discount) })
     return table
   }
 
@@ -82,7 +84,7 @@ class Invoice extends React.Component<any, any> {
     const header = [t`ردیف`, t`شرح`, t`مقدار`, t`نرخ`, t`مبلغ`]
 
     return (
-      <tr className={'pg-w-full pg-bg-white pg-border-2 pg-border-t-0 pg-border-blue-400'}>
+      <tr className={'pg-w-full pg-bg-white pg-border-2 pg-border-t-0 pg-border-blue-400'} id={'section-to-print'}>
         <td className={'pg-w-full pg-bg-white'} colSpan={7}>
           <div className={'pg-flex pg-flex-col'}>
             <div className={'pg-flex pg-px-8 pg-py-4  pg-justify-between'}>
@@ -91,7 +93,7 @@ class Invoice extends React.Component<any, any> {
                 {quota}
               </div>
               <div>
-                <span> تاریخ شروع: {persianFrom} </span>
+                <span className={'pg-mx-3'}> تاریخ شروع: {persianFrom} </span>
                 <span>تاریخ پایان: {persianFrom}</span>
               </div>
             </div>
@@ -100,28 +102,36 @@ class Invoice extends React.Component<any, any> {
               <div className={'pg-w-full pg-flex'}>
                 <div className={'pg-w-1/2'} />
                 <div className={'pg-w-1/2 '}>
-                  <div className={'pg-flex pg-w-full pg-py-3'}>
+                  <div className={'pg-flex pg-w-full pg-py-2'}>
                     <div className={'pg-flex  pg-w-1/2'}> مجموع بدون مالیات</div>
-                    <div className={'pg-flex pg-w-1/2 pg-px-6'}>{formatPrice(this.state.totalNoTax)}</div>
+                    <div className={'pg-flex pg-w-1/2 pg-px-6'}>{formatPrice(this.state.base - this.state.discount)}</div>
                   </div>
-                  <div className={'pg-flex pg-w-full  pg-py-3'}>
+                  <div className={'pg-flex pg-w-full  pg-py-2'}>
                     <div className={'pg-flex  pg-w-1/2'}>۶ درصد مالیات</div>
-                    <div className={'pg-flex pg-w-1/2 pg-px-6'}>{formatPrice(this.state.tax)}</div>
+                    <div className={'pg-flex pg-w-1/2 pg-px-6'}>{formatPrice((+(this.state.base - this.state.discount) * 6) / 100)}</div>
                   </div>
-                  <div className={'pg-flex pg-w-full  pg-py-3'}>
+                  <div className={'pg-flex pg-w-full  pg-py-2'}>
                     <div className={'pg-flex  pg-w-1/2'}>۳ درصد عوارض</div>
-                    <div className={'pg-flex pg-w-1/2 pg-px-6'}>{formatPrice(this.state.others)}</div>
+                    <div className={'pg-flex pg-w-1/2 pg-px-6'}>{formatPrice((+(this.state.base - this.state.discount) * 3) / 100)}</div>
                   </div>
                   <div />
                 </div>
               </div>
               {paid && (
                 <div className={'pg-w-full pg-my-4 pg-flex pg-border pg-border-green-400 pg-p-4 pg-rounded-sm pg-justify-between'}>
-                  <div>
-                    پرداخت شده در{this.state.persianApprovedAt} بمبلغ{formatPrice(this.state.totalPrice)}
+                  <div className={'pg-flex pg-items-center'}>
+                    پرداخت شده در {this.state.persianApprovedAt} بمبلغ {formatPrice(this.state.totalPrice)}
                   </div>
-                  <div>
-                    <Button>چاپ</Button>
+                  <div
+                    onClick={() =>
+                      setTimeout(function() {
+                        window.print()
+                      }, 0)
+                    }
+                  >
+                    <Button className={['pg-btnDefault', 'pg-btnSm','pg-px-2']}>
+                      <Icon src={print} /> <span className={''}>چاپ</span>
+                    </Button>
                   </div>
                 </div>
               )}

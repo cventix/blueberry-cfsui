@@ -82,7 +82,7 @@ class CFmodal extends React.Component<Iprops, any> {
           <TextInput placeholder={t`نام پوشه`} style={{ width: 300 }} onChange={this.changeHandler} name={'name'} />
           <TextInput placeholder={t`توضیحات پوشه`} style={{ width: 300 }} onChange={this.changeHandler} name={'description'} />
           <div className={styles.submitButton}>
-            <Button className={['pg-btnPrimary100', 'pg-btnSm']}>{t`ایجاد`}</Button>
+            <Button className={['pg-btnPrimary', 'pg-btnSm']}>{t`ایجاد`}</Button>
           </div>
         </form>
       </UploadModal>

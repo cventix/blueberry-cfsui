@@ -67,6 +67,26 @@ class Account implements AccountInterface {
       throw error
     }
   }
+   async getWallet() {
+    const url = '/cws/rest/giftWallets/getGiftWalletBalance'
+
+    try {
+      return await this._rest.get({ url })
+    } catch (error) {
+      throw error
+    }
+  }
+  async addToBalance(amount: any) {
+    const url = `http://cdn.persiangig.com/cfs/rest/payments/addToBalance?amount=${amount}`
+
+    try {
+      return await this._rest.get({ url })
+    } catch (error) {
+      throw error
+    }
+  }
+ 
 }
+
 
 export default Account

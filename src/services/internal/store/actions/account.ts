@@ -27,3 +27,4 @@ export const getInvoice = actionBuilder(actionTypes.GET_INVOICE, 'payload')
 
 export const setInvoice = actionBuilder(actionTypes.SET_INVOICE, 'payload')
 
+export const addToBalance = actionBuilder(actionTypes.ADD_TO_BALANCE, 'payload')

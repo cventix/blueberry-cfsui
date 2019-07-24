@@ -80,3 +80,16 @@ console.log(action)
     yield put(actions.setLoadingState(false))
   }
 }
+export function* addToBalance(action: any) {
+  console.log(action)
+    try {
+      yield put(actions.setLoadingState(true))
+      let result = yield account.addToBalance(action.payload)
+      console.log(result)
+      yield put(actions.setInvoice(result))
+      yield put(actions.setLoadingState(false))
+    } catch (err) {
+      yield put(actions.setError(err.errors[0].msg))
+      yield put(actions.setLoadingState(false))
+    }
+  }

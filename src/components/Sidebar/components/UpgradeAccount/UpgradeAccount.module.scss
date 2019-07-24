@@ -1,55 +1,56 @@
-@import "../../../../styles/global";
+@import '../../../../styles/global';
 
 .upgradeAccount {
-	position: relative;
-	padding: 9px 14px 0 14px;
-	margin-top: 58px;
-	margin-bottom: 30px;
-	height: 126px;
-	border: 1px solid #fae68e;
-	text-align: center;
-	cursor: pointer;
-	@include border-radius($br-radius-sm);
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  justify-content: space-between;
+  margin-top: 58px;
+  margin-bottom: 30px;
+  height: 126px;
+  border: 1px solid #fae68e;
+  text-align: center;
+  cursor: pointer;
+  @include border-radius($br-radius-sm);
 
-	&.forVM {
-		height: 87px;
-		padding: 9px 15px 0 15px;
-		margin-top: 94px;
-		border: 0.5px solid #ddd;
+  &.forVM {
+    height: 87px;
+    padding: 9px 15px 0 15px;
+    margin-top: 94px;
+    border: 0.5px solid #ddd;
 
-		.deleteQus {
-			color: $lt-blue;
-		}
-	}
+    .deleteQus {
+      color: $lt-blue;
+    }
+  }
 
-	.bottom {
-		span {
-			margin-left: 8px;
-		}
+  .bottom {
+    span {
+      margin-left: 8px;
+    }
 
-		img {
-			width: 12px;
-			height: 10px;
-			order: 1;
-		}
-	}
+    img {
+      width: 12px;
+      height: 10px;
+      order: 1;
+    }
+  }
 }
 
 body:lang(en) {
-	.upgradeAccount {
-		.bottom {
-			padding: 8px 10px;
+  .upgradeAccount {
+    .bottom {
+      padding: 8px 10px;
 
-			span {
-				float: left;
-				margin-top: 2px;
-				margin-right: 8px;
-			}
+      span {
+        float: left;
+        margin-top: 2px;
+        margin-right: 8px;
+      }
 
-			img {
-				@include transform(rotate(180deg));
-			}
-		}
-	}
+      img {
+        @include transform(rotate(180deg));
+      }
+    }
+  }
 }
-

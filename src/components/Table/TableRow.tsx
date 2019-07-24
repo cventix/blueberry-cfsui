@@ -6,7 +6,9 @@ import TableItem from './TableItem'
 import styles from './Table.module.scss'
 import Invoice from '../../containers/Account/Billing/Invoice'
 import { getInvoice } from '../../services/internal/store/actions'
+import { Icon } from '../ui-elements/Icon'
 
+import bigger from '../../images/bigger.black.svg'
 export interface Iprops {
   item: any
   selection: Array<number>
@@ -80,14 +82,19 @@ class TableRow extends Component<any, any> {
     } = this.props
     const hidden = ['type', 'id', 'fullPath', 'discriminator', 'uuid', 'item', 'genericType']
     const { hovered, expanded, loading, name } = this.state
-    console.log(item)
-    console.log(invoice)
-   
+    
+
     return (
       <>
         <tr
           key={item.id}
-          className={isMoveModal && modalSelection === item.id ? styles.activeRow : invoice.id == item.id ?'pg-bg-white pg-border-2 pg-border-b-0 pg-border-blue-400' : ''}
+          className={
+            isMoveModal && modalSelection === item.id
+              ? styles.activeRow
+              : expanded
+              ? 'pg-bg-white pg-border-2 pg-border-b-0 pg-border-blue-400'
+              : ''
+          }
           onMouseEnter={() => this.setEachState('hovered')}
           onMouseLeave={() => this.setEachState('hovered')}
         >
@@ -104,6 +111,7 @@ class TableRow extends Component<any, any> {
                   handleNavigate={k === 'name' && handleNavigate}
                   openModal={openModal}
                   label={item[k]}
+                  
                   itemName={item.name}
                   item={item}
                   onCheck={onCheck}
@@ -120,7 +128,7 @@ class TableRow extends Component<any, any> {
           {children}
           {tr && (
             <td className={[styles.show, styles.left].join(' ')} data-name={id} onClick={this.renderInvoice}>
-              {`جزئیات`}
+              <div className={'pg-px-8'}>{`جزئیات`} <Icon className={expanded ? styles.collapseIcon : styles.expandIcon} src={bigger} /></div>
             </td>
           )}
         </tr>

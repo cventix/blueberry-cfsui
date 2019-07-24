@@ -156,3 +156,11 @@ body:lang(en) {
     }
   }
 }
+.expandIcon {
+  transform: rotate(-90deg);
+  width:7px;
+}
+.collapseIcon {
+  transform: rotate(90deg);
+  width:7px;
+}

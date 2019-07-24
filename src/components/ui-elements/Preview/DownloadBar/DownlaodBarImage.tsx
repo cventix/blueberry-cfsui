@@ -26,7 +26,7 @@ const DownloadBarImage: React.FunctionComponent<Iprops> = ({ onItemClick, item }
   return (
     <div className={styles.downloadBar}>
       <div className={styles.downloadBox}>آمار: {item.downloadCount ? JSON.stringify(item.downloadCount) : '0'} دانلود</div>
-      <Button className={['pg-btnSuccess0', 'pg-btnLg']} style={{ marginBottom: '15px' }}>
+      <Button className={['pg-btnSuccess', 'pg-btnLg']} style={{ marginBottom: '15px' }}>
         <IconLink icon={uploadIcon} iconAlt="upload icon" label={t`دانلود فایل`} onClick={onItemClick} />
       </Button>
       <div className={styles.sizeBox}> حجم فایل:{item.size}</div>

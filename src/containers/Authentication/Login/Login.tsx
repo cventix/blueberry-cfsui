@@ -78,7 +78,7 @@ class Login extends React.Component<any, any> {
               </div>
               <Button
                 loading={this.props.isLoading && !this.state.loading}
-                className={[this.props.isLoading && !this.state.loading ? 'pg-btnSecondary' : 'pg-btnSuccess0', 'pg-btnSm']}
+                className={[this.props.isLoading && !this.state.loading ? 'pg-btnSecondary' : 'pg-btnSuccess', 'pg-btnSm']}
               >
                 {t`ورود`}
               </Button>

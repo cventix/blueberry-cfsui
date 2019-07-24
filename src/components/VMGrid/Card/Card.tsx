@@ -101,7 +101,7 @@ export const Card: React.FunctionComponent<Iprops> = ({ on, off, purchase, invoi
 				<Footer className={payment || invoice ? `${styles.footer} ${styles.twoBtn}` : create || purchase ? `${styles.footer} ${styles.oneBtn}` : styles.footer}>
 					{
 						purchase ? <Link to={`/vms/order`}>
-							<Button className={['pg-btnSuccess0', 'pg-btnLg']}>
+							<Button className={['pg-btnSuccess', 'pg-btnLg']}>
 								<IconLink icon={purchaseIcon} iconAlt="purchase icon" label={t`خرید سرور جدید`}/>
 							</Button>
 						</Link>

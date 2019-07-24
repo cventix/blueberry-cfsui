@@ -46,7 +46,7 @@ const FM: React.FunctionComponent<Iprops> = ({ onItemClick, selection, getUserIn
   return (
     <div className="sidebar-menu">
       <div onClick={() => onItemClick(t`آپلود فایل`)}>
-        <Button className={['pg-btnPrimary0', 'pg-btnLg']} style={{ marginBottom: '15px', cursor: 'pointer' }} id={'upload'}>
+        <Button className={['pg-btnPrimary', 'pg-btnLg']} style={{ marginBottom: '15px', cursor: 'pointer' }} id={'upload'}>
           <IconLink icon={uploadIcon} iconAlt="upload icon" label={t`آپلود فایل`} />
           <div className={'pg-absolute pg-top-0 pg-w-full pg-opacity-0'}>
             <FileInput uploader={uploader} className={'fileUploader-wrapper'} />
@@ -55,7 +55,7 @@ const FM: React.FunctionComponent<Iprops> = ({ onItemClick, selection, getUserIn
       </div>
       <DropDownButton
         data={data}
-        className={[selection && selection.length > 0 ? 'pg-btnSuccess0' : 'pg-btnSuccessOutline', 'pg-btnLg']}
+        className={[selection && selection.length > 0 ? 'pg-btnSuccess' : 'pg-btnSuccess pg-btnSuccessOutline', 'pg-btnLg']}
         disabled={!selection || selection.length == 0}
         style={{ marginBottom: '15px' }}
       >

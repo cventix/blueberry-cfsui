@@ -23,7 +23,7 @@ export default interface Iprops {
   style?: object
   name?: string
   type?: string
-  value?: string
+  value?: string | number
   onClick?: any
   wrapperRef?: any
   className?: string

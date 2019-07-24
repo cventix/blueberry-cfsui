@@ -111,7 +111,7 @@ const TableItem: React.FunctionComponent<Iprops> = ({
         )}
         {shareButton && (
           <Button
-            className={hoveredButton ? ['pg-btnPrimaryOutline'] : ['pg-btnDefaultOutline']}
+            className={hoveredButton ? ['pg-btnPrimary ','pg-btnPrimaryOutline'] : ['pg-btnDefault' ,'pg-btnDefaultOutline']}
             extraClassName={[styles.share, hovered ? '' : styles.invisible]}
             onClick={() => openModal(id, t`اشتراک گذاری`)}
           >

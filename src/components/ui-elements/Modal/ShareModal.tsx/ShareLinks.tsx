@@ -58,7 +58,7 @@ const ShareLinks = (props: any) => {
             </div>
           )}
 
-          <Button className={['pg-btnPrimary100', 'pg-btnMd', 'pg-justify-end']} style={{ marginRight: 10, height: '35px' }} onClick={toggle}>
+          <Button className={['pg-btnPrimary', 'pg-btnMd', 'pg-justify-end']} style={{ marginRight: 10, height: '35px' }} onClick={toggle}>
             {toggleState == 'off' ? t` کپی کردن لینک` : ' پنهان کردن لینک'}
           </Button>
         </div>
@@ -80,7 +80,7 @@ const ShareLinks = (props: any) => {
             onChange={props.handleChange}
           />
           <Button
-            className={['pg-btnPrimary100', 'pg-btnMd']}
+            className={['pg-btnPrimary', 'pg-btnMd']}
             style={{ marginRight: 10, height: '35px' }}
             onClick={props.shareDocument}
           >{t`اشتراک`}</Button>

@@ -18,7 +18,7 @@ export const ConfirmModal: React.FunctionComponent<Iprops> = ({ value,text, hand
       <form onSubmit={handleSubmit}>
       {text}
         <div className={styles.submitButton}>
-          <Button className={['pg-btnPrimary100', 'pg-btnSm']}>بلی</Button>
+          <Button className={['pg-btnPrimary', 'pg-btnSm']}>بلی</Button>
         </div>
       </form>
    

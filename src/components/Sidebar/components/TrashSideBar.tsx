@@ -25,7 +25,7 @@ export interface Iprops {
 const TrashSideBar: React.FunctionComponent<Iprops> = ({ onItemClick, selection }) => {
   return (
     <div className="sidebar-menu">
-      <Button className={[selection && selection.length > 0 ? 'pg-btnSuccess0' : 'pg-btnDisabled', 'pg-btnLg']} style={{ marginBottom: '15px' }}>
+      <Button className={[selection && selection.length > 0 ? 'pg-btnSuccess' : 'pg-btnDisabled', 'pg-btnLg']} style={{ marginBottom: '15px' }}>
         <IconLink onClick={onItemClick} icon={refreshIcon} iconAlt="upload icon" label={t`بازیابی فایل`} />
       </Button>
       <Button className={[selection && selection.length > 0 ? 'pg-btnDanger0' : 'pg-btnDisabled', 'pg-btnLg']} style={{ marginBottom: '15px' }}>

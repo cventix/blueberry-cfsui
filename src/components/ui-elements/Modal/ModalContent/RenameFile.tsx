@@ -54,7 +54,7 @@ class RenameFile extends React.Component<Iprops, any> {
         <form onSubmit={this.handleSubmit}>
           <TextInput value={this.state.renameInput} style={{ width: 300 }} onChange={this.changeHandler} name={'renameInput'} />
           <div className={styles.submitButton}>
-            <Button className={['pg-btnPrimary100', 'pg-btnSm']}>تغییر نام</Button>
+            <Button className={['pg-btnPrimary', 'pg-btnSm']}>تغییر نام</Button>
           </div>
         </form>
       </UploadModal>

@@ -140,3 +140,21 @@
     }
   }
 }
+@media print {
+  body * {
+    visibility: hidden;
+  }
+  #section-to-print, #section-to-print * {
+    visibility: visible;
+  }
+  #section-to-print {
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height:10%;
+    border:0;
+    left: 0;
+    top: 0;
+  }
+}

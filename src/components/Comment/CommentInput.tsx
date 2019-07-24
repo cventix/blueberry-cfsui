@@ -59,7 +59,7 @@ export class CommentInput extends React.PureComponent<any, any> {
             onChange={this.handleChange}
           />
           {this.state.value && (
-            <Button className={['pg-btnPrimaryOutline', 'pg-btnMd', 'pg-btnExtraRadius']} >
+            <Button className={['pg-btnPrimary pg-btnPrimaryOutline', 'pg-btnMd', 'pg-btnExtraRadius']} >
               ارسال
               <Icon src={arrowLeft} />
             </Button>

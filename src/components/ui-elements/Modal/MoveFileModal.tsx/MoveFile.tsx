@@ -163,7 +163,7 @@ class MoveFile extends React.Component<Iprops, Istate> {
             <div className={styles.loading}>
               {loading ? (
                 <>
-              <Icon src={loadingIcon} style={{ padding: '4px' }} /> {t`در حال بارگذاری`}
+                  <Icon src={loadingIcon} style={{ padding: '4px' }} /> {t`در حال بارگذاری`}
                 </>
               ) : (
                 'داده ای وجود ندارد'
@@ -174,14 +174,14 @@ class MoveFile extends React.Component<Iprops, Istate> {
 
         <div className={styles.submitButton}>
           <Button
-            className={[!this.props.modalSelection ? 'pg-btnPrimaryOutline' : 'pg-btnPrimary100', 'pg-btnSm']}
+            className={[!this.props.modalSelection ? 'pg-btnPrimary  pg-btnPrimaryOutline' : 'pg-btnPrimary', 'pg-btnSm']}
             style={style}
             disabled={!this.props.modalSelection}
             onClick={this.moveDocument}
           >
             {t`انتقال`}
           </Button>
-          <Button className={['pg-btnDefault100', 'pg-btnSm']} onClick={handleClose}>
+          <Button className={['pg-btnDefault', 'pg-btnSm']} onClick={handleClose}>
             {t`انصراف`}
           </Button>
         </div>

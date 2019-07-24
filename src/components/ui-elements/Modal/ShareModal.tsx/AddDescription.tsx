@@ -17,8 +17,8 @@ export const AddDescription = (props: any) => {
       <div className={styles.socialRow} style={{ marginBottom: 15 }}>
         <textarea style={{ width: '100%' }} value={props.value} name={'description'} placeholder={'توضیحات'} onChange={props.handleChange} className={'pg-my-3 pg-p-3 pg-rounded-sm pg-border-2 pg-border-color-gray-300'} />
         <div className={'pg-flex pg-justify-end'}>
-          <Button className={['pg-btnPrimary100', 'pg-btnSm']} style={{ marginRight: 10 }} onClick={props.addDescription}>{t`افزودن`}</Button>
-          <Button className={['pg-btnDefault100', 'pg-btnSm']} style={{ marginRight: 10 }} onClick={()=>props.changeView('ShareLink')}>{t`رد کردن`}</Button>
+          <Button className={['pg-btnPrimary', 'pg-btnSm']} style={{ marginRight: 10 }} onClick={props.addDescription}>{t`افزودن`}</Button>
+          <Button className={['pg-btnDefault', 'pg-btnSm']} style={{ marginRight: 10 }} onClick={()=>props.changeView('ShareLink')}>{t`رد کردن`}</Button>
         </div>
       </div>
     </div>
